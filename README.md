@@ -61,7 +61,7 @@ The client layer uses 4 types of objects:
 1. **ServiceConfiguration**: it is the one communicated by the client layer through the communication layer.
 2. **IndexingRequest**: it contains data of an indexing request that it will format before sending it to the Europa Search "Indexing" service; aka "Ingestion API" services.
 3. **SearchQueryRequest**: it contains data of a search query request that it will format before sending it to the Europa Search "Search" service; aka "Search API" services.
-4. **SearchQueryRequest**: it contains data of the response of a search query request that it will format before sending it to the Europa Search "Search" service.
+4. **SearchQueryResponse**: it contains data of the response of a search query request that it will format before sending it to the Europa Search "Search" service.
 
 [Go to top](#table-of-content)
 
