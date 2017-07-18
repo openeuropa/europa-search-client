@@ -14,6 +14,17 @@ namespace EC\EuropaSearch\Index\Communication;
  *
  * @package EC\EuropaSearch\Index\Communication
  */
-class DynamicSchemaConverter implements ConverterInterface {
+class DynamicSchemaConverter implements ConverterInterface
+{
 
+    private $serviceConfiguration;
+
+    /**
+     * DynamicSchemaConverter constructor.
+     * @param ServiceConfiguration $serviceConfiguration
+     */
+    public function __construct(ServiceConfiguration $serviceConfiguration)
+    {
+        $this->serviceConfiguration = $serviceConfiguration;
+    }
 }

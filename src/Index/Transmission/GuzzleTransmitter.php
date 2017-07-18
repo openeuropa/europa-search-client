@@ -13,6 +13,17 @@ namespace EC\EuropaSearch\Index\Transmission;
  *
  * @package EC\EuropaSearch\Index\Transmission
  */
-class GuzzleTransmitter implements TransmitterInterface {
+class GuzzleTransmitter implements TransmitterInterface
+{
 
+    private $serviceConfiguration;
+
+    /**
+     * GuzzleTransmitter constructor.
+     * @param ServiceConfiguration $serviceConfiguration
+     */
+    public function __construct(ServiceConfiguration $serviceConfiguration)
+    {
+        $this->serviceConfiguration = $serviceConfiguration;
+    }
 }
