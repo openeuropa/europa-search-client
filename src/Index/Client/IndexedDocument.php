@@ -213,10 +213,12 @@ class IndexedDocument
         $metadata->addPropertyConstraint('documentURI', new Assert\NotBlank());
         $metadata->addPropertyConstraint('documentType', new Assert\Type('int'));
         $metadata->addPropertyConstraint('documentLanguage', new Assert\Language());
-        $metadata->addPropertyConstraint('metadata', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('metadata', new Assert\All(array(
-        'constraints' => array(new Assert\Type('\EC\EuropaSearch\Common\DocumentMetadata'), ), )));
-        $metadata->addPropertyConstraint('metadata', new Assert\Valid(array('traverse' => true)));
+        $metadata->addPropertyConstraints('metadata', [
+            new Assert\NotBlank(),
+            new Assert\All(array(
+            'constraints' => array(new Assert\Type('\EC\EuropaSearch\Common\DocumentMetadata'), ), )),
+            new Assert\Valid(array('traverse' => true)),
+        ]);
 
         $metadata->addConstraint(new Assert\Callback('validate'));
     }

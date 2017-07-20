@@ -18,12 +18,53 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ServiceConfiguration
 {
+    const MOCK_SERVICE_MODE = 0;
+    const HTTP_SERVICE_MODE = 1;
 
     private $apiKey;
 
     private $database;
 
     private $serviceRoot;
+
+    private $serviceMode = self::HTTP_SERVICE_MODE;
+
+    /**
+     * Gets the service mode enabled with the client.
+     *
+     * @return int
+     *   The service mode:
+     *   - MOCK_SERVICE_MODE: The mock mode connected to a mock for tests.
+     *   - HTTP_SERVICE_MODE: The service mode connected to the real services.
+     */
+    public function getServiceMode()
+    {
+        return $this->serviceMode;
+    }
+
+    /**
+     * Determines if the client is configured to use a mock or not.
+     *
+     * @return bool
+     *   true if the service is a mock; otherwise it is a false.
+     */
+    public function isMockService()
+    {
+        return ($this->serviceMode == self::MOCK_SERVICE_MODE);
+    }
+
+    /**
+     * Sets the service mode enabled with the client.
+     *
+     * @param int $serviceMode
+     *   The service mode:
+     *   - MOCK_SERVICE_MODE: The mock mode connected to a mock for tests.
+     *   - HTTP_SERVICE_MODE: The service mode connected to the real services.
+     */
+    public function setServiceMode($serviceMode)
+    {
+        $this->serviceMode = $serviceMode;
+    }
 
     /**
      * Gets the service APIKey to specify to the Europa Search service.
@@ -101,10 +142,17 @@ class ServiceConfiguration
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('serviceRoot', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('serviceRoot', new Assert\Url());
+        $metadata->addPropertyConstraints('serviceRoot', [
+            new Assert\NotBlank(),
+            new Assert\Url(),
+        ]);
+        $metadata->addPropertyConstraints('apiKey', [
+            new Assert\NotBlank(),
+            new Assert\Type('string'),
+        ]);
+        $metadata->addPropertyConstraint('serviceMode', new Assert\Choice(
+            array(self::HTTP_SERVICE_MODE, self::MOCK_SERVICE_MODE)
+        ));
         $metadata->addPropertyConstraint('database', new Assert\Type('string'));
-        $metadata->addPropertyConstraint('apiKey', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('apiKey', new Assert\Type('string'));
     }
 }

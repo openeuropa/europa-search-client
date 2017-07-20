@@ -140,8 +140,10 @@ class DocumentMetadata
     public static function getConstraints(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('name', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('type', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('type', new Assert\Type('string'));
+        $metadata->addPropertyConstraints('type', [
+            new Assert\NotBlank(),
+            new Assert\Type('string'),
+        ]);
         $metadata->addPropertyConstraint('value', new Assert\NotNull());
         $metadata->addPropertyConstraint('boost', new Assert\Type('int'));
     }

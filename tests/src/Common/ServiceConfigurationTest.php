@@ -43,6 +43,7 @@ class ServiceConfigurationTest extends AbstractTest
         $configuration->setServiceRoot('htp://false/test');
         $configuration->setApiKey(123);
         $configuration->setDatabase(2992);
+        $configuration->setServiceMode(3);
         $validator = (new IndexServiceContainer($configuration))->get('validator');
         $validationErrors = $validator->validate($configuration);
         $violations = $this->getViolations($validationErrors);
@@ -51,6 +52,7 @@ class ServiceConfigurationTest extends AbstractTest
             'serviceRoot' => 'This value is not a valid URL.',
             'database' => 'This value should be of type string.',
             'apiKey' => 'This value should be of type string.',
+            'serviceMode' => 'The value you selected is not a valid choice.',
         ];
         foreach ($violations as $name => $violation) {
             $this->assertEquals($violation, $expected[$name], 'ServiceConfiguration validation constraints are not well defined.');

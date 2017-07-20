@@ -9,6 +9,7 @@ namespace EC\EuropaSearch\Index;
 use EC\EuropaSearch\Index\Communication\DynamicSchemaConverter;
 use EC\EuropaSearch\Index\Transmission\GuzzleTransmitter;
 use EC\EuropaSearch\Common\ServiceConfiguration;
+use EC\EuropaSearch\Index\Transmission\MockTransmitter;
 use Pimple\Container;
 use Symfony\Component\Validator\ValidatorBuilder;
 
@@ -38,13 +39,19 @@ class IndexServiceContainer extends Container
             return (new ValidatorBuilder())->addMethodMapping('getConstraints')->getValidator();
         });
 
-        $this->container['converter'] = function ($c) {
+        $this->container['communicator'] = function ($c) {
             return new DynamicSchemaConverter($c['service_configuration']);
         };
 
+        // Choose the right transmitter to use according to the configuration.
         $this->container['transmitter'] = function ($c) {
             return new GuzzleTransmitter($c['service_configuration']);
         };
+        if ($serviceConfiguration->isMockService()) {
+            $this->container['transmitter'] = function ($c) {
+                return new MockTransmitter($c['service_configuration']);
+            };
+        }
     }
 
     /**

@@ -46,5 +46,5 @@ interface CommunicationInterface
      *   In case the document communication for transmission meets an
      *   exception.
      */
-    public function communicateIndexingDelete($documentId);
+    public function communicateIndexDelete($documentId);
 }

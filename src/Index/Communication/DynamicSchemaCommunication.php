@@ -47,7 +47,7 @@ class DynamicSchemaCommunication implements CommunicationInterface
      * @param string $documentId
      *   The document id of indexed document to delete.
      */
-    public function communicateIndexingDelete($documentId)
+    public function communicateIndexDelete($documentId)
     {
         // TODO: Implement communicateIndexingDelete() method.
     }
