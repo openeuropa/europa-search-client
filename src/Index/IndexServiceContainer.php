@@ -8,7 +8,9 @@ namespace EC\EuropaSearch\Index;
 
 use EC\EuropaSearch\Index\Communication\DynamicSchemaConverter;
 use EC\EuropaSearch\Index\Transmission\GuzzleTransmitter;
+use EC\EuropaSearch\Common\ServiceConfiguration;
 use Pimple\Container;
+use Symfony\Component\Validator\ValidatorBuilder;
 
 /**
  * Class IndexServiceContainer.

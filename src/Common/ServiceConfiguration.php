@@ -26,7 +26,7 @@ class ServiceConfiguration
     private $serviceRoot;
 
     /**
-     * Gets the service APIKeyto specify to the Europa Search service.
+     * Gets the service APIKey to specify to the Europa Search service.
      *
      * @return string
      *   The service's APIKey.
@@ -102,6 +102,7 @@ class ServiceConfiguration
     public static function getConstraints(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('serviceRoot', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('serviceRoot', new Assert\Url());
         $metadata->addPropertyConstraint('database', new Assert\Type('string'));
         $metadata->addPropertyConstraint('apiKey', new Assert\NotBlank());
         $metadata->addPropertyConstraint('apiKey', new Assert\Type('string'));

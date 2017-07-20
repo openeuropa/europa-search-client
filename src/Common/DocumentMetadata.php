@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contains EC\EuropaSearch\Common\DocumentMetadata
+ * Contains EC\EuropaSearch\Common\DocumentMetadata.
  */
 
 namespace EC\EuropaSearch\Common;
@@ -10,11 +10,15 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class DocumentMetadata
- * @package EC\EuropaSearch
+ * Class DocumentMetadata.
+ *
+ * It represents a metadata of a indexed document.
+ *
+ * @package EC\EuropaSearch\Common
  */
 class DocumentMetadata
 {
+
     /**
      * Metadata name.
      *
@@ -42,6 +46,27 @@ class DocumentMetadata
      * @var
      */
     private $boost;
+
+    /**
+     * DocumentMetadata constructor.
+     *
+     * @param string $name
+     *   The metadata name as know by the library consumer.
+     * @param string $value
+     *   The metadata value.
+     * @param string $type
+     *   The metadata value type.
+     * @param int    $boost
+     *   The boost value for the metadata; I.E. the importance if the metadata
+     *   The search query.
+     */
+    public function __construct($name, $value, $type, $boost = null)
+    {
+        $this->name = $name;
+        $this->value = $value;
+        $this->type = $type;
+        $this->boost = $boost;
+    }
 
     /**
      * @return string
@@ -116,6 +141,7 @@ class DocumentMetadata
     {
         $metadata->addPropertyConstraint('name', new Assert\NotBlank());
         $metadata->addPropertyConstraint('type', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('type', new Assert\Type('string'));
         $metadata->addPropertyConstraint('value', new Assert\NotNull());
         $metadata->addPropertyConstraint('boost', new Assert\Type('int'));
     }

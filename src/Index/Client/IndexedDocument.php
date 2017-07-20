@@ -6,6 +6,7 @@
 
 namespace EC\EuropaSearch\Index\Client;
 
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -214,10 +215,30 @@ class IndexedDocument
         $metadata->addPropertyConstraint('documentLanguage', new Assert\Language());
         $metadata->addPropertyConstraint('metadata', new Assert\NotBlank());
         $metadata->addPropertyConstraint('metadata', new Assert\All(array(
-        'constraints' => array(new Assert\Valid(), ), )));
-        $metadata->addPropertyConstraint('documentContent', new Assert\Expression(array(
-            'expression' => 'this.getDocumentType() == IndexedDocument::WEB_CONTENT or value == false',
-            'message' => 'If this is a document is a file, the content cannot be set!',
-        )));
+        'constraints' => array(new Assert\Type('\EC\EuropaSearch\Common\DocumentMetadata'), ), )));
+        $metadata->addPropertyConstraint('metadata', new Assert\Valid(array('traverse' => true)));
+
+        $metadata->addConstraint(new Assert\Callback('validate'));
+    }
+
+    /**
+     * Special validator callback for documentContent.
+     *
+     * @param ExecutionContextInterface $context
+     * @param mixed                     $payload
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        if ($this->getDocumentType() == IndexedDocument::WEB_CONTENT && empty($this->getDocumentContent())) {
+            $context->buildViolation('The documentContent should not be empty as the indexed document is a web content.')
+                ->atPath('documentContent')
+                ->addViolation();
+        }
+
+        if ($this->getDocumentType() == IndexedDocument::BINARY && !empty($this->getDocumentContent())) {
+            $context->buildViolation('The documentContent should be empty as the indexed document is a file.')
+                ->atPath('documentContent')
+                ->addViolation();
+        }
     }
 }
