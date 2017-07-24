@@ -26,4 +26,37 @@ class MockTransmitter implements TransmitterInterface
     {
         $this->serviceConfiguration = $serviceConfiguration;
     }
+
+    /**
+     * @inheritDoc
+     *
+     * @param IndexingRequest $indexingRequest
+     *   The formatted document sent to the Europa search service.
+     */
+    public function transmitWebContentRequest(IndexingRequest $indexingRequest)
+    {
+        // TODO: Implement transmitWebContentRequest() method.
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @param IndexingRequest $indexingRequest
+     *   The formatted document sent to the Europa search service.
+     */
+    public function transmitFileRequest(IndexingRequest $indexingRequest)
+    {
+        // TODO: Implement transmitFileRequest() method.
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @param IndexingRequest $indexingRequest
+     *   The formatted document sent to the Europa search service.
+     */
+    public function transmitIndexDeleteRequest(IndexingRequest $indexingRequest)
+    {
+        // TODO: Implement transmitIndexDeleteRequest() method.
+    }
 }
