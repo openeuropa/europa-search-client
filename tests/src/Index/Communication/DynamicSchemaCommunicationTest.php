@@ -107,7 +107,7 @@ Nam consectetur leo eu felis vehicula sollicitudin. Aliquam pharetra, nulla quis
 Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio dapibus, mollis leo eget, interdum urna. Phasellus ac dui commodo, cursus lorem nec, condimentum erat. Pellentesque eget imperdiet nisl, at convallis enim. Sed feugiat fermentum leo ac auctor. Aliquam imperdiet enim ac pellentesque commodo. Mauris sed sapien eu nulla mattis hendrerit ac ac mauris. Donec gravida, nisi sit amet rhoncus volutpat, quam nisl ullamcorper nisl, in luctus sapien justo et ex. Fusce dignissim felis felis, tempus faucibus tellus pulvinar vitae. Proin gravida tempus eros sit amet viverra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum libero quis tellus commodo, non vestibulum lacus rutrum. Etiam euismod odio ipsum, nec pulvinar nisl ultrices sit amet. Nunc feugiat orci vel odio interdum, non dignissim erat hendrerit. Vestibulum gravida et elit nec placerat.');
 
         $indexingRequest->setIsFile(false);
-        $indexingRequest->setMetadataJSON('{"esST_title":"this the title","esST_tag":"taxonomy term","esNU_rank":1,"esNU_percentage":0.1,"esDA_publishing_date":"2018-12-11T00:00:00+0100","esST_uri":"http:\/\/www.europa.com"}');
+        $indexingRequest->setMetadataJSON('{"esIN_title":"this the title","esST_tag":"taxonomy term","esNU_rank":1,"esNU_percentage":0.1,"esDA_publishing_date":"2018-12-11T00:00:00+0100","esST_uri":"http:\/\/www.europa.com"}');
 
         return array(
             'submitted' => $indexedDocument,
