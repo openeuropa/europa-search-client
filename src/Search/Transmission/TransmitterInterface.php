@@ -14,6 +14,7 @@ namespace EC\EuropaSearch\Search\Transmission;
  *
  * @package EC\EuropaSearch\Index\Transmission
  */
-interface TransmitterInterface {
+interface TransmitterInterface
+{
 
 }

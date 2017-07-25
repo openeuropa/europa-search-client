@@ -13,6 +13,7 @@ namespace EC\EuropaSearch\Search\Transmission;
  *
  * @package EC\EuropaSearch\Search\Transmission
  */
-class GuzzleTransmitter implements TransmitterInterface {
+class GuzzleTransmitter implements TransmitterInterface
+{
 
 }
