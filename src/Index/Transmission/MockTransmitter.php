@@ -1,25 +1,25 @@
 <?php
 /**
  * @file
- * Contains EC\EuropaSearch\Index\Transmission\GuzzleTransmitter.
+ * Contains EC\EuropaSearch\Index\Transmission\MockTransmitter.
  */
 
 namespace EC\EuropaSearch\Index\Transmission;
 
 /**
- * Class GuzzleTransmitter
+ * Class MockTransmitter
  *
- * It implements TransmitterInterface with the Guzzle library.
+ * It implements TransmitterInterface with a Mock.
  *
  * @package EC\EuropaSearch\Index\Transmission
  */
-class GuzzleTransmitter implements TransmitterInterface
+class MockTransmitter implements TransmitterInterface
 {
+
     private $serviceConfiguration;
 
     /**
-     * GuzzleTransmitter constructor.
-     *
+     * MockTransmitter constructor.
      * @param ServiceConfiguration $serviceConfiguration
      */
     public function __construct(ServiceConfiguration $serviceConfiguration)

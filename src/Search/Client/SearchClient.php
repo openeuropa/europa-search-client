@@ -13,6 +13,7 @@ namespace EC\EuropaSearch\Search;
  *
  * @package EC\EuropaSearch\Search
  */
-class SearchClient {
+class SearchClient
+{
 
 }
