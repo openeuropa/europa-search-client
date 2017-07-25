@@ -6,7 +6,7 @@
 
 namespace EC\EuropaSearch\Index\Communication;
 
-use EC\EuropaSearch\Common\DocumentMetadata;
+use EC\EuropaSearch\Index\Client\DocumentMetadata;
 use EC\EuropaSearch\Common\Exceptions\CommunicationException;
 use EC\EuropaSearch\Common\Exceptions\ConversionException;
 use EC\EuropaSearch\Common\Exceptions\TransmissionException;

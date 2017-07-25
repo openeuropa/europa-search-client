@@ -1,12 +1,11 @@
 <?php
 /**
  * @file
- * Contains EC\EuropaSearch\Common\DocumentMetadata.
+ * Contains EC\EuropaSearch\Index\Client\DocumentMetadata.
  */
 
-namespace EC\EuropaSearch\Common;
+namespace EC\EuropaSearch\Index\Client;
 
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -43,13 +42,6 @@ class DocumentMetadata
     private $type;
 
     /**
-     * Metadata boost level.
-     *
-     * @var
-     */
-    private $boost;
-
-    /**
      * DocumentMetadata constructor.
      *
      * @param string $name
@@ -68,16 +60,12 @@ class DocumentMetadata
      *   - 'date': for date that can be used to filter a search;
      *   - 'not_indexed': for metadata that need to be send to Europa Search
      *      services but not indexed.
-     * @param int    $boost
-     *   The boost value for the metadata; I.E. the importance if the metadata
-     *   The search query.
      */
-    public function __construct($name, $value, $type, $boost = null)
+    public function __construct($name, $value, $type)
     {
         $this->name = $name;
         $this->value = $value;
         $this->type = $type;
-        $this->boost = $boost;
     }
 
     /**
@@ -140,22 +128,6 @@ class DocumentMetadata
     }
 
     /**
-     * @return int
-     */
-    public function getBoost()
-    {
-        return $this->boost;
-    }
-
-    /**
-     * @param int $boost
-     */
-    public function setBoost($boost)
-    {
-        $this->boost = $boost;
-    }
-
-    /**
      * Loads constraints declarations for the validator process.
      *
      * @param ClassMetadata $metadata
@@ -178,7 +150,6 @@ class DocumentMetadata
             ]),
         ]);
         $metadata->addPropertyConstraint('value', new Assert\NotNull());
-        $metadata->addPropertyConstraint('boost', new Assert\Type('int'));
 
         $metadata->addConstraint(new Assert\Callback('validate'));
     }

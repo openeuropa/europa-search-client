@@ -216,7 +216,7 @@ class IndexedDocument
         $metadata->addPropertyConstraints('metadata', [
             new Assert\NotBlank(),
             new Assert\All(array(
-            'constraints' => array(new Assert\Type('\EC\EuropaSearch\Common\DocumentMetadata'), ), )),
+            'constraints' => array(new Assert\Type('\EC\EuropaSearch\Index\Client\DocumentMetadata'), ), )),
             new Assert\Valid(array('traverse' => true)),
         ]);
 

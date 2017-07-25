@@ -7,7 +7,7 @@
 
 namespace EC\EuropaSearch\Tests\Index\Client;
 
-use EC\EuropaSearch\Common\DocumentMetadata;
+use EC\EuropaSearch\Index\Client\DocumentMetadata;
 use EC\EuropaSearch\Index\Client\IndexedDocument;
 use EC\EuropaSearch\Index\IndexServiceContainer;
 use EC\EuropaSearch\Tests\AbstractTest;
@@ -69,9 +69,8 @@ class IndexedDocumentTest extends AbstractTest
             'documentContent' => 'The documentContent should not be empty as the indexed document is a web content.',
             'documentId' => 'This value should not be blank.',
             'documentURI' => 'This value should not be blank.',
-            'metadata[title]' => 'This value should be of type \EC\EuropaSearch\Common\DocumentMetadata.',
+            'metadata[title]' => 'This value should be of type \EC\EuropaSearch\Index\Client\DocumentMetadata.',
             'metadata[other_metadata].value' => 'This value should not be null.',
-            'metadata[other_metadata].boost' => 'This value should be of type int.',
         ];
         foreach ($violations as $name => $violation) {
             $this->assertEquals($violation, $expected[$name]);
@@ -128,9 +127,8 @@ class IndexedDocumentTest extends AbstractTest
             'documentContent' => 'The documentContent should be empty as the indexed document is a file.',
             'documentId' => 'This value should not be blank.',
             'documentURI' => 'This value should not be blank.',
-            'metadata[title]' => 'This value should be of type \EC\EuropaSearch\Common\DocumentMetadata.',
+            'metadata[title]' => 'This value should be of type \EC\EuropaSearch\Index\Client\DocumentMetadata.',
             'metadata[other_metadata].value' => 'This value should not be null.',
-            'metadata[other_metadata].boost' => 'This value should be of type int.',
         ];
         foreach ($violations as $name => $violation) {
             $this->assertEquals($violation, $expected[$name], 'IndexedDocument validation constraints are not well defined.');

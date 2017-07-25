@@ -6,7 +6,7 @@
 
 namespace EC\EuropaSearch\Tests\Index\Communication;
 
-use EC\EuropaSearch\Common\DocumentMetadata;
+use EC\EuropaSearch\Index\Client\DocumentMetadata;
 use EC\EuropaSearch\Index\Client\IndexedDocument;
 use EC\EuropaSearch\Index\Communication\DynamicSchemaCommunication;
 use EC\EuropaSearch\Index\Transmission\IndexingRequest;
