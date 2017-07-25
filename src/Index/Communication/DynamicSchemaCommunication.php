@@ -211,7 +211,7 @@ class DynamicSchemaCommunication implements CommunicationInterface
                 $value = $this->encodeMetadataDateValue($value);
                 break;
 
-            default:
+            case 'not_indexed':
                 $name = 'esNI_'.$name;
                 break;
         }
