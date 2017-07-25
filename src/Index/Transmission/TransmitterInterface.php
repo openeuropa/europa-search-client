@@ -16,7 +16,6 @@ namespace EC\EuropaSearch\Index\Transmission;
  */
 interface TransmitterInterface
 {
-
     /**
      * Transmits to EuropaSearch service a request to index a web content.
      *

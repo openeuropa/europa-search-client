@@ -15,7 +15,6 @@ namespace EC\EuropaSearch\Index\Transmission;
  */
 class GuzzleTransmitter implements TransmitterInterface
 {
-
     private $serviceConfiguration;
 
     /**
