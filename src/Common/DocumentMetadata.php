@@ -6,6 +6,8 @@
 
 namespace EC\EuropaSearch\Common;
 
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -53,9 +55,19 @@ class DocumentMetadata
      * @param string $name
      *   The metadata name as know by the library consumer.
      * @param string $value
-     *   The metadata value.
+     *   The metadata value. If the metadata type is 'date', the value type
+     *   must be a valid date.
      * @param string $type
-     *   The metadata value type.
+     *   The metadata value type. the accepted type value are:
+     *   - 'fulltext': for string that can be included in a full text search;
+     *   - 'uri': for URL or URI;
+     *   - 'string': for string that can be used to filter a search;
+     *   - 'int' or 'integer': for integer that can be used to filter a search;
+     *   - 'float': for float that can be used to filter a search;
+     *   - 'boolean': for boolean that can be used to filter a search;
+     *   - 'date': for date that can be used to filter a search;
+     *   - 'not_indexed': for metadata that need to be send to Europa Search
+     *      services but not indexed.
      * @param int    $boost
      *   The boost value for the metadata; I.E. the importance if the metadata
      *   The search query.
@@ -94,6 +106,8 @@ class DocumentMetadata
 
     /**
      * @param mixed $value
+     *   The metadata value. If the metadata type is 'date', the value type
+     *   must be a valid date.
      */
     public function setValue($value)
     {
@@ -109,7 +123,16 @@ class DocumentMetadata
     }
 
     /**
-     * @param mixed $type
+     * @param string $type
+     *   - 'fulltext': for string that can be included in a full text search;
+     *   - 'uri': for URL or URI;
+     *   - 'string': for string that can be used to filter a search;
+     *   - 'int' or 'integer': for integer that can be used to filter a search;
+     *   - 'float': for float that can be used to filter a search;
+     *   - 'boolean': for boolean that can be used to filter a search;
+     *   - 'date': for date that can be used to filter a search;
+     *   - 'not_indexed': for metadata that need to be send to Europa Search
+     *      services but not indexed.
      */
     public function setType($type)
     {
@@ -117,7 +140,7 @@ class DocumentMetadata
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getBoost()
     {
@@ -125,7 +148,7 @@ class DocumentMetadata
     }
 
     /**
-     * @param mixed $boost
+     * @param int $boost
      */
     public function setBoost($boost)
     {
@@ -142,9 +165,54 @@ class DocumentMetadata
         $metadata->addPropertyConstraint('name', new Assert\NotBlank());
         $metadata->addPropertyConstraints('type', [
             new Assert\NotBlank(),
-            new Assert\Type('string'),
+            new Assert\Choice([
+                'fulltext',
+                'uri',
+                'string',
+                'int',
+                'integer',
+                'float',
+                'boolean',
+                'date',
+                'not_indexed',
+            ]),
         ]);
         $metadata->addPropertyConstraint('value', new Assert\NotNull());
         $metadata->addPropertyConstraint('boost', new Assert\Type('int'));
+
+        $metadata->addConstraint(new Assert\Callback('validate'));
+    }
+
+    /**
+     * Special validator callback for value.
+     *
+     * @param ExecutionContextInterface $context
+     * @param mixed                     $payload
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        if ($this->getType() == 'date' && empty($this->getValue())) {
+            $context->buildViolation('The value should not be empty as the type is "date".')
+                ->atPath('documentContent')
+                ->addViolation();
+        }
+
+        if ($this->getType() == 'date') {
+            $value = $this->getValue();
+            $values = (is_array($value)) ? $value : array($value);
+
+            $validator = new Assert\DateValidator();
+            $validator->initialize($context);
+            foreach ($values as $key => $value) {
+                // use procedural because the DateTime instantiation is
+                // incompatible with the constraints mechanism.
+                $date = date_create($value);
+                if (!$date) {
+                    $context->buildViolation('The value is not a valid date as the type is "date".')
+                        ->atPath('value')
+                        ->addViolation();
+                }
+            }
+        }
     }
 }
