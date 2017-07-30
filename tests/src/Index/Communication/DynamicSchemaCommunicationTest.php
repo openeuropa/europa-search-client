@@ -75,14 +75,13 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
 </p></div>');
         $indexedDocument->setDocumentId($documentId);
         $indexedDocument->setDocumentLanguage($documentLanguage);
-        $metadataList = array();
-        $metadataList[] = new DocumentMetadata('title', 'this the title', 'fulltext');
-        $metadataList[] = new DocumentMetadata('tag', 'taxonomy term', 'string');
-        $metadataList[] = new DocumentMetadata('rank', 1, 'integer');
-        $metadataList[] = new DocumentMetadata('percentage', 0.1, 'float');
-        $metadataList[] = new DocumentMetadata('publishing_date', date('F j, Y, g:i a', strtotime('11-12-2018')), 'date');
-        $metadataList[] = new DocumentMetadata('uri', 'http://www.europa.com', 'uri');
-        $indexedDocument->setMetadata($metadataList);
+
+        $indexedDocument->addFullTextMetadata('title', array('this the title'));
+        $indexedDocument->addStringMetadata('tag', array('taxonomy term'));
+        $indexedDocument->addIntMetadata('rank', array(1));
+        $indexedDocument->addFloatMetadata('percentage', array(0.1));
+        $indexedDocument->addDateMetadata('publishing_date', array(date('F j, Y, g:i a', strtotime('11-12-2018'))));
+        $indexedDocument->addURLMetadata('uri', array('http://www.europa.com'));
 
         // Expected object.
         $indexingRequest = new IndexingRequest(

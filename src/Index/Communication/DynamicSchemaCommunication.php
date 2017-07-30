@@ -127,7 +127,7 @@ class DynamicSchemaCommunication implements CommunicationInterface
             $objectToTransmit->setIsFile(false);
         }
 
-        $metadataJSON = $this->convertMetadataToJSON($indexedDocument->getMetadata());
+        $metadataJSON = $this->convertMetadataToJSON($indexedDocument->getMetadataList());
         $objectToTransmit->setMetadataJSON($metadataJSON);
 
         return $objectToTransmit;
@@ -153,116 +153,12 @@ class DynamicSchemaCommunication implements CommunicationInterface
 
         $convertList = array();
         foreach ($metadataList as $name => $metadata) {
-            $convertMetaData = $this->encodeMetadata($metadata);
+            $convertMetaData = $metadata->encodeMetadata();
             if ($convertMetaData) {
                 $convertList = array_merge($convertList, $convertMetaData);
             }
         }
 
         return json_encode($convertList);
-    }
-
-
-
-    /**
-     * Converts DocumentMetadata into JSON key-value.
-     *
-     * The key will be compliant with the Europa search syntax.
-     *
-     * @param DocumentMetadata $metadata
-     *   The DocumentMetadata to convert.
-     * @return array
-     *   The converted metadata where:
-     *   - The key is the metadata name formatted for the Europa Search services;
-     *   - The value in the right format for for the Europa Search services.
-     * @SuppressWarnings(PHPMD)
-     */
-    protected function encodeMetadata(DocumentMetadata $metadata)
-    {
-        $value = $metadata->getValue();
-        $name = $metadata->getName();
-
-        switch ($metadata->getType()) {
-            case 'fulltext':
-                $name = 'esIN_'.$name;
-                break;
-
-            case 'uri':
-            case 'string':
-                $name = 'esST_'.$name;
-                break;
-
-            case 'long':
-            case 'int':
-            case 'integer':
-            case 'double':
-            case 'float':
-            case 'decimal':
-                $name = 'esNU_'.$name;
-                break;
-
-            case 'boolean':
-                $name = 'esBO_'.$name;
-                $value = $this->encodeMetadataBooleanValue($value);
-                break;
-
-            case 'date':
-                $name = 'esDA_'.$name;
-                $value = $this->encodeMetadataDateValue($value);
-                break;
-
-            case 'not_indexed':
-                $name = 'esNI_'.$name;
-                break;
-        }
-
-        return array($name => $value);
-    }
-
-    /**
-     * Gets the date metadata value consumable by Europa Search service.
-     *
-     * @param array|string $value
-     *   The raw date value to convert.
-     * @return array|string
-     *   The converted date value.
-     */
-    private function encodeMetadataDateValue($value)
-    {
-        if (is_array($value)) {
-            $finalValue = array();
-            foreach ($value as $item) {
-                $dateTime = new \DateTime($item);
-                $finalValue[] = $dateTime->format(\DateTime::ISO8601);
-            }
-
-            return $finalValue;
-        }
-
-        $dateTime = new \DateTime($value);
-
-        return $dateTime->format(\DateTime::ISO8601);
-    }
-
-    /**
-     * Gets the boolean metadata value consumable by Europa Search service.
-     *
-     * @param array|boolean $value
-     *   The raw date value to convert.
-     * @return array|boolean
-     *   The converted date value.
-     */
-    private function encodeMetadataBooleanValue($value)
-    {
-        if (is_array($value)) {
-            $finalValue = array();
-            foreach ($value as $item) {
-                $finalValue[] = boolval($item);
-            }
-
-            return $finalValue;
-        }
-
-        return boolval($value);
     }
 }

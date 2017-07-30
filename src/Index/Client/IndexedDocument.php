@@ -6,6 +6,14 @@
 
 namespace EC\EuropaSearch\Index\Client;
 
+use EC\EuropaSearch\Common\DocumentMetadata\BooleanMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\DateMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\FloatMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\FullTextMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\IntegerMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\NotIndexedMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\StringMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\URLMetadata;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -161,20 +169,157 @@ class IndexedDocument
      * @return array
      *    The metadata of the indexed document.
      */
-    public function getMetadata()
+    public function getMetadataList()
     {
         return $this->metadata;
     }
 
     /**
-     * Sets the metadata of the indexed document.
+     * Adds a string metadata of the indexed document.
      *
-     * @param array $metadata
-     *    The metadata of the indexed document.
+     * @param string $name
+     *    The raw name of the indexed document metadata.
+     * @param array  $values
+     *    The string values of the indexed document metadata.
      */
-    public function setMetadata($metadata)
+    public function addStringMetadata($name, $values)
     {
-        $this->metadata = $metadata;
+        $metadata = new StringMetadata($name, $values);
+        $this->metadata[$name] = $metadata;
+    }
+
+    /**
+     * Adds a string metadata of the indexed document.
+     *
+     * The value will be used in full text searches.
+     *
+     * @param string $name
+     *    The raw name of the indexed document metadata.
+     * @param array  $values
+     *    The string values of the indexed document metadata.
+     */
+    public function addFullTextMetadata($name, $values)
+    {
+        $metadata = new FullTextMetadata($name, $values);
+        $this->metadata[$name] = $metadata;
+    }
+
+    /**
+     * Adds a boolean metadata of the indexed document.
+     *
+     * @param string $name
+     *    The raw name of the indexed document metadata.
+     *
+     * @param array  $values
+     *    The boolean values of the indexed document metadata.
+     */
+    public function addBooleanMetadata($name, $values)
+    {
+        $metadata = new BooleanMetadata($name, $values);
+        $this->metadata[$name] = $metadata;
+    }
+
+    /**
+     * Adds a url/uri metadata of the indexed document.
+     *
+     * @param string $name
+     *    The raw name of the indexed document metadata.
+     * @param array  $values
+     *    The url/uri values of the indexed document metadata.
+     */
+    public function addURLMetadata($name, $values)
+    {
+        $metadata = new URLMetadata($name, $values);
+        $this->metadata[$name] = $metadata;
+    }
+
+    /**
+     * Adds a date metadata of the indexed document.
+     *
+     * @param string $name
+     *    The raw name of the indexed document metadata.
+     * @param array  $values
+     *    The date values of the indexed document metadata.
+     */
+    public function addDateMetadata($name, array $values)
+    {
+        $metadata = new DateMetadata($name, $values);
+        $this->metadata[$name] = $metadata;
+    }
+
+    /**
+     * Adds a float metadata of the indexed document.
+     *
+     * @param string $name
+     *    The raw name of the indexed document metadata.
+     * @param array  $values
+     *    The float values of the indexed document metadata.
+     */
+    public function addFloatMetadata($name, array $values)
+    {
+        $metadata = new FloatMetadata($name, $values);
+        $this->metadata[$name] = $metadata;
+    }
+
+    /**
+     * Adds a integer metadata of the indexed document.
+     *
+     * @param string $name
+     *    The raw name of the indexed document metadata.
+     * @param array  $values
+     *    The integer values of the indexed document metadata.
+     */
+    public function addIntMetadata($name, array $values)
+    {
+        $metadata = new IntegerMetadata($name, $values);
+        $this->metadata[$name] = $metadata;
+    }
+
+    /**
+     * Adds a metadata of the indexed document.
+     *
+     * It is stored in EuropaSearch system but not indexed for searches.
+     *
+     * @param string $name
+     *    The raw name of the indexed document metadata.
+     * @param array  $values
+     *    The string values of the indexed document metadata.
+     */
+    public function addNotIndexedMetadata($name, array $values)
+    {
+        $metadata = new NotIndexedMetadata($name, $values);
+        $this->metadata[$name] = $metadata;
+    }
+
+    /**
+     * Remove the metadata from the indexed document metadata list.
+     *
+     * @param string $name
+     *    The raw name of metadata to remove.
+     */
+    public function removeMetadata($name)
+    {
+        if (isset($this->metadata[$name])) {
+            unset($this->metadata[$name]);
+        }
+    }
+
+    /**
+     * Gets a specific metadata from the indexed document metadata list.
+     *
+     * @param string $name
+     *    The raw name of metadata to retrieve.
+     * @return object|bool
+     *    The metadata definition (extension of "AbstractDocumentMetadata") or
+     *    false if not found.
+     */
+    public function getMetadata($name)
+    {
+        if (isset($this->metadata[$name])) {
+            return $this->metadata[$name];
+        }
+
+        return false;
     }
 
     /**
@@ -215,8 +360,7 @@ class IndexedDocument
         $metadata->addPropertyConstraint('documentLanguage', new Assert\Language());
         $metadata->addPropertyConstraints('metadata', [
             new Assert\NotBlank(),
-            new Assert\All(array(
-            'constraints' => array(new Assert\Type('\EC\EuropaSearch\Index\Client\DocumentMetadata'), ), )),
+            new Assert\All(array('constraints' => array(new Assert\Type('\EC\EuropaSearch\Common\DocumentMetadata\AbstractMetadata'), ), )),
             new Assert\Valid(array('traverse' => true)),
         ]);
 

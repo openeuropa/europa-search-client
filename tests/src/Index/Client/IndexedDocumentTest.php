@@ -7,7 +7,6 @@
 
 namespace EC\EuropaSearch\Tests\Index\Client;
 
-use EC\EuropaSearch\Index\Client\DocumentMetadata;
 use EC\EuropaSearch\Index\Client\IndexedDocument;
 use EC\EuropaSearch\Index\IndexServiceContainer;
 use EC\EuropaSearch\Tests\AbstractTest;
@@ -31,11 +30,9 @@ class IndexedDocumentTest extends AbstractTest
         $indexedDocument->setDocumentURI('http://test/nide/211');
         $indexedDocument->setDocumentContent('this is the content');
 
-        $metaDataList = array(
-            'title' => new DocumentMetadata('title', 'The content title', 'string'),
-            'other_metadata' => new DocumentMetadata('other_metadata', 'Other metadata', 'string'),
-        );
-        $indexedDocument->setMetadata($metaDataList);
+        $indexedDocument->addStringMetadata('title', array('The content title'));
+        $indexedDocument->addDateMetadata('publishing_date', array('20-12-2018'));
+        $indexedDocument->addIntMetadata('int_sets', array(1, 2, 3));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -54,11 +51,9 @@ class IndexedDocumentTest extends AbstractTest
         $indexedDocument->setDocumentLanguage('en');
         $indexedDocument->setDocumentType(IndexedDocument::WEB_CONTENT);
 
-        $metaDataList = array(
-            'title' => 'error_to_test',
-            'other_metadata' => new DocumentMetadata('other_metadata', null, 'string', 'error_to_test'),
-        );
-        $indexedDocument->setMetadata($metaDataList);
+        $indexedDocument->addStringMetadata('title', array(false));
+        $indexedDocument->addDateMetadata('publishing_date', array('3000000'));
+        $indexedDocument->addIntMetadata('int_sets', array(false));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -69,8 +64,9 @@ class IndexedDocumentTest extends AbstractTest
             'documentContent' => 'The documentContent should not be empty as the indexed document is a web content.',
             'documentId' => 'This value should not be blank.',
             'documentURI' => 'This value should not be blank.',
-            'metadata[title]' => 'This value should be of type \EC\EuropaSearch\Index\Client\DocumentMetadata.',
-            'metadata[other_metadata].value' => 'This value should not be null.',
+            'metadata[title].values[0]' => 'This value should be of type string.',
+            'metadata[publishing_date].values[0]' => 'The value is not a valid date.',
+            'metadata[int_sets].values[0]' => 'This value should be of type int.',
         ];
         foreach ($violations as $name => $violation) {
             $this->assertEquals($violation, $expected[$name]);
@@ -88,11 +84,9 @@ class IndexedDocumentTest extends AbstractTest
         $indexedDocument->setDocumentType(IndexedDocument::BINARY);
         $indexedDocument->setDocumentURI('http://test/nide/211');
 
-        $metaDataList = array(
-            'title' => new DocumentMetadata('title', 'The file title', 'string'),
-            'other_metadata' => new DocumentMetadata('other_metadata', 'Other metadata', 'string'),
-        );
-        $indexedDocument->setMetadata($metaDataList);
+        $indexedDocument->addStringMetadata('title', array('The content title'));
+        $indexedDocument->addDateMetadata('publishing_date', array('20-12-2018'));
+        $indexedDocument->addIntMetadata('int_sets', array(1, 2, 3));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -112,11 +106,9 @@ class IndexedDocumentTest extends AbstractTest
         $indexedDocument->setDocumentType(IndexedDocument::BINARY);
         $indexedDocument->setDocumentContent('this is the content');
 
-        $metaDataList = array(
-            'title' => 'error_to_test',
-            'other_metadata' => new DocumentMetadata('other_metadata', null, 'string', 'error_to_test'),
-        );
-        $indexedDocument->setMetadata($metaDataList);
+        $indexedDocument->addStringMetadata('title', array(false));
+        $indexedDocument->addDateMetadata('publishing_date', array('3000000'));
+        $indexedDocument->addIntMetadata('int_sets', array(false));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -127,8 +119,9 @@ class IndexedDocumentTest extends AbstractTest
             'documentContent' => 'The documentContent should be empty as the indexed document is a file.',
             'documentId' => 'This value should not be blank.',
             'documentURI' => 'This value should not be blank.',
-            'metadata[title]' => 'This value should be of type \EC\EuropaSearch\Index\Client\DocumentMetadata.',
-            'metadata[other_metadata].value' => 'This value should not be null.',
+            'metadata[title].values[0]' => 'This value should be of type string.',
+            'metadata[publishing_date].values[0]' => 'The value is not a valid date.',
+            'metadata[int_sets].values[0]' => 'This value should be of type int.',
         ];
         foreach ($violations as $name => $violation) {
             $this->assertEquals($violation, $expected[$name], 'IndexedDocument validation constraints are not well defined.');
