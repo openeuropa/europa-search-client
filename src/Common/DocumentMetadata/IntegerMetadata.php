@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package EC\EuropaSearch\Common\DocumentMetadata
  */
-class IntegerMetadata extends AbstractMetadata
+class IntegerMetadata extends AbstractNumericMetadata
 {
     const TYPE = 'integer';
 
@@ -53,18 +53,5 @@ class IntegerMetadata extends AbstractMetadata
     public static function getConstraints(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('values', new Assert\All(array('constraints' => array(new Assert\Type('int'), ), )));
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * It gets the same prefix of "Float" metadata.
-     *
-     * @return string
-     *   The final name.
-     */
-    public function getEuropaSearchName()
-    {
-        return 'esNU_'.$this->name;
     }
 }

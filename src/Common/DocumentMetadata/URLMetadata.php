@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package EC\EuropaSearch\Common\DocumentMetadata
  */
-class URLMetadata extends AbstractMetadata
+class URLMetadata extends StringMetadata
 {
     const TYPE = 'uri';
 
@@ -53,18 +53,5 @@ class URLMetadata extends AbstractMetadata
     public static function getConstraints(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('values', new Assert\All(array('constraints' => array(new Assert\Url(), ), )));
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * It gets the same prefix of "String" metadata.
-     *
-     * @return string
-     *   The final name.
-     */
-    public function getEuropaSearchName()
-    {
-        return 'esST_'.$this->name;
     }
 }

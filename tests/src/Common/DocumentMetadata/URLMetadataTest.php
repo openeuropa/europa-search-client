@@ -37,8 +37,7 @@ class URLMetadataTest extends AbstractTest
      */
     public function testURLMetadataValidationFailure()
     {
-
-        $uRLMetadata = new URLMetadata(null, array(true, 0));
+        $uRLMetadata = new URLMetadata(null, array(true, '/blabla/test'));
         $configuration = new ServiceConfiguration();
 
         $configuration->setServiceRoot('htp://false/test');
@@ -52,7 +51,7 @@ class URLMetadataTest extends AbstractTest
 
         $expected = [
             'name' => 'This value should not be blank.',
-            'values[0]' => 'This value is not a valid URL.',
+            'values[0]' => 'This value should be of type string.',
             'values[1]' => 'This value is not a valid URL.',
         ];
         foreach ($violations as $name => $violation) {
