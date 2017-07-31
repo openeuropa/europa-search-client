@@ -58,48 +58,11 @@ class BooleanMetadata extends AbstractMetadata
     /**
      * @inheritdoc
      *
-     * @return array
-     *   The converted metadata where:
-     *   - The key is the metadata name formatted for the Europa Search services;
-     *   - The value in the right format for for the Europa Search services.
-     */
-    public function encodeMetadata()
-    {
-        $name = $this->getEuropaSearchName();
-        $values = $this->encodeMetadataBooleanValue($this->values);
-        if (count($values) == 1) {
-            $values = reset($values);
-        }
-
-        return array($name => $values);
-    }
-
-    /**
-     * @inheritdoc
-     *
      * @return string
      *   The final name.
      */
     public function getEuropaSearchName()
     {
         return 'esBO_'.$this->name;
-    }
-
-    /**
-     * Gets the boolean metadata value consumable by Europa Search service.
-     *
-     * @param array $values
-     *   The raw date values to convert.
-     * @return array $finalValue
-     *   The converted date values.
-     */
-    private function encodeMetadataBooleanValue($values)
-    {
-        $finalValue = array();
-        foreach ($values as $item) {
-            $finalValue[] = boolval($item);
-        }
-
-        return $finalValue;
     }
 }

@@ -153,7 +153,7 @@ class DynamicSchemaCommunication implements CommunicationInterface
 
         $convertList = array();
         foreach ($metadataList as $name => $metadata) {
-            $convertMetaData = $metadata->encodeMetadata();
+            $convertMetaData = (new MetadataTransformation($metadata))->getTransformedMetaData();
             if ($convertMetaData) {
                 $convertList = array_merge($convertList, $convertMetaData);
             }

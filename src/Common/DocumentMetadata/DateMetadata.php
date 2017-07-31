@@ -80,49 +80,11 @@ class DateMetadata extends AbstractMetadata
     /**
      * @inheritdoc
      *
-     * @return array
-     *   The converted metadata where:
-     *   - The key is the metadata name formatted for the Europa Search services;
-     *   - The value in the right format for for the Europa Search services.
-     */
-    public function encodeMetadata()
-    {
-        $name = $this->getEuropaSearchName();
-        $values = $this->encodeMetadataDateValue($this->values);
-        if (count($values) == 1) {
-            $values = reset($values);
-        }
-
-        return array($name => $values);
-    }
-
-    /**
-     * @inheritdoc
-     *
      * @return string
      *   The final name.
      */
     public function getEuropaSearchName()
     {
         return 'esDA_'.$this->name;
-    }
-
-    /**
-     * Gets the date metadata values consumable by Europa Search service.
-     *
-     * @param array $values
-     *   The raw date value to convert.
-     * @return array
-     *   The converted date values.
-     */
-    private function encodeMetadataDateValue($values)
-    {
-        $finalValues = array();
-        foreach ($values as $item) {
-            $dateTime = new \DateTime($item);
-            $finalValues[] = $dateTime->format(\DateTime::ISO8601);
-        }
-
-        return $finalValues;
     }
 }

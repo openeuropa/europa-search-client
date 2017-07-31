@@ -96,29 +96,6 @@ abstract class AbstractMetadata
         $metadata->addPropertyConstraint('values', new Assert\Type('array'));
     }
 
-
-
-    /**
-     * Converts DocumentMetadata into JSON key-value.
-     *
-     * The key will be compliant with the Europa search syntax.
-     *
-     * @return array
-     *   The converted metadata where:
-     *   - The key is the metadata name formatted for the Europa Search services;
-     *   - The value in the right format for for the Europa Search services.
-     */
-    public function encodeMetadata()
-    {
-        $name = $this->getEuropaSearchName();
-        $values = $this->values;
-        if (count($values) == 1) {
-            $values = reset($values);
-        }
-
-        return array($name => $values);
-    }
-
     /**
      * Gets the final metadata name compliant for Europa Search services.
      *
