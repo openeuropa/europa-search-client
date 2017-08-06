@@ -6,7 +6,7 @@
 
 namespace EC\EuropaSearch\Index\Client;
 
-use EC\EuropaSearch\Common\DocumentMetadata\AbstractMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\MetadataInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -170,10 +170,10 @@ class IndexedDocument
     /**
      * Adds a metadata of the indexed document.
      *
-     * @param \EC\EuropaSearch\Common\DocumentMetadata\AbstractMetadata $metadata
+     * @param \EC\EuropaSearch\Common\DocumentMetadata\MetadataInterface $metadata
      *   The metadata to add to the document.
      */
-    public function addMetadata(AbstractMetadata $metadata)
+    public function addMetadata(MetadataInterface $metadata)
     {
         $name = $metadata->getName();
         $this->metadata[$name] = $metadata;
@@ -248,7 +248,7 @@ class IndexedDocument
         $metadata->addPropertyConstraint('documentLanguage', new Assert\Language());
         $metadata->addPropertyConstraints('metadata', [
             new Assert\NotBlank(),
-            new Assert\All(array('constraints' => array(new Assert\Type('\EC\EuropaSearch\Common\DocumentMetadata\AbstractMetadata'), ), )),
+            new Assert\All(array('constraints' => array(new Assert\Type('\EC\EuropaSearch\Common\DocumentMetadata\MetadataInterface'), ), )),
             new Assert\Valid(array('traverse' => true)),
         ]);
 
