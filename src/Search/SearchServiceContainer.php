@@ -6,7 +6,7 @@
 
 namespace EC\EuropaSearch\Search;
 
-use EC\EuropaSearch\Search\Communication\DynamicSchemaConverter;
+use EC\EuropaSearch\Search\Communication\DynamicSchemaCommunication;
 use EC\EuropaSearch\Search\Transmission\GuzzleTransmitter;
 use EC\EuropaSearch\Common\ServiceConfiguration;
 use EC\EuropaSearch\Search\Transmission\MockTransmitter;
@@ -31,16 +31,15 @@ class SearchServiceContainer extends Container
      */
     public function __construct(ServiceConfiguration $serviceConfiguration)
     {
-        $this->container['service_configuration'] = $serviceConfiguration;
-
         $this->container = new Container();
+        $this->container['service_configuration'] = $serviceConfiguration;
 
         $this->container['validator'] = $this->container->factory(function ($c) {
             return (new ValidatorBuilder())->addMethodMapping('getConstraints')->getValidator();
         });
 
         $this->container['communicator'] = function ($c) {
-            return new DynamicSchemaConverter($c['service_configuration']);
+            return new DynamicSchemaCommunication($c['service_configuration']);
         };
 
         // Choose the right transmitter to use according to the configuration.

@@ -17,12 +17,14 @@ use EC\EuropaSearch\Tests\AbstractTest;
  */
 class BooleanMetadataTest extends AbstractTest
 {
+
     /**
      * Test the BooleanMetadata validation (success case).
      */
     public function testBooleanMetadataValidationSuccess()
     {
-        $booleanMetadata = new BooleanMetadataTest('tested_boolean', array(true, false));
+        $booleanMetadata = new BooleanMetadata('tested_boolean');
+        $booleanMetadata->setValues(array(true, false));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -37,10 +39,10 @@ class BooleanMetadataTest extends AbstractTest
      */
     public function testBooleanMetadataValidationFailure()
     {
+        $booleanMetadata = new BooleanMetadata(null);
+        $booleanMetadata->setValues(array(true, 0));
 
-        $booleanMetadata = new BooleanMetadata(null, array(true, 0));
         $configuration = new ServiceConfiguration();
-
         $configuration->setServiceRoot('htp://false/test');
         $configuration->setApiKey(123);
         $configuration->setDatabase(2992);

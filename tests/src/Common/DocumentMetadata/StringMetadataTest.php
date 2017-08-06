@@ -22,7 +22,8 @@ class StringMetadataTest extends AbstractTest
      */
     public function testStringMetadataValidationSuccess()
     {
-        $stringMetadata = new StringMetadataTest('tested_string', array('title is a string'));
+        $stringMetadata = new StringMetadata('tested_string');
+        $stringMetadata->setValues(array('title is a string'));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -37,10 +38,10 @@ class StringMetadataTest extends AbstractTest
      */
     public function testStringMetadataValidationFailure()
     {
+        $stringMetadata = new StringMetadata(null);
+        $stringMetadata->setValues(array(true, 0));
 
-        $stringMetadata = new StringMetadata(null, array(true, 0));
         $configuration = new ServiceConfiguration();
-
         $configuration->setServiceRoot('htp://false/test');
         $configuration->setApiKey(123);
         $configuration->setDatabase(2992);

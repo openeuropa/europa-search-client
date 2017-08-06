@@ -6,6 +6,10 @@
 
 namespace EC\EuropaSearch\Search;
 
+use EC\EuropaSearch\Common\DocumentMetadata\StringMetadata;
+use EC\EuropaSearch\Search\Client\Filters\FilterClauses\ValueClause;
+use EC\EuropaSearch\Search\Client\Filters\FilterQueries\BoolQuery;
+use EC\EuropaSearch\Search\Client\Filters\FilterQueries\BoostingQuery;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -75,16 +79,6 @@ class SearchQuery
     }
 
     /**
-     * Sets the search filter definitions.
-     * @param array $filters
-     *  Array of FilterCriteria object containing filter definitions.
-     */
-    public function setFilters($filters)
-    {
-        $this->filters = $filters;
-    }
-
-    /**
      * Gets the search sort criteria
      * @return array
      *   Array with sort settings:
@@ -131,8 +125,6 @@ class SearchQuery
     {
         $this->resultsRange = $resultsRange;
     }
-
-
 
     /**
      * Loads constraints declarations for the validator process.

@@ -6,6 +6,7 @@
 
 namespace EC\EuropaSearch\Search\Client\Filters\FilterClauses;
 
+use EC\EuropaSearch\Common\DocumentMetadata\MetadataInterface;
 use EC\EuropaSearch\Common\DocumentMetadata\DateMetadata;
 use EC\EuropaSearch\Common\DocumentMetadata\FloatMetadata;
 use EC\EuropaSearch\Common\DocumentMetadata\IntegerMetadata;
@@ -14,9 +15,9 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class RangeClause.
+ * Clause to filter on range.
  *
- * It represents a criteria to filter on range.
+ * @inheritdoc
  *
  * @package EC\EuropaSearch\Search\Client\Filters\FilterClauses
  */
@@ -57,26 +58,14 @@ class RangeClause extends AbstractClause
     private $isUpperIncluded = false;
 
     /**
-     * RangeFilter constructor.
+     * RangeClause constructor.
      *
-     * @param string $impliedMetadataName
-     *   The name of metadata implied in the filter.
-     * @param string $impliedMetadataType
-     *   The name of metadata implied in the filter.
-     *   - 'fulltext': for string that can be included in a full text search;
-     *   - 'uri': for URL or URI;
-     *   - 'string': for string that can be used to filter a search;
-     *   - 'int' or 'integer': for integer that can be used to filter a search;
-     *   - 'float': for float that can be used to filter a search;
-     *   - 'boolean': for boolean that can be used to filter a search;
-     *   - 'date': for date that can be used to filter a search;
-     *   - 'not_indexed': for metadata that need to be send to Europa Search
-     *      services but not indexed.
+     * @param \EC\EuropaSearch\Common\DocumentMetadata\MetadataInterface $impliedMetadata
+     *   The metadata implied in the filter.
      */
-    public function __construct($impliedMetadataName, $impliedMetadataType)
+    public function __construct(MetadataInterface $impliedMetadata)
     {
-        $this->impliedMetadataName = $impliedMetadataName;
-        $this->impliedMetadataType = $impliedMetadataType;
+        $this->impliedMetadata = $impliedMetadata;
     }
 
     /**
@@ -91,19 +80,27 @@ class RangeClause extends AbstractClause
     }
 
     /**
-     * Sets the lower boundary to use in the filter definition.
+     * Sets the filter lower boundary, it is excluded from the range.
      *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
-     *
-     * @param int  $lowerBoundary
+     * @param int $lowerBoundary
      *  The lower boundary of the range filter.
-     * @param bool $isIncluded
-     *   Flag indicates of the lower boundary of the range must be included in the range.
      */
-    public function setLowerBoundary($lowerBoundary, $isIncluded = false)
+    public function setLowerBoundaryExcluded($lowerBoundary)
     {
         $this->lowerBoundary = $lowerBoundary;
-        $this->isLowerIncluded = $isIncluded;
+        $this->isLowerIncluded = false;
+    }
+
+    /**
+     * Sets the filter lower boundary, it is included in the range.
+     *
+     * @param int $lowerBoundary
+     *  The lower boundary of the range filter.
+     */
+    public function setLowerBoundaryIncluded($lowerBoundary)
+    {
+        $this->lowerBoundary = $lowerBoundary;
+        $this->isLowerIncluded = true;
     }
 
     /**
@@ -118,21 +115,29 @@ class RangeClause extends AbstractClause
     }
 
     /**
-     * Sets the upper boundary to use in the filter definition.
+     * Sets the filter upper boundary, it is excluded from the range.
      *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
-     *
-     * @param int  $upperBoundary
+     * @param int $upperBoundary
      *  The upper boundary of the range filter.
-     * $isUpperIncluded
-     * @param bool $isIncluded
-     * Flag indicates of the upper boundary of the range must be included in the range.
      *
      */
-    public function setUpperBoundary($upperBoundary, $isIncluded = false)
+    public function setUpperBoundaryExcluded($upperBoundary)
     {
         $this->upperBoundary = $upperBoundary;
-        $this->isUpperIncluded = $isIncluded;
+        $this->isUpperIncluded = false;
+    }
+
+    /**
+     * Sets the filter upper boundary, it is included in the range.
+     *
+     * @param int $upperBoundary
+     *  The upper boundary of the range filter.
+     *
+     */
+    public function setUpperBoundaryIncluded($upperBoundary)
+    {
+        $this->upperBoundary = $upperBoundary;
+        $this->isUpperIncluded = true;
     }
 
     /**
@@ -165,12 +170,6 @@ class RangeClause extends AbstractClause
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('impliedMetadataType', new Assert\Choice([
-                IntegerMetadata::TYPE,
-                FloatMetadata::TYPE,
-                DateMetadata::TYPE,
-        ]));
-
         $metadata->addPropertyConstraint('isLowerIncluded', new Assert\Type('bool'));
         $metadata->addPropertyConstraint('isUpperIncluded', new Assert\Type('bool'));
         $metadata->addConstraint(new Assert\Callback('validate'));
@@ -189,7 +188,7 @@ class RangeClause extends AbstractClause
                 ->addViolation();
         }
 
-        switch ($this->getImpliedMetadataType()) {
+        switch ($this->getMetadataType()) {
             case DateMetadata::TYPE:
                 $this->validateDateRelatedClause($context, $payload);
                 break;
@@ -200,6 +199,12 @@ class RangeClause extends AbstractClause
 
             case IntegerMetadata::TYPE:
                 $this->validateIntRelatedClause($context, $payload);
+                break;
+
+            default:
+                $context->buildViolation('The metadata is not supported for this kind of clause.')
+                    ->atPath('impliedMetadata')
+                    ->addViolation();
                 break;
         }
     }

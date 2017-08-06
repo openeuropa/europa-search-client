@@ -22,7 +22,8 @@ class IntegerMetadataTest extends AbstractTest
      */
     public function testIntegerMetadataValidationSuccess()
     {
-        $integerMetadata = new IntegerMetadataTest('tested_integer', array(1, 2, 300000000000000));
+        $integerMetadata = new IntegerMetadata('tested_integer');
+        $integerMetadata->setValues(array(1, 2, 300000000000000));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -37,10 +38,10 @@ class IntegerMetadataTest extends AbstractTest
      */
     public function testIntegerMetadataValidationFailure()
     {
+        $integerMetadata = new IntegerMetadata(null);
+        $integerMetadata->setValues(array('0.2', false));
 
-        $integerMetadata = new IntegerMetadata(null, array('0.2', false));
         $configuration = new ServiceConfiguration();
-
         $configuration->setServiceRoot('htp://false/test');
         $configuration->setApiKey(123);
         $configuration->setDatabase(2992);

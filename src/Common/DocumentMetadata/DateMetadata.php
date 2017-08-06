@@ -24,15 +24,10 @@ class DateMetadata extends AbstractMetadata
      *
      * @param string $name
      *   The raw name of the metadata.
-     * @param array  $values
-     *   The values of the metadata.
-     *   It must contains valid date items only.
      */
-    public function __construct($name, array $values)
+    public function __construct($name)
     {
         $this->name = $name;
-        $this->values = $values;
-        $this->type = self::TYPE;
     }
 
     /**
@@ -65,6 +60,11 @@ class DateMetadata extends AbstractMetadata
     public function validate(ExecutionContextInterface $context, $payload)
     {
         $values = $this->getValues();
+        // If not value are set, we stop the validation process.
+        if (empty($values)) {
+            return;
+        }
+
         foreach ($values as $key => $value) {
             // use procedural because the DateTime instantiation is
             // incompatible with the constraints mechanism.
@@ -86,5 +86,18 @@ class DateMetadata extends AbstractMetadata
     public function getEuropaSearchName()
     {
         return 'esDA_'.$this->name;
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @return string
+     *   The name of the parse name as defined in the ParserProvider.
+     *
+     * @see EC\EuropaSearch\Index\Communication\Providers\ParserProvider
+     */
+    public static function getParserName()
+    {
+        return self::PARSER_NAME_PREFIX.'.'.self::TYPE;
     }
 }

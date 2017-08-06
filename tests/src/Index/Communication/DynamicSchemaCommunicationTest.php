@@ -6,9 +6,14 @@
 
 namespace EC\EuropaSearch\Tests\Index\Communication;
 
-use EC\EuropaSearch\Index\Client\DocumentMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\DateMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\FloatMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\FullTextMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\IntegerMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\StringMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\URLMetadata;
 use EC\EuropaSearch\Index\Client\IndexedDocument;
-use EC\EuropaSearch\Index\Communication\DynamicSchemaCommunication;
+use EC\EuropaSearch\Index\IndexServiceContainer;
 use EC\EuropaSearch\Index\Transmission\IndexingRequest;
 use EC\EuropaSearch\Tests\AbstractTest;
 
@@ -27,7 +32,8 @@ class DynamicSchemaCommunicationTest extends AbstractTest
         $submitted = $data['submitted'];
         $expected = $data['expected'];
         $configuration = $data['service'];
-        $communication = new DynamicSchemaCommunication($configuration);
+
+        $communication = (new IndexServiceContainer($configuration))->get('communicator');
 
         $indexingRequest = $communication->convertSentObject($submitted);
 
@@ -76,12 +82,28 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         $indexedDocument->setDocumentId($documentId);
         $indexedDocument->setDocumentLanguage($documentLanguage);
 
-        $indexedDocument->addFullTextMetadata('title', array('this the title'));
-        $indexedDocument->addStringMetadata('tag', array('taxonomy term'));
-        $indexedDocument->addIntMetadata('rank', array(1));
-        $indexedDocument->addFloatMetadata('percentage', array(0.1));
-        $indexedDocument->addDateMetadata('publishing_date', array(date('F j, Y, g:i a', strtotime('11-12-2018'))));
-        $indexedDocument->addURLMetadata('uri', array('http://www.europa.com'));
+        $metadata = new FullTextMetadata('title');
+        $metadata->setValues(array('this the title'));
+        $indexedDocument->addMetadata($metadata);
+
+        $metadata = new StringMetadata('tag');
+        $metadata->setValues(array('taxonomy term'));
+        $indexedDocument->addMetadata($metadata);
+
+        $metadata = new IntegerMetadata('rank');
+        $metadata->setValues(array(1));
+        $indexedDocument->addMetadata($metadata);
+
+        $metadata = new FloatMetadata('percentage');
+        $metadata->setValues(array(0.1));
+        $indexedDocument->addMetadata($metadata);
+        $metadata = new DateMetadata('publishing_date');
+        $metadata->setValues(array(date('F j, Y, g:i a', strtotime('11-12-2018'))));
+        $indexedDocument->addMetadata($metadata);
+
+        $metadata = new URLMetadata('uri');
+        $metadata->setValues(array('http://www.europa.com'));
+        $indexedDocument->addMetadata($metadata);
 
         // Expected object.
         $indexingRequest = new IndexingRequest(

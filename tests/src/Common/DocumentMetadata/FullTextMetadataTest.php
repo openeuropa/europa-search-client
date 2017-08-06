@@ -22,7 +22,8 @@ class FullTextMetadataTest extends AbstractTest
      */
     public function testFullTextMetadataValidationSuccess()
     {
-        $fullTextMetadata = new FullTextMetadataTest('tested_data', array('full text searchable data is a string'));
+        $fullTextMetadata = new FullTextMetadata('tested_data');
+        $fullTextMetadata->setValues(array('full text searchable data is a string'));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -37,10 +38,10 @@ class FullTextMetadataTest extends AbstractTest
      */
     public function testFullTextMetadataValidationFailure()
     {
+        $fullTextMetadata = new FullTextMetadata(null);
+        $fullTextMetadata->setValues(array(true, 0));
 
-        $fullTextMetadata = new FullTextMetadata(null, array(true, 0));
         $configuration = new ServiceConfiguration();
-
         $configuration->setServiceRoot('htp://false/test');
         $configuration->setApiKey(123);
         $configuration->setDatabase(2992);

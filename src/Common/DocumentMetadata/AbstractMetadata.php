@@ -16,8 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package EC\EuropaSearch\Common\DocumentMetadata
  */
-abstract class AbstractMetadata
+abstract class AbstractMetadata implements MetadataInterface
 {
+    const PARSER_NAME_PREFIX = 'parser.metadata';
 
     /**
      * Metadata name.
@@ -34,14 +35,21 @@ abstract class AbstractMetadata
     protected $values;
 
     /**
-     * Metadata type.
+     * @inheritdoc
      *
-     * @var
+     * @param string $name
+     *   The raw name of the metadata.
      */
-    protected $type;
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
+     * @inheritdoc
+     *
      * @return string
+     *   The raw name of the metadata.
      */
     public function getName()
     {
@@ -49,7 +57,10 @@ abstract class AbstractMetadata
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
+     *
+     * @return array
+     *   The metadatat values.
      */
     public function getValues()
     {
@@ -57,30 +68,15 @@ abstract class AbstractMetadata
     }
 
     /**
+     * @inheritdoc
+     *
      * @param array $values
-     *   The metadata values. If the metadata type is 'date', the value type
-     *   must be a valid date.
+     *   The metadata values.
      */
-    public function setValue(array $values)
+    public function setValues(array $values)
     {
         $this->values = $values;
     }
-
-    /**
-     * Gets metadata types.
-     *
-     * @return string $type
-     *   - 'fulltext': for string that can be included in a full text search;
-     *   - 'uri': for URL or URI;
-     *   - 'string': for string that can be used to filter a search;
-     *   - 'integer': for integer that can be used to filter a search;
-     *   - 'float': for float that can be used to filter a search;
-     *   - 'boolean': for boolean that can be used to filter a search;
-     *   - 'date': for date that can be used to filter a search;
-     *   - 'not_indexed': for metadata that need to be send to Europa Search
-     *      services but not indexed.
-     */
-    abstract public function getType();
 
     /**
      * Loads constraints declarations for the validator process.
@@ -93,14 +89,5 @@ abstract class AbstractMetadata
             new Assert\NotBlank(),
             new Assert\Type('string'),
         ]);
-        $metadata->addPropertyConstraint('values', new Assert\Type('array'));
     }
-
-    /**
-     * Gets the final metadata name compliant for Europa Search services.
-     *
-     * @return string
-     *   The final name.
-     */
-    abstract public function getEuropaSearchName();
 }

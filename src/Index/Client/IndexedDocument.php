@@ -6,14 +6,7 @@
 
 namespace EC\EuropaSearch\Index\Client;
 
-use EC\EuropaSearch\Common\DocumentMetadata\BooleanMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\FloatMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\FullTextMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\IntegerMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\NotIndexedMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\StringMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\URLMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\AbstractMetadata;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -175,119 +168,14 @@ class IndexedDocument
     }
 
     /**
-     * Adds a string metadata of the indexed document.
-     *
-     * @param string $name
-     *    The raw name of the indexed document metadata.
-     * @param array  $values
-     *    The string values of the indexed document metadata.
-     */
-    public function addStringMetadata($name, $values)
-    {
-        $metadata = new StringMetadata($name, $values);
-        $this->metadata[$name] = $metadata;
-    }
-
-    /**
-     * Adds a string metadata of the indexed document.
-     *
-     * The value will be used in full text searches.
-     *
-     * @param string $name
-     *    The raw name of the indexed document metadata.
-     * @param array  $values
-     *    The string values of the indexed document metadata.
-     */
-    public function addFullTextMetadata($name, $values)
-    {
-        $metadata = new FullTextMetadata($name, $values);
-        $this->metadata[$name] = $metadata;
-    }
-
-    /**
-     * Adds a boolean metadata of the indexed document.
-     *
-     * @param string $name
-     *    The raw name of the indexed document metadata.
-     *
-     * @param array  $values
-     *    The boolean values of the indexed document metadata.
-     */
-    public function addBooleanMetadata($name, $values)
-    {
-        $metadata = new BooleanMetadata($name, $values);
-        $this->metadata[$name] = $metadata;
-    }
-
-    /**
-     * Adds a url/uri metadata of the indexed document.
-     *
-     * @param string $name
-     *    The raw name of the indexed document metadata.
-     * @param array  $values
-     *    The url/uri values of the indexed document metadata.
-     */
-    public function addURLMetadata($name, $values)
-    {
-        $metadata = new URLMetadata($name, $values);
-        $this->metadata[$name] = $metadata;
-    }
-
-    /**
-     * Adds a date metadata of the indexed document.
-     *
-     * @param string $name
-     *    The raw name of the indexed document metadata.
-     * @param array  $values
-     *    The date values of the indexed document metadata.
-     */
-    public function addDateMetadata($name, array $values)
-    {
-        $metadata = new DateMetadata($name, $values);
-        $this->metadata[$name] = $metadata;
-    }
-
-    /**
-     * Adds a float metadata of the indexed document.
-     *
-     * @param string $name
-     *    The raw name of the indexed document metadata.
-     * @param array  $values
-     *    The float values of the indexed document metadata.
-     */
-    public function addFloatMetadata($name, array $values)
-    {
-        $metadata = new FloatMetadata($name, $values);
-        $this->metadata[$name] = $metadata;
-    }
-
-    /**
-     * Adds a integer metadata of the indexed document.
-     *
-     * @param string $name
-     *    The raw name of the indexed document metadata.
-     * @param array  $values
-     *    The integer values of the indexed document metadata.
-     */
-    public function addIntMetadata($name, array $values)
-    {
-        $metadata = new IntegerMetadata($name, $values);
-        $this->metadata[$name] = $metadata;
-    }
-
-    /**
      * Adds a metadata of the indexed document.
      *
-     * It is stored in EuropaSearch system but not indexed for searches.
-     *
-     * @param string $name
-     *    The raw name of the indexed document metadata.
-     * @param array  $values
-     *    The string values of the indexed document metadata.
+     * @param \EC\EuropaSearch\Common\DocumentMetadata\AbstractMetadata $metadata
+     *   The metadata to add to the document.
      */
-    public function addNotIndexedMetadata($name, array $values)
+    public function addMetadata(AbstractMetadata $metadata)
     {
-        $metadata = new NotIndexedMetadata($name, $values);
+        $name = $metadata->getName();
         $this->metadata[$name] = $metadata;
     }
 

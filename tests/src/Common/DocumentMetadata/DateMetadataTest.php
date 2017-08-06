@@ -23,7 +23,8 @@ class DateMetadataTest extends AbstractTest
      */
     public function testDateMetadataValidationSuccess()
     {
-        $dateDocumentMetadata = new DateMetadata('tested_date', array('30-12-2018'));
+        $dateDocumentMetadata = new DateMetadata('tested_date');
+        $dateDocumentMetadata->setValues(array('30-12-2018'));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -38,10 +39,10 @@ class DateMetadataTest extends AbstractTest
      */
     public function testDateMetadataValidationFailure()
     {
+        $dateDocumentMetadata = new DateMetadata('tested_date');
+        $dateDocumentMetadata->setValues(array('33-33-2105'));
 
-        $dateDocumentMetadata = new DateMetadata('tested_date', array('33-33-2105'));
         $configuration = new ServiceConfiguration();
-
         $configuration->setServiceRoot('htp://false/test');
         $configuration->setApiKey(123);
         $configuration->setDatabase(2992);

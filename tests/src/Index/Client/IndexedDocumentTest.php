@@ -8,6 +8,9 @@
 namespace EC\EuropaSearch\Tests\Index\Client;
 
 use EC\EuropaSearch\Index\Client\IndexedDocument;
+use EC\EuropaSearch\Common\DocumentMetadata\DateMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\IntegerMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Index\IndexServiceContainer;
 use EC\EuropaSearch\Tests\AbstractTest;
 
@@ -30,9 +33,17 @@ class IndexedDocumentTest extends AbstractTest
         $indexedDocument->setDocumentURI('http://test/nide/211');
         $indexedDocument->setDocumentContent('this is the content');
 
-        $indexedDocument->addStringMetadata('title', array('The content title'));
-        $indexedDocument->addDateMetadata('publishing_date', array('20-12-2018'));
-        $indexedDocument->addIntMetadata('int_sets', array(1, 2, 3));
+        $metadata = new StringMetadata('title');
+        $metadata->setValues(array('The content title'));
+        $indexedDocument->addMetadata($metadata);
+
+        $metadata = new IntegerMetadata('int_sets');
+        $metadata->setValues(array(1, 2, 3));
+        $indexedDocument->addMetadata($metadata);
+
+        $metadata = new DateMetadata('publishing_date');
+        $metadata->setValues(array('20-12-2018'));
+        $indexedDocument->addMetadata($metadata);
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -51,9 +62,17 @@ class IndexedDocumentTest extends AbstractTest
         $indexedDocument->setDocumentLanguage('en');
         $indexedDocument->setDocumentType(IndexedDocument::WEB_CONTENT);
 
-        $indexedDocument->addStringMetadata('title', array(false));
-        $indexedDocument->addDateMetadata('publishing_date', array('3000000'));
-        $indexedDocument->addIntMetadata('int_sets', array(false));
+        $metadata = new StringMetadata('title');
+        $metadata->setValues(array(false));
+        $indexedDocument->addMetadata($metadata);
+
+        $metadata = new IntegerMetadata('int_sets');
+        $metadata->setValues(array(false));
+        $indexedDocument->addMetadata($metadata);
+
+        $metadata = new DateMetadata('publishing_date');
+        $metadata->setValues(array('3000000'));
+        $indexedDocument->addMetadata($metadata);
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -84,9 +103,17 @@ class IndexedDocumentTest extends AbstractTest
         $indexedDocument->setDocumentType(IndexedDocument::BINARY);
         $indexedDocument->setDocumentURI('http://test/nide/211');
 
-        $indexedDocument->addStringMetadata('title', array('The content title'));
-        $indexedDocument->addDateMetadata('publishing_date', array('20-12-2018'));
-        $indexedDocument->addIntMetadata('int_sets', array(1, 2, 3));
+        $metadata = new StringMetadata('title');
+        $metadata->setValues(array('The content title'));
+        $indexedDocument->addMetadata($metadata);
+
+        $metadata = new IntegerMetadata('int_sets');
+        $metadata->setValues(array(1, 2, 3));
+        $indexedDocument->addMetadata($metadata);
+
+        $metadata = new DateMetadata('publishing_date');
+        $metadata->setValues(array('20-12-2018'));
+        $indexedDocument->addMetadata($metadata);
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -106,9 +133,17 @@ class IndexedDocumentTest extends AbstractTest
         $indexedDocument->setDocumentType(IndexedDocument::BINARY);
         $indexedDocument->setDocumentContent('this is the content');
 
-        $indexedDocument->addStringMetadata('title', array(false));
-        $indexedDocument->addDateMetadata('publishing_date', array('3000000'));
-        $indexedDocument->addIntMetadata('int_sets', array(false));
+        $metadata = new StringMetadata('title');
+        $metadata->setValues(array(false));
+        $indexedDocument->addMetadata($metadata);
+
+        $metadata = new IntegerMetadata('int_sets');
+        $metadata->setValues(array(false));
+        $indexedDocument->addMetadata($metadata);
+
+        $metadata = new DateMetadata('publishing_date');
+        $metadata->setValues(array('3000000'));
+        $indexedDocument->addMetadata($metadata);
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');

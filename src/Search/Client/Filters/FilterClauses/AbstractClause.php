@@ -6,15 +6,7 @@
 
 namespace EC\EuropaSearch\Search\Client\Filters\FilterClauses;
 
-use EC\EuropaSearch\Common\DocumentMetadata\AbstractMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\BooleanMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\FloatMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\FullTextMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\IntegerMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\NotIndexedMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\StringMetadata;
-use EC\EuropaSearch\Common\DocumentMetadata\URLMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\MetadataInterface;
 use EC\EuropaSearch\Search\Client\Filters\AbstractFilter;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -22,84 +14,58 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Abstract class AbstractClause.
  *
+ * @inheritdoc
+ *
  * @package EC\EuropaSearch\Search\Client\Filters\FilterClauses
  */
-abstract class AbstractClause extends AbstractFilter
+abstract class AbstractClause extends AbstractFilter implements ClauseInterface
 {
     /**
-     * Name of the metadata implied in the criteria definition.
+     * The metadata implied in the criteria definition.
      *
-     * @var string
+     * @var \EC\EuropaSearch\Common\DocumentMetadata\MetadataInterface
      */
-    protected $impliedMetadataName;
+    protected $impliedMetadata;
 
     /**
-     * The metadata value type.
+     * Gets the metadata implied in the criteria definition.
      *
-     * @var string
-     */
-    protected $impliedMetadataType;
-
-    /**
-     * Gets the name of the metadata implied in the criteria definition.
-     *
-     * @return string $impliedMetadataName
+     * @return \EC\EuropaSearch\Common\DocumentMetadata\MetadataInterface $impliedMetadata
      *   The name of the implied metadata.
      */
-    public function getImpliedMetadataName()
+    public function getImpliedMetadata()
     {
-        return $this->impliedMetadataName;
+        return $this->impliedMetadata;
     }
 
     /**
      * Sets the name of the metadata implied in the criteria definition.
      *
-     * @param string $impliedMetadataName
-     *   The name of the implied metadata.
+     * @param \EC\EuropaSearch\Common\DocumentMetadata\MetadataInterface $impliedMetadata
+     *   The implied metadata.
      */
-    public function setImpliedMetadataName($impliedMetadataName)
+    public function setImpliedMetadata(MetadataInterface $impliedMetadata)
     {
-        $this->impliedMetadataName = $impliedMetadataName;
+        $this->impliedMetadata = $impliedMetadata;
     }
 
     /**
-     * Gets the type of metadata implied in the filter.
+     * @inheritDoc
      *
-     * @return string $impliedMetadataType
-     *   The metadata type. the accepted type value are:
-     *   - 'fulltext': for string that can be included in a full text search;
-     *   - 'uri': for URL or URI;
-     *   - 'string': for string that can be used to filter a search;
-     *   - 'int' or 'integer': for integer that can be used to filter a search;
-     *   - 'float': for float that can be used to filter a search;
-     *   - 'boolean': for boolean that can be used to filter a search;
-     *   - 'date': for date that can be used to filter a search;
-     *   - 'not_indexed': for metadata that need to be send to Europa Search
-     *      services but not indexed.
+     * @return string
+     *   The type of the implied metadata.
      */
-    public function getImpliedMetadataType()
+    public function getMetadataType()
     {
-        return $this->impliedMetadataType;
+        return $this->impliedMetadata->getType();
     }
 
     /**
-     * Sets the type of metadata implied in the filter.
-     *
-     * @param string $impliedMetadataType
-     *   The metadata type. the accepted type value are:
-     *   - 'fulltext': for string that can be included in a full text search;
-     *   - 'uri': for URL or URI;
-     *   - 'string': for string that can be used to filter a search;
-     *   - 'int' or 'integer': for integer that can be used to filter a search;
-     *   - 'float': for float that can be used to filter a search;
-     *   - 'boolean': for boolean that can be used to filter a search;
-     *   - 'date': for date that can be used to filter a search;
-     *   - 'not_indexed': for metadata that need to be send to Europa Search
-     *      services but not indexed.
+     * @inheritDoc
      */
-    public function setImpliedMetadataType($impliedMetadataType)
+    public function getMetadataName()
     {
-        $this->impliedMetadataType = $impliedMetadataType;
+        $this->impliedMetadata->getType();
     }
 
     /**
@@ -109,13 +75,9 @@ abstract class AbstractClause extends AbstractFilter
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraints('impliedMetadataName', [
+        $metadata->addPropertyConstraints('impliedMetadata', [
             new Assert\NotBlank(),
-            new Assert\Type('string'),
-        ]);
-        $metadata->addPropertyConstraints('impliedMetadataType', [
-            new Assert\NotBlank(),
-            new Assert\NotEqualTo(NotIndexedMetadata::TYPE),
+            new Assert\Valid(array('traverse' => true)),
         ]);
     }
 }

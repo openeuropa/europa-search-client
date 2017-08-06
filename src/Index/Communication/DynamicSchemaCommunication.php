@@ -6,12 +6,12 @@
 
 namespace EC\EuropaSearch\Index\Communication;
 
-use EC\EuropaSearch\Index\Client\DocumentMetadata;
 use EC\EuropaSearch\Common\Exceptions\CommunicationException;
 use EC\EuropaSearch\Common\Exceptions\ConversionException;
 use EC\EuropaSearch\Common\Exceptions\TransmissionException;
 use EC\EuropaSearch\Common\ServiceConfiguration;
 use EC\EuropaSearch\Index\Client\IndexedDocument;
+use EC\EuropaSearch\Index\Communication\Providers\ParserProvider;
 use EC\EuropaSearch\Index\IndexServiceContainer;
 use EC\EuropaSearch\Index\Transmission\IndexingRequest;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -146,14 +146,15 @@ class DynamicSchemaCommunication implements CommunicationInterface
      */
     protected function convertMetadataToJSON($metadataList = array())
     {
-
         if (empty($metadataList)) {
             return false;
         }
 
+        $parserProvider = new ParserProvider();
         $convertList = array();
         foreach ($metadataList as $name => $metadata) {
-            $convertMetaData = (new MetadataTransformation($metadata))->getTransformedMetaData();
+            $parserName = $metadata->getParserName();
+            $convertMetaData = $parserProvider->get($parserName)->parse($metadata);
             if ($convertMetaData) {
                 $convertList = array_merge($convertList, $convertMetaData);
             }

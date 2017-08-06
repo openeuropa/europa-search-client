@@ -6,9 +6,11 @@
 
 namespace EC\EuropaSearch\Search\Client\Filters\FilterClauses;
 
+use EC\EuropaSearch\Common\DocumentMetadata\MetadataInterface;
 use EC\EuropaSearch\Common\DocumentMetadata\FloatMetadata;
 use EC\EuropaSearch\Common\DocumentMetadata\FullTextMetadata;
 use EC\EuropaSearch\Common\DocumentMetadata\IntegerMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\NotIndexedMetadata;
 use EC\EuropaSearch\Common\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Common\DocumentMetadata\URLMetadata;
 use EC\EuropaSearch\Common\DocumentMetadata\BooleanMetadata;
@@ -18,9 +20,9 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class ValuesClause.
+ * Clause to filter on one metadata.
  *
- * It represents a criteria based on several values to filter on one metadata.
+ * @inheritdoc
  *
  * @package EC\EuropaSearch\Search\Client\Filters\FilterClauses
  */
@@ -34,29 +36,14 @@ class ValuesClause extends AbstractClause
     private $testedValues;
 
     /**
-     * ValuesFilterCriteria constructor.
+     * ValuesClause constructor.
      *
-     * @param string $impliedMetadataName
-     *   The name of metadata implied in the filter.
-     * @param string $impliedMetadataType
-     *   The name of metadata implied in the filter.
-     *   - 'fulltext': for string that can be included in a full text search;
-     *   - 'uri': for URL or URI;
-     *   - 'string': for string that can be used to filter a search;
-     *   - 'int' or 'integer': for integer that can be used to filter a search;
-     *   - 'float': for float that can be used to filter a search;
-     *   - 'boolean': for boolean that can be used to filter a search;
-     *   - 'date': for date that can be used to filter a search;
-     *   - 'not_indexed': for metadata that need to be send to Europa Search
-     *      services but not indexed.
-     * @param array  $testedValues
-     *   The values tested with the filter
+     * @param \EC\EuropaSearch\Common\DocumentMetadata\MetadataInterface $impliedMetadata
+     *   The metadata implied in the filter.
      */
-    public function __construct($impliedMetadataName, $impliedMetadataType, array $testedValues)
+    public function __construct(MetadataInterface $impliedMetadata)
     {
-        $this->impliedMetadataName = $impliedMetadataName;
-        $this->impliedMetadataType = $impliedMetadataType;
-        $this->testedValues = $testedValues;
+        $this->impliedMetadata = $impliedMetadata;
     }
 
     /**
@@ -88,15 +75,10 @@ class ValuesClause extends AbstractClause
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('impliedMetadataType', new Assert\Choice([
-            FloatMetadata::TYPE,
-            IntegerMetadata::TYPE,
-            URLMetadata::TYPE,
-            FullTextMetadata::TYPE,
-            StringMetadata::TYPE,
-            BooleanMetadata::TYPE,
-            DateMetadata::TYPE,
-        ]));
+        $metadata->addPropertyConstraint('impliedMetadata', new Assert\Expression(array(
+            'expression' => 'this.getMetadataType() !== "'.NotIndexedMetadata::TYPE.'"',
+            'message' => 'The metadata is not supported for this kind of clause.',
+        )));
 
         $metadata->addPropertyConstraint('testedValues', new Assert\NotBlank());
 
@@ -111,7 +93,7 @@ class ValuesClause extends AbstractClause
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {
-        switch ($this->getImpliedMetadataType()) {
+        switch ($this->getMetadataType()) {
             case DateMetadata::TYPE:
                 $this->validateDateRelatedClause($context, $payload);
                 break;

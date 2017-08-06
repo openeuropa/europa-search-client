@@ -22,7 +22,8 @@ class URLMetadataTest extends AbstractTest
      */
     public function testURLMetadataValidationSuccess()
     {
-        $uRLMetadata = new URLMetadataTest('tested_data', array('http://metadata.com'));
+        $uRLMetadata = new URLMetadata('tested_data');
+        $uRLMetadata->setValues(array('http://metadata.com'));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -37,9 +38,10 @@ class URLMetadataTest extends AbstractTest
      */
     public function testURLMetadataValidationFailure()
     {
-        $uRLMetadata = new URLMetadata(null, array(true, '/blabla/test'));
-        $configuration = new ServiceConfiguration();
+        $uRLMetadata = new URLMetadata(null);
+        $uRLMetadata->setValues(array(true, '/blabla/test'));
 
+        $configuration = new ServiceConfiguration();
         $configuration->setServiceRoot('htp://false/test');
         $configuration->setApiKey(123);
         $configuration->setDatabase(2992);

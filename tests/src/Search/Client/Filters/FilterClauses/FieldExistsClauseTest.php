@@ -7,10 +7,12 @@
 
 namespace EC\EuropaSearchTests\Search\Client\Filters\FilterClauses;
 
+use EC\EuropaSearch\Common\DocumentMetadata\BooleanMetadata;
 use EC\EuropaSearch\Common\DocumentMetadata\DateMetadata;
 use EC\EuropaSearch\Common\DocumentMetadata\FloatMetadata;
 use EC\EuropaSearch\Common\DocumentMetadata\IntegerMetadata;
 use EC\EuropaSearch\Common\DocumentMetadata\NotIndexedMetadata;
+use EC\EuropaSearch\Common\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Search\Client\Filters\FilterClauses\FieldExistsClause;
 use EC\EuropaSearch\Search\SearchServiceContainer;
 use EC\EuropaSearch\Tests\AbstractTest;
@@ -29,11 +31,12 @@ class FieldExistsClauseTest extends AbstractTest
     public function testFieldExistsClauseValidationSuccess()
     {
         $clauses = array();
-        $clauses['test_data1'] = new FieldExistsClause('test_data1', 'string');
-        $clauses['test_data2'] = new FieldExistsClause('test_data2', 'boolean');
-        $clauses['test_data3'] = new FieldExistsClause('test_data3', IntegerMetadata::TYPE);
-        $clauses['test_data4'] = new FieldExistsClause('test_data4', DateMetadata::TYPE);
-        $clauses['test_data5'] = new FieldExistsClause('test_data5', FloatMetadata::TYPE);
+
+        $clauses['test_data1'] = new FieldExistsClause(new StringMetadata('test_data1'));
+        $clauses['test_data2'] = new FieldExistsClause(new BooleanMetadata('test_data2'));
+        $clauses['test_data3'] = new FieldExistsClause(new IntegerMetadata('test_data3'));
+        $clauses['test_data4'] = new FieldExistsClause(new DateMetadata('test_data4'));
+        $clauses['test_data5'] = new FieldExistsClause(new FloatMetadata('test_data5'));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new SearchServiceContainer($configuration))->get('validator');
@@ -52,24 +55,23 @@ class FieldExistsClauseTest extends AbstractTest
     public function testFieldExistsClauseValidationFailure()
     {
         $clauses = array();
-        $clauses['data1'] = new FieldExistsClause(1234, 'string');
-        $clauses['data2'] = new FieldExistsClause('test_data2', 'bool');
-        $clauses['data3'] = new FieldExistsClause('test_data3', NotIndexedMetadata::TYPE);
-        $clauses['data4'] = new FieldExistsClause('test_data4', 'not_indexed');
+        $clauses['data1'] = new FieldExistsClause(new BooleanMetadata(1234));
+        $clauses['data2'] = new FieldExistsClause(new NotIndexedMetadata('test_data2'));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new SearchServiceContainer($configuration))->get('validator');
 
 
         $expected = [
-            'impliedMetadataName_data1' => 'This value should be of type string.',
-            'impliedMetadataType_data2' => 'The value you selected is not a valid choice.',
-            'impliedMetadataType_data3' => 'This value should not be equal to "not_indexed".',
-            'impliedMetadataType_data4' => 'This value should not be equal to "not_indexed".',
+            'impliedMetadata.name_data1' => 'This value should be of type string.',
+            'impliedMetadata_data2' => 'The metadata is not supported for this kind of clause.',
         ];
         foreach ($clauses as $testedData => $clause) {
             $validationErrors = $validator->validate($clause);
             $violations = $this->getViolations($validationErrors);
+
+            $this->assertNotEmpty($violations, 'FieldExistsClause validation failed because it raises no error for: '.$testedData);
+
             foreach ($violations as $name => $violation) {
                 $name .= '_'.$testedData;
                 $this->assertEquals($violation, $expected[$name], 'FieldExistsClause validation constraints are not well defined for: '.$testedData);

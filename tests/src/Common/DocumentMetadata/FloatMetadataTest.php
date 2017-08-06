@@ -22,7 +22,8 @@ class FloatMetadataTest extends AbstractTest
      */
     public function testFloatMetadataValidationSuccess()
     {
-        $floatMetadata = new FloatMetadataTest('tested_float', array(1.2, 20.003, 20.0));
+        $floatMetadata = new FloatMetadata('tested_float');
+        $floatMetadata->setValues(array(1.2, 20.003, 20.0));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -37,10 +38,10 @@ class FloatMetadataTest extends AbstractTest
      */
     public function testFloatMetadataValidationFailure()
     {
+        $floatMetadata = new FloatMetadata(null);
+        $floatMetadata->setValues(array('0.2', 0));
 
-        $floatMetadata = new FloatMetadata(null, array('0.2', 0));
         $configuration = new ServiceConfiguration();
-
         $configuration->setServiceRoot('htp://false/test');
         $configuration->setApiKey(123);
         $configuration->setDatabase(2992);

@@ -23,15 +23,10 @@ class URLMetadata extends StringMetadata
      *
      * @param string $name
      *   The raw name of the metadata.
-     * @param array  $values
-     *   The values of the metadata.
-     *   If it is an array, it must contains string items only.
      */
-    public function __construct($name, array $values)
+    public function __construct($name)
     {
         $this->name = $name;
-        $this->values = $values;
-        $this->type = self::TYPE;
     }
 
     /**
@@ -53,5 +48,18 @@ class URLMetadata extends StringMetadata
     public static function getConstraints(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('values', new Assert\All(array('constraints' => array(new Assert\Url(), ), )));
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @return string
+     *   The name of the parse name as defined in the ParserProvider.
+     *
+     * @see EC\EuropaSearch\Index\Communication\Providers\ParserProvider
+     */
+    public static function getParserName()
+    {
+        return self::PARSER_NAME_PREFIX.'.'.self::TYPE;
     }
 }

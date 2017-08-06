@@ -22,7 +22,8 @@ class NotIndexedMetadataTest extends AbstractTest
      */
     public function testNotIndexedMetadataValidationSuccess()
     {
-        $notIndexedMetadata = new NotIndexedMetadataTest('tested_data', array('title is a string that is not indexed'));
+        $notIndexedMetadata = new NotIndexedMetadata('tested_data');
+        $notIndexedMetadata->setValues(array('title is a string that is not indexed'));
 
         $configuration = $this->getServiceConfigurationDummy();
         $validator = (new IndexServiceContainer($configuration))->get('validator');
@@ -37,10 +38,10 @@ class NotIndexedMetadataTest extends AbstractTest
      */
     public function testNotIndexedMetadataValidationFailure()
     {
+        $notIndexedMetadata = new NotIndexedMetadata(null);
+        $notIndexedMetadata->setValues(array(true, 0));
 
-        $notIndexedMetadata = new NotIndexedMetadata(null, array(true, 0));
         $configuration = new ServiceConfiguration();
-
         $configuration->setServiceRoot('htp://false/test');
         $configuration->setApiKey(123);
         $configuration->setDatabase(2992);
