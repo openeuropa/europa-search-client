@@ -28,7 +28,7 @@ class WebContentConverter implements MessageConverterInterface
      */
     public function convertMessage(ValidatableMessageInterface $message, WSConfigurationInterface $configuration)
     {
-        throw new ProxyException('The "convertMessage()" method is not supported.');
+        throw new ProxyException('The "convertMessage()" method is not supported.', 283);
     }
 
     /**

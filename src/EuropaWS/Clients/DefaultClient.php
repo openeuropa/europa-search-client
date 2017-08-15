@@ -88,13 +88,12 @@ class DefaultClient implements ClientInterface
     public function validateMessage(ValidatableMessageInterface $message)
     {
         $violations = $this->validator->validate($message);
-
-        if (!empty($violations)) {
+        if (!empty($violations) && ($violations->count() != 0)) {
             $errorMessages = array();
             foreach ($violations as $violation) {
                 $errorMessages[$violation->getPropertyPath()] = $violation->getMessage();
             }
-            $validException =  new ValidationException('The message submitted is invalid');
+            $validException =  new ValidationException('The message submitted is invalid', 282);
             $validException->setValidationErrors($errorMessages);
 
             throw $validException;

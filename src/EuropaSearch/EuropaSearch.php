@@ -35,13 +35,14 @@ class EuropaSearch extends ClientContainerFactory
      */
     public function setWSConfig(EuropaSearchConfig $config)
     {
-        static::$container->set('europaSearch.ws.settings', $config);
+        $this->buildClientContainer();
+        $this->container->set('europaSearch.ws.settings', $config);
     }
 
     /**
      * Gets the indexing client dedicated to web contents.
      *
-     * @return \EC\EuropaWS\Clients\ClientInterface
+     * @return \EC\EuropaSearch\Clients\IndexingClient
      *   The indexing client.
      *
      * @throws ClientInstantiationException

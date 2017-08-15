@@ -155,7 +155,11 @@ class ProxyProvider
 
             return $convertedMessage;
         } catch (Exception $e) {
-            throw new ProxyException('The conversion process for the message failed!', $e);
+            throw new ProxyException(
+                'The conversion process for the message failed!',
+                283,
+                $e
+            );
         }
     }
 
@@ -187,7 +191,11 @@ class ProxyProvider
 
             return $convertedMessage;
         } catch (Exception $e) {
-            throw new ProxyException('The conversion process of the message with its components failed!', $e);
+            throw new ProxyException(
+                'The conversion process of the message with its components failed!',
+                283,
+                $e
+            );
         }
     }
 
@@ -219,7 +227,11 @@ class ProxyProvider
 
             return $convertedComponents;
         } catch (Exception $e) {
-            throw new ProxyException('The conversion process of the components failed!', $e);
+            throw new ProxyException(
+                'The conversion process of the components failed!',
+                283,
+                $e
+            );
         }
     }
 
@@ -247,11 +259,23 @@ class ProxyProvider
 
             return $convertedComponent;
         } catch (ServiceCircularReferenceException $scre) {
-            throw new ClientInstantiationException('The conversion of the component failed because of client implementation problem!', $scre);
+            throw new ClientInstantiationException(
+                'The conversion of the component failed because of client implementation problem!',
+                281,
+                $scre
+            );
         } catch (ServiceNotFoundException $snfe) {
-            throw new ClientInstantiationException('The converter for the component has not been found!', $snfe);
+            throw new ClientInstantiationException(
+                'The converter for the component has not been found!',
+                281,
+                $snfe
+            );
         } catch (Exception $e) {
-            throw new ProxyException('The conversion process of the component failed!', $e);
+            throw new ProxyException(
+                'The conversion process of the component failed!',
+                283,
+                $e
+            );
         }
     }
 
@@ -281,7 +305,11 @@ class ProxyProvider
             // TODO Waiting the actual implementation, we return directly the dummy string.
             return new StringResponseMessage($response);
         } catch (\Exception $e) {
-            throw new ConnectionException('A problem occurred with the connection to the web service.', $e);
+            throw new ConnectionException(
+                'A problem occurred with the connection to the web service.',
+                289,
+                $e
+            );
         }
     }
 }

@@ -48,9 +48,7 @@ class ClientContainerFactory
      */
     public function getClientContainer()
     {
-        if (is_null($this->container)) {
-            $this->buildClientContainer();
-        }
+        $this->buildClientContainer();
 
         return $this->container;
     }
@@ -78,9 +76,9 @@ class ClientContainerFactory
     public function getClient($clientId)
     {
         try {
-            return $this->container->get($clientId);
+            return $this->getClientContainer()->get($clientId);
         } catch (\Exception $e) {
-            throw new ClientInstantiationException('The client is not retrieved.', $e);
+            throw new ClientInstantiationException('The client is not retrieved.', 281, $e);
         }
     }
 
@@ -92,6 +90,11 @@ class ClientContainerFactory
      */
     protected function buildClientContainer()
     {
+
+        if (!is_null($this->container)) {
+            return;
+        }
+
         $container = new ContainerBuilder();
         try {
             //Add the default validator implementation
@@ -101,7 +104,7 @@ class ClientContainerFactory
 
             $this->container = $container;
         } catch (Exception $e) {
-            throw new ClientInstantiationException('The client container instantiation failed.', $e);
+            throw new ClientInstantiationException('The client container instantiation failed.', 281, $e);
         }
     }
 }
