@@ -3,7 +3,7 @@
 It is the central point of the whole mechanism because it is responsible for:
 - The configuration loading
 - The dependency injection management
-- Providing a default validator
+- Providing a default ValidatorBuilder
 
 ## Responsibilities
 
@@ -36,40 +36,32 @@ It plays the dependency injection container based on
 [Symfony DependencyInjection Component](https://symfony.com/doc/current/components/dependency_injection.html)
 whose only responsibility is to build and provide ready-to-use, fully configured services.
 
-The different service providers (I.E. `EC\EuropaWS\Clients\ClientProvider`
-and `EC\EuropaWS\Proxies\ProxyProvider`) exploit it in 
+The proxy provider (I.E. `EC\EuropaWS\Proxies\ProxyProvider`) exploits it in 
 order to map the Message and their component to their proxy class in charge to 
 transform them and communicate them to the transport layer of the client that will send the
 request to web service.
 
-### Provide a default validator
+### Provide a default ValidatorBuilder
 
-The factory proposes a convenient method that supplies a 
-`Symfony\Component\Validator\Validator\RecursiveValidator` object; instantiated itself by the 
-`EC\EuropaWS\Common\ValidatorProvider` object.
+By default, the factory supplies a 
+`Symfony\Component\Validator\ValidatorBuilder` object; instantiated itself by the 
+`EC\EuropaWS\Common\DefaultValidatorBuilder` object.
 
-It can be used to validate any object that exposes a `getConstraints()` method.
+It declares that validation constraints can be retrieved from a `getConstraints()` 
+method declared in the object in order to validate them.
 
 ## How to extend it?
 
-The class could be used "as is" in any client project, but it is recommend to extend it in order 
-to expose convenient methods for the client library developers.
-
-An example of these methods is the definition of shortcut to the `ClientInterface` implementation 
-of the library; I.E. replace this:
+TODO
 
 ```php
-$factory = new ClientContainerFactory();
-$provider = new ClientProvider($factory);
-
-$client = $provider->getClient('client.dummy');
+TODO
 ```
 
 By:
 
 ```php
-$factory = new ClientContainerFactory();
-$client = $factory->getDummyClient();
+TODO
 
 ```
 

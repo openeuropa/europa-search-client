@@ -28,28 +28,28 @@ class DefaultClient implements ClientInterface
      *
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
-    private $validator;
+    protected $validator;
 
     /**
      * The proxy to use for convert the sent message.
      *
      * @var \EC\EuropaWS\Proxies\ProxyProvider
      */
-    private $proxy;
+    protected $proxy;
 
     /**
      * The transporter to eventually send the request with the message.
      *
      * @var \EC\EuropaWS\Transporters\TransporterInterface
      */
-    private $transporter;
+    protected $transporter;
 
     /**
      * The web service configuration.
      *
      * @var \EC\EuropaWS\Common\WSConfigurationInterface
      */
-    private $WSConfiguration;
+    protected $WSConfiguration;
 
     /**
      * DefaultClient constructor.

@@ -7,6 +7,7 @@
 
 namespace EC\EuropaWS\Proxies;
 
+use EC\EuropaWS\Common\WSConfigurationInterface;
 use EC\EuropaWS\Messages\ValidatableMessageInterface;
 use EC\EuropaWS\Messages\RequestInterface;
 
@@ -26,11 +27,13 @@ interface MessageConverterInterface
      *
      * @param ValidatableMessageInterface $message
      *   The message to convert.
+     * @param WSConfigurationInterface    $configuration
+     *   The Web service configuration.
      *
      * @return RequestInterface
      *   The converted message ready to be sent.
      */
-    public function convertMessage(ValidatableMessageInterface $message);
+    public function convertMessage(ValidatableMessageInterface $message, WSConfigurationInterface $configuration);
 
     /**
      * Converts a message and integrated the converted components in it.
@@ -40,9 +43,11 @@ interface MessageConverterInterface
      * @param array                       $convertedComponent
      *   Array of components that have already been converted in a
      *   previous process.
+     * @param WSConfigurationInterface    $configuration
+     *   The Web service configuration.
      *
      * @return RequestInterface
      *   The converted message (components included) ready to be sent.
      */
-    public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent);
+    public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent, WSConfigurationInterface $configuration);
 }

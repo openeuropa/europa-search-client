@@ -7,6 +7,7 @@
 
 namespace EC\EuropaWS\Proxies;
 
+use EC\EuropaWS\Common\WSConfigurationInterface;
 use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Exceptions\ConnectionException;
 use EC\EuropaWS\Exceptions\ProxyException;
@@ -48,11 +49,16 @@ class ProxyProvider
      */
     const COMPONENT_ID_PREFIX = 'componentProxy.';
 
+    private $WSConfiguration;
+
     /**
      * ProxyProvider constructor.
+     *
+     * @param WSConfigurationInterface $WSConfiguration
      */
-    public function __construct()
+    public function __construct(WSConfigurationInterface $WSConfiguration)
     {
+        $this->WSConfiguration = $WSConfiguration;
 
         if (is_null(static::$container)) {
             static::$container = new ContainerBuilder();
@@ -145,7 +151,7 @@ class ProxyProvider
         try {
             $converterId = $message->getConverterIdentifier();
             $converter = static::$container->get($converterId);
-            $convertedMessage = $converter->convertMessage($converterId);
+            $convertedMessage = $converter->convertMessage($converter, $this->WSConfiguration);
 
             return $convertedMessage;
         } catch (Exception $e) {
@@ -173,7 +179,11 @@ class ProxyProvider
         try {
             $converterId = $message->getConverterIdentifier();
             $converter = static::$container->get($converterId);
-            $convertedMessage = $converter->convertMessageWithComponents($converterId, $convertedComponent);
+            $convertedMessage = $converter->convertMessageWithComponents(
+                $message,
+                $convertedComponent,
+                $this->WSConfiguration
+            );
 
             return $convertedMessage;
         } catch (Exception $e) {
@@ -233,7 +243,7 @@ class ProxyProvider
         try {
             $converterId = $component->getConverterIdentifier();
             $converter = static::$container->get($converterId);
-            $convertedComponent = $converter->convertComponent($converterId);
+            $convertedComponent = $converter->convertComponent($component);
 
             return $convertedComponent;
         } catch (ServiceCircularReferenceException $scre) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Contains EC\EuropaWS\Tests\Dummies\Proxies\MessageConverterDummy
@@ -6,6 +7,7 @@
 
 namespace EC\EuropaWS\Tests\Dummies\Proxies;
 
+use EC\EuropaWS\Common\WSConfigurationInterface;
 use EC\EuropaWS\Messages\ValidatableMessageInterface;
 use EC\EuropaWS\Proxies\MessageConverterInterface;
 
@@ -21,7 +23,7 @@ class MessageConverterDummy implements MessageConverterInterface
     /**
      * {@inheritDoc}
      */
-    public function convertMessage(ValidatableMessageInterface $message)
+    public function convertMessage(ValidatableMessageInterface $message, WSConfigurationInterface $configuration)
     {
         throw new \Exception('Not implemented, it is just for testing the class itself.');
     }
@@ -29,7 +31,7 @@ class MessageConverterDummy implements MessageConverterInterface
     /**
      * {@inheritDoc}
      */
-    public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent)
+    public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent, WSConfigurationInterface $configuration)
     {
         throw new \Exception('Not implemented, it is just for testing the class itself.');
     }

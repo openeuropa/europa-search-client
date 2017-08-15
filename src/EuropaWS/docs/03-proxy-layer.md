@@ -24,7 +24,7 @@ regardless of the chosen implementation.
 
 ### Treating the service response
 
-It still is in the `communicateRequest()` method the treatment occurs.
+It still is in the `snedRequest()` method the treatment occurs.
 
 When the service responses to the request, the method process catches it and 
 treat to return it in `MessageInterface` object it communicates to the [client layer](02-client-layer.md)

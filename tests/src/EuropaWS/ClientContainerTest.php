@@ -7,14 +7,11 @@
 
 namespace EC\EuropaWS\Tests;
 
+use EC\EuropaWS\Common\DefaultValidatorBuilder;
 use EC\EuropaWS\Proxies\ProxyProvider;
-use EC\EuropaWS\Tests\Dummies\ClientContainerFactoryDummy;
 use EC\EuropaWS\Tests\Dummies\Clients\ClientDummy;
 use EC\EuropaWS\Tests\Dummies\WSConfigurationDummy;
 use EC\EuropaWS\Transporters\DummyTransporter;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Validator\Validator\RecursiveValidator;
 
 /**
  * Class ClientContainerTest.
@@ -47,5 +44,9 @@ class ClientContainerTest extends AbstractWSTest
         // Test WS configuration.
         $settings = $container->get('ws.settings.default');
         $this->assertInstanceOf(WSConfigurationDummy::class, $settings, 'The returned settings object is not a WSConfigurationDummy instance.');
+
+        // Test Validaot configuration.
+        $settings = $container->get('validator.default');
+        $this->assertInstanceOf(DefaultValidatorBuilder::class, $settings, 'The returned validator builder object is not a DefaultValidatorBuilder instance.');
     }
 }
