@@ -2,21 +2,21 @@
 
 /**
  * @file
- * Contains EC\EuropaWS\ProxySubmissibleInterface.
+ * Contains EC\EuropaWS\ConvertibleInterface.
  */
 
 namespace EC\EuropaWS;
 
 /**
- * Interface ProxySubmissibleInterface.
+ * Interface ConvertibleInterface.
  *
- * Implementing this interface allows an object to be transformed by the
+ * Implementing this interface allows an object to be converted by the
  * Library mechanism into a format that can be sent to the targeted web
  * service.
  *
  * @package EC\EuropaWS
  */
-interface ProxySubmissibleInterface
+interface ConvertibleInterface
 {
     /**
      * Gets the identifier of the proxy object.
@@ -28,5 +28,5 @@ interface ProxySubmissibleInterface
      * @return string
      *   The identifier.
      */
-    public function getProxyIdentifier();
+    public function getConverterIdentifier();
 }

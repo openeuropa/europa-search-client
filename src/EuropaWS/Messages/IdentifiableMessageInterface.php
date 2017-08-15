@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains EC\EuropaWS\Messages\MessageInterface.
+ * Contains EC\EuropaWS\Messages\ValidatableMessageInterface.
  */
 
 namespace EC\EuropaWS\Messages;
@@ -10,12 +10,12 @@ namespace EC\EuropaWS\Messages;
 /**
  * Interface IdentifiableMessageInterface.
  *
- * It extends MessageInterface to allow objects to convey an identifier
+ * It extends ValidatableMessageInterface to allow objects to convey an identifier
  * used by the system and the targeted web service.
  *
  * @package EC\EuropaWS\Messages
  */
-interface IdentifiableMessageInterface extends MessageInterface
+interface IdentifiableMessageInterface extends ValidatableMessageInterface
 {
 
     /**

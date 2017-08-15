@@ -1,22 +1,23 @@
 <?php
+
 /**
  * @file
- * Contains EC\EuropaWS\Tests\Dummies\Proxies\ComponentProxyDummy.
+ * Contains EC\EuropaWS\Tests\Dummies\Proxies\ComponentConverterDummy.
  */
 
 namespace EC\EuropaWS\Tests\Dummies\Proxies;
 
 use EC\EuropaWS\Messages\Components\ComponentInterface;
-use EC\EuropaWS\Proxies\ComponentProxyInterface;
+use EC\EuropaWS\Proxies\ComponentConverterInterface;
 
 /**
- * Class ComponentProxyDummy
+ * Class ComponentConverterDummy
  *
  * AbstractProxy extension for unit tests around the .
  *
  * @package EC\EuropaWS\Tests\Dummies\Proxies
  */
-class ComponentProxyDummy implements ComponentProxyInterface
+class ComponentConverterDummy implements ComponentConverterInterface
 {
 
     /**

@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Contains EC\EuropaWS\Messages\MessageInterface\ComponentInterface.
+ * Contains EC\EuropaWS\Messages\ValidatableMessageInterface\ComponentInterface.
  */
 
 namespace EC\EuropaWS\Messages\Components;
 
-use EC\EuropaWS\ProxySubmissibleInterface;
+use EC\EuropaWS\ConvertibleInterface;
 use EC\EuropaWS\ValidatableInterface;
 
 /**
@@ -18,7 +18,7 @@ use EC\EuropaWS\ValidatableInterface;
  *
  * @package EC\EuropaWS\Messages\Components
  */
-interface ComponentInterface extends ValidatableInterface, ProxySubmissibleInterface
+interface ComponentInterface extends ValidatableInterface, ConvertibleInterface
 {
 
 }

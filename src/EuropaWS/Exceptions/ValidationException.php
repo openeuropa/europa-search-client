@@ -58,8 +58,21 @@ class ValidationException extends Exception
      * @param array $validationErrors
      *   Array of string containing error messages.
      */
-    public function setValidationErrors($validationErrors)
+    public function setValidationErrors(array $validationErrors)
     {
         $this->validationErrors = $validationErrors;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString()
+    {
+        $message = $this->getMessage().PHP_EOL;
+        foreach ($this->validationErrors as $error) {
+            $message .= $error.PHP_EOL;
+        }
+
+        return $message;
     }
 }
