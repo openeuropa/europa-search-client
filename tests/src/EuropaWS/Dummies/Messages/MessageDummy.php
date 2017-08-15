@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Contains EC\EuropaWS\Tests\Dummies\Messages\MessageDummy.

@@ -6,7 +6,7 @@ It is built around:
 - **Messages**: Container objects for messages transmitted by the system to the client.<br />
  They are also responsible to validate the message content and to declare which 
  conversion mechanism to use in the proxy layer (More info [here](03-proxy-layer.md)).<br />
- They implement the `EC\EuropaWS\Messages\MessageInterface` or if they must convey a message with 
+ They implement the `EC\EuropaWS\Messages\ValidatableMessageInterface` or if they must convey a message with 
  an identifier used by the service, they can implement `EC\EuropaWS\IdentifiableMessageInterface`. 
  
 - **Components**: Messages can be made of components; IE. attribute objects that represent a complex 

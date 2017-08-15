@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Contains EC\EuropaWS\Tests\Dummies\Clients\ClientDummy.
@@ -6,8 +7,7 @@
 
 namespace EC\EuropaWS\Tests\Dummies\Clients;
 
-use EC\EuropaWS\Clients\ClientInterface;
-use EC\EuropaWS\Messages\MessageInterface;
+use EC\EuropaWS\Clients\DefaultClient;
 
 /**
  * Class ClientDummy.
@@ -16,26 +16,7 @@ use EC\EuropaWS\Messages\MessageInterface;
  *
  * @package EC\EuropaWS\Tests\Dummies\Clients
  */
-class ClientDummy implements ClientInterface
+class ClientDummy extends DefaultClient
 {
 
-    /**
-     * {@inheritdoc}
-     *
-     * @internal Not implemented; used only for some unit tests.
-     */
-    public function sendMessage(MessageInterface $message)
-    {
-        throw new \Exception('Not implemented, it is just for testing the class itself.');
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @internal Not implemented; used only for some unit tests.
-     */
-    public function validateMessage(MessageInterface $message)
-    {
-        throw new \Exception('Not implemented, it is just for testing the class itself.');
-    }
 }

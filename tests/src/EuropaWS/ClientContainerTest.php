@@ -7,10 +7,11 @@
 
 namespace EC\EuropaWS\Tests;
 
-use EC\EuropaWS\Tests\Dummies\ClientContainerFactoryDummy;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Validator\Validator\RecursiveValidator;
+use EC\EuropaWS\Common\DefaultValidatorBuilder;
+use EC\EuropaWS\Proxies\ProxyProvider;
+use EC\EuropaWS\Tests\Dummies\Clients\ClientDummy;
+use EC\EuropaWS\Tests\Dummies\WSConfigurationDummy;
+use EC\EuropaWS\Transporters\DummyTransporter;
 
 /**
  * Class ClientContainerTest.
@@ -19,30 +20,33 @@ use Symfony\Component\Validator\Validator\RecursiveValidator;
  *
  * @package EC\EuropaWS\Test
  */
-class ClientContainerTest extends TestCase
+class ClientContainerTest extends AbstractWSTest
 {
     /**
-     * Tests that a ClientContainer gets correctly the client container.
+     * Tests that a services config is correctly retrieved in the container.
      */
     public function testClientContainerInstantiation()
     {
-        $factory = new ClientContainerFactoryDummy();
-        $clientContainer = $factory->getClientContainer();
-        $clientContainer2 = $factory->getClientContainer();
+        $container = $this->getContainer();
 
-        $this->assertInstanceOf(ContainerBuilder::class, $clientContainer, 'The returned container is not a ClientContainerDummy instance.');
+        // Test Client instance.
+        $client = $container->get('client.dummy');
+        $this->assertInstanceOf(ClientDummy::class, $client, 'The returned client is not a ClientDummy instance.');
 
-        $this->assertEquals($clientContainer, $clientContainer2, '"getClientContainer()" does not return a singleton as expected.');
-    }
+        // Test ProxyProvider.
+        $proxy = $container->get('proxyProvider.default');
+        $this->assertInstanceOf(ProxyProvider::class, $proxy, 'The returned proxy provider is not a ProxyProvider instance.');
 
-    /**
-     * Tests if the validator returned client container is the expected class.
-     */
-    public function testDefaultValidatorClass()
-    {
-        $factory = new ClientContainerFactoryDummy();
-        $validator = $factory->getDefaultValidator();
+        // Test Transporter.
+        $transporter = $container->get('transporter.default');
+        $this->assertInstanceOf(DummyTransporter::class, $transporter, 'The returned transporter is not a DummyTransporter instance.');
 
-        $this->assertInstanceOf(RecursiveValidator::class, $validator, 'The returned validator is not a RecursiveValidator instance.');
+        // Test WS configuration.
+        $settings = $container->get('ws.settings.default');
+        $this->assertInstanceOf(WSConfigurationDummy::class, $settings, 'The returned settings object is not a WSConfigurationDummy instance.');
+
+        // Test Validaot configuration.
+        $settings = $container->get('validator.default');
+        $this->assertInstanceOf(DefaultValidatorBuilder::class, $settings, 'The returned validator builder object is not a DefaultValidatorBuilder instance.');
     }
 }

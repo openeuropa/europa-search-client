@@ -7,10 +7,21 @@
 
 namespace EC\EuropaWS\Proxies;
 
-use EC\EuropaWS\ClientContainerFactory;
+use EC\EuropaWS\Common\WSConfigurationInterface;
 use EC\EuropaWS\Exceptions\ClientInstantiationException;
+use EC\EuropaWS\Exceptions\ConnectionException;
+use EC\EuropaWS\Exceptions\ProxyException;
+use EC\EuropaWS\Exceptions\WebServiceErrorException;
 use EC\EuropaWS\Messages\Components\ComponentInterface;
 use EC\EuropaWS\Messages\MessageInterface;
+use EC\EuropaWS\Messages\StringResponseMessage;
+use EC\EuropaWS\Messages\ValidatableMessageInterface;
+use EC\EuropaWS\Messages\RequestInterface;
+use EC\EuropaWS\Transporters\TransporterInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 /**
  * Class ProxyProvider.
@@ -22,11 +33,11 @@ use EC\EuropaWS\Messages\MessageInterface;
 class ProxyProvider
 {
     /**
-     * The client container to use in the different method.
+     * The proxy container to use in the different methods.
      *
-     * @var \EC\EuropaWS\ClientContainer
+     * @var \Symfony\Component\DependencyInjection\ContainerBuilder
      */
-    private $factory;
+    private static $container = null;
 
     /**
      * Prefix for identifier of service used as message proxy.
@@ -38,63 +49,267 @@ class ProxyProvider
      */
     const COMPONENT_ID_PREFIX = 'componentProxy.';
 
+    private $WSConfiguration;
+
     /**
      * ProxyProvider constructor.
      *
-     * @param ClientContainerFactory $factory
-     *   (The client container containing the client services
-     *   configuration.
+     * @param WSConfigurationInterface $WSConfiguration
      */
-    public function __construct(ClientContainerFactory $factory)
+    public function __construct(WSConfigurationInterface $WSConfiguration)
     {
-        $this->factory = $factory;
-    }
+        $this->WSConfiguration = $WSConfiguration;
 
-    /**
-     * Gets the Proxy object needed to treat the message.
-     *
-     * @param MessageInterface $message
-     *   The message to treat.
-     *
-     * @return ProxyInterface $proxy
-     *   The proxy object that will treat the message.
-     *
-     * @throws ClientInstantiationException
-     *  Raised if the proxy object is not retrieved.
-     */
-    public function getMessageProxy(MessageInterface $message)
-    {
-
-        try {
-            $proxyServiceId = $message->getProxyIdentifier();
-
-            return $this->factory->getClientContainer()->get($proxyServiceId);
-        } catch (\Exception $e) {
-            throw new ClientInstantiationException('The message proxy has not been retrieved', $e);
+        if (is_null(static::$container)) {
+            static::$container = new ContainerBuilder();
         }
     }
 
     /**
-     * Gets the Proxy object needed to treat the component.
+     * Adds a message converter to the object registry.
      *
-     * @param ComponentInterface $component
-     *   The component to treat.
-     *
-     * @return ComponentProxyInterface $proxy
-     *   The proxy object that will treat the component.
-     *
-     * @throws ClientInstantiationException
-     *  Raised if the proxy object is not retrieved.
+     * @param string                    $converterId
+     *   The id of the converter into the registry.
+     * @param MessageConverterInterface $converter
+     *   The message converter to add.
      */
-    public function getComponentProxy(ComponentInterface $component)
+    public function defineMessageConverter($converterId, MessageConverterInterface $converter)
+    {
+
+        static::$container->register($converterId, $converter);
+    }
+
+    /**
+     * Adds a component converter to the object registry.
+     *
+     * @param string                      $converterId
+     *   The id of the converter into the registry.
+     * @param ComponentConverterInterface $converter
+     *   The component converter to add.
+     */
+    public function defineComponentConverter($converterId, ComponentConverterInterface $converter)
+    {
+
+        static::$container->register($converterId, $converter);
+    }
+
+    /**
+     * Gets the id list of all registered converter instances.
+     *
+     * @return array
+     *   The id list of the registered converter instances.
+     *
+     * @internal Do not used, it is designed for unit tests only.
+     */
+    public function getConverterIdList()
+    {
+        $servicelist = static::$container->getServiceIds();
+
+        $converterList = array_filter($servicelist, function ($value) {
+            $isMessageId = (strpos($value, self::MESSAGE_ID_PREFIX) === 0);
+            $isComponentId = (strpos($value, self::COMPONENT_ID_PREFIX) === 0);
+
+            return ($isMessageId || $isComponentId);
+        });
+
+        return $converterList;
+    }
+
+    /**
+     * Gets a specific converter instances.
+     *
+     * @param string $convertId
+     *   The converter registry id.
+     *
+     * @return mixed
+     *   The converter instance.
+     *
+     * @internal Do not used, it is designed for unit tests only.
+     */
+    public function getConverterObject($convertId)
+    {
+        $converterObject = static::$container->get($convertId);
+
+        return $converterObject;
+    }
+
+    /**
+     * Converts the message.
+     *
+     * @param ValidatableMessageInterface $message
+     *   The message to convert.
+     *
+     * @return mixed
+     *   The converted message.
+     *
+     * @throws ProxyException
+     *   Raised if a problem occurred during the conversion process.
+     */
+    public function convertMessage(ValidatableMessageInterface $message)
     {
 
         try {
-            $proxyServiceId = $component->getProxyIdentifier();
+            $converterId = $message->getConverterIdentifier();
+            $converter = static::$container->get($converterId);
+            $convertedMessage = $converter->convertMessage($converter, $this->WSConfiguration);
 
-            return $this->factory->getClientContainer()->get($proxyServiceId);
+            return $convertedMessage;
+        } catch (Exception $e) {
+            throw new ProxyException(
+                'The conversion process for the message failed!',
+                283,
+                $e
+            );
+        }
+    }
+
+    /**
+     * Converts the message and integrate their converted components in it.
+     *
+     * @param ValidatableMessageInterface $message
+     *   The message to convert.
+     * @param array                       $convertedComponent
+     *   The list of converted message components to integrate.
+     *
+     * @return mixed
+     *   The converted message.
+     *
+     * @throws ProxyException
+     *   Raised if a problem occurred during the conversion process.
+     */
+    public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent)
+    {
+
+        try {
+            $converterId = $message->getConverterIdentifier();
+            $converter = static::$container->get($converterId);
+            $convertedMessage = $converter->convertMessageWithComponents(
+                $message,
+                $convertedComponent,
+                $this->WSConfiguration
+            );
+
+            return $convertedMessage;
+        } catch (Exception $e) {
+            throw new ProxyException(
+                'The conversion process of the message with its components failed!',
+                283,
+                $e
+            );
+        }
+    }
+
+    /**
+     * Converts a list of components.
+     *
+     * @param array $components
+     *   The components to convert.
+     *
+     * @return array
+     *   Array of the converted components or an empty one if the submitted
+     *   list is empty.
+     *
+     * @throws ProxyException
+     *   Raised if a problem occurred during the conversion process.
+     */
+    public function convertComponents(array $components)
+    {
+
+        try {
+            $convertedComponents = array();
+            if (empty($components)) {
+                return $convertedComponents;
+            }
+
+            foreach ($components as $key => $component) {
+                $convertedComponents[$key] = $this->convertComponent($component);
+            }
+
+            return $convertedComponents;
+        } catch (Exception $e) {
+            throw new ProxyException(
+                'The conversion process of the components failed!',
+                283,
+                $e
+            );
+        }
+    }
+
+    /**
+     * Converts a component.
+     *
+     * @param ComponentInterface $component
+     *   The component to convert.
+     *
+     * @return mixed
+     *   The converted component.
+     *
+     * @throws ClientInstantiationException
+     *   Raised if the process failed because of the client instantiation problem.
+     * @throws ProxyException
+     *   Raised if a problem occured during the conversion process.
+     */
+    public function convertComponent(ComponentInterface $component)
+    {
+
+        try {
+            $converterId = $component->getConverterIdentifier();
+            $converter = static::$container->get($converterId);
+            $convertedComponent = $converter->convertComponent($component);
+
+            return $convertedComponent;
+        } catch (ServiceCircularReferenceException $scre) {
+            throw new ClientInstantiationException(
+                'The conversion of the component failed because of client implementation problem!',
+                281,
+                $scre
+            );
+        } catch (ServiceNotFoundException $snfe) {
+            throw new ClientInstantiationException(
+                'The converter for the component has not been found!',
+                281,
+                $snfe
+            );
+        } catch (Exception $e) {
+            throw new ProxyException(
+                'The conversion process of the component failed!',
+                283,
+                $e
+            );
+        }
+    }
+
+    /**
+     * Sends the request to teh web service via the Transporter layer.
+     *
+     * @param RequestInterface     $request
+     *   The request to send.
+     * @param TransporterInterface $transporter
+     *   The transporter in charge of the actual sending.
+     *
+     * @return MessageInterface
+     *   The response from the service.
+     *
+     * @throws ConnectionException
+     *   Raised if a connection problem occurred with the web service.
+     * @throws WebServiceErrorException
+     *   Raised if a problem occurred with the web service call. That can be an
+     *   HTTP error or an error returned by the webd service itself.
+     */
+    public function sendRequest(RequestInterface $request, TransporterInterface $transporter)
+    {
+
+        try {
+            $response = $transporter->send($request);
+
+            // TODO Waiting the actual implementation, we return directly the dummy string.
+            return new StringResponseMessage($response);
         } catch (\Exception $e) {
-            throw new ClientInstantiationException('The component proxy has not been retrieved', $e);
+            throw new ConnectionException(
+                'A problem occurred with the connection to the web service.',
+                289,
+                $e
+            );
         }
     }
 }

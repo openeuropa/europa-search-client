@@ -1,0 +1,38 @@
+parameters:
+  ws.settings.param.config:
+    URL: 'http://www.dummy.com/ws'
+    APIKey: 'abcd1234'
+    database: 'abcd'
+
+services:
+  europaSearch.ws.settings:
+    class: EC\EuropaSearch\EuropaSearchConfig
+    arguments: ['%ws.settings.param.config%']
+  transporter:
+      class: EC\EuropaWS\Transporters\DummyTransporter
+      arguments: ['@europaSearch.ws.settings']
+  messageProxy.indexing.webContent:
+      class: EC\EuropaSearch\Proxies\Index\WebContentConverter
+  componentProxy.metadata.boolean:
+      class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\BooleanMetadataConverter
+  componentProxy.metadata.date:
+      class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\DateMetadataConverter
+  componentProxy.metadata.numeric:
+      class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\DefaultMetadataConverter
+  componentProxy.metadata.notIndexed:
+      class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\DefaultMetadataConverter
+  componentProxy.metadata.string:
+      class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\DefaultMetadataConverter
+  proxyProvider:
+      class:  EC\EuropaWS\Proxies\ProxyProvider
+      arguments: ['@europaSearch.ws.settings']
+      calls:
+          - [defineMessageConverter, ['messageProxy.indexing.webContent', '@messageProxy.indexing.webContent']]
+          - [defineComponentConverter, ['componentProxy.metadata.boolean', '@componentProxy.metadata.boolean']]
+          - [defineComponentConverter, ['componentProxy.metadata.date', '@componentProxy.metadata.date']]
+          - [defineComponentConverter, ['componentProxy.metadata.numeric', '@componentProxy.metadata.numeric']]
+          - [defineComponentConverter, ['componentProxy.metadata.notIndexed', '@componentProxy.metadata.notIndexed']]
+          - [defineComponentConverter, ['componentProxy.metadata.string', '@componentProxy.metadata.string']]
+  client.index.webDocument:
+    class: EC\EuropaSearch\Clients\IndexingClient
+    arguments: ['@validator.default', '@proxyProvider', '@transporter', '@europaSearch.ws.settings']

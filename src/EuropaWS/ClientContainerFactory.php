@@ -6,13 +6,12 @@
 
 namespace EC\EuropaWS;
 
+use EC\EuropaWS\Clients\ClientInterface;
 use EC\EuropaWS\Exceptions\ClientInstantiationException;
-use EC\EuropaWS\Common\ValidatorProvider;
+use EC\EuropaWS\Common\DefaultValidatorBuilder;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
@@ -32,7 +31,7 @@ class ClientContainerFactory
      *
      * @var \EC\EuropaWS\ClientContainer
      */
-    protected static $container;
+    protected $container;
 
     /**
      * Path of the repository path whith services configuration file.
@@ -42,16 +41,6 @@ class ClientContainerFactory
     protected $configRepoPath;
 
     /**
-     * Gets the default validator embedded in the framework.
-     *
-     * @return mixed
-     */
-    public function getDefaultValidator()
-    {
-        return $this->getClientContainer()->get('services.validator.default')->getValidator();
-    }
-
-    /**
      * Gest the client container with the services definitions.
      *
      * @return ContainerBuilder
@@ -59,11 +48,9 @@ class ClientContainerFactory
      */
     public function getClientContainer()
     {
-        if (is_null(static::$container)) {
-            $this->buildClientContainer();
-        }
+        $this->buildClientContainer();
 
-        return static::$container;
+        return $this->container;
     }
 
     /**
@@ -71,9 +58,27 @@ class ClientContainerFactory
      */
     public function __construct()
     {
-        $this->configRepoPath = __DIR__;
-        if (is_null(static::$container)) {
-            $this->buildClientContainer();
+        $this->configRepoPath = __DIR__.'/config';
+    }
+
+    /**
+     * Gets a ClientInterface implementation from its id.
+     *
+     * @param string $clientId
+     *   The client implementation id.
+     *
+     * @return ClientInterface $client
+     *   The client implementation
+     *
+     * @throws ClientInstantiationException
+     *   Raised if a problem occurred while retrieving the client.
+     */
+    public function getClient($clientId)
+    {
+        try {
+            return $this->getClientContainer()->get($clientId);
+        } catch (\Exception $e) {
+            throw new ClientInstantiationException('The client is not retrieved.', 281, $e);
         }
     }
 
@@ -86,22 +91,20 @@ class ClientContainerFactory
     protected function buildClientContainer()
     {
 
-        $container = new ContainerBuilder();
-        try {
-            $fileLocator = new FileLocator($this->configRepoPath);
-            $loader = new DirectoryLoader($container, $fileLocator);
-            $loader->setResolver(new LoaderResolver(array(
-                new YamlFileLoader($container, $fileLocator),
-                $loader,
-            )));
-            $loader->load('client_services');
-
-            //Add the default validator implementation
-            $container->register('services.validator.default', ValidatorProvider::class);
-        } catch (Exception $e) {
-            throw new ClientInstantiationException('The client container instantiation failed.', $e);
+        if (!is_null($this->container)) {
+            return;
         }
 
-        static::$container = $container;
+        $container = new ContainerBuilder();
+        try {
+            //Add the default validator implementation
+            $container->register('validator.default', DefaultValidatorBuilder::class);
+            $loader = new YamlFileLoader($container, new FileLocator($this->configRepoPath));
+            $loader->load('services.yml');
+
+            $this->container = $container;
+        } catch (Exception $e) {
+            throw new ClientInstantiationException('The client container instantiation failed.', 281, $e);
+        }
     }
 }

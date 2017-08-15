@@ -1,9 +1,8 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: gillesdeudon
- * Date: 13/08/17
- * Time: 17:14
+ * @file
+ * Contains EC\EuropaWS\Tests\Dummies\Messages\Components\ComponentDummy.
  */
 
 namespace EC\EuropaWS\Tests\Dummies\Messages\Components;
@@ -25,7 +24,7 @@ class ComponentDummy implements ComponentInterface
     /**
      * {@inheritdoc}
      */
-    public function getProxyIdentifier()
+    public function getConverterIdentifier()
     {
         return ProxyProvider::COMPONENT_ID_PREFIX.'componentDummy';
     }

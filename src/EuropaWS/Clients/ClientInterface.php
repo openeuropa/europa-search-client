@@ -10,7 +10,7 @@ namespace EC\EuropaWS\Clients;
 use EC\EuropaWS\Exceptions\ConnectionException;
 use EC\EuropaWS\Exceptions\ProxyException;
 use EC\EuropaWS\Exceptions\ValidationException;
-use EC\EuropaWS\Messages\MessageInterface;
+use EC\EuropaWS\Messages\ValidatableMessageInterface;
 
 /**
  * Interface ClientInterface.
@@ -27,31 +27,31 @@ interface ClientInterface
     /**
      * Sends a message to the web service.
      *
-     * @param MessageInterface $message
+     * @param ValidatableMessageInterface $message
      *   The message to send.
      *
-     * @return MessageInterface $response
+     * @return ValidatableMessageInterface $response
      *   The web service response.
      *
      * @throws ValidationException
      *   Raised if the message is invalid.
-     * @throws ConnectionException
-     *   Raised if the connection with web service failed.
      * @throws ProxyException
      *   Raised if the message processing in the proxy layer failed.
+     * @throws ConnectionException
+     *   Raised if the connection with web service failed.
      */
-    public function sendMessage(MessageInterface $message);
+    public function sendMessage(ValidatableMessageInterface $message);
 
     /**
      * Validates a message.
      *
      * This method can be called in the sendMessage() method.
      *
-     * @param MessageInterface $message
+     * @param ValidatableMessageInterface $message
      *   The message to validate.
      *
      * @throws ValidationException
      *  Raised if the message is invalid. It returns all errors messages.
      */
-    public function validateMessage(MessageInterface $message);
+    public function validateMessage(ValidatableMessageInterface $message);
 }
