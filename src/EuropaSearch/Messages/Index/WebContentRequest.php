@@ -1,24 +1,19 @@
 <?php
-
 /**
  * @file
- * Contains EC\EuropaSearch\Messages\Index\IndexingWebContent.
+ * Contains EC\EuropaSearch\Messages\Index\WebContentRequest.
  */
 
 namespace EC\EuropaSearch\Messages\Index;
 
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
- * Class IndexingWebContent.
+ * Class WebContentRequest.
  *
- * It defines a web content document that is sent for indexing to the Europa Search
- * services.
+ *  It covers the web content indexing request.
  *
  * @package EC\EuropaSearch\Messages\Index
  */
-class IndexingWebContent extends AbstractIndexingMessage
+class WebContentRequest extends AbstractRequest
 {
 
     /**
@@ -48,21 +43,5 @@ class IndexingWebContent extends AbstractIndexingMessage
     public function setDocumentContent($documentContent)
     {
         $this->documentContent = $documentContent;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getConverterIdentifier()
-    {
-        return self::CONVERTER_NAME_PREFIX.'webContent';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getConstraints(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('documentContent', new Assert\NotBlank());
     }
 }

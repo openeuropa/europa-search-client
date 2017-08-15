@@ -2,17 +2,16 @@
 
 /**
  * @file
- * Contains EC\EuropaSearch\Proxies\Index\DocumentMetadata\DateMetadataProxy.
+ * Contains EC\EuropaSearch\Proxies\Index\DocumentMetadata\DateMetadataConverter.
  */
 
 namespace EC\EuropaSearch\Proxies\Index\DocumentMetadata;
 
-
 use EC\EuropaWS\Messages\Components\ComponentInterface;
-use EC\EuropaWS\Proxies\ComponentProxyInterface;
+use EC\EuropaWS\Proxies\ComponentConverterInterface;
 
 /**
- * Class DateMetadataProxy.
+ * Class DateMetadataConverter.
  *
  * It defines the mechanism for parsing DateMetadata into a format that is
  * JSON convertible.
@@ -20,7 +19,7 @@ use EC\EuropaWS\Proxies\ComponentProxyInterface;
  *
  * @package EC\EuropaSearch\Proxies\Index\DocumentMetadata
  */
-class DateMetadataProxy implements ComponentProxyInterface
+class DateMetadataConverter implements ComponentConverterInterface
 {
 
     /**

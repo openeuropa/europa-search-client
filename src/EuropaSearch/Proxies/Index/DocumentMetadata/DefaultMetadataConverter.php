@@ -2,16 +2,16 @@
 
 /**
  * @file
- * Contains EC\EuropaSearch\Proxies\Index\DocumentMetadata\DefaultMetadataProxy.
+ * Contains EC\EuropaSearch\Proxies\Index\DocumentMetadata\DefaultMetadataConverter.
  */
 
 namespace EC\EuropaSearch\Proxies\Index\DocumentMetadata;
 
 use EC\EuropaWS\Messages\Components\ComponentInterface;
-use EC\EuropaWS\Proxies\ComponentProxyInterface;
+use EC\EuropaWS\Proxies\ComponentConverterInterface;
 
 /**
- * Class DefaultMetadataProxy.
+ * Class DefaultMetadataConverter.
  *
  * It defines the default mechanism for parsing metadata into a format that is
  * JSON convertible.
@@ -19,7 +19,7 @@ use EC\EuropaWS\Proxies\ComponentProxyInterface;
  *
  * @package EC\EuropaSearch\Proxies\Index\DocumentMetadata
  */
-class DefaultMetadataProxy implements ComponentProxyInterface
+class DefaultMetadataConverter implements ComponentConverterInterface
 {
 
     /**
