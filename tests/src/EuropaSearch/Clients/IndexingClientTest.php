@@ -32,7 +32,7 @@ class IndexingClientTest extends AbstractEuropaSearchTest
         $message = $this->indexedDocumentProvider();
         $factory = new EuropaSearchDummy();
         $client = $factory->getIndexingWebContentClient();
-        $response = $client->sendWebContentMessage($message);
+        $response = $client->sendMessage($message);
 
         $expectedResponse = 'Request received but I am a dumb transporter; I receive request but I do nothing else.';
         $this->assertEquals($response, $expectedResponse, 'The returned response is not the ecpected.');

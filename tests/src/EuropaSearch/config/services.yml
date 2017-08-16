@@ -34,5 +34,5 @@ services:
           - [defineComponentConverter, ['componentProxy.metadata.notIndexed', '@componentProxy.metadata.notIndexed']]
           - [defineComponentConverter, ['componentProxy.metadata.string', '@componentProxy.metadata.string']]
   client.index.webDocument:
-    class: EC\EuropaSearch\Clients\IndexingClient
+    class: EC\EuropaWS\Clients\DefaultClient
     arguments: ['@validator.default', '@proxyProvider', '@transporter', '@europaSearch.ws.settings']
