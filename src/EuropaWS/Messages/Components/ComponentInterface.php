@@ -14,7 +14,7 @@ use EC\EuropaWS\ValidatableInterface;
  * Interface ComponentInterface.
  *
  * Implementing this interface allows object representing a message component.
- * As messages themselves, they can be validated and transformed.
+ * Like messages themselves, they can be validated and transformed.
  *
  * @package EC\EuropaWS\Messages\Components
  */

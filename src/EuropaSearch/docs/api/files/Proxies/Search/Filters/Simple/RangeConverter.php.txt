@@ -1,0 +1,76 @@
+<?php
+
+/**
+ * @file
+ * Contains EC\EuropaSearch\Proxies\Search\Filters\Simple\RangeConverter.
+ */
+
+namespace EC\EuropaSearch\Proxies\Search\Filters\Simple;
+
+use EC\EuropaWS\Messages\Components\ComponentInterface;
+
+/**
+ * Class RangeConverter.
+ *
+ * It defines the default mechanism for parsing Range filter into a format that
+ * is JSON convertible.
+ * It works with the Dynamic schema of the Europa Search services.
+ *
+ * @package EC\EuropaSearch\Proxies\Search\Filters\Simple
+ */
+class RangeConverter extends AbstractSimpleConverter
+{
+
+    /**
+     * {@inheritDoc}
+     */
+    public function convertComponent(ComponentInterface $component)
+    {
+
+        $metadata =  $component->getImpliedMetadata();
+        $name = $metadata->getEuropaSearchName();
+        $convertedValue = [$name => []];
+
+        $lowerBoundary = $component->getLowerBoundary();
+        if (!empty($lowerBoundary)) {
+            $sign = 'gt';
+            if ($component->isLowerBoundaryIncluded()) {
+                $sign = 'gte';
+            }
+
+            if ($metadata instanceof DateMetadata) {
+                $lowerBoundary = $this->getConvertedDateValue($lowerBoundary);
+            }
+            elseif ($metadata instanceof BooleanMetadata) {
+                $lowerBoundary = boolval($lowerBoundary);
+            }
+
+            $convertedValue[$name][$sign] = $lowerBoundary;
+        }
+
+        $upperBoundary = $component->getUpperBoundary();
+        if (!empty($upperBoundary)) {
+            $sign = 'lt';
+            if ($component->isUpperBoundaryIncluded()){
+                $sign = 'lte';
+            }
+
+            if ($metadata instanceof DateMetadata) {
+                $upperBoundary = $this->getConvertedDateValue($upperBoundary);
+            }
+            elseif ($metadata instanceof BooleanMetadata) {
+                $upperBoundary = boolval($upperBoundary);
+            }
+
+            $convertedValue[$name][$sign] = $upperBoundary;
+        }
+
+        $boost = $component->getBoost();
+        if (isset($boost)) {
+            $convertedValue['boost'] = $component->getBoost();
+        }
+
+        return ["range" => $convertedValue];
+    }
+}
+

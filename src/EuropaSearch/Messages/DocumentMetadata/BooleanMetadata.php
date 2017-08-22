@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package EC\EuropaSearch\Messages\DocumentMetadata
  */
-class BooleanMetadata extends AbstractMetadata
+class BooleanMetadata extends AbstractMetadata implements IndexableMetadataInterface
 {
 
     /**
@@ -36,7 +36,7 @@ class BooleanMetadata extends AbstractMetadata
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('values', new Assert\All(array('constraints' => array(new Assert\Type('bool'), ), )));
+        $metadata->addPropertyConstraint('values', new Assert\All(['constraints' => [new Assert\Type('bool')]]));
     }
 
     /**

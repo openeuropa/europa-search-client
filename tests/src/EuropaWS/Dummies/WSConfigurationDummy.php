@@ -128,9 +128,9 @@ class WSConfigurationDummy implements WSConfigurationInterface
     public function getConnectionConfig()
     {
 
-        return array(
+        return [
             'ws.connection.url' => $this->connectionConfig,
-        );
+        ];
     }
 
     /**
@@ -139,9 +139,9 @@ class WSConfigurationDummy implements WSConfigurationInterface
     public function getCredentials()
     {
 
-        return array(
+        return [
             'ws.credentials.name' => $this->userName,
             'ws.credentials.password' => $this->userPassword,
-        );
+        ];
     }
 }

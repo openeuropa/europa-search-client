@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Contains EC\EuropaSearch\Messages\DocumentMetadata\IndexableMetadata.
+ */
+
+namespace EC\EuropaSearch\Messages\DocumentMetadata;
+
+/**
+ * Interface IndexableMetadata.
+ *
+ * Implementing this interface allows object to be identifiable as being
+ * indexed in Europa Search.
+ *
+ * @package EC\EuropaSearch\Messages\DocumentMetadata
+ */
+interface IndexableMetadata
+{
+
+}

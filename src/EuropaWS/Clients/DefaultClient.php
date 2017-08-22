@@ -9,7 +9,7 @@ namespace EC\EuropaWS\Clients;
 
 use EC\EuropaWS\Exceptions\ValidationException;
 use EC\EuropaWS\Messages\ValidatableMessageInterface;
-use EC\EuropaWS\Proxies\ProxyProvider;
+use EC\EuropaWS\Proxies\BasicProxyController;
 use EC\EuropaWS\Transporters\TransporterInterface;
 use Symfony\Component\Validator\ValidatorBuilder;
 use EC\EuropaWS\Common\WSConfigurationInterface;
@@ -33,7 +33,7 @@ class DefaultClient implements ClientInterface
     /**
      * The proxy to use for convert the sent message.
      *
-     * @var \EC\EuropaWS\Proxies\ProxyProvider
+     * @var \EC\EuropaWS\Proxies\BasicProxyController
      */
     protected $proxy;
 
@@ -55,12 +55,13 @@ class DefaultClient implements ClientInterface
      * DefaultClient constructor.
      *
      * @param \Symfony\Component\Validator\ValidatorBuilder  $validator
-     * @param \EC\EuropaWS\Proxies\ProxyProvider             $proxy
+     * @param \EC\EuropaWS\Proxies\BasicProxyController      $proxy
      * @param \EC\EuropaWS\Transporters\TransporterInterface $transporter
      * @param \EC\EuropaWS\Common\WSConfigurationInterface   $WSConfiguration
      */
-    public function __construct(ValidatorBuilder $validator, ProxyProvider $proxy, TransporterInterface $transporter, WSConfigurationInterface $WSConfiguration)
+    public function __construct(ValidatorBuilder $validator, BasicProxyController $proxy, TransporterInterface $transporter, WSConfigurationInterface $WSConfiguration)
     {
+
         $this->validator = $validator->getValidator();
         $this->proxy = $proxy;
         $this->transporter = $transporter;
@@ -73,6 +74,7 @@ class DefaultClient implements ClientInterface
      */
     public function sendMessage(ValidatableMessageInterface $message)
     {
+
             $this->validateMessage($message);
             $convertedComponents = $this->proxy->convertComponents($message->getComponents());
             $request = $this->proxy->convertMessageWithComponents($message, $convertedComponents);
@@ -87,9 +89,10 @@ class DefaultClient implements ClientInterface
      */
     public function validateMessage(ValidatableMessageInterface $message)
     {
+
         $violations = $this->validator->validate($message);
         if (!empty($violations) && ($violations->count() != 0)) {
-            $errorMessages = array();
+            $errorMessages = [];
             foreach ($violations as $violation) {
                 $errorMessages[$violation->getPropertyPath()] = $violation->getMessage();
             }

@@ -8,21 +8,26 @@
 namespace EC\EuropaSearch\Tests\Common\DocumentMetadata;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\FullTextMetadata;
-use EC\EuropaWS\Tests\AbstractEuropaSearchTest;
+use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class FullTextMetadataTest.
+ *
+ * Tests the validation process on FullTextMetadata.
+ *
  * @package EC\EuropaSearch\Tests\Common
  */
 class FullTextMetadataTest extends AbstractEuropaSearchTest
 {
+
     /**
      * Test the FullTextMetadata validation (success case).
      */
     public function testFullTextMetadataValidationSuccess()
     {
+
         $fullTextMetadata = new FullTextMetadata('tested_data');
-        $fullTextMetadata->setValues(array('full text searchable data is a string'));
+        $fullTextMetadata->setValues(['full text searchable data is a string']);
 
         $validationErrors = $this->getDefaultValidator()->validate($fullTextMetadata);
         $violations = $this->getViolations($validationErrors);
@@ -35,8 +40,9 @@ class FullTextMetadataTest extends AbstractEuropaSearchTest
      */
     public function testFullTextMetadataValidationFailure()
     {
+
         $fullTextMetadata = new FullTextMetadata(null);
-        $fullTextMetadata->setValues(array(true, 0));
+        $fullTextMetadata->setValues([true, 0]);
 
         $validationErrors = $this->getDefaultValidator()->validate($fullTextMetadata);
         $violations = $this->getViolations($validationErrors);

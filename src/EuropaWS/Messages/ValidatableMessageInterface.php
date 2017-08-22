@@ -23,7 +23,7 @@ interface ValidatableMessageInterface extends MessageInterface, ValidatableInter
 {
 
     /**
-     * Get message components
+     * Get message components.
      *
      * @return array
      *   The array containing the message components.

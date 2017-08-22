@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package EC\EuropaSearch\Common\DocumentMetadata
  */
-class FullTextMetadata extends AbstractMetadata
+class FullTextMetadata extends AbstractMetadata implements IndexableMetadataInterface
 {
 
     /**
@@ -36,14 +36,11 @@ class FullTextMetadata extends AbstractMetadata
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('values', new Assert\All(array('constraints' => array(new Assert\Type('string'), ), )));
+        $metadata->addPropertyConstraint('values', new Assert\All(['constraints' => [new Assert\Type('string')]]));
     }
 
     /**
-     * @inheritdoc
-     *
-     * @return string
-     *   The final name.
+     * {@inheritDoc}
      */
     public function getEuropaSearchName()
     {
@@ -51,12 +48,7 @@ class FullTextMetadata extends AbstractMetadata
     }
 
     /**
-     * @inheritDoc
-     *
-     * @return string
-     *   The name of the parse name as defined in the ParserProvider.
-     *
-     * @see EC\EuropaSearch\Index\Communication\Providers\ParserProvider
+     * {@inheritDoc}
      */
     public function getConverterIdentifier()
     {

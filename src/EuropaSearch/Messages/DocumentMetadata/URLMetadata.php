@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package EC\EuropaSearch\Messages\DocumentMetadata
  */
-class URLMetadata extends StringMetadata
+class URLMetadata extends StringMetadata implements IndexableMetadataInterface
 {
 
     /**
@@ -25,6 +25,6 @@ class URLMetadata extends StringMetadata
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('values', new Assert\All(array('constraints' => array(new Assert\Url(), ), )));
+        $metadata->addPropertyConstraint('values', new Assert\All(['constraints' => [new Assert\Url()]]));
     }
 }

@@ -8,7 +8,7 @@
 namespace EC\EuropaWS\Tests\Dummies\Messages;
 
 use EC\EuropaWS\Messages\MessageInterface;
-use EC\EuropaWS\Proxies\ProxyProvider;
+use EC\EuropaWS\Proxies\BasicProxyController;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
@@ -36,7 +36,7 @@ class MessageDummy implements MessageInterface
      */
     public function getProxyIdentifier()
     {
-        return ProxyProvider::MESSAGE_ID_PREFIX.'messageDummy';
+        return BasicProxyController::MESSAGE_ID_PREFIX.'messageDummy';
     }
 
     /**

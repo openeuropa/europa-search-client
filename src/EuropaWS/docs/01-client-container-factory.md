@@ -36,7 +36,7 @@ It plays the dependency injection container based on
 [Symfony DependencyInjection Component](https://symfony.com/doc/current/components/dependency_injection.html)
 whose only responsibility is to build and provide ready-to-use, fully configured services.
 
-The proxy provider (I.E. `EC\EuropaWS\Proxies\ProxyProvider`) exploits it in 
+The proxy provider (I.E. `EC\EuropaWS\Proxies\DefaultProxyController`) exploits it in 
 order to map the Message and their component to their proxy class in charge to 
 transform them and communicate them to the transport layer of the client that will send the
 request to web service.

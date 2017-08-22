@@ -11,7 +11,7 @@ namespace EC\EuropaWS;
  * Interface ConvertibleInterface.
  *
  * Implementing this interface allows an object to be converted by the
- * Library mechanism into a format that can be sent to the targeted web
+ * library mechanism into a format that can be sent to the targeted web
  * service.
  *
  * @package EC\EuropaWS

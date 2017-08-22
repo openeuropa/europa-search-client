@@ -8,10 +8,13 @@
 namespace EC\EuropaSearch\Tests\Common\DocumentMetadata;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\BooleanMetadata;
-use EC\EuropaWS\Tests\AbstractEuropaSearchTest;
+use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class BooleanMetadataTest.
+ *
+ * Tests the validation process on BooleanMetadata.
+ *
  * @package EC\EuropaSearch\Tests\Common
  */
 class BooleanMetadataTest extends AbstractEuropaSearchTest
@@ -22,8 +25,9 @@ class BooleanMetadataTest extends AbstractEuropaSearchTest
      */
     public function testBooleanMetadataValidationSuccess()
     {
+
         $booleanMetadata = new BooleanMetadata('tested_boolean');
-        $booleanMetadata->setValues(array(true, false));
+        $booleanMetadata->setValues([true, false]);
 
         $validationErrors = $this->getDefaultValidator()->validate($booleanMetadata);
         $violations = $this->getViolations($validationErrors);
@@ -36,8 +40,9 @@ class BooleanMetadataTest extends AbstractEuropaSearchTest
      */
     public function testBooleanMetadataValidationFailure()
     {
+
         $booleanMetadata = new BooleanMetadata(null);
-        $booleanMetadata->setValues(array(true, 0));
+        $booleanMetadata->setValues([true, 0]);
 
         $validationErrors = $this->getDefaultValidator()->validate($booleanMetadata);
         $violations = $this->getViolations($validationErrors);

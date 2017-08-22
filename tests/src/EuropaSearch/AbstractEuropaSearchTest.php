@@ -5,7 +5,7 @@
  * Contains EC\EuropaWS\Tests\AbstractEuropaSearchTest.
  */
 
-namespace EC\EuropaWS\Tests;
+namespace EC\EuropaSearch\Tests;
 
 use EC\EuropaSearch\Tests\EuropaSearchDummy;
 use PHPUnit\Framework\TestCase;
@@ -14,12 +14,13 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 /**
  * Class AbstractEuropaSearchTest.
  *
- * Centralize all methods shared between test cases.
+ * Centralizes all methods shared between test cases.
  *
  * @package EC\EuropaWS\Tests
  */
 abstract class AbstractEuropaSearchTest extends TestCase
 {
+
     /**
      * Gets the ContainerBuilder used by unit tests.
      *
@@ -50,6 +51,7 @@ abstract class AbstractEuropaSearchTest extends TestCase
      */
     protected function getViolations(ConstraintViolationListInterface $violations)
     {
+
         $collection = [];
         foreach ($violations as $violation) {
             $collection[$violation->getPropertyPath()] = $violation->getMessage();

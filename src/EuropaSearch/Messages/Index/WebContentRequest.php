@@ -13,7 +13,7 @@ namespace EC\EuropaSearch\Messages\Index;
  *
  * @package EC\EuropaSearch\Messages\Index
  */
-class WebContentRequest extends AbstractRequest
+class WebContentRequest extends AbstractIndexingRequest
 {
 
     /**

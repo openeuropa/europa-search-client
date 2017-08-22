@@ -8,7 +8,7 @@
 namespace EC\EuropaWS\Tests\Dummies\Messages\Components;
 
 use EC\EuropaWS\Messages\Components\ComponentInterface;
-use EC\EuropaWS\Proxies\ProxyProvider;
+use EC\EuropaWS\Proxies\BasicProxyController;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
@@ -26,7 +26,7 @@ class ComponentDummy implements ComponentInterface
      */
     public function getConverterIdentifier()
     {
-        return ProxyProvider::COMPONENT_ID_PREFIX.'componentDummy';
+        return BasicProxyController::COMPONENT_ID_PREFIX.'componentDummy';
     }
 
     /**
