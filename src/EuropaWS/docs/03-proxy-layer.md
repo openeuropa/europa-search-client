@@ -5,30 +5,35 @@ This layer is in charge of:
 - Calling the transportation layer for sending the request to the service;
 - Treating the service response and returning it to the application layer.
 
+It should never be called directly by the consumer system, but through the client layer.
+
 ## Responsibilities
 
 ### Message conversion
 
 The message conversion is made by an implementation of 
 `EC\EuropaWS\Proxies\ProxyInterface`.
-If message to convert contains components, the implementation can call 
-implementations of `EC\EuropaWS\Proxies\ComponentProxyInterface` in order to 
-convert the component and use it in the message treatment.
+
+It identifies the converter class to use for a specific message thanks to its converter identifier 
+(see `getConverterIdentifier()`) and the entries in its internal registry.<br />
+A converter class implements `EC\EuropaWS\Proxies\MessageConverterInterface` for the messages and
+`EC\EuropaWS\Proxies\ComponentConverterInterface` for the components.<br />
+The internal registry is defined from the client container (see `EC\EuropaWS\ClientContainerFactory`) and lists
+the relationships between the messages, the components and their converter.
+
+It calls this converter to execute the message transformation.
+
+It does the same for the message components. To identify them is retrieve them from the message through 
+the `getComponents()` method and apply the same process as for the message on all components.
+
+A converter class implements `EC\EuropaWS\Proxies\MessageConverterInterface` for the messages and
+`EC\EuropaWS\Proxies\ComponentConverterInterface` for the components.
 
 ### Call the transportation layer
 
-The call occurs in the `communicateRequest()` method of the implementation of 
-`ProxyInterface`.
-It is in this method that the final call to the transporter layer is done 
-regardless of the chosen implementation.
-
-### Treating the service response
-
-It still is in the `snedRequest()` method the treatment occurs.
-
-When the service responses to the request, the method process catches it and 
-treat to return it in `MessageInterface` object it communicates to the [client layer](02-client-layer.md)
+`TO DO` when the transportation layer will be implemented.
 
 ### How does it works?
 
-TODO Take examples from the implementation of the Europa Search client  
+The `DefaultClient::sendMessage()` [method](../Clients/DefaultClient.php) illustrates how the logic works a 
+library based on this package.
