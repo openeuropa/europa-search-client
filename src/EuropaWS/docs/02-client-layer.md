@@ -47,3 +47,10 @@ The package supplies a default implementation that is used already in the Europa
 It should not be called directly by the system that uses the client but through the mechanism based on 
 `EC\EuropaWS\ClientContainerFactory` and EC\EuropaWS\Clients\ClientProvider` (More info `
 [here](01-client-container-factory.md)).
+
+# Error management
+
+The error management is based on Exceptions that are thrown depending on the context. 
+
+There are 5 different exception types that are 
+detailed in the [API documentation](api/classes/api/namespaces/EC.EuropaWS.Exceptions.html).

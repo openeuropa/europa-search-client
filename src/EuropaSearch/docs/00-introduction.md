@@ -1,4 +1,4 @@
-# EuropaWS package
+# EuropaSearch package
 
 ## Introduction
 
