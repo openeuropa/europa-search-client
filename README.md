@@ -1,9 +1,8 @@
-oequest messages nor implementing SOAP interactions.
-r Search Client Library
+# Europa Search Client Library
 
-The Europa Search Client Library aims to hide Europa Search services complexity behind and 
+The Europa Search Client Library aims to hide Europa Search services complexity behind a 
 easy-to-use client library so that users don't have to worry about building their own 
-request messages nor implementing SOAP interactions.
+request messages nor implementing REST interactions.
 
 Table of content:
 =================
@@ -18,74 +17,44 @@ Table of content:
 
 ### Architecture in layers
 
-The library is divided into 3 layers that are loosely coupled in order to reduce as much as impacts of possible changes in the REST API attached to Europa Search services:
+The library is based into 2 main packages:
+- **EuropaWS** that gathers the generic mechanisms used in the Europa Search client; [read more](src/EuropaWS/docs/00-introduction.md);
+- **EuropaSearch** that implements the client itself [read more](src/EuropaSearch/docs/00-introduction.md).
 
-- **Client layer**: it is accessed by systems that consume Europa Search REST services.<br />
-It is controlled that the minimum client settings are present.<br />
-It consists in 2 classes:
-  - _IndexClient_ in charge of managing indexing requests from consumer systems.
-  - _Search Client_ in charge of managing search query requests from consumer systems.<br /> 
-- **Communication layer**: it makes the link between the client layer and the transmission layer; to 
-prepare/convert data coming from the client layer into objects usable by the transmission layer.<br />
-It also in charge to validate the format of the data passed by the client server is correct.<br />
-It is materialized by classes implementing:
-  - _EC\EuropaSearch\Index\Communication\ConverterInterface_ that treat data related to indexing requests.
-  - _EC\EuropaSearch\Search\Communication\ConverterInterface_ that treat data related to search query requests.
-- **Transmission layer**: It manages the connexions with Europa Search services and the transmission of data between the upper layer and the services.
-It is materialized by classes implementing:
-  - _EC\EuropaSearch\Index\Transmission\TransmitterInterface_ that manages connexions and transmissions for indexing requests.
-  - _EC\EuropaSearch\Search\Transmission\TransmitterInterface_ that manages connexions and transmissions for search query requests.
+The EuropaWS package organizes the generic mechanism into 3 layers with a specific scope:
+- **Client layer**: it is in charge of 
+  - Receiving the request messages to send the Europa Search REST services;
+  - Validating the message content before continue the process.
+- **Proxy layer**: it is in charge of 
+  - Converting the receive message into a request that will be sent to the REST services;
+  - Routing the request to the right transporter service in order that it sent the request;
+  - Returning the REST services responses to the client layer.
+- **Transportation layer**: it is is the layer that manages the request sending to the REST services.
+  
+To have more information about these layers, pleas consult the [package documentation](src/EuropaWS/docs/00-introduction.md).
 
-[Go to top](#table-of-content)
-
-### Exchanged data containers
-
-#### Client layer
-
-The client layer uses 4 types of objects:
-
-1. **ServiceConfiguration**: it allows set connexion parameters that will be used by the transmission layer in order to instantiate connexion with the Europa Search services.
-2. **IndexedDocument**: it contains data related to the indexing request for one document (web page or binary file)
-3. **SearchQuery**: it contains data related to the search query request.
-4. **SearchResults**: it contains data related to the results returned for a search query request.
-
-#### Communication layer
-
-This layer does not have specific object type as it is in charge to transform objects communicated by another layer into objects consumable by the other one.
-So, it uses object types of the 2 other layers.
-
-#### Transmission layer
-
-The client layer uses 4 types of objects:
-
-1. **ServiceConfiguration**: it is the one communicated by the client layer through the communication layer.
-2. **IndexingRequest**: it contains data of an indexing request that it will format before sending it to the Europa Search "Indexing" service; aka "Ingestion API" services.
-3. **SearchQueryRequest**: it contains data of a search query request that it will format before sending it to the Europa Search "Search" service; aka "Search API" services.
-4. **SearchQueryResponse**: it contains data of the response of a search query request that it will format before sending it to the Europa Search "Search" service.
-
-[Go to top](#table-of-content)
-
-### Error management
-
-`To do`
-
-[Go to top](#table-of-content)
+The EuropaSearch package specifies the EuropaWS mechanism to Europa Search client requirements.
 
 ## How to use the library
 
-`To do`
-
-[Go to top](#table-of-content)
+`TO DO`
 
 ## Testing
 
-`To do`
+For testing the client process, [PHPUnit](https://phpunit.de) has been used to define different unit tests. 
 
-[Go to top](#table-of-content)
+All tests are located in the [tests/src](tests/src) repository and can be run with the following command line:
+```
+vendor/bin/phpunit
+```
+The basic configuration of PHPUnit environment is defined in [phpunit.xml.dist](phpunit.xml.dist)
 
-## Dependencies
+## Dependencies:
 
-`To do`
-
-[Go to top](#table-of-content)
-
+The client library depends on the following projects:
+- [Symfony DependencyInjection](https://symfony.com/components/DependencyInjection) component: instantiates services and 
+  manages their dependencies.
+- [Symfony Validator](https://symfony.com/doc/current/components/validator.html) component: provides tools to validate
+  message objects and their components.
+- [Symfony Config](https://symfony.com/components/Config) and [Symfony Yaml](https://symfony.com/components/Yaml) components: 
+  loads the client services configuration stored in YMl files. 
