@@ -75,13 +75,15 @@ class DefaultClient implements ClientInterface
     public function sendMessage(ValidatableMessageInterface $message)
     {
 
-            $this->validateMessage($message);
-            $convertedComponents = $this->proxy->convertComponents($message->getComponents());
-            $request = $this->proxy->convertMessageWithComponents($message, $convertedComponents);
-            $this->transporter->setWSConfiguration($this->WSConfiguration);
-            $response = $this->transporter->send($request, $this->WSConfiguration);
+        $this->validateMessage($message);
+        $convertedComponents = $this->proxy->convertComponents($message->getComponents());
+        $request = $this->proxy->convertMessageWithComponents($message, $convertedComponents);
+        $this->transporter->setWSConfiguration($this->WSConfiguration);
 
-            return $response;
+        // TODO Adapting dpending on the Transportation layer implementation:
+        $response = $this->transporter->send($request, $this->WSConfiguration);
+
+        return $response;
     }
 
     /**

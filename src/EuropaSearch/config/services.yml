@@ -25,7 +25,7 @@ services:
       class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\DefaultMetadataConverter
   componentProxy.metadata.string:
       class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\DefaultMetadataConverter
-  proxyProvider:
+  proxyController:
       class:  EC\EuropaWS\Proxies\BasicProxyController
       arguments: ['@europaSearch.ws.settings']
       calls:
@@ -37,7 +37,7 @@ services:
           - [defineComponentConverter, ['componentProxy.metadata.string', '@componentProxy.metadata.string']]
   client.indexing.webDocument:
     class: EC\EuropaWS\Clients\DefaultClient
-    arguments: ['@validator.default', '@proxyProvider', '@transporter', '@europaSearch.ws.settings']
+    arguments: ['@validator.default', '@proxyController', '@transporter', '@europaSearch.ws.settings']
 
   # Search Service
   messageProxy.searching.search:
@@ -56,7 +56,7 @@ services:
       class: EC\EuropaSearch\Proxies\Search\Filters\Combined\BooleanQueryConverter
   componentProxy.searching.filters.combined.boostingQuery:
       class: EC\EuropaSearch\Proxies\Search\Filters\Combined\BoostingQueryConverter
-  proxyProvider.search:
+  proxyController.search:
       class:  EC\EuropaSearch\Proxies\Search\SearchProxyController
       arguments: ['@europaSearch.ws.settings']
       calls:
@@ -70,4 +70,4 @@ services:
           - [defineComponentConverter, ['componentProxy.searching.filters.combined.boostingQuery', '@componentProxy.searching.filters.combined.boostingQuery']]
   client.searching.search:
     class: EC\EuropaWS\Clients\DefaultClient
-    arguments: ['@validator.default', '@proxyProvider.search', '@transporter', '@europaSearch.ws.settings']
+    arguments: ['@validator.default', '@proxyController.search', '@transporter', '@europaSearch.ws.settings']

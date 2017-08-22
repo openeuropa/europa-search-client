@@ -10,7 +10,7 @@ namespace EC\EuropaSearch\Messages\Search\Filters\Simple;
 use EC\EuropaSearch\Messages\DocumentMetadata\BooleanMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\DateMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\FloatMetadata;
-use EC\EuropaSearch\Messages\DocumentMetadata\IndexableMetadata;
+use EC\EuropaSearch\Messages\DocumentMetadata\IndexableMetadataInterface;
 use EC\EuropaSearch\Messages\DocumentMetadata\IntegerMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\URLMetadata;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -39,10 +39,10 @@ class Term extends AbstractSimple
     /**
      * Value constructor.
      *
-     * @param IndexableMetadata $impliedMetadata
+     * @param IndexableMetadataInterface $impliedMetadata
      *   The metadata pointed by the filters.
      */
-    public function __construct(IndexableMetadata $impliedMetadata)
+    public function __construct(IndexableMetadataInterface $impliedMetadata)
     {
         $this->impliedMetadata = $impliedMetadata;
     }

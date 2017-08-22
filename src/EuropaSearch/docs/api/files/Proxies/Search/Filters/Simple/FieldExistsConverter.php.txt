@@ -22,7 +22,7 @@ class FieldExistsConverter extends AbstractSimpleConverter
 {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function convertComponent(ComponentInterface $component)
     {

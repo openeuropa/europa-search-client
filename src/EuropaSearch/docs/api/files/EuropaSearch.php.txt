@@ -50,7 +50,21 @@ class EuropaSearch extends ClientContainerFactory
      */
     public function getIndexingWebContentClient()
     {
-        return $this->getClient('client.index.webDocument');
+        return $this->getClient('client.indexing.webDocument');
+    }
+
+    /**
+     * Gets the searching client.
+     *
+     * @return \EC\EuropaSearch\Clients\IndexingClient
+     *   The indexing client.
+     *
+     * @throws ClientInstantiationException
+     *   Raised if a problem occurred while retrieving the client.
+     */
+    public function getSearchingClient()
+    {
+        return $this->getClient('client.searching.search');
     }
 }
 

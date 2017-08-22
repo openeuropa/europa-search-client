@@ -37,7 +37,7 @@ class IndexingClientTest extends AbstractEuropaSearchTest
         $provider = new WebContentDataProvider();
         $data = $provider->indexedDocumentProvider();
 
-        $factory = new EuropaSearchDummy();
+        $factory = $this->getFactory();
         $client = $factory->getIndexingWebContentClient();
 
         $this->assertInstanceOf('EC\EuropaWS\Clients\DefaultClient', $client, 'The returned client is not an DefaultClient object.');

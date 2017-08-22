@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package EC\EuropaSearch\Messages\DocumentMetadata
  */
-class URLMetadata extends StringMetadata implements IndexableMetadata
+class URLMetadata extends StringMetadata implements IndexableMetadataInterface
 {
 
     /**

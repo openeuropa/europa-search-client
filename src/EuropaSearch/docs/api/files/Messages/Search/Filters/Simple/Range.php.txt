@@ -9,7 +9,7 @@ namespace EC\EuropaSearch\Messages\Search\Filters\Simple;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\DateMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\FloatMetadata;
-use EC\EuropaSearch\Messages\DocumentMetadata\IndexableMetadata;
+use EC\EuropaSearch\Messages\DocumentMetadata\IndexableMetadataInterface;
 use EC\EuropaSearch\Messages\DocumentMetadata\IntegerMetadata;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -64,10 +64,10 @@ class Range extends AbstractSimple
     /**
      * Range constructor.
      *
-     * @param IndexableMetadata $impliedMetadata
+     * @param IndexableMetadataInterface $impliedMetadata
      *   The metadata pointed by the filters.
      */
-    public function __construct(IndexableMetadata $impliedMetadata)
+    public function __construct(IndexableMetadataInterface $impliedMetadata)
     {
         $this->impliedMetadata = $impliedMetadata;
     }

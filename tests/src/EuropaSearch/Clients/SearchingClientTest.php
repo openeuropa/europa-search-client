@@ -36,7 +36,7 @@ class SearchingClientTest extends AbstractEuropaSearchTest
         $provider = new SearchDataProvider();
         $data = $provider->searchRequestProvider();
 
-        $factory = new EuropaSearchDummy();
+        $factory = $this->getFactory();
         $client = $factory->getSearchingClient();
 
         $this->assertInstanceOf('EC\EuropaWS\Clients\DefaultClient', $client, 'The returned client is not an DefaultClient object.');

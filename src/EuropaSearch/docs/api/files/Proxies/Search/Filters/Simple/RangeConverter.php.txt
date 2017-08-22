@@ -7,6 +7,7 @@
 
 namespace EC\EuropaSearch\Proxies\Search\Filters\Simple;
 
+use EC\EuropaSearch\Messages\DocumentMetadata\IndexableMetadataInterface;
 use EC\EuropaWS\Messages\Components\ComponentInterface;
 
 /**
@@ -33,34 +34,20 @@ class RangeConverter extends AbstractSimpleConverter
 
         $lowerBoundary = $component->getLowerBoundary();
         if (!empty($lowerBoundary)) {
-            $sign = 'gt';
-            if ($component->isLowerBoundaryIncluded()) {
-                $sign = 'gte';
-            }
+            $isIncluded = $component->isLowerBoundaryIncluded();
+            $sign = ($isIncluded) ? 'gte' : 'gt';
 
-            if ($metadata instanceof DateMetadata) {
-                $lowerBoundary = $this->getConvertedDateValue($lowerBoundary);
-            }
-            elseif ($metadata instanceof BooleanMetadata) {
-                $lowerBoundary = boolval($lowerBoundary);
-            }
+            $lowerBoundary = $this->getBoundaryValue($lowerBoundary, $metadata);
 
             $convertedValue[$name][$sign] = $lowerBoundary;
         }
 
         $upperBoundary = $component->getUpperBoundary();
         if (!empty($upperBoundary)) {
-            $sign = 'lt';
-            if ($component->isUpperBoundaryIncluded()){
-                $sign = 'lte';
-            }
+            $isIncluded = $component->isUpperBoundaryIncluded();
+            $sign = ($isIncluded) ? 'lte' : 'lt';
 
-            if ($metadata instanceof DateMetadata) {
-                $upperBoundary = $this->getConvertedDateValue($upperBoundary);
-            }
-            elseif ($metadata instanceof BooleanMetadata) {
-                $upperBoundary = boolval($upperBoundary);
-            }
+            $upperBoundary = $this->getBoundaryValue($upperBoundary, $metadata);
 
             $convertedValue[$name][$sign] = $upperBoundary;
         }
@@ -71,6 +58,29 @@ class RangeConverter extends AbstractSimpleConverter
         }
 
         return ["range" => $convertedValue];
+    }
+
+    /**
+     * Gets the boundary value to use in the conversion.
+     *
+     * @param mixed                      $rawValue
+     *   The raw boundary value.
+     * @param IndexableMetadataInterface $metadata
+     *   The metadate implied in the filter.
+     *
+     * @return mixed
+     *   The converted value.
+     */
+    private function getBoundaryValue($rawValue, $metadata)
+    {
+
+        if ($metadata instanceof DateMetadata) {
+            return $this->getConvertedDateValue($rawValue);
+        } elseif ($metadata instanceof BooleanMetadata) {
+            return boolval($rawValue);
+        }
+
+        return $rawValue;
     }
 }
 

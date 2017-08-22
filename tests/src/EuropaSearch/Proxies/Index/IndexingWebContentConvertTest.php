@@ -30,7 +30,7 @@ class IndexingWebContentConvertTest extends AbstractEuropaSearchTest
         $submitted = $data['submitted'];
         $expected = $data['expected'];
 
-        $proxy = $this->getContainer()->get('proxyProvider');
+        $proxy = $this->getContainer()->get('proxyController');
 
         $convertedComponents = $proxy->convertComponents($submitted->getComponents());
         $indexingRequest = $proxy->convertMessageWithComponents($submitted, $convertedComponents);

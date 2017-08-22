@@ -36,7 +36,7 @@ class ClientContainerTest extends AbstractWSTest
         $this->assertInstanceOf(ClientDummy::class, $client, 'The returned client is not a ClientDummy instance.');
 
         // Test BasicProxyController.
-        $proxy = $container->get('proxyProvider.default');
+        $proxy = $container->get('proxyController.default');
         $this->assertInstanceOf(BasicProxyController::class, $proxy, 'The returned proxy provider is not a BasicProxyController instance.');
 
         // Test Transporter.
