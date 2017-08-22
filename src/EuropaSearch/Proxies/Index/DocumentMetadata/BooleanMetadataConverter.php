@@ -41,7 +41,7 @@ class BooleanMetadataConverter implements ComponentConverterInterface
             $values = reset($values);
         }
 
-        return array($name => $values);
+        return [$name => $values];
     }
 
     /**
@@ -54,7 +54,7 @@ class BooleanMetadataConverter implements ComponentConverterInterface
      */
     private function getBooleanMetadataValue($values)
     {
-        $finalValue = array();
+        $finalValue = [];
         foreach ($values as $item) {
             $finalValue[] = boolval($item);
         }

@@ -7,9 +7,6 @@
 
 namespace EC\EuropaSearch\Messages\DocumentMetadata;
 
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class AbstractNumericMetadata.
  *
@@ -17,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package EC\EuropaSearch\Messages\DocumentMetadata
  */
-abstract class AbstractNumericMetadata extends AbstractMetadata
+abstract class AbstractNumericMetadata extends AbstractMetadata implements IndexableMetadataInterface
 {
 
     /**

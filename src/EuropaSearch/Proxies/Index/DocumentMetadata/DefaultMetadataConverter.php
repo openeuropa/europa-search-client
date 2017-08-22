@@ -39,6 +39,6 @@ class DefaultMetadataConverter implements ComponentConverterInterface
             $values = reset($values);
         }
 
-        return array($name => $values);
+        return [$name => $values];
     }
 }

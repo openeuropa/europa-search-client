@@ -49,6 +49,7 @@ class ClientContainerFactory
      */
     public function getClientContainer()
     {
+
         $this->buildClientContainer();
 
         return $this->container;
@@ -76,6 +77,7 @@ class ClientContainerFactory
      */
     public function getClient($clientId)
     {
+
         try {
             return $this->getClientContainer()->get($clientId);
         } catch (\Exception $e) {

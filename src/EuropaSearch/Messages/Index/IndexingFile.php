@@ -16,14 +16,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Represents a File (Binary) that must be indexed via the
  * Europa Search services.
  *
- * @todo Defining completely when files will be supported by the client.
+ * @todo Defining completely when files will be supported by the client
+ * (treated in another comming issue).
  *
  * @package EC\EuropaSearch\Messages\Index
  */
 class IndexingFile extends AbstractIndexingMessage
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getConverterIdentifier()
     {

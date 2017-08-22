@@ -8,7 +8,7 @@
 namespace EC\EuropaWS\Tests;
 
 use EC\EuropaWS\Common\DefaultValidatorBuilder;
-use EC\EuropaWS\Proxies\ProxyProvider;
+use EC\EuropaWS\Proxies\BasicProxyController;
 use EC\EuropaWS\Tests\Dummies\Clients\ClientDummy;
 use EC\EuropaWS\Tests\Dummies\WSConfigurationDummy;
 use EC\EuropaWS\Transporters\DummyTransporter;
@@ -22,20 +22,22 @@ use EC\EuropaWS\Transporters\DummyTransporter;
  */
 class ClientContainerTest extends AbstractWSTest
 {
+
     /**
      * Tests that a services config is correctly retrieved in the container.
      */
     public function testClientContainerInstantiation()
     {
+
         $container = $this->getContainer();
 
         // Test Client instance.
         $client = $container->get('client.dummy');
         $this->assertInstanceOf(ClientDummy::class, $client, 'The returned client is not a ClientDummy instance.');
 
-        // Test ProxyProvider.
+        // Test BasicProxyController.
         $proxy = $container->get('proxyProvider.default');
-        $this->assertInstanceOf(ProxyProvider::class, $proxy, 'The returned proxy provider is not a ProxyProvider instance.');
+        $this->assertInstanceOf(BasicProxyController::class, $proxy, 'The returned proxy provider is not a BasicProxyController instance.');
 
         // Test Transporter.
         $transporter = $container->get('transporter.default');

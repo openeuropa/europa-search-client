@@ -36,6 +36,6 @@ class IntegerMetadata extends AbstractNumericMetadata
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('values', new Assert\All(array('constraints' => array(new Assert\Type('integer'), ), )));
+        $metadata->addPropertyConstraint('values', new Assert\All(['constraints' => [new Assert\Type('integer')]]));
     }
 }

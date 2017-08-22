@@ -9,7 +9,7 @@ namespace EC\EuropaSearch\Messages\Index;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\AbstractMetadata;
 use EC\EuropaWS\Messages\IdentifiableMessageInterface;
-use EC\EuropaWS\Proxies\ProxyProvider;
+use EC\EuropaWS\Proxies\BasicProxyController;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -23,7 +23,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class AbstractIndexingMessage implements IdentifiableMessageInterface
 {
-    const CONVERTER_NAME_PREFIX = ProxyProvider::MESSAGE_ID_PREFIX.'indexing.';
+
+    /**
+     * Prefix applicable to all converter id of classes extending this class.
+     *
+     * @const
+     */
+    const CONVERTER_NAME_PREFIX = BasicProxyController::MESSAGE_ID_PREFIX.'indexing.';
 
     /**
      * The identifier common to the system and the Europa Search services.
@@ -51,7 +57,7 @@ abstract class AbstractIndexingMessage implements IdentifiableMessageInterface
      *
      * @var array
      */
-    private $metadata = array();
+    private $metadata = [];
 
     /**
      * Gets the document Id (reference).
@@ -190,8 +196,8 @@ abstract class AbstractIndexingMessage implements IdentifiableMessageInterface
         $metadata->addPropertyConstraint('documentLanguage', new Assert\Language());
         $metadata->addPropertyConstraints('metadata', [
             new Assert\NotBlank(),
-            new Assert\All(array('constraints' => array(new Assert\Type('\EC\EuropaSearch\Messages\DocumentMetadata\AbstractMetadata'), ), )),
-            new Assert\Valid(array('traverse' => true)),
+            new Assert\All(['constraints' => [new Assert\Type('\EC\EuropaSearch\Messages\DocumentMetadata\AbstractMetadata')]]),
+            new Assert\Valid(['traverse' => true]),
         ]);
     }
 }

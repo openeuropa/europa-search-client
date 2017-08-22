@@ -8,21 +8,26 @@
 namespace EC\EuropaSearch\Tests\Common\DocumentMetadata;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\FloatMetadata;
-use EC\EuropaWS\Tests\AbstractEuropaSearchTest;
+use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class FloatMetadataTest.
+ *
+ * Tests the validation process on FloatMetadata.
+ *
  * @package EC\EuropaSearch\Tests\Common
  */
 class FloatMetadataTest extends AbstractEuropaSearchTest
 {
+
     /**
      * Test the FloatMetadata validation (success case).
      */
     public function testFloatMetadataValidationSuccess()
     {
+
         $floatMetadata = new FloatMetadata('tested_float');
-        $floatMetadata->setValues(array(1.2, 20.003, 20.0));
+        $floatMetadata->setValues([1.2, 20.003, 20.0]);
 
         $validationErrors = $this->getDefaultValidator()->validate($floatMetadata);
         $violations = $this->getViolations($validationErrors);
@@ -35,8 +40,9 @@ class FloatMetadataTest extends AbstractEuropaSearchTest
      */
     public function testFloatMetadataValidationFailure()
     {
+
         $floatMetadata = new FloatMetadata(null);
-        $floatMetadata->setValues(array('0.2', 0));
+        $floatMetadata->setValues(['0.2', 0]);
 
         $validationErrors = $this->getDefaultValidator()->validate($floatMetadata);
         $violations = $this->getViolations($validationErrors);

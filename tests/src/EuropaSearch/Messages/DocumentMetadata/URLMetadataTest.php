@@ -8,21 +8,26 @@
 namespace EC\EuropaSearch\Tests\Common\DocumentMetadata;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\URLMetadata;
-use EC\EuropaWS\Tests\AbstractEuropaSearchTest;
+use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class URLMetadataTest.
+ *
+ * Tests the validation process on URLMetadata.
+ *
  * @package EC\EuropaSearch\Tests\Common
  */
 class URLMetadataTest extends AbstractEuropaSearchTest
 {
+
     /**
      * Test the URLMetadata validation (success case).
      */
     public function testURLMetadataValidationSuccess()
     {
+
         $uRLMetadata = new URLMetadata('tested_data');
-        $uRLMetadata->setValues(array('http://metadata.com'));
+        $uRLMetadata->setValues(['http://metadata.com']);
 
         $validationErrors = $this->getDefaultValidator()->validate($uRLMetadata);
         $violations = $this->getViolations($validationErrors);
@@ -35,8 +40,9 @@ class URLMetadataTest extends AbstractEuropaSearchTest
      */
     public function testURLMetadataValidationFailure()
     {
+
         $uRLMetadata = new URLMetadata(null);
-        $uRLMetadata->setValues(array(true, '/blabla/test'));
+        $uRLMetadata->setValues([true, '/blabla/test']);
 
         $validationErrors = $this->getDefaultValidator()->validate($uRLMetadata);
         $violations = $this->getViolations($validationErrors);

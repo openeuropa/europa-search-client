@@ -8,7 +8,7 @@
 namespace EC\EuropaSearch\Messages\DocumentMetadata;
 
 use EC\EuropaWS\Messages\Components\ComponentInterface;
-use EC\EuropaWS\Proxies\ProxyProvider;
+use EC\EuropaWS\Proxies\BasicProxyController;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -21,7 +21,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class AbstractMetadata implements ComponentInterface
 {
-    const CONVERTER_NAME_PREFIX = ProxyProvider::COMPONENT_ID_PREFIX.'metadata.';
+
+    /**
+     * Prefix applicable to all converter id of classes extending this class.
+     *
+     * @const
+     */
+    const CONVERTER_NAME_PREFIX = BasicProxyController::COMPONENT_ID_PREFIX.'metadata.';
 
     /**
      * Metadata name.

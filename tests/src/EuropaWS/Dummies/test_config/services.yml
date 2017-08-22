@@ -14,7 +14,7 @@ services:
     componentProxy.componentDummy:
         class:     EC\EuropaWS\Tests\Dummies\Proxies\ComponentConverterDummy
     proxyProvider.default:
-        class:     EC\EuropaWS\Proxies\ProxyProvider
+        class:     EC\EuropaWS\Proxies\BasicProxyController
         arguments: ['@ws.settings.default']
         calls:
             - [defineMessageConverter, ['messageProxy.messageDummy', '@messageProxy.messageDummy']]

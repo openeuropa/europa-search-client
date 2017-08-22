@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/EC.html">\EC</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">89</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">3</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1313697074"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1313697074" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1199204254"></a>
+                                <a href="../namespaces/EC.html" style="margin-left: 30px; padding-left: 0">EC</a>
+            </div>
+            <div id="namespace-1199204254" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1319490129"></a>
+                                <a href="../namespaces/EC.EuropaSearch.html" style="margin-left: 30px; padding-left: 0">EuropaSearch</a>
+            </div>
+            <div id="namespace-1319490129" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2063420950"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Messages.html" style="margin-left: 30px; padding-left: 0">Messages</a>
+            </div>
+            <div id="namespace-2063420950" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1116448490"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Messages.DocumentMetadata.html" style="margin-left: 30px; padding-left: 0">DocumentMetadata</a>
+            </div>
+            <div id="namespace-1116448490" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/EC.EuropaSearch.Messages.DocumentMetadata.IndexableMetadata.html">IndexableMetadata</a></li>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.DocumentMetadata.AbstractMetadata.html">AbstractMetadata</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.DocumentMetadata.AbstractNumericMetadata.html">AbstractNumericMetadata</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.DocumentMetadata.BooleanMetadata.html">BooleanMetadata</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.DocumentMetadata.DateMetadata.html">DateMetadata</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.DocumentMetadata.FloatMetadata.html">FloatMetadata</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.DocumentMetadata.FullTextMetadata.html">FullTextMetadata</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.DocumentMetadata.IntegerMetadata.html">IntegerMetadata</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.DocumentMetadata.NotIndexedMetadata.html">NotIndexedMetadata</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.DocumentMetadata.StringMetadata.html">StringMetadata</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.DocumentMetadata.URLMetadata.html">URLMetadata</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-647761289"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Messages.Index.html" style="margin-left: 30px; padding-left: 0">Index</a>
+            </div>
+            <div id="namespace-647761289" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Index.AbstractIndexingMessage.html">AbstractIndexingMessage</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Index.AbstractIndexingRequest.html">AbstractIndexingRequest</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Index.IndexingFile.html">IndexingFile</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Index.IndexingWebContent.html">IndexingWebContent</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Index.WebContentRequest.html">WebContentRequest</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-757765766"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Messages.Search.html" style="margin-left: 30px; padding-left: 0">Search</a>
+            </div>
+            <div id="namespace-757765766" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-240775258"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Messages.Search.Filters.html" style="margin-left: 30px; padding-left: 0">Filters</a>
+            </div>
+            <div id="namespace-240775258" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1215046141"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Messages.Search.Filters.Combined.html" style="margin-left: 30px; padding-left: 0">Combined</a>
+            </div>
+            <div id="namespace-1215046141" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/EC.EuropaSearch.Messages.Search.Filters.Combined.CombinedQueryInterface.html">CombinedQueryInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Search.Filters.Combined.AggregatedFilters.html">AggregatedFilters</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Search.Filters.Combined.BooleanQuery.html">BooleanQuery</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Search.Filters.Combined.BoostingQuery.html">BoostingQuery</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-88032673"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Messages.Search.Filters.Simple.html" style="margin-left: 30px; padding-left: 0">Simple</a>
+            </div>
+            <div id="namespace-88032673" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Search.Filters.Simple.AbstractSimple.html">AbstractSimple</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Search.Filters.Simple.FieldExists.html">FieldExists</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Search.Filters.Simple.Range.html">Range</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Search.Filters.Simple.Term.html">Term</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Search.Filters.Simple.Terms.html">Terms</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Search.Filters.BoostableFilter.html">BoostableFilter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Search.SearchMessage.html">SearchMessage</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html">SearchRequest</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Messages.AbstractRequest.html">AbstractRequest</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1393214493"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Proxies.html" style="margin-left: 30px; padding-left: 0">Proxies</a>
+            </div>
+            <div id="namespace-1393214493" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-706182312"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Proxies.Index.html" style="margin-left: 30px; padding-left: 0">Index</a>
+            </div>
+            <div id="namespace-706182312" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1249722892"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Proxies.Index.DocumentMetadata.html" style="margin-left: 30px; padding-left: 0">DocumentMetadata</a>
+            </div>
+            <div id="namespace-1249722892" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Index.DocumentMetadata.BooleanMetadataConverter.html">BooleanMetadataConverter</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Index.DocumentMetadata.DateMetadataConverter.html">DateMetadataConverter</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Index.DocumentMetadata.DefaultMetadataConverter.html">DefaultMetadataConverter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Index.WebContentConverter.html">WebContentConverter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1523317925"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Proxies.Search.html" style="margin-left: 30px; padding-left: 0">Search</a>
+            </div>
+            <div id="namespace-1523317925" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1187604063"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Proxies.Search.Filters.html" style="margin-left: 30px; padding-left: 0">Filters</a>
+            </div>
+            <div id="namespace-1187604063" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1296856159"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Proxies.Search.Filters.Combined.html" style="margin-left: 30px; padding-left: 0">Combined</a>
+            </div>
+            <div id="namespace-1296856159" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/EC.EuropaSearch.Proxies.Search.Filters.Combined.CombinedQueryConverterInterface.html">CombinedQueryConverterInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Search.Filters.Combined.AggregatedFiltersConverter.html">AggregatedFiltersConverter</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Search.Filters.Combined.BooleanQueryConverter.html">BooleanQueryConverter</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Search.Filters.Combined.BoostingQueryConverter.html">BoostingQueryConverter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1871290169"></a>
+                                <a href="../namespaces/EC.EuropaSearch.Proxies.Search.Filters.Simple.html" style="margin-left: 30px; padding-left: 0">Simple</a>
+            </div>
+            <div id="namespace-1871290169" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Search.Filters.Simple.AbstractSimpleConverter.html">AbstractSimpleConverter</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Search.Filters.Simple.FieldExistsConverter.html">FieldExistsConverter</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Search.Filters.Simple.RangeConverter.html">RangeConverter</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Search.Filters.Simple.TermConverter.html">TermConverter</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Search.Filters.Simple.TermsConverter.html">TermsConverter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Search.SearchConverter.html">SearchConverter</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.Proxies.Search.SearchProxyController.html">SearchProxyController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/EC.EuropaSearch.EuropaSearch.html">EuropaSearch</a></li>
+                                                    <li class="class"><a href="../classes/EC.EuropaSearch.EuropaSearchConfig.html">EuropaSearchConfig</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/EC.EuropaSearch.Messages.Search.html">\EC\EuropaSearch\Messages\Search</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\EC\EuropaSearch\Messages\Search</small>SearchRequest</h1>
+                    <p><em>Class SearchRequest.</em></p>
+                    <p>It defines a search request that is sent for indexing to the Europa Search
+services.</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.AbstractRequest.html#method_getAPIKey" class="">getAPIKey()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.AbstractRequest.html#method_setAPIKey" class="">setAPIKey()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_getQueryJSON" class="">getQueryJSON()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_setQueryJSON" class="">setQueryJSON()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_getText" class="">getText()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_setText" class="">setText()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_getLanguages" class="">getLanguages()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_setLanguages" class="">setLanguages()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_getPageNumber" class="">getPageNumber()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_setPageNumber" class="">setPageNumber()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_getPageSize" class="">getPageSize()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_setPageSize" class="">setPageSize()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_getHighlightRegex" class="">getHighlightRegex()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_setHighlightRegex" class="">setHighlightRegex()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_getHighlightLimit" class="">getHighlightLimit()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_setHighlightLimit" class="">setHighlightLimit()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_getSessionToken" class="">getSessionToken()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_setSessionToken" class="">setSessionToken()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_getSort" class="">getSort()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_setSort" class="">setSort()</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#method_addConvertedComponents" class="">addConvertedComponents()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.AbstractRequest.html#property_APIKey" class="">$APIKey</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#property_queryJSON" class="">$queryJSON</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#property_text" class="">$text</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#property_languages" class="">$languages</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#property_pageNumber" class="">$pageNumber</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#property_pageSize" class="">$pageSize</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#property_highlightRegex" class="">$highlightRegex</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#property_highlightLimit" class="">$highlightLimit</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#property_sessionToken" class="">$sessionToken</a><br />
+                                                                    <a href="../classes/EC.EuropaSearch.Messages.Search.SearchRequest.html#property_sort" class="">$sort</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Messages.Search.SearchRequest.html"><div class="path-wrapper">Messages/Search/SearchRequest.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Messages\Search</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper"><a href="../classes/EC.EuropaSearch.Messages.AbstractRequest.html">\EC\EuropaSearch\Messages\AbstractRequest</a></div>
+                                                                                                    <div class="namespace-wrapper">\EC\EuropaSearch\Messages\Search\SearchRequest</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_APIKey" name="property_APIKey" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$APIKey</h3>
+                <pre class="signature">$APIKey : string</pre>
+                <p><em>The API key to send with the request.</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/EC.EuropaSearch.Messages.AbstractRequest.html"><div class="path-wrapper">\EC\EuropaSearch\Messages\AbstractRequest</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_queryJSON" name="property_queryJSON" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$queryJSON</h3>
+                <pre class="signature">$queryJSON : string</pre>
+                <p><em>The search query in a JSOn format.</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_text" name="property_text" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$text</h3>
+                <pre class="signature">$text : string</pre>
+                <p><em>The searched text.</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_languages" name="property_languages" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$languages</h3>
+                <pre class="signature">$languages : array</pre>
+                <p><em>Languages implied in teh search.</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_pageNumber" name="property_pageNumber" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$pageNumber</h3>
+                <pre class="signature">$pageNumber : integer</pre>
+                <p><em>The page number of the result list to retrieve.</em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_pageSize" name="property_pageSize" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$pageSize</h3>
+                <pre class="signature">$pageSize : integer</pre>
+                <p><em>The number of results to retrieve.</em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_highlightRegex" name="property_highlightRegex" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$highlightRegex</h3>
+                <pre class="signature">$highlightRegex : string</pre>
+                <p><em>The regular expression to use to highlight result texts.</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_highlightLimit" name="property_highlightLimit" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$highlightLimit</h3>
+                <pre class="signature">$highlightLimit : integer</pre>
+                <p><em>The length of the highlighted text.</em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_sessionToken" name="property_sessionToken" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$sessionToken</h3>
+                <pre class="signature">$sessionToken : string</pre>
+                <p><em>The session token.</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_sort" name="property_sort" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$sort</h3>
+                <pre class="signature">$sort : string</pre>
+                <p><em>The sort criteria to apply with the search request.</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAPIKey" name="method_getAPIKey" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAPIKey()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAPIKey() : string</pre>
+                <p><em>Gets the API key to send.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The API key to send.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/EC.EuropaSearch.Messages.AbstractRequest.html"><div class="path-wrapper">\EC\EuropaSearch\Messages\AbstractRequest</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setAPIKey" name="method_setAPIKey" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setAPIKey()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setAPIKey(string  <span class="argument">$APIKey</span>) </pre>
+                <p><em>Sets the API key to send.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$APIKey </td>
+                                <td><p>The API key to send.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/EC.EuropaSearch.Messages.AbstractRequest.html"><div class="path-wrapper">\EC\EuropaSearch\Messages\AbstractRequest</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getQueryJSON" name="method_getQueryJSON" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getQueryJSON()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getQueryJSON() : string</pre>
+                <p><em>Gets the search query in a JSON format.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The JSON query.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setQueryJSON" name="method_setQueryJSON" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setQueryJSON()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setQueryJSON(string  <span class="argument">$queryJSON</span>) </pre>
+                <p><em>Sets the search query in a JSON format.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$queryJSON </td>
+                                <td><p>The JSON query.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getText" name="method_getText" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getText()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getText() : string</pre>
+                <p><em>Gets the searched text.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The searched text.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setText" name="method_setText" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setText()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setText(string  <span class="argument">$text</span>) </pre>
+                <p><em>Sets the searched text.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$text </td>
+                                <td><p>The searched text.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getLanguages" name="method_getLanguages" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getLanguages()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getLanguages() : array</pre>
+                <p><em>Gets the list of languages implied in the search.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The list of implied languages</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setLanguages" name="method_setLanguages" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setLanguages()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setLanguages(array  <span class="argument">$languages</span>) </pre>
+                <p><em>Sets the list of languages implied in the search.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$languages </td>
+                                <td><p>The list of implied languages</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPageNumber" name="method_getPageNumber" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPageNumber()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPageNumber() : integer</pre>
+                <p><em>Gets the page number.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>The page number.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setPageNumber" name="method_setPageNumber" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setPageNumber()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setPageNumber(integer  <span class="argument">$pageNumber</span>) </pre>
+                <p><em>Sets the page number.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$pageNumber </td>
+                                <td><p>The page number.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPageSize" name="method_getPageSize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPageSize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPageSize() : integer</pre>
+                <p><em>Gets the number of results to retrieve.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>The number of results to retrieve.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setPageSize" name="method_setPageSize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setPageSize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setPageSize(integer  <span class="argument">$pageSize</span>) </pre>
+                <p><em>Sets the number of results to retrieve.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$pageSize </td>
+                                <td><p>The number of results to retrieve.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getHighlightRegex" name="method_getHighlightRegex" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getHighlightRegex()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getHighlightRegex() : string</pre>
+                <p><em>Gets the regular expression to use to highlight result texts.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The regular expression to use.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setHighlightRegex" name="method_setHighlightRegex" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setHighlightRegex()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setHighlightRegex(string  <span class="argument">$highlightRegex</span>) </pre>
+                <p><em>Sets the regular expression to use to highlight result texts.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$highlightRegex </td>
+                                <td><p>The regular expression to use.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getHighlightLimit" name="method_getHighlightLimit" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getHighlightLimit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getHighlightLimit() : integer</pre>
+                <p><em>Gets the length of the highlighted text.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>The length of the highlighted text.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setHighlightLimit" name="method_setHighlightLimit" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setHighlightLimit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setHighlightLimit(integer  <span class="argument">$highlightLimit</span>) </pre>
+                <p><em>Sets the length of the highlighted text.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$highlightLimit </td>
+                                <td><p>The length of the highlighted text.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSessionToken" name="method_getSessionToken" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSessionToken()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSessionToken() : string</pre>
+                <p><em>Gets the session token to use with search (if restricted).</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The session token to use.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setSessionToken" name="method_setSessionToken" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setSessionToken()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setSessionToken(string  <span class="argument">$sessionToken</span>) </pre>
+                <p><em>Sets the session token to use with search (if restricted).</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$sessionToken </td>
+                                <td><p>The session token to use.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSort" name="method_getSort" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSort()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSort() : string</pre>
+                <p><em>Gets the sort criteria to apply with the search request.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The sort criteria to apply.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setSort" name="method_setSort" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setSort()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setSort(string  <span class="argument">$sort</span>) </pre>
+                <p><em>Sets the sort criteria to apply with the search request.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$sort </td>
+                                <td><p>The sort criteria to apply.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addConvertedComponents" name="method_addConvertedComponents" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addConvertedComponents()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addConvertedComponents(array  <span class="argument">$components</span>) </pre>
+                <p><em>{@inheritDoc}</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$components </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">SearchRequest.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Messages/Search/SearchRequest.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/EC.html">\EC</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 22nd, 2017 at 00:21.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

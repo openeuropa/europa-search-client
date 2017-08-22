@@ -15,19 +15,24 @@ use EC\EuropaSearch\Messages\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\URLMetadata;
 use EC\EuropaSearch\Messages\Index\IndexingWebContent;
 use EC\EuropaSearch\Messages\Index\WebContentRequest;
-use EC\EuropaWS\Tests\AbstractEuropaSearchTest;
+use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
- * Class IndexingWebContentConvertTest
+ * Class IndexingWebContentConvertTest.
+ *
+ * Test the conversion of a IndexingWebContent object.
+ *
  * @package EC\EuropaSearch\Tests\Proxies\Index
  */
 class IndexingWebContentConvertTest extends AbstractEuropaSearchTest
 {
+
     /**
      * Test a conversion of an IndexedDocument object in a IndexingRequest one.
      */
-    public function testConvertSentObjectSuccess()
+    public function testConvertIndexingWebContentSuccess()
     {
+
         $data = $this->indexedDocumentProvider();
         $submitted = $data['submitted'];
         $expected = $data['expected'];
@@ -50,10 +55,10 @@ class IndexingWebContentConvertTest extends AbstractEuropaSearchTest
      *   The objects for the test:
      *   - 'submitted':  IndexedDocument to convert in the test;
      *   - 'expected' :   Excepted IndexingRequest at the end of the test;
-     *   - 'service'  :  ServiceConfiguration used in the test,
      */
     protected function indexedDocumentProvider()
     {
+
         $documentId = 'reference/web_content/1';
         $documentURI = 'http://europa.test.com/content.html';
         $documentLanguage = 'fr';
@@ -81,26 +86,26 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         $indexedDocument->setDocumentLanguage($documentLanguage);
 
         $metadata = new FullTextMetadata('title');
-        $metadata->setValues(array('this the title'));
+        $metadata->setValues(['this the title']);
         $indexedDocument->addMetadata($metadata);
 
         $metadata = new StringMetadata('tag');
-        $metadata->setValues(array('taxonomy term'));
+        $metadata->setValues(['taxonomy term']);
         $indexedDocument->addMetadata($metadata);
 
         $metadata = new IntegerMetadata('rank');
-        $metadata->setValues(array(1));
+        $metadata->setValues([1]);
         $indexedDocument->addMetadata($metadata);
 
         $metadata = new FloatMetadata('percentage');
-        $metadata->setValues(array(0.1));
+        $metadata->setValues([0.1]);
         $indexedDocument->addMetadata($metadata);
         $metadata = new DateMetadata('publishing_date');
-        $metadata->setValues(array(date('F j, Y, g:i a', strtotime('11-12-2018'))));
+        $metadata->setValues([date('F j, Y, g:i a', strtotime('11-12-2018'))]);
         $indexedDocument->addMetadata($metadata);
 
         $metadata = new URLMetadata('uri');
-        $metadata->setValues(array('http://www.europa.com'));
+        $metadata->setValues(['http://www.europa.com']);
         $indexedDocument->addMetadata($metadata);
 
         // Expected object.
@@ -124,11 +129,13 @@ Nam consectetur leo eu felis vehicula sollicitudin. Aliquam pharetra, nulla quis
 
 Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio dapibus, mollis leo eget, interdum urna. Phasellus ac dui commodo, cursus lorem nec, condimentum erat. Pellentesque eget imperdiet nisl, at convallis enim. Sed feugiat fermentum leo ac auctor. Aliquam imperdiet enim ac pellentesque commodo. Mauris sed sapien eu nulla mattis hendrerit ac ac mauris. Donec gravida, nisi sit amet rhoncus volutpat, quam nisl ullamcorper nisl, in luctus sapien justo et ex. Fusce dignissim felis felis, tempus faucibus tellus pulvinar vitae. Proin gravida tempus eros sit amet viverra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum libero quis tellus commodo, non vestibulum lacus rutrum. Etiam euismod odio ipsum, nec pulvinar nisl ultrices sit amet. Nunc feugiat orci vel odio interdum, non dignissim erat hendrerit. Vestibulum gravida et elit nec placerat.');
 
-        $indexingRequest->setMetadataJSON('{"esIN_title":"this the title","esST_tag":"taxonomy term","esNU_rank":1,"esNU_percentage":0.1,"esDA_publishing_date":"2018-12-11T00:00:00+0100","esST_uri":"http:\/\/www.europa.com"}');
 
-        return array(
+        $fileContent = file_get_contents(__DIR__.'/fixtures/json_sample.json');
+        $indexingRequest->setMetadataJSON($fileContent);
+
+        return [
             'submitted' => $indexedDocument,
             'expected' => $indexingRequest,
-        );
+        ];
     }
 }

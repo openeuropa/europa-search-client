@@ -41,7 +41,7 @@ class DateMetadataConverter implements ComponentConverterInterface
             $values = reset($values);
         }
 
-        return array($name => $values);
+        return [$name => $values];
     }
 
     /**
@@ -54,7 +54,7 @@ class DateMetadataConverter implements ComponentConverterInterface
      */
     private function getMetadataDateValue($values)
     {
-        $finalValues = array();
+        $finalValues = [];
         foreach ($values as $item) {
             $dateTime = new \DateTime($item);
             $finalValues[] = $dateTime->format(\DateTime::ISO8601);

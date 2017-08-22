@@ -8,22 +8,26 @@
 namespace EC\EuropaSearch\Tests\Common\DocumentMetadata;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\IntegerMetadata;
-use EC\EuropaSearch\Tests\AbstractTest;
-use EC\EuropaWS\Tests\AbstractEuropaSearchTest;
+use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class IntegerMetadataTest.
+ *
+ * Tests the validation process on IntegerMetadata.
+ *
  * @package EC\EuropaSearch\Tests\Common
  */
 class IntegerMetadataTest extends AbstractEuropaSearchTest
 {
+
     /**
      * Test the IntegerMetadata validation (success case).
      */
     public function testIntegerMetadataValidationSuccess()
     {
+
         $integerMetadata = new IntegerMetadata('tested_integer');
-        $integerMetadata->setValues(array(1, 2, 300000000000000));
+        $integerMetadata->setValues([1, 2, 300000000000000]);
 
         $validationErrors = $this->getDefaultValidator()->validate($integerMetadata);
         $violations = $this->getViolations($validationErrors);
@@ -36,8 +40,9 @@ class IntegerMetadataTest extends AbstractEuropaSearchTest
      */
     public function testIntegerMetadataValidationFailure()
     {
+
         $integerMetadata = new IntegerMetadata(null);
-        $integerMetadata->setValues(array('0.2', false));
+        $integerMetadata->setValues(['0.2', false]);
 
         $validationErrors = $this->getDefaultValidator()->validate($integerMetadata);
         $violations = $this->getViolations($validationErrors);

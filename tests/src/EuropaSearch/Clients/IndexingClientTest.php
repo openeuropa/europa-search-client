@@ -15,8 +15,7 @@ use EC\EuropaSearch\Messages\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\URLMetadata;
 use EC\EuropaSearch\Messages\Index\IndexingWebContent;
 use EC\EuropaSearch\Tests\EuropaSearchDummy;
-use EC\EuropaWS\Exceptions\ValidationException;
-use EC\EuropaWS\Tests\AbstractEuropaSearchTest;
+use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class IndexingClientTest
@@ -24,11 +23,13 @@ use EC\EuropaWS\Tests\AbstractEuropaSearchTest;
  */
 class IndexingClientTest extends AbstractEuropaSearchTest
 {
+
     /**
      * Test that the client process passes all its steps.
      */
     public function testClientProcessSuccess()
     {
+
         $message = $this->indexedDocumentProvider();
         $factory = new EuropaSearchDummy();
         $client = $factory->getIndexingWebContentClient();
@@ -46,6 +47,7 @@ class IndexingClientTest extends AbstractEuropaSearchTest
      */
     protected function indexedDocumentProvider()
     {
+
         $documentId = 'reference/web_content/1';
         $documentURI = 'http://europa.test.com/content.html';
         $documentLanguage = 'fr';
@@ -73,26 +75,26 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         $indexedDocument->setDocumentLanguage($documentLanguage);
 
         $metadata = new FullTextMetadata('title');
-        $metadata->setValues(array('this the title'));
+        $metadata->setValues(['this the title']);
         $indexedDocument->addMetadata($metadata);
 
         $metadata = new StringMetadata('tag');
-        $metadata->setValues(array('taxonomy term'));
+        $metadata->setValues(['taxonomy term']);
         $indexedDocument->addMetadata($metadata);
 
         $metadata = new IntegerMetadata('rank');
-        $metadata->setValues(array(1));
+        $metadata->setValues([1]);
         $indexedDocument->addMetadata($metadata);
 
         $metadata = new FloatMetadata('percentage');
-        $metadata->setValues(array(0.1));
+        $metadata->setValues([0.1]);
         $indexedDocument->addMetadata($metadata);
         $metadata = new DateMetadata('publishing_date');
-        $metadata->setValues(array(date('F j, Y, g:i a', strtotime('11-12-2018'))));
+        $metadata->setValues([date('F j, Y, g:i a', strtotime('11-12-2018'))]);
         $indexedDocument->addMetadata($metadata);
 
         $metadata = new URLMetadata('uri');
-        $metadata->setValues(array('http://www.europa.com'));
+        $metadata->setValues(['http://www.europa.com']);
         $indexedDocument->addMetadata($metadata);
 
         return $indexedDocument;

@@ -8,21 +8,26 @@
 namespace EC\EuropaSearch\Tests\Common\DocumentMetadata;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\NotIndexedMetadata;
-use EC\EuropaWS\Tests\AbstractEuropaSearchTest;
+use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class NotIndexedMetadataTest.
+ *
+ * Tests the validation process on NotIndexedMetadata.
+ *
  * @package EC\EuropaSearch\Tests\Common
  */
 class NotIndexedMetadataTest extends AbstractEuropaSearchTest
 {
+
     /**
      * Test the NotIndexedMetadata validation (success case).
      */
     public function testNotIndexedMetadataValidationSuccess()
     {
+
         $notIndexedMetadata = new NotIndexedMetadata('tested_data');
-        $notIndexedMetadata->setValues(array('title is a string that is not indexed'));
+        $notIndexedMetadata->setValues(['title is a string that is not indexed']);
 
         $validationErrors = $this->getDefaultValidator()->validate($notIndexedMetadata);
         $violations = $this->getViolations($validationErrors);
@@ -35,8 +40,9 @@ class NotIndexedMetadataTest extends AbstractEuropaSearchTest
      */
     public function testNotIndexedMetadataValidationFailure()
     {
+
         $notIndexedMetadata = new NotIndexedMetadata(null);
-        $notIndexedMetadata->setValues(array(true, 0));
+        $notIndexedMetadata->setValues([true, 0]);
 
         $validationErrors = $this->getDefaultValidator()->validate($notIndexedMetadata);
         $violations = $this->getViolations($validationErrors);

@@ -36,6 +36,6 @@ class FloatMetadata extends AbstractNumericMetadata
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('values', new Assert\All(array('constraints' => array(new Assert\Type('float'), ), )));
+        $metadata->addPropertyConstraint('values', new Assert\All(['constraints' => [new Assert\Type('float')]]));
     }
 }

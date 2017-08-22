@@ -8,10 +8,13 @@
 namespace EC\EuropaSearch\Tests\Common\DocumentMetadata;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\DateMetadata;
-use EC\EuropaWS\Tests\AbstractEuropaSearchTest;
+use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class DateMetadataTest.
+ *
+ * Tests the validation process on DateMetadata.
+ *
  * @package EC\EuropaSearch\Tests\Common
  */
 class DateMetadataTest extends AbstractEuropaSearchTest
@@ -22,8 +25,9 @@ class DateMetadataTest extends AbstractEuropaSearchTest
      */
     public function testDateMetadataValidationSuccess()
     {
+
         $dateDocumentMetadata = new DateMetadata('tested_date');
-        $dateDocumentMetadata->setValues(array('30-12-2018'));
+        $dateDocumentMetadata->setValues(['30-12-2018']);
 
         $validationErrors = $this->getDefaultValidator()->validate($dateDocumentMetadata);
         $violations = $this->getViolations($validationErrors);
@@ -36,8 +40,9 @@ class DateMetadataTest extends AbstractEuropaSearchTest
      */
     public function testDateMetadataValidationFailure()
     {
+
         $dateDocumentMetadata = new DateMetadata('tested_date');
-        $dateDocumentMetadata->setValues(array('33-33-2105'));
+        $dateDocumentMetadata->setValues(['33-33-2105']);
 
         $validationErrors = $this->getDefaultValidator()->validate($dateDocumentMetadata);
         $violations = $this->getViolations($validationErrors);

@@ -143,9 +143,9 @@ class EuropaSearchConfig implements WSConfigurationInterface
     public function getCredentials()
     {
 
-        return array(
+        return [
             'ws.credentials.name' => $this->userName,
             'ws.credentials.password' => $this->userPassword,
-        );
+        ];
     }
 }

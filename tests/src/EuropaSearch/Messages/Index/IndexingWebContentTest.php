@@ -11,14 +11,18 @@ use EC\EuropaSearch\Messages\DocumentMetadata\DateMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\IntegerMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Messages\Index\IndexingWebContent;
-use EC\EuropaWS\Tests\AbstractEuropaSearchTest;
+use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
- * Class IndexingWebContentTest
+ * Class IndexingWebContentTest.
+ *
+ * Tests the validation process on IndexingWebContent.
+ *
  * @package EC\EuropaSearch\Tests\Messages\Index
  */
 class IndexingWebContentTest extends AbstractEuropaSearchTest
 {
+
     /**
      * Test the IndexedDocument validation for a web content (success case).
      */
@@ -32,15 +36,15 @@ class IndexingWebContentTest extends AbstractEuropaSearchTest
         $indexedDocument->setDocumentContent('this is the content');
 
         $metadata = new StringMetadata('title');
-        $metadata->setValues(array('The content title'));
+        $metadata->setValues(['The content title']);
         $indexedDocument->addMetadata($metadata);
 
         $metadata = new IntegerMetadata('int_sets');
-        $metadata->setValues(array(1, 2, 3));
+        $metadata->setValues([1, 2, 3]);
         $indexedDocument->addMetadata($metadata);
 
         $metadata = new DateMetadata('publishing_date');
-        $metadata->setValues(array('20-12-2018'));
+        $metadata->setValues(['20-12-2018']);
         $indexedDocument->addMetadata($metadata);
 
         $validationErrors = $this->getDefaultValidator()->validate($indexedDocument);
@@ -59,15 +63,15 @@ class IndexingWebContentTest extends AbstractEuropaSearchTest
         $indexedDocument->setDocumentLanguage('en');
 
         $metadata = new StringMetadata('title');
-        $metadata->setValues(array(false));
+        $metadata->setValues([false]);
         $indexedDocument->addMetadata($metadata);
 
         $metadata = new IntegerMetadata('int_sets');
-        $metadata->setValues(array(false));
+        $metadata->setValues([false]);
         $indexedDocument->addMetadata($metadata);
 
         $metadata = new DateMetadata('publishing_date');
-        $metadata->setValues(array('3000000'));
+        $metadata->setValues(['3000000']);
         $indexedDocument->addMetadata($metadata);
 
         $validationErrors = $this->getDefaultValidator()->validate($indexedDocument);
@@ -82,7 +86,7 @@ class IndexingWebContentTest extends AbstractEuropaSearchTest
             'metadata[int_sets].values[0]' => 'This value should be of type integer.',
         ];
         foreach ($violations as $name => $violation) {
-            $this->assertEquals($violation, $expected[$name]);
+            $this->assertEquals($violation, $expected[$name], 'IndexedDocument validation constraints are not well defined for: '.$name);
         }
     }
 }

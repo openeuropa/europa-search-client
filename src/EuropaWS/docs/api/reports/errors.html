@@ -67,12 +67,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">28</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">39</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">2</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">2</span>
                                 </a>
                             </li>
                             <li>
@@ -113,9 +113,10 @@
                                                                                                     <li><a href="#Messages/MessageInterface.php"><i class="icon-file"></i> Messages/MessageInterface.php</a></li>
                                                                                                                                                             <li><a href="#Messages/StringResponseMessage.php"><i class="icon-file"></i> Messages/StringResponseMessage.php</a></li>
                                                                                                     <li><a href="#Messages/ValidatableMessageInterface.php"><i class="icon-file"></i> Messages/ValidatableMessageInterface.php</a></li>
+                                                                                                    <li><a href="#Proxies/BasicProxyController.php"><i class="icon-file"></i> Proxies/BasicProxyController.php</a></li>
                                                                                                     <li><a href="#Proxies/ComponentConverterInterface.php"><i class="icon-file"></i> Proxies/ComponentConverterInterface.php</a></li>
                                                                                                     <li><a href="#Proxies/MessageConverterInterface.php"><i class="icon-file"></i> Proxies/MessageConverterInterface.php</a></li>
-                                                                                                    <li><a href="#Proxies/ProxyProvider.php"><i class="icon-file"></i> Proxies/ProxyProvider.php</a></li>
+                                                                                                    <li><a href="#Proxies/ProxyControllerInterface.php"><i class="icon-file"></i> Proxies/ProxyControllerInterface.php</a></li>
                                                                                                     <li><a href="#Transporters/DummyTransporter.php"><i class="icon-file"></i> Transporters/DummyTransporter.php</a></li>
                                                                                                     <li><a href="#Transporters/TransporterInterface.php"><i class="icon-file"></i> Transporters/TransporterInterface.php</a></li>
                                                                                                     <li><a href="#ValidatableInterface.php"><i class="icon-file"></i> ValidatableInterface.php</a></li>
@@ -205,12 +206,12 @@
                                     </tr>
                                                                     <tr>
                                         <td>error</td>
-                                        <td>74</td>
+                                        <td>75</td>
                                         <td>Argument $message is missing from the Docblock of sendMessage</td>
                                     </tr>
                                                                     <tr>
                                         <td>error</td>
-                                        <td>88</td>
+                                        <td>90</td>
                                         <td>Argument $message is missing from the Docblock of validateMessage</td>
                                     </tr>
                                                             </tbody>
@@ -558,6 +559,87 @@
                         </div>
                                     </div>
                             <div class="package-contents">
+                                            <a name="Proxies/BasicProxyController.php" id="Proxies/BasicProxyController.php"></a>
+                        <h3>
+                            <i class="icon-file"></i>
+                            Proxies/BasicProxyController.php
+                            <small style="float: right;padding-right: 10px;">12</small>
+                        </h3>
+                        <div>
+                            <table class="table markers table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Line</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>0</td>
+                                        <td>No summary was found for this file</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>76</td>
+                                        <td>Argument $converterId is missing from the Docblock of defineMessageConverter</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>76</td>
+                                        <td>Argument $converter is missing from the Docblock of defineMessageConverter</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>85</td>
+                                        <td>Argument $converterId is missing from the Docblock of defineComponentConverter</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>85</td>
+                                        <td>Argument $converter is missing from the Docblock of defineComponentConverter</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>136</td>
+                                        <td>Argument $message is missing from the Docblock of convertMessage</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>157</td>
+                                        <td>Argument $message is missing from the Docblock of convertMessageWithComponents</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>157</td>
+                                        <td>Argument $convertedComponent is missing from the Docblock of convertMessageWithComponents</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>182</td>
+                                        <td>Argument $components is missing from the Docblock of convertComponents</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>208</td>
+                                        <td>Argument $component is missing from the Docblock of convertComponent</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>241</td>
+                                        <td>Argument $request is missing from the Docblock of sendRequest</td>
+                                    </tr>
+                                                                    <tr>
+                                        <td>error</td>
+                                        <td>241</td>
+                                        <td>Argument $transporter is missing from the Docblock of sendRequest</td>
+                                    </tr>
+                                                            </tbody>
+                            </table>
+                        </div>
+                                    </div>
+                            <div class="package-contents">
                                             <a name="Proxies/ComponentConverterInterface.php" id="Proxies/ComponentConverterInterface.php"></a>
                         <h3>
                             <i class="icon-file"></i>
@@ -610,10 +692,10 @@
                         </div>
                                     </div>
                             <div class="package-contents">
-                                            <a name="Proxies/ProxyProvider.php" id="Proxies/ProxyProvider.php"></a>
+                                            <a name="Proxies/ProxyControllerInterface.php" id="Proxies/ProxyControllerInterface.php"></a>
                         <h3>
                             <i class="icon-file"></i>
-                            Proxies/ProxyProvider.php
+                            Proxies/ProxyControllerInterface.php
                             <small style="float: right;padding-right: 10px;">2</small>
                         </h3>
                         <div>
@@ -633,8 +715,8 @@
                                     </tr>
                                                                     <tr>
                                         <td>error</td>
-                                        <td>52</td>
-                                        <td>No summary for property $WSConfiguration</td>
+                                        <td>29</td>
+                                        <td>Only one @package tag is allowed</td>
                                     </tr>
                                                             </tbody>
                             </table>
@@ -645,7 +727,7 @@
                         <h3>
                             <i class="icon-file"></i>
                             Transporters/DummyTransporter.php
-                            <small style="float: right;padding-right: 10px;">4</small>
+                            <small style="float: right;padding-right: 10px;">3</small>
                         </h3>
                         <div>
                             <table class="table markers table-bordered">
@@ -664,18 +746,13 @@
                                     </tr>
                                                                     <tr>
                                         <td>error</td>
-                                        <td>40</td>
+                                        <td>45</td>
                                         <td>Argument $request is missing from the Docblock of send</td>
                                     </tr>
                                                                     <tr>
                                         <td>error</td>
-                                        <td>48</td>
+                                        <td>53</td>
                                         <td>Argument $configuration is missing from the Docblock of setWSConfiguration</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>24</td>
-                                        <td>No summary for property $WSConfiguration</td>
                                     </tr>
                                                             </tbody>
                             </table>
@@ -773,7 +850,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on August 16th, 2017 at 10:40.
+                    on August 22nd, 2017 at 00:20.
                 </section>
             </section>
         </section>

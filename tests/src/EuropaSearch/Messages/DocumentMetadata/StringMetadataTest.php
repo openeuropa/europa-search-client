@@ -8,21 +8,26 @@
 namespace EC\EuropaSearch\Tests\Common\DocumentMetadata;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\StringMetadata;
-use EC\EuropaWS\Tests\AbstractEuropaSearchTest;
+use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class StringMetadataTest.
+ *
+ * Tests the validation process on StringMetadata.
+ *
  * @package EC\EuropaSearch\Tests\Common
  */
 class StringMetadataTest extends AbstractEuropaSearchTest
 {
+
     /**
      * Test the StringMetadata validation (success case).
      */
     public function testStringMetadataValidationSuccess()
     {
+
         $stringMetadata = new StringMetadata('tested_string');
-        $stringMetadata->setValues(array('title is a string'));
+        $stringMetadata->setValues(['title is a string']);
 
         $validationErrors = $this->getDefaultValidator()->validate($stringMetadata);
         $violations = $this->getViolations($validationErrors);
@@ -35,8 +40,9 @@ class StringMetadataTest extends AbstractEuropaSearchTest
      */
     public function testStringMetadataValidationFailure()
     {
+
         $stringMetadata = new StringMetadata(null);
-        $stringMetadata->setValues(array(true, 0));
+        $stringMetadata->setValues([true, 0]);
 
         $validationErrors = $this->getDefaultValidator()->validate($stringMetadata);
         $violations = $this->getViolations($validationErrors);
