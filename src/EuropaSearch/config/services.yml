@@ -35,7 +35,7 @@ services:
           - [defineComponentConverter, ['componentProxy.metadata.numeric', '@componentProxy.metadata.numeric']]
           - [defineComponentConverter, ['componentProxy.metadata.notIndexed', '@componentProxy.metadata.notIndexed']]
           - [defineComponentConverter, ['componentProxy.metadata.string', '@componentProxy.metadata.string']]
-  client.index.webDocument:
+  client.indexing.webDocument:
     class: EC\EuropaWS\Clients\DefaultClient
     arguments: ['@validator.default', '@proxyProvider', '@transporter', '@europaSearch.ws.settings']
 
@@ -68,6 +68,6 @@ services:
           - [defineComponentConverter, ['componentProxy.searching.filters.combined.aggregate', '@componentProxy.searching.filters.combined.aggregate']]
           - [defineComponentConverter, ['componentProxy.searching.filters.combined.booleanQuery', '@componentProxy.searching.filters.combined.booleanQuery']]
           - [defineComponentConverter, ['componentProxy.searching.filters.combined.boostingQuery', '@componentProxy.searching.filters.combined.boostingQuery']]
-  client.search:
+  client.searching.search:
     class: EC\EuropaWS\Clients\DefaultClient
     arguments: ['@validator.default', '@proxyProvider.search', '@transporter', '@europaSearch.ws.settings']

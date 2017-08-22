@@ -88,6 +88,8 @@ class BooleanQueryTest extends AbstractEuropaSearchTest
      *
      * @return array
      *   Array with invalid BooleanQuery objects.
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public static function invalidBooleanQueryProvider()
     {
@@ -96,7 +98,10 @@ class BooleanQueryTest extends AbstractEuropaSearchTest
 
         $returned = [[]];
 
-        $expectedViolations = self::getExpectedViolations();
+
+        $fileContent = file_get_contents(__DIR__.'/fixtures/booleanquery_violations.yml');
+        $parsedData = Yaml::parse($fileContent);
+        $expectedViolations = $parsedData['expectedViolations'];
 
         $returned[0][] = $booleanProvider->getMustInvalidSimpleBooleanQuery();
         $returned[0][] = $expectedViolations[0];
@@ -120,22 +125,5 @@ class BooleanQueryTest extends AbstractEuropaSearchTest
         $returned[6][] = $expectedViolations[6];
 
         return $returned;
-    }
-
-    /**
-     * Gets the expected violations on the different tests.
-     *
-     * @return array
-     *   The list of expected violations.
-     *
-     * @SuppressWarnings(PHPMD.StaticAccess)
-     */
-    private function getExpectedViolations()
-    {
-
-        $fileContent = file_get_contents(__DIR__.'/fixtures/booleanquery_violations.yml');
-        $parsedData = Yaml::parse($fileContent);
-
-        return $parsedData['expectedViolations'];
     }
 }

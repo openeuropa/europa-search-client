@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains EC\EuropaSearch\Clients\IndexingClientTest.
+ * Contains EC\EuropaSearch\Clients\SearchingClientTest.
  */
 
 namespace EC\EuropaSearch\Clients;
@@ -16,29 +16,28 @@ use EC\EuropaSearch\Messages\DocumentMetadata\URLMetadata;
 use EC\EuropaSearch\Messages\Index\IndexingWebContent;
 use EC\EuropaSearch\Tests\EuropaSearchDummy;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
-use EC\EuropaSearch\Tests\Proxies\Index\WebContentDataProvider;
+use EC\EuropaSearch\Tests\Proxies\Search\SearchDataProvider;
 
 /**
  * Class IndexingClientTest.
  *
- * Tests the client layer related to the indexing process.
+ * Tests the client layer related to the searching process.
  *
  * @package EC\EuropaSearch\Clients
  */
-class IndexingClientTest extends AbstractEuropaSearchTest
+class SearchingClientTest extends AbstractEuropaSearchTest
 {
 
     /**
      * Test that the client process passes all its steps.
      */
-    public function testIndexingClientProcessSuccess()
+    public function testClientProcessSuccess()
     {
-
-        $provider = new WebContentDataProvider();
-        $data = $provider->indexedDocumentProvider();
+        $provider = new SearchDataProvider();
+        $data = $provider->searchRequestProvider();
 
         $factory = new EuropaSearchDummy();
-        $client = $factory->getIndexingWebContentClient();
+        $client = $factory->getSearchingClient();
 
         $this->assertInstanceOf('EC\EuropaWS\Clients\DefaultClient', $client, 'The returned client is not an DefaultClient object.');
 
