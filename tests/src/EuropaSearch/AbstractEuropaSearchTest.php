@@ -7,7 +7,10 @@
 
 namespace EC\EuropaSearch\Tests;
 
+use EC\EuropaSearch\EuropaSearch;
+use EC\EuropaSearch\EuropaSearchConfig;
 use EC\EuropaSearch\Tests\EuropaSearchDummy;
+use EC\EuropaWS\Tests\Dummies\WSConfigurationDummy;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
@@ -22,6 +25,30 @@ abstract class AbstractEuropaSearchTest extends TestCase
 {
 
     /**
+     * Gets the client factory for tests.
+     *
+     * @return EuropaSearch
+     *   The client factory.
+     */
+    protected function getFactory()
+    {
+
+        $container = new EuropaSearch();
+
+        $wsSettings = [
+            'URL' => 'http://www.dummy.com/ws',
+            'APIKey' => 'abcd1234',
+            'database' => 'abcd',
+        ];
+        $config = new EuropaSearchConfig($wsSettings, 'dumb', 'dumber');
+        $config->setUserName('dumb');
+        $config->setUserPassword('dumber');
+        $container->setWSConfig($config);
+
+        return $container;
+    }
+
+    /**
      * Gets the ContainerBuilder used by unit tests.
      *
      * @return \Symfony\Component\DependencyInjection\ContainerBuilder
@@ -29,7 +56,10 @@ abstract class AbstractEuropaSearchTest extends TestCase
      */
     protected function getContainer()
     {
-        return (new EuropaSearchDummy())->getClientContainer();
+
+        $factory = $this->getFactory();
+
+        return $factory->getClientContainer();
     }
 
     /**
@@ -37,7 +67,7 @@ abstract class AbstractEuropaSearchTest extends TestCase
      */
     protected function getDefaultValidator()
     {
-        return (new EuropaSearchDummy())->getDefaultValidator();
+        return $this->getFactory()->getDefaultValidator();
     }
 
     /**
