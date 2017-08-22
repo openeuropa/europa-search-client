@@ -13,6 +13,13 @@ use EC\EuropaWS\Proxies\BasicProxyController;
 use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Exceptions\ProxyException;
 
+/**
+ * Class SearchProxyController.
+ *
+ * ProxyController in charge of the Search process.
+ *
+ * @package EC\EuropaSearch\Proxies\Search
+ */
 class SearchProxyController extends BasicProxyController
 {
 
@@ -25,6 +32,7 @@ class SearchProxyController extends BasicProxyController
         if ($component instanceof CombinedQueryInterface) {
             return $this->convertCombinedQueryWithChildren($component);
         }
+
         return parent::convertComponent($component);
     }
 
@@ -44,6 +52,7 @@ class SearchProxyController extends BasicProxyController
      */
     public function convertCombinedQueryWithChildren(CombinedQueryInterface $query)
     {
+
         try {
             $converterId = $query->getConverterIdentifier();
             $converter = static::$container->get($converterId);
@@ -52,7 +61,6 @@ class SearchProxyController extends BasicProxyController
             $convertedComponents = [];
             if (empty($convertedComponents) && !empty($children)) {
                 $convertedComponents = $this->convertComponents($children);
-
             }
             $convertedComponent = $converter->convertComponentWithChildren($query, $convertedComponents);
 

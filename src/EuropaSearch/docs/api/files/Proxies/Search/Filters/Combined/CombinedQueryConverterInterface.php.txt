@@ -35,3 +35,4 @@ interface CombinedQueryConverterInterface extends ComponentConverterInterface
      */
     public function convertComponentWithChildren(CombinedQueryInterface $query, array $convertedComponents);
 }
+

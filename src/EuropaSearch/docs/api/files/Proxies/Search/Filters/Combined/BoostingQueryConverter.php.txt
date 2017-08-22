@@ -45,10 +45,11 @@ class BoostingQueryConverter implements CombinedQueryConverterInterface
 
         $boost = $query->getBoost();
         if (!is_null($boost)) {
-            $boost_label = ($boost < 0) ? 'negative_boost' : 'positive_boost';
-            $convertedComponent['boosting'][$boost_label] = abs($boost);
+            $boostLabel = ($boost < 0) ? 'negative_boost' : 'positive_boost';
+            $convertedComponent['boosting'][$boostLabel] = abs($boost);
         }
 
         return $convertedComponent;
     }
 }
+

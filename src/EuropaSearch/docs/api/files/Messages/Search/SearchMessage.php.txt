@@ -17,39 +17,40 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class SearchMessage.
  *
  * It defines a search query that is sent to the Europa Search services.
- * 
+ *
  * @package EC\EuropaSearch\Messages\Search
  */
 class SearchMessage implements ValidatableMessageInterface
 {
+
     const SEARCH_SORT_ASC = 'ASC';
-    
+
     const SEARCH_SORT_DESC = 'DESC';
-    
+
     /**
      * Keywords to search in full-text mode.
-     * 
+     *
      * @var string
      */
     private $searchedText;
 
     /**
      * Languages used for filtering the search.
-     * 
+     *
      * @var array
      */
     private $searchedLanguages;
 
     /**
      * Filter query applied to the search.
-     * 
+     *
      * @var BooleanQuery
      */
     private $searchQuery;
 
     /**
      * Field name on which results will be sorted.
-     * 
+     *
      * @var string
      */
     private $sortField;
@@ -63,9 +64,9 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Number of search results to send per request.
-     * 
+     *
      * It will be used in the pagination mechanism.
-     * 
+     *
      * @var integer
      */
     private $paginationSize;
@@ -81,23 +82,24 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Regex expression used to insert in the highlighting mechanism.
-     * 
-     * The expression sets the HTML to use in the results text for 
+     *
+     * The expression sets the HTML to use in the results text for
      * highlighting elements.
-     * 
+     *
      * @var string
      */
     private $highlightRegex;
 
     /**
      * The maximum length of the text that can be highlighted.
-     * 
+     *
      * @var integer
      */
     private $highLightLimit;
 
     /**
-     * The session token required only for secured index
+     * The session token required only for secured index.
+     *
      * @var
      */
     private $sessionToken;
@@ -115,7 +117,7 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Sets the keywords to use for the full-text search.
-     * 
+     *
      * @param string $searchedText
      *   The keywords to use.
      */
@@ -137,7 +139,7 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Sets the languages to take into account with the search.
-     * 
+     *
      * @param array $searchedLanguages
      *   The list of languages code (ISO-639-1 format)
      */
@@ -159,7 +161,7 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Sets the filter query to apply on the search.
-     * 
+     *
      * @param BooleanQuery $searchQuery
      * The object defining the query.
      */
@@ -181,7 +183,7 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Gets the sort direction to apply on search results.
-     * 
+     *
      * @return string
      *   The sort direction to use.
      */
@@ -192,10 +194,10 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Sets the search sort criteria.
-     * 
+     *
      * If the search does not contain any sort criteria, search results will be
      * sorted by relevancy.
-     * 
+     *
      * @param string $sortField
      *   The raw name of the field on which basing the sorting.
      * @param string $sortDirection
@@ -203,13 +205,13 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function setSortCriteria($sortField, $sortDirection = self::SEARCH_SORT_ASC)
     {
-        $this->sortField =$sortField;
+        $this->sortField = $sortField;
         $this->sortDirection = $sortDirection;
     }
 
     /**
      * Gets the number of results to receive per request.
-     * 
+     *
      * @return int
      *   The number of results to receive per request.
      */
@@ -220,7 +222,7 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Gest the page number set for the search request.
-     * 
+     *
      * @return integer
      *   The page number of the result list to receive.
      */
@@ -231,7 +233,7 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Sets the pagination parameters to send.
-     * 
+     *
      * @param integer $paginationSize
      *   The number of results to receive per request.
      * @param integer $paginationLocation
@@ -245,7 +247,7 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Gets regex expression used to insert in the highlighting mechanism.
-     * 
+     *
      * @return string
      *   The regex expression to use.
      */
@@ -256,7 +258,7 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Gets the maximum length of the text that can be highlighted.
-     * 
+     *
      * @return int
      *   The maximum length of the text that can be highlighted.
      */
@@ -267,7 +269,7 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Sets the text highlighting parameters.
-     * 
+     *
      * @param string $highlightRegex
      *   The regex expression to use.
      * @param int    $highLightLimit
@@ -281,7 +283,7 @@ class SearchMessage implements ValidatableMessageInterface
 
     /**
      * Gets the security session token.
-     * 
+     *
      * @return string
      *   The token.
      */
@@ -314,6 +316,7 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
+
         $metadata->addPropertyConstraint('searchedText', new Assert\NotBlank());
         $metadata->addPropertyConstraint('searchedLanguages', new Assert\All(['constraints' => [new Assert\Language()]]));
         $metadata->addPropertyConstraint('searchQuery', new Assert\Valid(['traverse' => true]));
@@ -327,7 +330,6 @@ class SearchMessage implements ValidatableMessageInterface
             new Assert\Type('string'),
         ]);
         $metadata->addPropertyConstraint('sortDirection', new Assert\Choice([self::SEARCH_SORT_DESC, self::SEARCH_SORT_ASC]));
-
     }
 
     /**
@@ -338,3 +340,4 @@ class SearchMessage implements ValidatableMessageInterface
         return [$this->searchQuery];
     }
 }
+

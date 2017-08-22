@@ -61,7 +61,7 @@ class SearchConverter implements MessageConverterInterface
         $sort = $message->getSortField();
         if (!empty($sort)) {
             $sortDirection = ($message->getSortDirection()) ?: SearchMessage::SEARCH_SORT_ASC;
-            $sort .= ':' . $sortDirection;
+            $sort .= ':'.$sortDirection;
             $request->setSort($sort);
         }
 
@@ -78,5 +78,5 @@ class SearchConverter implements MessageConverterInterface
 
         return $request;
     }
-
 }
+

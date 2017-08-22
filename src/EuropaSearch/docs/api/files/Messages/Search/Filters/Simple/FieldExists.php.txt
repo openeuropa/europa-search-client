@@ -7,7 +7,7 @@
 
 namespace EC\EuropaSearch\Messages\Search\Filters\Simple;
 
-use EC\EuropaSearch\Messages\DocumentMetadata\IndexableMetadata;
+use EC\EuropaSearch\Messages\DocumentMetadata\IndexableMetadataInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -25,10 +25,10 @@ class FieldExists extends AbstractSimple
     /**
      * FieldExist constructor.
      *
-     * @param IndexableMetadata $impliedMetadata
+     * @param IndexableMetadataInterface $impliedMetadata
      *   The metadata pointed by the filters.
      */
-    public function __construct(IndexableMetadata $impliedMetadata)
+    public function __construct(IndexableMetadataInterface $impliedMetadata)
     {
         $this->impliedMetadata = $impliedMetadata;
     }

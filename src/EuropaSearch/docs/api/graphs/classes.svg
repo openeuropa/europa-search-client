@@ -31,8 +31,13 @@
 </g>
 <g id="clust5" class="cluster">
 <title>cluster_\EC\EuropaSearch\Messages\DocumentMetadata</title>
-<path fill="none" stroke="#c0c0c0" d="M1068.1447,-2094C1068.1447,-2094 2020.1704,-2094 2020.1704,-2094 2026.1704,-2094 2032.1704,-2100 2032.1704,-2106 2032.1704,-2106 2032.1704,-2443 2032.1704,-2443 2032.1704,-2449 2026.1704,-2455 2020.1704,-2455 2020.1704,-2455 1068.1447,-2455 1068.1447,-2455 1062.1447,-2455 1056.1447,-2449 1056.1447,-2443 1056.1447,-2443 1056.1447,-2106 1056.1447,-2106 1056.1447,-2100 1062.1447,-2094 1068.1447,-2094"/>
-<text text-anchor="middle" x="1544.1576" y="-2442.2" font-family="Times,serif" font-size="11.00" fill="#c0c0c0">DocumentMetadata</text>
+<path fill="none" stroke="#c0c0c0" d="M1038.4399,-2094C1038.4399,-2094 2020.1704,-2094 2020.1704,-2094 2026.1704,-2094 2032.1704,-2100 2032.1704,-2106 2032.1704,-2106 2032.1704,-2443 2032.1704,-2443 2032.1704,-2449 2026.1704,-2455 2020.1704,-2455 2020.1704,-2455 1038.4399,-2455 1038.4399,-2455 1032.4399,-2455 1026.4399,-2449 1026.4399,-2443 1026.4399,-2443 1026.4399,-2106 1026.4399,-2106 1026.4399,-2100 1032.4399,-2094 1038.4399,-2094"/>
+<text text-anchor="middle" x="1529.3051" y="-2442.2" font-family="Times,serif" font-size="11.00" fill="#c0c0c0">DocumentMetadata</text>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_\EC\EuropaSearch\Messages\Index</title>
+<path fill="none" stroke="#c0c0c0" d="M1524.1664,-1311C1524.1664,-1311 2030.072,-1311 2030.072,-1311 2036.072,-1311 2042.072,-1317 2042.072,-1323 2042.072,-1323 2042.072,-1478 2042.072,-1478 2042.072,-1484 2036.072,-1490 2030.072,-1490 2030.072,-1490 1524.1664,-1490 1524.1664,-1490 1518.1664,-1490 1512.1664,-1484 1512.1664,-1478 1512.1664,-1478 1512.1664,-1323 1512.1664,-1323 1512.1664,-1317 1518.1664,-1311 1524.1664,-1311"/>
+<text text-anchor="middle" x="1777.1192" y="-1477.2" font-family="Times,serif" font-size="11.00" fill="#c0c0c0">Index</text>
 </g>
 <g id="clust7" class="cluster">
 <title>cluster_\EC\EuropaSearch\Messages\Search</title>
@@ -44,20 +49,15 @@
 <path fill="none" stroke="#c0c0c0" d="M600.259,-1604C600.259,-1604 1652.3847,-1604 1652.3847,-1604 1658.3847,-1604 1664.3847,-1610 1664.3847,-1616 1664.3847,-1616 1664.3847,-2047 1664.3847,-2047 1664.3847,-2053 1658.3847,-2059 1652.3847,-2059 1652.3847,-2059 600.259,-2059 600.259,-2059 594.259,-2059 588.259,-2053 588.259,-2047 588.259,-2047 588.259,-1616 588.259,-1616 588.259,-1610 594.259,-1604 600.259,-1604"/>
 <text text-anchor="middle" x="1126.3219" y="-2046.2" font-family="Times,serif" font-size="11.00" fill="#c0c0c0">Filters</text>
 </g>
-<g id="clust10" class="cluster">
-<title>cluster_\EC\EuropaSearch\Messages\Search\Filters\Simple</title>
-<path fill="none" stroke="#c0c0c0" d="M1078.0463,-1612C1078.0463,-1612 1644.3847,-1612 1644.3847,-1612 1650.3847,-1612 1656.3847,-1618 1656.3847,-1624 1656.3847,-1624 1656.3847,-1833 1656.3847,-1833 1656.3847,-1839 1650.3847,-1845 1644.3847,-1845 1644.3847,-1845 1078.0463,-1845 1078.0463,-1845 1072.0463,-1845 1066.0463,-1839 1066.0463,-1833 1066.0463,-1833 1066.0463,-1624 1066.0463,-1624 1066.0463,-1618 1072.0463,-1612 1078.0463,-1612"/>
-<text text-anchor="middle" x="1361.2155" y="-1832.2" font-family="Times,serif" font-size="11.00" fill="#c0c0c0">Simple</text>
-</g>
 <g id="clust9" class="cluster">
 <title>cluster_\EC\EuropaSearch\Messages\Search\Filters\Combined</title>
 <path fill="none" stroke="#c0c0c0" d="M608.259,-1853C608.259,-1853 1188.363,-1853 1188.363,-1853 1194.363,-1853 1200.363,-1859 1200.363,-1865 1200.363,-1865 1200.363,-2020 1200.363,-2020 1200.363,-2026 1194.363,-2032 1188.363,-2032 1188.363,-2032 608.259,-2032 608.259,-2032 602.259,-2032 596.259,-2026 596.259,-2020 596.259,-2020 596.259,-1865 596.259,-1865 596.259,-1859 602.259,-1853 608.259,-1853"/>
 <text text-anchor="middle" x="898.311" y="-2019.2" font-family="Times,serif" font-size="11.00" fill="#c0c0c0">Combined</text>
 </g>
-<g id="clust6" class="cluster">
-<title>cluster_\EC\EuropaSearch\Messages\Index</title>
-<path fill="none" stroke="#c0c0c0" d="M1524.1664,-1311C1524.1664,-1311 2030.072,-1311 2030.072,-1311 2036.072,-1311 2042.072,-1317 2042.072,-1323 2042.072,-1323 2042.072,-1478 2042.072,-1478 2042.072,-1484 2036.072,-1490 2030.072,-1490 2030.072,-1490 1524.1664,-1490 1524.1664,-1490 1518.1664,-1490 1512.1664,-1484 1512.1664,-1478 1512.1664,-1478 1512.1664,-1323 1512.1664,-1323 1512.1664,-1317 1518.1664,-1311 1524.1664,-1311"/>
-<text text-anchor="middle" x="1777.1192" y="-1477.2" font-family="Times,serif" font-size="11.00" fill="#c0c0c0">Index</text>
+<g id="clust10" class="cluster">
+<title>cluster_\EC\EuropaSearch\Messages\Search\Filters\Simple</title>
+<path fill="none" stroke="#c0c0c0" d="M1078.0463,-1612C1078.0463,-1612 1644.3847,-1612 1644.3847,-1612 1650.3847,-1612 1656.3847,-1618 1656.3847,-1624 1656.3847,-1624 1656.3847,-1833 1656.3847,-1833 1656.3847,-1839 1650.3847,-1845 1644.3847,-1845 1644.3847,-1845 1078.0463,-1845 1078.0463,-1845 1072.0463,-1845 1066.0463,-1839 1066.0463,-1833 1066.0463,-1833 1066.0463,-1624 1066.0463,-1624 1066.0463,-1618 1072.0463,-1612 1078.0463,-1612"/>
+<text text-anchor="middle" x="1361.2155" y="-1832.2" font-family="Times,serif" font-size="11.00" fill="#c0c0c0">Simple</text>
 </g>
 <g id="clust11" class="cluster">
 <title>cluster_\EC\EuropaSearch\Proxies</title>
@@ -125,17 +125,17 @@
 <path fill="none" stroke="#000000" d="M1520.1061,-2223.2351C1428.9648,-2218.0634 1285.0026,-2209.8945 1199.2788,-2205.0302"/>
 <polygon fill="none" stroke="#000000" points="1199.3031,-2201.526 1189.1208,-2204.4538 1198.9065,-2208.5148 1199.3031,-2201.526"/>
 </g>
-<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata -->
+<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface -->
 <g id="node11" class="node">
-<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata</title>
-<polygon fill="none" stroke="#000000" points="1192.4723,-2327 1064.0354,-2327 1064.0354,-2291 1192.4723,-2291 1192.4723,-2327"/>
-<text text-anchor="middle" x="1128.2539" y="-2305.7" font-family="Courier,monospace" font-size="11.00" fill="#000000">IndexableMetadata</text>
+<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface</title>
+<polygon fill="none" stroke="#000000" points="1221.8822,-2327 1034.6256,-2327 1034.6256,-2291 1221.8822,-2291 1221.8822,-2327"/>
+<text text-anchor="middle" x="1128.2539" y="-2305.7" font-family="Courier,monospace" font-size="11.00" fill="#000000">IndexableMetadataInterface</text>
 </g>
-<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\AbstractNumericMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata -->
+<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\AbstractNumericMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface -->
 <g id="edge6" class="edge">
-<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\AbstractNumericMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata</title>
-<path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M1520.1468,-2238.4868C1485.1902,-2243.1216 1444.2211,-2248.9008 1407.3092,-2255 1337.6133,-2266.5163 1258.6037,-2282.0387 1202.4909,-2293.4857"/>
-<polygon fill="none" stroke="#000000" points="1201.7335,-2290.0681 1192.6382,-2295.5017 1203.1369,-2296.926 1201.7335,-2290.0681"/>
+<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\AbstractNumericMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface</title>
+<path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M1520.1468,-2238.4868C1485.1902,-2243.1216 1444.2211,-2248.9008 1407.3092,-2255 1346.3513,-2265.0724 1278.2686,-2278.2095 1224.6122,-2289.004"/>
+<polygon fill="none" stroke="#000000" points="1223.8762,-2285.5819 1214.7662,-2290.9911 1225.261,-2292.4436 1223.8762,-2285.5819"/>
 </g>
 <!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\BooleanMetadata -->
 <g id="node3" class="node">
@@ -149,11 +149,11 @@
 <path fill="none" stroke="#000000" d="M1546.5657,-2331.6653C1506.9606,-2327.8184 1453.381,-2320.9024 1407.3092,-2309 1401.5999,-2307.525 1263.5406,-2253.7856 1183.7942,-2222.6813"/>
 <polygon fill="none" stroke="#000000" points="1184.9592,-2219.3789 1174.3709,-2219.0053 1182.4152,-2225.9003 1184.9592,-2219.3789"/>
 </g>
-<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\BooleanMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata -->
+<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\BooleanMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface -->
 <g id="edge8" class="edge">
-<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\BooleanMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata</title>
-<path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M1546.209,-2332.7163C1459.9426,-2327.8212 1297.6212,-2318.6105 1202.6473,-2313.2213"/>
-<polygon fill="none" stroke="#000000" points="1202.7229,-2309.7201 1192.5407,-2312.6479 1202.3263,-2316.7089 1202.7229,-2309.7201"/>
+<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\BooleanMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface</title>
+<path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M1546.209,-2332.7163C1468.3472,-2328.2981 1328.5277,-2320.3643 1232.191,-2314.8978"/>
+<polygon fill="none" stroke="#000000" points="1232.3134,-2311.3992 1222.1312,-2314.3269 1231.9168,-2318.3879 1232.3134,-2311.3992"/>
 </g>
 <!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\DateMetadata -->
 <g id="node4" class="node">
@@ -167,11 +167,11 @@
 <path fill="none" stroke="#000000" d="M1556.255,-2276.1822C1516.3407,-2271.1482 1457.9993,-2263.3758 1407.3092,-2255 1336.1206,-2243.2371 1255.2151,-2227.2946 1198.9174,-2215.7845"/>
 <polygon fill="none" stroke="#000000" points="1199.5497,-2212.3414 1189.0504,-2213.7611 1198.1434,-2219.1987 1199.5497,-2212.3414"/>
 </g>
-<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\DateMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata -->
+<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\DateMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface -->
 <g id="edge10" class="edge">
-<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\DateMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata</title>
-<path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M1556.2763,-2284.7125C1473.1971,-2289.4267 1301.6112,-2299.1631 1202.7817,-2304.771"/>
-<polygon fill="none" stroke="#000000" points="1202.3553,-2301.2895 1192.5697,-2305.3505 1202.7519,-2308.2783 1202.3553,-2301.2895"/>
+<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\DateMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface</title>
+<path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M1556.2763,-2284.7125C1480.9737,-2288.9854 1332.9583,-2297.3843 1232.3147,-2303.0952"/>
+<polygon fill="none" stroke="#000000" points="1231.9035,-2299.6128 1222.1178,-2303.6738 1232.3001,-2306.6016 1231.9035,-2299.6128"/>
 </g>
 <!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\FloatMetadata -->
 <g id="node5" class="node">
@@ -197,9 +197,9 @@
 <path fill="none" stroke="#000000" d="M1543.3319,-2177.447C1455.3098,-2182.4417 1292.6449,-2191.6719 1199.2215,-2196.973"/>
 <polygon fill="none" stroke="#000000" points="1198.8001,-2193.4912 1189.0144,-2197.5522 1199.1967,-2200.48 1198.8001,-2193.4912"/>
 </g>
-<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\FullTextMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata -->
+<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\FullTextMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface -->
 <g id="edge13" class="edge">
-<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\FullTextMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata</title>
+<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\FullTextMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface</title>
 <path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M1543.0871,-2178.677C1503.8608,-2182.5867 1452.0456,-2189.4426 1407.3092,-2201 1401.5999,-2202.475 1263.5406,-2256.2144 1183.7942,-2287.3187"/>
 <polygon fill="none" stroke="#000000" points="1182.4152,-2284.0997 1174.3709,-2290.9947 1184.9592,-2290.6211 1182.4152,-2284.0997"/>
 </g>
@@ -239,11 +239,11 @@
 <path fill="none" stroke="#000000" d="M1549.6282,-2392.4474C1508.2919,-2392.0389 1451.266,-2386.4607 1407.3092,-2363 1364.8163,-2340.3206 1374.8293,-2309.5347 1335.3092,-2282 1293.8804,-2253.1354 1240.728,-2232.6202 1198.6502,-2219.4581"/>
 <polygon fill="none" stroke="#000000" points="1199.616,-2216.0936 1189.0296,-2216.5157 1197.5687,-2222.7875 1199.616,-2216.0936"/>
 </g>
-<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\StringMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata -->
+<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\StringMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface -->
 <g id="edge17" class="edge">
-<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\StringMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata</title>
-<path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M1549.6705,-2383.348C1510.0979,-2378.3118 1455.2776,-2370.9261 1407.3092,-2363 1337.6133,-2351.4837 1258.6037,-2335.9613 1202.4909,-2324.5143"/>
-<polygon fill="none" stroke="#000000" points="1203.1369,-2321.074 1192.6382,-2322.4983 1201.7335,-2327.9319 1203.1369,-2321.074"/>
+<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\StringMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface</title>
+<path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M1549.6705,-2383.348C1510.0979,-2378.3118 1455.2776,-2370.9261 1407.3092,-2363 1346.3513,-2352.9276 1278.2686,-2339.7905 1224.6122,-2328.996"/>
+<polygon fill="none" stroke="#000000" points="1225.261,-2325.5564 1214.7662,-2327.0089 1223.8762,-2332.4181 1225.261,-2325.5564"/>
 </g>
 <!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\URLMetadata -->
 <g id="node10" class="node">
@@ -257,9 +257,9 @@
 <path fill="none" stroke="#000000" d="M1922.2025,-2398.7738C1858.6287,-2397.0204 1741.3847,-2393.7869 1668.3614,-2391.7729"/>
 <polygon fill="none" stroke="#000000" points="1668.4539,-2388.2742 1658.3612,-2391.4971 1668.2609,-2395.2716 1668.4539,-2388.2742"/>
 </g>
-<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\URLMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata -->
+<!-- \\EC\\EuropaSearch\\Messages\\DocumentMetadata\\URLMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface -->
 <g id="edge19" class="edge">
-<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\URLMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadata</title>
+<title>\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\URLMetadata&#45;&gt;\\EC\\EuropaSearch\\Messages\\DocumentMetadata\\IndexableMetadataInterface</title>
 <path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M1922.2953,-2407.7183C1827.0181,-2422.9073 1596.1673,-2452.2712 1407.3092,-2417 1320.356,-2400.7606 1225.6173,-2358.3435 1171.9193,-2331.757"/>
 <polygon fill="none" stroke="#000000" points="1173.211,-2328.4898 1162.7014,-2327.1485 1170.0807,-2334.7509 1173.211,-2328.4898"/>
 </g>
@@ -304,26 +304,26 @@
 <!-- \\EC\\EuropaSearch\\Messages\\Index\\IndexingFile -->
 <g id="node14" class="node">
 <title>\\EC\\EuropaSearch\\Messages\\Index\\IndexingFile</title>
-<polygon fill="none" stroke="#000000" points="2014.3755,-1409 1918.9492,-1409 1918.9492,-1373 2014.3755,-1373 2014.3755,-1409"/>
-<text text-anchor="middle" x="1966.6623" y="-1387.7" font-family="Courier,monospace" font-size="11.00" fill="#000000">IndexingFile</text>
+<polygon fill="none" stroke="#000000" points="2014.3755,-1355 1918.9492,-1355 1918.9492,-1319 2014.3755,-1319 2014.3755,-1355"/>
+<text text-anchor="middle" x="1966.6623" y="-1333.7" font-family="Courier,monospace" font-size="11.00" fill="#000000">IndexingFile</text>
 </g>
 <!-- \\EC\\EuropaSearch\\Messages\\Index\\IndexingFile&#45;&gt;\\EC\\EuropaSearch\\Messages\\Index\\AbstractIndexingMessage -->
 <g id="edge22" class="edge">
 <title>\\EC\\EuropaSearch\\Messages\\Index\\IndexingFile&#45;&gt;\\EC\\EuropaSearch\\Messages\\Index\\AbstractIndexingMessage</title>
-<path fill="none" stroke="#000000" d="M1918.888,-1383.8849C1862.9861,-1375.5594 1769.0779,-1361.5735 1698.3431,-1351.0389"/>
-<polygon fill="none" stroke="#000000" points="1698.4888,-1347.5221 1688.0823,-1349.5107 1697.4576,-1354.4457 1698.4888,-1347.5221"/>
+<path fill="none" stroke="#000000" d="M1918.888,-1337C1862.9861,-1337 1769.0779,-1337 1698.3431,-1337"/>
+<polygon fill="none" stroke="#000000" points="1698.0823,-1333.5001 1688.0823,-1337 1698.0822,-1340.5001 1698.0823,-1333.5001"/>
 </g>
 <!-- \\EC\\EuropaSearch\\Messages\\Index\\IndexingWebContent -->
 <g id="node15" class="node">
 <title>\\EC\\EuropaSearch\\Messages\\Index\\IndexingWebContent</title>
-<polygon fill="none" stroke="#000000" points="2033.9818,-1355 1899.3429,-1355 1899.3429,-1319 2033.9818,-1319 2033.9818,-1355"/>
-<text text-anchor="middle" x="1966.6623" y="-1333.7" font-family="Courier,monospace" font-size="11.00" fill="#000000">IndexingWebContent</text>
+<polygon fill="none" stroke="#000000" points="2033.9818,-1409 1899.3429,-1409 1899.3429,-1373 2033.9818,-1373 2033.9818,-1409"/>
+<text text-anchor="middle" x="1966.6623" y="-1387.7" font-family="Courier,monospace" font-size="11.00" fill="#000000">IndexingWebContent</text>
 </g>
 <!-- \\EC\\EuropaSearch\\Messages\\Index\\IndexingWebContent&#45;&gt;\\EC\\EuropaSearch\\Messages\\Index\\AbstractIndexingMessage -->
 <g id="edge23" class="edge">
 <title>\\EC\\EuropaSearch\\Messages\\Index\\IndexingWebContent&#45;&gt;\\EC\\EuropaSearch\\Messages\\Index\\AbstractIndexingMessage</title>
-<path fill="none" stroke="#000000" d="M1899.3129,-1337C1842.7625,-1337 1761.3376,-1337 1698.3166,-1337"/>
-<polygon fill="none" stroke="#000000" points="1697.97,-1333.5001 1687.97,-1337 1697.97,-1340.5001 1697.97,-1333.5001"/>
+<path fill="none" stroke="#000000" d="M1899.3129,-1380.9696C1842.6459,-1372.5301 1761.0017,-1360.3707 1697.927,-1350.9769"/>
+<polygon fill="none" stroke="#000000" points="1698.3765,-1347.5054 1687.97,-1349.494 1697.3453,-1354.429 1698.3765,-1347.5054"/>
 </g>
 <!-- \\EC\\EuropaSearch\\Messages\\Index\\WebContentRequest -->
 <g id="node16" class="node">

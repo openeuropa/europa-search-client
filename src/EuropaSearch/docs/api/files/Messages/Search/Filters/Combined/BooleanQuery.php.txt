@@ -105,7 +105,8 @@ class BooleanQuery extends BoostableFilter implements CombinedQueryInterface
      * @param AbstractSimple $filter
      *   The filter to add
      */
-    public function addShouldSimpleFilter(AbstractSimple $filter) {
+    public function addShouldSimpleFilter(AbstractSimple $filter)
+    {
         $this->shouldFilterList->addSimpleFilter($filter);
     }
 
@@ -178,7 +179,7 @@ class BooleanQuery extends BoostableFilter implements CombinedQueryInterface
      * Special validator callback for BooleanQuery.
      *
      * @param ExecutionContextInterface $context
-     * @param $payload
+     * @param int                       $payload
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {
