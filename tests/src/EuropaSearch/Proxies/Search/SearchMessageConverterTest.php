@@ -30,7 +30,7 @@ class SearchMessageConverterTest extends AbstractEuropaSearchTest
         $submitted = $data['submitted'];
         $expected = $data['expected'];
 
-        $proxy = $this->getContainer()->get('proxyProvider.search');
+        $proxy = $this->getContainer()->get('proxyController.search');
 
         $convertedComponents = $proxy->convertComponents($submitted->getComponents());
         $searchRequest = $proxy->convertMessageWithComponents($submitted, $convertedComponents);

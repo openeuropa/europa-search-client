@@ -36,7 +36,7 @@ class BasicProxyControllerTest extends AbstractWSTest
 
         $container = $this->getContainer();
 
-        $proxy = $container->get('proxyProvider.default');
+        $proxy = $container->get('proxyController.default');
 
         // Tests expected converters are really in the list.
         $converterIds = $proxy->getConverterIdList();
