@@ -14,6 +14,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\Validator\Validator\RecursiveValidator;
 
 /**
  * Class ClientContainerFactory.
@@ -61,6 +62,27 @@ class ClientContainerFactory
     public function __construct()
     {
         $this->configRepoPath = __DIR__.'/config';
+    }
+
+    /**
+     * Gets the default library validator.
+     *
+     * @return RecursiveValidator
+     *   The default validator object.
+     *
+     * @throws ClientInstantiationException
+     *   Raised if a problem occurred while retrieving the client.
+     */
+    public function getDefaultValidator()
+    {
+
+        try {
+            $validatorBuilder = $this->getClientContainer()->get('validator.default');
+
+            return $validatorBuilder->getValidator();
+        } catch (\Exception $e) {
+            throw new ClientInstantiationException('The client is not retrieved.', 281, $e);
+        }
     }
 
     /**

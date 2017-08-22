@@ -37,7 +37,7 @@ abstract class AbstractEuropaSearchTest extends TestCase
      */
     protected function getDefaultValidator()
     {
-        return $this->getContainer()->get('validator.default')->getValidator();
+        return (new EuropaSearchDummy())->getDefaultValidator();
     }
 
     /**
