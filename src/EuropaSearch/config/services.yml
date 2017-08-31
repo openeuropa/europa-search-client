@@ -1,18 +1,9 @@
-parameters:
-  ws.settings.param.config:
-    URL: 'http://www.dummy.com/ws'
-    APIKey: 'abcd1234'
-    database: 'abcd'
-
 services:
-  europaSearch.ws.settings:
-    class: EC\EuropaSearch\EuropaSearchConfig
-    arguments: ['%ws.settings.param.config%']
-
   # WebContent Indexing service.
+  transporter.indexing:
+     class: EC\EuropaSearch\Transporters\IndexingTransporter
   transporter:
       class: EC\EuropaWS\Transporters\DummyTransporter
-      arguments: ['@europaSearch.ws.settings']
   messageProxy.indexing.webContent:
       class: EC\EuropaSearch\Proxies\Index\WebContentConverter
   componentProxy.metadata.boolean:
@@ -27,7 +18,6 @@ services:
       class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\DefaultMetadataConverter
   proxyController:
       class:  EC\EuropaWS\Proxies\BasicProxyController
-      arguments: ['@europaSearch.ws.settings']
       calls:
           - [defineMessageConverter, ['messageProxy.indexing.webContent', '@messageProxy.indexing.webContent']]
           - [defineComponentConverter, ['componentProxy.metadata.boolean', '@componentProxy.metadata.boolean']]
@@ -37,7 +27,7 @@ services:
           - [defineComponentConverter, ['componentProxy.metadata.string', '@componentProxy.metadata.string']]
   client.indexing.webDocument:
     class: EC\EuropaWS\Clients\DefaultClient
-    arguments: ['@validator.default', '@proxyController', '@transporter', '@europaSearch.ws.settings']
+    arguments: ['@validator.default', '@proxyController', '@transporter.indexing']
 
   # Search Service
   messageProxy.searching.search:
@@ -58,7 +48,6 @@ services:
       class: EC\EuropaSearch\Proxies\Search\Filters\Combined\BoostingQueryConverter
   proxyController.search:
       class:  EC\EuropaSearch\Proxies\Search\SearchProxyController
-      arguments: ['@europaSearch.ws.settings']
       calls:
           - [defineMessageConverter, ['messageProxy.searching.search', '@messageProxy.searching.search']]
           - [defineComponentConverter, ['componentProxy.searching.filters.simple.fieldExists', '@componentProxy.searching.filters.simple.fieldExists']]
@@ -70,4 +59,4 @@ services:
           - [defineComponentConverter, ['componentProxy.searching.filters.combined.boostingQuery', '@componentProxy.searching.filters.combined.boostingQuery']]
   client.searching.search:
     class: EC\EuropaWS\Clients\DefaultClient
-    arguments: ['@validator.default', '@proxyController.search', '@transporter', '@europaSearch.ws.settings']
+    arguments: ['@validator.default', '@proxyController.search', '@transporter']

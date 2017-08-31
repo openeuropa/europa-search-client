@@ -17,13 +17,6 @@ class WebContentRequest extends AbstractIndexingRequest
 {
 
     /**
-     * The content of the web content to send for indexing.
-     *
-     * @var string
-     */
-    private $documentContent;
-
-    /**
      * Gets the content of the indexed document.
      *
      * @return string
@@ -31,7 +24,7 @@ class WebContentRequest extends AbstractIndexingRequest
      */
     public function getDocumentContent()
     {
-        return $this->documentContent;
+        return $this->body['text']['contents'];
     }
 
     /**
@@ -42,6 +35,10 @@ class WebContentRequest extends AbstractIndexingRequest
      */
     public function setDocumentContent($documentContent)
     {
-        $this->documentContent = $documentContent;
+
+        $this->body['text'] = [
+            'name' => 'text',
+            'contents' => $documentContent,
+        ];
     }
 }

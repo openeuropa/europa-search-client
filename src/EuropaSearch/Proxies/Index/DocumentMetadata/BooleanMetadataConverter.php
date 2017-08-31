@@ -37,10 +37,6 @@ class BooleanMetadataConverter implements ComponentConverterInterface
 
         $values = $this->getBooleanMetadataValue($values);
 
-        if (count($values) <= 1) {
-            $values = reset($values);
-        }
-
         return [$name => $values];
     }
 

@@ -29,17 +29,6 @@ class DummyTransporter implements TransporterInterface
     private $WSConfiguration;
 
     /**
-     * DummyTransporter constructor.
-     *
-     * @param WSConfigurationInterface $WSConfiguration
-     */
-    public function __construct(WSConfigurationInterface $WSConfiguration)
-    {
-        $this->WSConfiguration = $WSConfiguration;
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function send(RequestInterface $request)

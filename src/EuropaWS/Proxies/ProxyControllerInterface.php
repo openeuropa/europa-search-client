@@ -7,6 +7,7 @@
 
 namespace EC\EuropaWS\Proxies;
 
+use EC\EuropaWS\Common\WSConfigurationInterface;
 use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Exceptions\ConnectionException;
 use EC\EuropaWS\Exceptions\ProxyException;
@@ -128,4 +129,12 @@ interface ProxyControllerInterface
      *   HTTP error or an error returned by the webd service itself.
      */
     public function sendRequest(RequestInterface $request, TransporterInterface $transporter);
+
+    /**
+     * Sets the HTTP client configuration.
+     *
+     * @param WSConfigurationInterface $configuration
+     *   The web service configuration.
+     */
+    public function setWSConfiguration(WSConfigurationInterface $configuration);
 }

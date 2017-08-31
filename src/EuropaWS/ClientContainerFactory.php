@@ -8,6 +8,7 @@
 namespace EC\EuropaWS;
 
 use EC\EuropaWS\Clients\ClientInterface;
+use EC\EuropaWS\Common\WSConfigurationInterface;
 use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Common\DefaultValidatorBuilder;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -43,6 +44,13 @@ class ClientContainerFactory
     protected $configRepoPath;
 
     /**
+     * The client configuration.
+     *
+     * @var WSConfigurationInterface
+     */
+    protected $configuration;
+
+    /**
      * Gest the client container with the services definitions.
      *
      * @return ContainerBuilder
@@ -58,10 +66,15 @@ class ClientContainerFactory
 
     /**
      * ClientContainer constructor.
+     *
+     * @param WSConfigurationInterface $configuration
+     *   The client configuration.
      */
-    public function __construct()
+    public function __construct(WSConfigurationInterface $configuration)
     {
+
         $this->configRepoPath = __DIR__.'/config';
+        $this->configuration = $configuration;
     }
 
     /**
@@ -101,7 +114,10 @@ class ClientContainerFactory
     {
 
         try {
-            return $this->getClientContainer()->get($clientId);
+            $client = $this->getClientContainer()->get($clientId);
+            $client->setWSConfiguration($this->configuration);
+
+            return $client;
         } catch (\Exception $e) {
             throw new ClientInstantiationException('The client is not retrieved.', 281, $e);
         }

@@ -53,21 +53,29 @@ class BasicProxyController implements ProxyControllerInterface
      *
      * @var WSConfigurationInterface
      */
-    private $WSConfiguration;
+    protected $WSConfiguration;
 
     /**
      * BasicProxyController constructor.
-     *
-     * @param WSConfigurationInterface $WSConfiguration
      */
-    public function __construct(WSConfigurationInterface $WSConfiguration)
+    public function __construct()
     {
-
-        $this->WSConfiguration = $WSConfiguration;
 
         if (is_null(static::$container)) {
             static::$container = new ContainerBuilder();
         }
+    }
+
+    /**
+     * Sets the HTTP client configuration.
+     *
+     * @param WSConfigurationInterface $configuration
+     *    The HTTP client configuration.
+     */
+    public function setWSConfiguration(WSConfigurationInterface $configuration)
+    {
+
+        $this->WSConfiguration = $configuration;
     }
 
     /**

@@ -8,7 +8,9 @@
 namespace EC\EuropaWS\Transporters;
 
 use EC\EuropaWS\Common\WSConfigurationInterface;
+use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Exceptions\ConnectionException;
+use EC\EuropaWS\Exceptions\WebServiceErrorException;
 use EC\EuropaWS\Messages\RequestInterface;
 
 /**
@@ -32,7 +34,11 @@ interface TransporterInterface
      *   The response from the web service.
      *
      * @throws ConnectionException
-     *   It is raised if the
+     *   It is raised if the connection with the web service fails.
+     * @throws WebServiceErrorException
+     *   It is raised if the web service returns an error.
+     * @throws ClientInstantiationException
+     *   It is raised if the request object is not valid.
      */
     public function send(RequestInterface $request);
 

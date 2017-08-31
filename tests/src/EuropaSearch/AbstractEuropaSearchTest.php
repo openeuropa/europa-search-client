@@ -9,8 +9,6 @@ namespace EC\EuropaSearch\Tests;
 
 use EC\EuropaSearch\EuropaSearch;
 use EC\EuropaSearch\EuropaSearchConfig;
-use EC\EuropaSearch\Tests\EuropaSearchDummy;
-use EC\EuropaWS\Tests\Dummies\WSConfigurationDummy;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
@@ -25,6 +23,22 @@ abstract class AbstractEuropaSearchTest extends TestCase
 {
 
     /**
+     * Gets a dummy service configuration for test purpose.
+     *
+     * @return EuropaSearchConfig
+     *   The dummy service configuration.
+     */
+    protected function getDummyConfig()
+    {
+        $wsSettings = [
+            'URLRoot' => 'https://intragate.acceptance.ec.europa.eu',
+            'APIKey' => 'a221108a-180d-HTTP-CLIENT-LIBRARY-TEST',
+            'database' => 'EC-EUROPA-DUMMY',
+        ];
+
+        return new EuropaSearchConfig($wsSettings);
+    }
+    /**
      * Gets the client factory for tests.
      *
      * @return EuropaSearch
@@ -33,17 +47,8 @@ abstract class AbstractEuropaSearchTest extends TestCase
     protected function getFactory()
     {
 
-        $container = new EuropaSearch();
-
-        $wsSettings = [
-            'URL' => 'http://www.dummy.com/ws',
-            'APIKey' => 'abcd1234',
-            'database' => 'abcd',
-        ];
-        $config = new EuropaSearchConfig($wsSettings, 'dumb', 'dumber');
-        $config->setUserName('dumb');
-        $config->setUserPassword('dumber');
-        $container->setWSConfig($config);
+        $config = $this->getDummyConfig();
+        $container = new EuropaSearch($config);
 
         return $container;
     }

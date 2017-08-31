@@ -57,17 +57,25 @@ class DefaultClient implements ClientInterface
      * @param \Symfony\Component\Validator\ValidatorBuilder  $validator
      * @param \EC\EuropaWS\Proxies\BasicProxyController      $proxy
      * @param \EC\EuropaWS\Transporters\TransporterInterface $transporter
-     * @param \EC\EuropaWS\Common\WSConfigurationInterface   $WSConfiguration
      */
-    public function __construct(ValidatorBuilder $validator, BasicProxyController $proxy, TransporterInterface $transporter, WSConfigurationInterface $WSConfiguration)
+    public function __construct(ValidatorBuilder $validator, BasicProxyController $proxy, TransporterInterface $transporter)
     {
 
         $this->validator = $validator->getValidator();
         $this->proxy = $proxy;
         $this->transporter = $transporter;
-        $this->WSConfiguration = $WSConfiguration;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function setWSConfiguration(WSConfigurationInterface $configuration)
+    {
+
+        $this->WSConfiguration = $configuration;
+        $this->proxy->setWSConfiguration($configuration);
+        $this->transporter->setWSConfiguration($configuration);
+    }
 
     /**
      * {@inheritDoc}
@@ -76,12 +84,11 @@ class DefaultClient implements ClientInterface
     {
 
         $this->validateMessage($message);
+
         $convertedComponents = $this->proxy->convertComponents($message->getComponents());
         $request = $this->proxy->convertMessageWithComponents($message, $convertedComponents);
-        $this->transporter->setWSConfiguration($this->WSConfiguration);
 
-        // TODO Adapting dpending on the Transportation layer implementation:
-        $response = $this->transporter->send($request, $this->WSConfiguration);
+        $response = $this->proxy->sendRequest($request, $this->transporter);
 
         return $response;
     }

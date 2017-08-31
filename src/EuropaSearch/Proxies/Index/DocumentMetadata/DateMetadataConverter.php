@@ -37,10 +37,6 @@ class DateMetadataConverter implements ComponentConverterInterface
 
         $values = $this->getMetadataDateValue($values);
 
-        if (count($values) <= 1) {
-            $values = reset($values);
-        }
-
         return [$name => $values];
     }
 
