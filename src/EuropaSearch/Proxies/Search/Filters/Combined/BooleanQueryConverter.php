@@ -38,7 +38,9 @@ class BooleanQueryConverter implements CombinedQueryConverterInterface
         // Add only the filled components.
         if (!empty($convertedComponents)) {
             foreach ($convertedComponents as $child) {
-                $convertedComponent['bool'] = array_merge($convertedComponent['bool'], $child);
+                if (!empty($child)) {
+                    $convertedComponent['bool'] = array_merge($convertedComponent['bool'], $child);
+                }
             }
         }
 

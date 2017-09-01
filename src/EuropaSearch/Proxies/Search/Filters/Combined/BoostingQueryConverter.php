@@ -39,7 +39,9 @@ class BoostingQueryConverter implements CombinedQueryConverterInterface
         // Add only the filled components.
         if (!empty($convertedComponents)) {
             foreach ($convertedComponents as $child) {
-                $convertedComponent['boosting'] = array_merge($convertedComponent['boosting'], $child);
+                if (!empty($child)) {
+                    $convertedComponent['boosting'] = array_merge($convertedComponent['boosting'], $child);
+                }
             }
         }
 

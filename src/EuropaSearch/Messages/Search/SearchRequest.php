@@ -21,69 +21,6 @@ class SearchRequest extends AbstractRequest
 {
 
     /**
-     * The search query in a JSOn format.
-     *
-     * @var string
-     */
-    private $queryJSON;
-
-    /**
-     * The searched text.
-     *
-     * @var string
-     */
-    private $text;
-
-    /**
-     * Languages implied in teh search.
-     *
-     * @var array
-     */
-    private $languages;
-
-    /**
-     * The page number of the result list to retrieve.
-     *
-     * @var integer
-     */
-    private $pageNumber;
-
-    /**
-     * The number of results to retrieve.
-     *
-     * @var integer
-     */
-    private $pageSize;
-
-    /**
-     * The regular expression to use to highlight result texts.
-     *
-     * @var string
-     */
-    private $highlightRegex;
-
-    /**
-     * The length of the highlighted text.
-     *
-     * @var integer
-     */
-    private $highlightLimit;
-
-    /**
-     * The session token.
-     *
-     * @var string
-     */
-    private $sessionToken;
-
-    /**
-     * The sort criteria to apply with the search request.
-     *
-     * @var string
-     */
-    private $sort;
-
-    /**
      * Gets the search query in a JSON format.
      *
      * @return string
@@ -91,7 +28,7 @@ class SearchRequest extends AbstractRequest
      */
     public function getQueryJSON()
     {
-        return $this->queryJSON;
+        return $this->body['query']['contents'];
     }
 
     /**
@@ -102,7 +39,12 @@ class SearchRequest extends AbstractRequest
      */
     public function setQueryJSON($queryJSON)
     {
-        $this->queryJSON = $queryJSON;
+
+        $this->body['query'] = [
+            'name' => 'query',
+            'contents' => $queryJSON,
+            'headers' => ['content-type' => 'application/json'],
+        ];
     }
 
     /**
@@ -113,7 +55,7 @@ class SearchRequest extends AbstractRequest
      */
     public function getText()
     {
-        return $this->text;
+        return $this->body['text']['contents'];
     }
 
     /**
@@ -124,7 +66,11 @@ class SearchRequest extends AbstractRequest
      */
     public function setText($text)
     {
-        $this->text = $text;
+
+        $this->body['text'] = [
+            'name' => 'text',
+            'contents' => $text,
+        ];
     }
 
     /**
@@ -135,7 +81,7 @@ class SearchRequest extends AbstractRequest
      */
     public function getLanguages()
     {
-        return $this->languages;
+        return $this->body['languages']['contents'];
     }
 
     /**
@@ -146,7 +92,12 @@ class SearchRequest extends AbstractRequest
      */
     public function setLanguages(array $languages)
     {
-        $this->languages = $languages;
+
+        $this->body['languages'] = [
+            'name' => 'languages',
+            'contents' => json_encode($languages),
+            'headers' => ['content-type' => 'application/json'],
+        ];
     }
 
     /**
@@ -157,7 +108,7 @@ class SearchRequest extends AbstractRequest
      */
     public function getPageNumber()
     {
-        return $this->pageNumber;
+        return $this->query['pageNumber'];
     }
 
     /**
@@ -168,7 +119,7 @@ class SearchRequest extends AbstractRequest
      */
     public function setPageNumber($pageNumber)
     {
-        $this->pageNumber = $pageNumber;
+        $this->query['pageNumber'] = $pageNumber;
     }
 
     /**
@@ -179,7 +130,7 @@ class SearchRequest extends AbstractRequest
      */
     public function getPageSize()
     {
-        return $this->pageSize;
+        return $this->query['pageSize'];
     }
 
     /**
@@ -190,7 +141,7 @@ class SearchRequest extends AbstractRequest
      */
     public function setPageSize($pageSize)
     {
-        $this->pageSize = $pageSize;
+        $this->query['pageSize'] = $pageSize;
     }
 
     /**
@@ -201,7 +152,7 @@ class SearchRequest extends AbstractRequest
      */
     public function getHighlightRegex()
     {
-        return $this->highlightRegex;
+        return $this->query['highlightRegex'];
     }
 
     /**
@@ -212,7 +163,7 @@ class SearchRequest extends AbstractRequest
      */
     public function setHighlightRegex($highlightRegex)
     {
-        $this->highlightRegex = $highlightRegex;
+        $this->query['highlightRegex'] = $highlightRegex;
     }
 
     /**
@@ -223,7 +174,7 @@ class SearchRequest extends AbstractRequest
      */
     public function getHighlightLimit()
     {
-        return $this->highlightLimit;
+        return $this->query['highlightLimit'];
     }
 
     /**
@@ -234,7 +185,7 @@ class SearchRequest extends AbstractRequest
      */
     public function setHighlightLimit($highlightLimit)
     {
-        $this->highlightLimit = $highlightLimit;
+        $this->query['highlightLimit'] = $highlightLimit;
     }
 
     /**
@@ -245,7 +196,7 @@ class SearchRequest extends AbstractRequest
      */
     public function getSessionToken()
     {
-        return $this->sessionToken;
+        return $this->query['sessionToken'];
     }
 
     /**
@@ -256,7 +207,7 @@ class SearchRequest extends AbstractRequest
      */
     public function setSessionToken($sessionToken)
     {
-        $this->sessionToken = $sessionToken;
+        $this->query['sessionToken'] = $sessionToken;
     }
 
     /**
@@ -268,7 +219,7 @@ class SearchRequest extends AbstractRequest
      */
     public function getSort()
     {
-        return $this->sort;
+        return $this->body['sort']['contents'];
     }
 
     /**
@@ -279,7 +230,11 @@ class SearchRequest extends AbstractRequest
      */
     public function setSort($sort)
     {
-        $this->sort = $sort;
+
+        $this->body['sort'] = [
+            'name' => 'sort',
+            'contents' => $sort,
+        ];
     }
 
     /**

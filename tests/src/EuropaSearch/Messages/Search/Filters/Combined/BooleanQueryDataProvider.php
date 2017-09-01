@@ -279,4 +279,29 @@ class BooleanQueryDataProvider
 
         return $booleanQuery;
     }
+
+    /**
+     * Gets a should invalid BooleanQuery object.
+     *
+     * @return BooleanQuery
+     *  The invalid BooleanQuery object.
+     */
+    public function getTwoLevelBooleanQuery()
+    {
+
+        $booleanQuery = new BooleanQuery();
+
+        $filterProvider = new SimpleFilterDataProvider();
+
+        // Add valid filters.
+        $validFilters = $filterProvider->getValidFilters();
+        foreach ($validFilters as $validFilter) {
+            $booleanQuery->addMustSimpleFilter($validFilter);
+            $booleanQuery->addMustNotSimpleFilter($validFilter);
+        }
+
+        $booleanQuery->addShouldCombinedFilter($this->getValidSimpleBooleanQuery());
+
+        return $booleanQuery;
+    }
 }

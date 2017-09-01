@@ -33,15 +33,16 @@ class AggregatedFiltersConverter implements CombinedQueryConverterInterface
      */
     public function convertComponentWithChildren(CombinedQueryInterface $query, array $convertedComponents)
     {
+        if (empty($convertedComponents)) {
+            return;
+        }
 
         $label = $query->getAggregationLabel();
         $convertedComponent = [$label => []];
 
         // Add only the filled components.
-        if (!empty($convertedComponents)) {
-            foreach ($convertedComponents as $child) {
-                $convertedComponent[$label][] = $child;
-            }
+        foreach ($convertedComponents as $child) {
+            $convertedComponent[$label][] = $child;
         }
 
         return $convertedComponent;

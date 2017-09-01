@@ -8,13 +8,11 @@
 namespace EC\EuropaSearch\Transporters;
 
 use EC\EuropaSearch\Messages\Index\WebContentRequest;
-use EC\EuropaWS\Common\WSConfigurationInterface;
 use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Exceptions\ConnectionException;
 use EC\EuropaWS\Messages\RequestInterface;
-use EC\EuropaWS\Transporters\TransporterInterface;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 
 /**
  * Class IndexingTransporter.
@@ -24,21 +22,8 @@ use GuzzleHttp\Exception\RequestException;
  *
  * @package EC\EuropaSearch\Transporters
  */
-class IndexingTransporter implements TransporterInterface
+class IndexingTransporter extends AbstractTransporter
 {
-
-    /**
-     * HTTP client configuration.
-     *
-     * @var WSConfigurationInterface
-     */
-    private $configuration;
-    /**
-     * Guzzle Client use to manage each request to the REST services.
-     *
-     * @var \GuzzleHttp\Client
-     */
-    private $HTTPClient;
 
     /**
      * {@inheritdoc}
@@ -53,20 +38,6 @@ class IndexingTransporter implements TransporterInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function setWSConfiguration(WSConfigurationInterface $configuration)
-    {
-        $this->configuration = $configuration;
-
-        $connectionConfig = $configuration->getConnectionConfig();
-        $HTTPClientConfig = [
-            'base_uri' => $connectionConfig['URLRoot'],
-        ];
-        $this->HTTPClient = new Client($HTTPClientConfig);
-    }
-
-    /**
      * Send a indexing request for a web content to the Europa Search REST service.
      *
      * @param WebContentRequest $request
@@ -77,6 +48,8 @@ class IndexingTransporter implements TransporterInterface
      *
      * @throws ConnectionException
      *   If the connection with the services failed.
+     * @throws WebServiceErrorException
+     *   If the services returns an error.
      */
     private function sendWebContentRequest(WebContentRequest $request)
     {
@@ -88,8 +61,10 @@ class IndexingTransporter implements TransporterInterface
             ];
 
             return $this->HTTPClient->request('POST', '/es/ingestion-api/rest/ingestion/text', $requestOptions);
-        } catch (RequestException $requestException) {
+        } catch (ServerException $requestException) {
             throw new ConnectionException('The connection to the Ingestion service fails', 289, $requestException);
+        } catch (ClientException $requestException) {
+            throw new WebServiceErrorException('The request sent to the Ingestion service returned an error', 288, $requestException);
         }
     }
 }

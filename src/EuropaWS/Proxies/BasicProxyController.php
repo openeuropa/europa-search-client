@@ -251,9 +251,9 @@ class BasicProxyController implements ProxyControllerInterface
 
         try {
             $response = $transporter->send($request);
-
+            echo PHP_EOL.'test: '.print_r($response->getBody()->getContents(), true).PHP_EOL;
             // TODO Waiting the actual implementation, we return directly the dummy string.
-            return new StringResponseMessage($response);
+            return new StringResponseMessage(print_r($response->getBody(), true));
         } catch (\Exception $e) {
             throw new ConnectionException(
                 'A problem occurred with the connection to the web service.',
