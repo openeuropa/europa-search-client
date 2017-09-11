@@ -31,26 +31,6 @@ interface ProxyControllerInterface
 {
 
     /**
-     * Adds a message converter to the object registry.
-     *
-     * @param string                    $converterId
-     *   The id of the converter into the registry.
-     * @param MessageConverterInterface $converter
-     *   The message converter to add.
-     */
-    public function defineMessageConverter($converterId, MessageConverterInterface $converter);
-
-    /**
-     * Adds a component converter to the object registry.
-     *
-     * @param string                      $converterId
-     *   The id of the converter into the registry.
-     * @param ComponentConverterInterface $converter
-     *   The component converter to add.
-     */
-    public function defineComponentConverter($converterId, ComponentConverterInterface $converter);
-
-    /**
      * Converts the message.
      *
      * @param ValidatableMessageInterface $message

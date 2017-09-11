@@ -61,9 +61,9 @@ class SearchTransporter extends AbstractTransporter
 
             return $this->HTTPClient->request('POST', '/es/search-api/rest/search', $requestOptions);
         } catch (ServerException $requestException) {
-            throw new ConnectionException('The connection to the Search service fails', 289, $requestException);
+            throw new ConnectionException('The connection to the Search service fails', $requestException);
         } catch (ClientException $requestException) {
-            throw new WebServiceErrorException('The request sent to the Search service returned an error', 288, $requestException);
+            throw new WebServiceErrorException('The request sent to the Search service returned an error', $requestException);
         }
     }
 }

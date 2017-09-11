@@ -19,12 +19,7 @@ services:
   proxyController:
       class:  EC\EuropaWS\Proxies\BasicProxyController
       calls:
-          - [defineMessageConverter, ['messageProxy.indexing.webContent', '@messageProxy.indexing.webContent']]
-          - [defineComponentConverter, ['componentProxy.metadata.boolean', '@componentProxy.metadata.boolean']]
-          - [defineComponentConverter, ['componentProxy.metadata.date', '@componentProxy.metadata.date']]
-          - [defineComponentConverter, ['componentProxy.metadata.numeric', '@componentProxy.metadata.numeric']]
-          - [defineComponentConverter, ['componentProxy.metadata.notIndexed', '@componentProxy.metadata.notIndexed']]
-          - [defineComponentConverter, ['componentProxy.metadata.string', '@componentProxy.metadata.string']]
+          - [setContainer, ['@service_container']]
   client.indexing.webDocument:
     class: EC\EuropaWS\Clients\DefaultClient
     arguments: ['@validator.default', '@proxyController', '@transporter.indexing']
@@ -51,14 +46,7 @@ services:
   proxyController.search:
       class:  EC\EuropaSearch\Proxies\Search\SearchProxyController
       calls:
-          - [defineMessageConverter, ['messageProxy.searching.search', '@messageProxy.searching.search']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.clauses.fieldExists', '@componentProxy.searching.filters.clauses.fieldExists']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.clauses.range', '@componentProxy.searching.filters.clauses.range']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.clauses.term', '@componentProxy.searching.filters.clauses.term']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.clauses.terms', '@componentProxy.searching.filters.clauses.terms']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.queries.aggregate', '@componentProxy.searching.filters.queries.aggregate']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.queries.booleanQuery', '@componentProxy.searching.filters.queries.booleanQuery']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.queries.boostingQuery', '@componentProxy.searching.filters.queries.boostingQuery']]
+          - [setContainer, ['@service_container']]
   client.searching.search:
     class: EC\EuropaWS\Clients\DefaultClient
     arguments: ['@validator.default', '@proxyController.search', '@transporter.searching']

@@ -32,7 +32,7 @@ class SearchProxyController extends BasicProxyController
     {
 
         if ($component instanceof FilterQueryInterface) {
-            return $this->convertCombinedQueryWithChildren($component);
+            return $this->convertFilterQueryWithChildren($component);
         }
 
         return parent::convertComponent($component);
@@ -52,12 +52,12 @@ class SearchProxyController extends BasicProxyController
      * @throws ProxyException
      *   Raised if a problem occurred during the conversion process.
      */
-    public function convertCombinedQueryWithChildren(FilterQueryInterface $query)
+    public function convertFilterQueryWithChildren(FilterQueryInterface $query)
     {
 
         try {
             $converterId = $query->getConverterIdentifier();
-            $converter = static::$container->get($converterId);
+            $converter = $this->container->get($converterId);
             $children = $query->getChildComponents();
 
             $convertedComponents = [];
@@ -70,19 +70,16 @@ class SearchProxyController extends BasicProxyController
         } catch (ServiceCircularReferenceException $scre) {
             throw new ClientInstantiationException(
                 'The conversion of the component failed because of client implementation problem!',
-                281,
                 $scre
             );
         } catch (ServiceNotFoundException $snfe) {
             throw new ClientInstantiationException(
                 'The converter for the component has not been found!',
-                281,
                 $snfe
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new ProxyException(
                 'The conversion process of the component failed!',
-                283,
                 $e
             );
         }

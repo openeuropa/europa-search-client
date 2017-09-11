@@ -94,7 +94,7 @@ class ClientContainerFactory
 
             return $validatorBuilder->getValidator();
         } catch (\Exception $e) {
-            throw new ClientInstantiationException('The client is not retrieved.', 281, $e);
+            throw new ClientInstantiationException('The client is not retrieved.', $e);
         }
     }
 
@@ -119,7 +119,7 @@ class ClientContainerFactory
 
             return $client;
         } catch (\Exception $e) {
-            throw new ClientInstantiationException('The client is not retrieved.', 281, $e);
+            throw new ClientInstantiationException('The client is not retrieved.', $e);
         }
     }
 
@@ -145,7 +145,7 @@ class ClientContainerFactory
 
             $this->container = $container;
         } catch (Exception $e) {
-            throw new ClientInstantiationException('The client container instantiation failed.', 281, $e);
+            throw new ClientInstantiationException('The client container instantiation failed.', $e);
         }
     }
 }

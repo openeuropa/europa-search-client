@@ -105,7 +105,7 @@ class DefaultClient implements ClientInterface
             foreach ($violations as $violation) {
                 $errorMessages[$violation->getPropertyPath()] = $violation->getMessage();
             }
-            $validException =  new ValidationException('The message submitted is invalid', 282);
+            $validException =  new ValidationException('The message submitted is invalid');
             $validException->setValidationErrors($errorMessages);
 
             throw $validException;

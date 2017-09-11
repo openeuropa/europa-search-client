@@ -14,6 +14,7 @@ use \Exception;
  *
  * This type of exceptions is catch when a message or the web service
  * configuration is not valid.
+ * The exception returns 282 as code.
  *
  * @package EC\EuropaWS\Exceptions
  */
@@ -25,6 +26,19 @@ class ValidationException extends Exception
      * @var array
      */
     private $validationErrors;
+
+    /**
+     * ValidationException constructor.
+     *
+     * @param string    $message
+     *   [optional] The Exception message to throw.
+     * @param Exception $previous
+     *   [optional] The previous exception used for the exception chaining. Since 5.3.0
+     */
+    public function __construct($message = "", Exception $previous = null)
+    {
+        parent::__construct($message, 282, $previous);
+    }
 
     /**
      * Gets the list of validation errors

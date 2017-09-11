@@ -62,9 +62,9 @@ class IndexingTransporter extends AbstractTransporter
 
             return $this->HTTPClient->request('POST', '/es/ingestion-api/rest/ingestion/text', $requestOptions);
         } catch (ServerException $requestException) {
-            throw new ConnectionException('The connection to the Ingestion service fails', 289, $requestException);
+            throw new ConnectionException('The connection to the Ingestion service fails', $requestException);
         } catch (ClientException $requestException) {
-            throw new WebServiceErrorException('The request sent to the Ingestion service returned an error', 288, $requestException);
+            throw new WebServiceErrorException('The request sent to the Ingestion service returned an error', $requestException);
         }
     }
 }
