@@ -34,31 +34,31 @@ services:
      class: EC\EuropaSearch\Transporters\SearchTransporter
   messageProxy.searching.search:
         class: EC\EuropaSearch\Proxies\Search\SearchConverter
-  componentProxy.searching.filters.simple.fieldExists:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Simple\FieldExistsConverter
-  componentProxy.searching.filters.simple.range:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Simple\RangeConverter
-  componentProxy.searching.filters.simple.term:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Simple\TermConverter
-  componentProxy.searching.filters.simple.terms:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Simple\TermsConverter
-  componentProxy.searching.filters.combined.aggregate:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Combined\AggregatedFiltersConverter
-  componentProxy.searching.filters.combined.booleanQuery:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Combined\BooleanQueryConverter
-  componentProxy.searching.filters.combined.boostingQuery:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Combined\BoostingQueryConverter
+  componentProxy.searching.filters.clauses.fieldExists:
+      class: EC\EuropaSearch\Proxies\Search\Filters\Clauses\FieldExistsClauseConverter
+  componentProxy.searching.filters.clauses.range:
+      class: EC\EuropaSearch\Proxies\Search\Filters\Clauses\RangeClauseConverter
+  componentProxy.searching.filters.clauses.term:
+      class: EC\EuropaSearch\Proxies\Search\Filters\Clauses\TermClauseConverter
+  componentProxy.searching.filters.clauses.terms:
+      class: EC\EuropaSearch\Proxies\Search\Filters\Clauses\TermsClauseConverter
+  componentProxy.searching.filters.queries.aggregate:
+      class: EC\EuropaSearch\Proxies\Search\Filters\Queries\FilterQueryComponentConverter
+  componentProxy.searching.filters.queries.booleanQuery:
+      class: EC\EuropaSearch\Proxies\Search\Filters\Queries\BooleanQueryConverter
+  componentProxy.searching.filters.queries.boostingQuery:
+      class: EC\EuropaSearch\Proxies\Search\Filters\Queries\BoostingQueryConverter
   proxyController.search:
       class:  EC\EuropaSearch\Proxies\Search\SearchProxyController
       calls:
           - [defineMessageConverter, ['messageProxy.searching.search', '@messageProxy.searching.search']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.simple.fieldExists', '@componentProxy.searching.filters.simple.fieldExists']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.simple.range', '@componentProxy.searching.filters.simple.range']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.simple.term', '@componentProxy.searching.filters.simple.term']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.simple.terms', '@componentProxy.searching.filters.simple.terms']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.combined.aggregate', '@componentProxy.searching.filters.combined.aggregate']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.combined.booleanQuery', '@componentProxy.searching.filters.combined.booleanQuery']]
-          - [defineComponentConverter, ['componentProxy.searching.filters.combined.boostingQuery', '@componentProxy.searching.filters.combined.boostingQuery']]
+          - [defineComponentConverter, ['componentProxy.searching.filters.clauses.fieldExists', '@componentProxy.searching.filters.clauses.fieldExists']]
+          - [defineComponentConverter, ['componentProxy.searching.filters.clauses.range', '@componentProxy.searching.filters.clauses.range']]
+          - [defineComponentConverter, ['componentProxy.searching.filters.clauses.term', '@componentProxy.searching.filters.clauses.term']]
+          - [defineComponentConverter, ['componentProxy.searching.filters.clauses.terms', '@componentProxy.searching.filters.clauses.terms']]
+          - [defineComponentConverter, ['componentProxy.searching.filters.queries.aggregate', '@componentProxy.searching.filters.queries.aggregate']]
+          - [defineComponentConverter, ['componentProxy.searching.filters.queries.booleanQuery', '@componentProxy.searching.filters.queries.booleanQuery']]
+          - [defineComponentConverter, ['componentProxy.searching.filters.queries.boostingQuery', '@componentProxy.searching.filters.queries.boostingQuery']]
   client.searching.search:
     class: EC\EuropaWS\Clients\DefaultClient
     arguments: ['@validator.default', '@proxyController.search', '@transporter.searching']

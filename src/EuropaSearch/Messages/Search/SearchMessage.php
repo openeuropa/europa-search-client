@@ -7,7 +7,7 @@
 
 namespace EC\EuropaSearch\Messages\Search;
 
-use EC\EuropaSearch\Messages\Search\Filters\Combined\BooleanQuery;
+use EC\EuropaSearch\Messages\Search\Filters\Queries\BooleanQuery;
 use EC\EuropaWS\Messages\ValidatableMessageInterface;
 use EC\EuropaWS\Proxies\BasicProxyController;
 use Symfony\Component\Validator\Mapping\ClassMetadata;

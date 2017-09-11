@@ -9,7 +9,7 @@ namespace EC\EuropaSearch\Tests\Proxies\Search;
 
 use EC\EuropaSearch\Messages\Search\SearchMessage;
 use EC\EuropaSearch\Messages\Search\SearchRequest;
-use EC\EuropaSearch\Tests\Messages\Search\Filters\Combined\BooleanQueryDataProvider;
+use EC\EuropaSearch\Tests\Messages\Search\Filters\Queries\BooleanQueryDataProvider;
 
 /**
  * Class SearchDataProvider.

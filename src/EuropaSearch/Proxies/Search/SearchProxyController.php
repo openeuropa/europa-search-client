@@ -7,11 +7,13 @@
 
 namespace EC\EuropaSearch\Proxies\Search;
 
-use EC\EuropaSearch\Messages\Search\Filters\Combined\CombinedQueryInterface;
+use EC\EuropaSearch\Messages\Search\Filters\Queries\FilterQueryInterface;
 use EC\EuropaWS\Messages\Components\ComponentInterface;
 use EC\EuropaWS\Proxies\BasicProxyController;
 use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Exceptions\ProxyException;
+use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 /**
  * Class SearchProxyController.
@@ -29,7 +31,7 @@ class SearchProxyController extends BasicProxyController
     public function convertComponent(ComponentInterface $component)
     {
 
-        if ($component instanceof CombinedQueryInterface) {
+        if ($component instanceof FilterQueryInterface) {
             return $this->convertCombinedQueryWithChildren($component);
         }
 
@@ -37,9 +39,9 @@ class SearchProxyController extends BasicProxyController
     }
 
     /**
-     * Converts a CombinedQueryInterface component with its child components.
+     * Converts a FilterQueryInterface component with its child components.
      *
-     * @param CombinedQueryInterface $query
+     * @param FilterQueryInterface $query
      *   The component to convert.
      *
      * @return mixed
@@ -48,9 +50,9 @@ class SearchProxyController extends BasicProxyController
      * @throws ClientInstantiationException
      *   Raised if the process failed because of the client instantiation problem.
      * @throws ProxyException
-     *   Raised if a problem occured during the conversion process.
+     *   Raised if a problem occurred during the conversion process.
      */
-    public function convertCombinedQueryWithChildren(CombinedQueryInterface $query)
+    public function convertCombinedQueryWithChildren(FilterQueryInterface $query)
     {
 
         try {
