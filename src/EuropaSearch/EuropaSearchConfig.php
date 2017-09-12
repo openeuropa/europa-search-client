@@ -7,6 +7,7 @@
 namespace EC\EuropaSearch;
 
 use EC\EuropaWS\Common\WSConfigurationInterface;
+use GuzzleHttp\Handler\MockHandler;
 
 /**
  * Class EuropaSearchConfig.
@@ -39,6 +40,44 @@ class EuropaSearchConfig implements WSConfigurationInterface
     private $userPassword;
 
     /**
+     * Flag indicating if the client must use a mock or not.
+     *
+     * @var boolean
+     */
+    private $useMock;
+
+    /**
+     * Mock definition to use in tests.
+     *
+     * @var array
+     */
+    private $mock;
+
+    /**
+     * Gets mock handler to use in the tests.
+     *
+     * @return array
+     *   Array containing the mock handler to use.
+     */
+    public function getMockConfigurations()
+    {
+        $mock = new MockHandler($this->mock);
+
+        return [$mock];
+    }
+
+    /**
+     * Sets the list of Response objects used by the mock.
+     *
+     * @param array $mock
+     *   The list of Response objects.
+     */
+    public function setMockConfigurations(array $mock)
+    {
+        $this->mock = $mock;
+    }
+
+    /**
      * EuropaSearchConfig constructor.
      *
      * @param array $connectionConfig
@@ -47,6 +86,7 @@ class EuropaSearchConfig implements WSConfigurationInterface
     public function __construct(array $connectionConfig)
     {
         $this->connectionConfig = $connectionConfig;
+        $this->useMock = false;
     }
 
 
@@ -147,5 +187,24 @@ class EuropaSearchConfig implements WSConfigurationInterface
             'ws.credentials.name' => $this->userName,
             'ws.credentials.password' => $this->userPassword,
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function useMock()
+    {
+        return $this->useMock;
+    }
+
+    /**
+     * Sets the "useMock" variable.
+     *
+     * @param boolean $useMock
+     *   The variable value.
+     */
+    public function setUseMock($useMock)
+    {
+        $this->useMock = $useMock;
     }
 }

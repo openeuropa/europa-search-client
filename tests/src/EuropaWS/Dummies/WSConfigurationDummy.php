@@ -144,4 +144,20 @@ class WSConfigurationDummy implements WSConfigurationInterface
             'ws.credentials.password' => $this->userPassword,
         ];
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function useMock()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMockConfigurations()
+    {
+        return [];
+    }
 }

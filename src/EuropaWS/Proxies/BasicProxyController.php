@@ -12,14 +12,13 @@ use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Exceptions\ConnectionException;
 use EC\EuropaWS\Exceptions\ProxyException;
 use EC\EuropaWS\Messages\Components\ComponentInterface;
+use EC\EuropaWS\Messages\MessageInterface;
 use EC\EuropaWS\Messages\StringResponseMessage;
 use EC\EuropaWS\Messages\ValidatableMessageInterface;
-use EC\EuropaWS\Messages\RequestInterface;
 use EC\EuropaWS\Transporters\TransporterInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
@@ -53,12 +52,9 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
     protected $WSConfiguration;
 
     /**
-     * Sets the HTTP client configuration.
-     *
-     * @param WSConfigurationInterface $configuration
-     *    The HTTP client configuration.
+     * {@inheritdoc}
      */
-    public function setWSConfiguration(WSConfigurationInterface $configuration)
+    public function initProxy(WSConfigurationInterface $configuration)
     {
 
         $this->WSConfiguration = $configuration;
@@ -208,12 +204,19 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
     /**
      * {@inheritdoc}
      */
-    public function sendRequest(RequestInterface $request, TransporterInterface $transporter)
+    public function sendRequest(MessageInterface $message, TransporterInterface $transporter)
     {
 
         try {
+            if ($message instanceof ValidatableMessageInterface) {
+                $convertedComponents = $this->convertComponents($message->getComponents());
+                $request = $this->convertMessageWithComponents($message, $convertedComponents);
+            } else {
+                $request = $this->convertMessage($message);
+            }
+
             $response = $transporter->send($request);
-            echo PHP_EOL.'test: '.print_r($response->getBody()->getContents(), true).PHP_EOL;
+
             // TODO Waiting the actual implementation, we return directly the dummy string.
             return new StringResponseMessage(print_r($response->getBody(), true));
         } catch (\Exception $e) {

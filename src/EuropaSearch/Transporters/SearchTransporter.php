@@ -8,11 +8,13 @@
 namespace EC\EuropaSearch\Transporters;
 
 use EC\EuropaSearch\Messages\Search\SearchRequest;
+use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Exceptions\WebServiceErrorException;
 use EC\EuropaWS\Messages\RequestInterface;
 use GuzzleHttp\Exception\ClientException;
 use EC\EuropaWS\Exceptions\ConnectionException;
 use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Handler\MockHandler;
 
 /**
  * Class SearchTransporter.
@@ -34,6 +36,8 @@ class SearchTransporter extends AbstractTransporter
         if ($request instanceof SearchRequest) {
             return $this->sendSearchRequest($request);
         }
+
+        throw new ClientInstantiationException('The transporter layer did not receive the right object type. It receives: '.get_class($request));
     }
 
     /**

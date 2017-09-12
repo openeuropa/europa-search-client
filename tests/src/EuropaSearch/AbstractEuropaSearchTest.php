@@ -25,10 +25,14 @@ abstract class AbstractEuropaSearchTest extends TestCase
     /**
      * Gets a dummy service configuration for test purpose.
      *
+     * @param array $mockResponses
+     *   [optional] Array of Response objects used by the mock called during
+     *   the test.
+     *
      * @return EuropaSearchConfig
      *   The dummy service configuration.
      */
-    protected function getDummyConfig()
+    protected function getDummyConfig(array $mockResponses = [])
     {
         $wsSettings = [
             'URLRoot' => 'https://intragate.acceptance.ec.europa.eu',
@@ -36,18 +40,28 @@ abstract class AbstractEuropaSearchTest extends TestCase
             'database' => 'EC-EUROPA-DUMMY',
         ];
 
-        return new EuropaSearchConfig($wsSettings);
+        $config = new EuropaSearchConfig($wsSettings);
+        $config->setUseMock(true);
+        if ($mockResponses) {
+            $config->setMockConfigurations($mockResponses);
+        }
+
+        return $config;
     }
     /**
      * Gets the client factory for tests.
      *
+     * @param array $mockResponses
+     *   [optional] Array of Response objects used by the mock called during
+     *   the test.
+     *
      * @return EuropaSearch
      *   The client factory.
      */
-    protected function getFactory()
+    protected function getFactory(array $mockResponses = [])
     {
 
-        $config = $this->getDummyConfig();
+        $config = $this->getDummyConfig($mockResponses);
         $container = new EuropaSearch($config);
 
         return $container;

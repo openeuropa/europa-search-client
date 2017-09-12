@@ -39,7 +39,7 @@ class DummyTransporter implements TransporterInterface
     /**
      * {@inheritDoc}
      */
-    public function setWSConfiguration(WSConfigurationInterface $configuration)
+    public function initTransporter(WSConfigurationInterface $configuration)
     {
         $this->WSConfiguration = $configuration;
     }

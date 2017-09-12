@@ -19,7 +19,8 @@ use EC\EuropaSearch\Messages\Index\WebContentRequest;
 /**
  * Class WebContentDataProvider.
  *
- * Provides data for web content indexing related tests.
+ * Provides data for the proxy layer used for web content indexing
+ * related tests.
  *
  * @package EC\EuropaSearch\Tests\Proxies\Index
  */

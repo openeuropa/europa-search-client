@@ -10,6 +10,7 @@ namespace EC\EuropaSearch\Transporters;
 use EC\EuropaSearch\Messages\Index\WebContentRequest;
 use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Exceptions\ConnectionException;
+use EC\EuropaWS\Exceptions\WebServiceErrorException;
 use EC\EuropaWS\Messages\RequestInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;

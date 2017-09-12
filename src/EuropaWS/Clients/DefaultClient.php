@@ -73,8 +73,8 @@ class DefaultClient implements ClientInterface
     {
 
         $this->WSConfiguration = $configuration;
-        $this->proxy->setWSConfiguration($configuration);
-        $this->transporter->setWSConfiguration($configuration);
+        $this->proxy->initProxy($configuration);
+        $this->transporter->initTransporter($configuration);
     }
 
     /**
@@ -85,10 +85,7 @@ class DefaultClient implements ClientInterface
 
         $this->validateMessage($message);
 
-        $convertedComponents = $this->proxy->convertComponents($message->getComponents());
-        $request = $this->proxy->convertMessageWithComponents($message, $convertedComponents);
-
-        $response = $this->proxy->sendRequest($request, $this->transporter);
+        $response = $this->proxy->sendRequest($message, $this->transporter);
 
         return $response;
     }

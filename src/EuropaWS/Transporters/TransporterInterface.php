@@ -43,10 +43,10 @@ interface TransporterInterface
     public function send(RequestInterface $request);
 
     /**
-     * Sets the web service connection configuration.
+     * Initializes the web service connection configuration.
      *
      * @param WSConfigurationInterface $configuration
-     *   The web service configuration.
+     *   The web service configuration to use in the initialization.
      */
-    public function setWSConfiguration(WSConfigurationInterface $configuration);
+    public function initTransporter(WSConfigurationInterface $configuration);
 }

@@ -31,7 +31,7 @@ class SearchMessageConverterTest extends AbstractEuropaSearchTest
         $expected = $data['expected'];
 
         $proxy = $this->getContainer()->get('proxyController.search');
-        $proxy->setWSConfiguration($this->getDummyConfig());
+        $proxy->initProxy($this->getDummyConfig());
 
         $convertedComponents = $proxy->convertComponents($submitted->getComponents());
         $searchRequest = $proxy->convertMessageWithComponents($submitted, $convertedComponents);

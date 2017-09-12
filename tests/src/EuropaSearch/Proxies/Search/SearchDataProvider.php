@@ -27,7 +27,7 @@ class SearchDataProvider
      * @return array
      *   The objects for the test:
      *   - 'submitted':  IndexedDocument to convert in the test;
-     *   - 'expected' :   Excepted IndexingRequest at the end of the test;
+     *   - 'expected' :  Excepted SearchRequest at the end of the test.
      */
     public function searchRequestProvider()
     {
