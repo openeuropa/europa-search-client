@@ -23,6 +23,7 @@ use EC\EuropaWS\Common\WSConfigurationInterface;
  */
 class DefaultClient implements ClientInterface
 {
+
     /**
      * The validator to use with messages
      *

@@ -31,6 +31,7 @@ class IndexingTransporter extends AbstractTransporter
      */
     public function send(RequestInterface $request)
     {
+
         if ($request instanceof WebContentRequest) {
             return $this->sendWebContentRequest($request);
         }

@@ -32,6 +32,7 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
  */
 class BasicProxyController implements ProxyControllerInterface, ContainerAwareInterface
 {
+
     use ContainerAwareTrait;
 
     /**
@@ -56,7 +57,6 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
      */
     public function initProxy(WSConfigurationInterface $configuration)
     {
-
         $this->WSConfiguration = $configuration;
     }
 

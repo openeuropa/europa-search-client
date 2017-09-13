@@ -21,6 +21,7 @@ use EC\EuropaWS\Messages\RequestInterface;
  */
 class DummyTransporter implements TransporterInterface
 {
+
     /**
      * Web service configuration.
      *

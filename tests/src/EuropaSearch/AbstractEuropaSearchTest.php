@@ -34,6 +34,7 @@ abstract class AbstractEuropaSearchTest extends TestCase
      */
     protected function getDummyConfig(array $mockResponses = [])
     {
+
         $wsSettings = [
             'URLRoot' => 'https://intragate.acceptance.ec.europa.eu',
             'APIKey' => 'a221108a-180d-HTTP-CLIENT-LIBRARY-TEST',

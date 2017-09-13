@@ -37,6 +37,7 @@ class SearchConverter implements MessageConverterInterface
      */
     public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent, WSConfigurationInterface $configuration)
     {
+
         $request = new SearchRequest();
 
         $parameter = $message->getSearchedLanguages();

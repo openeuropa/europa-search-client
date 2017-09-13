@@ -35,7 +35,6 @@ class WebContentRequest extends AbstractIndexingRequest
      */
     public function setDocumentContent($documentContent)
     {
-
         $this->body['text'] = [
             'name' => 'text',
             'contents' => $documentContent,

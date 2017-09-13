@@ -18,6 +18,7 @@ use GuzzleHttp\Handler\MockHandler;
  */
 class EuropaSearchConfig implements WSConfigurationInterface
 {
+
     /**
      * Web service configuration.
      *
@@ -54,6 +55,19 @@ class EuropaSearchConfig implements WSConfigurationInterface
     private $mock;
 
     /**
+     * EuropaSearchConfig constructor.
+     *
+     * @param array $connectionConfig
+     *   The connection configuration
+     */
+    public function __construct(array $connectionConfig)
+    {
+
+        $this->connectionConfig = $connectionConfig;
+        $this->useMock = false;
+    }
+
+    /**
      * Gets mock handler to use in the tests.
      *
      * @return array
@@ -61,6 +75,7 @@ class EuropaSearchConfig implements WSConfigurationInterface
      */
     public function getMockConfigurations()
     {
+
         $mock = new MockHandler($this->mock);
 
         return [$mock];
@@ -76,19 +91,6 @@ class EuropaSearchConfig implements WSConfigurationInterface
     {
         $this->mock = $mock;
     }
-
-    /**
-     * EuropaSearchConfig constructor.
-     *
-     * @param array $connectionConfig
-     *   The connection configuration
-     */
-    public function __construct(array $connectionConfig)
-    {
-        $this->connectionConfig = $connectionConfig;
-        $this->useMock = false;
-    }
-
 
     /**
      * Gets the connection configuration.
@@ -182,7 +184,6 @@ class EuropaSearchConfig implements WSConfigurationInterface
      */
     public function getCredentials()
     {
-
         return [
             'ws.credentials.name' => $this->userName,
             'ws.credentials.password' => $this->userPassword,

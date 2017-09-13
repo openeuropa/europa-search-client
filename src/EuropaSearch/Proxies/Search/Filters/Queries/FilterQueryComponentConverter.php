@@ -33,6 +33,7 @@ class FilterQueryComponentConverter implements FilterQueryConverterInterface
      */
     public function convertComponentWithChildren(FilterQueryInterface $query, array $convertedComponents)
     {
+
         if (empty($convertedComponents)) {
             return;
         }

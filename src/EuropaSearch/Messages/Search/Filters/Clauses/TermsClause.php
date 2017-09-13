@@ -86,7 +86,6 @@ class TermsClause extends AbstractClause
     {
 
         $metadata->addPropertyConstraint('testedValues', new Assert\NotBlank());
-
         $metadata->addConstraint(new Assert\Callback('validate'));
     }
 
@@ -131,6 +130,7 @@ class TermsClause extends AbstractClause
      */
     private function validateDateRelatedFilter(ExecutionContextInterface $context, $payload)
     {
+
         foreach ($this->testedValues as $key => $testedValue) {
             if (!date_create($testedValue)) {
                 $context->buildViolation('The tested value is not a valid date.')
@@ -148,6 +148,7 @@ class TermsClause extends AbstractClause
      */
     private function validateFloatRelatedFilter(ExecutionContextInterface $context, $payload)
     {
+
         foreach ($this->testedValues as $key => $testedValue) {
             if (!is_float($testedValue)) {
                 $context->buildViolation('The tested value is not a valid float.')
@@ -165,6 +166,7 @@ class TermsClause extends AbstractClause
      */
     private function validateIntRelatedFilter(ExecutionContextInterface $context, $payload)
     {
+
         foreach ($this->testedValues as $key => $testedValue) {
             if (!is_int($testedValue)) {
                 $context->buildViolation('The tested value is not a valid integer.')
@@ -182,6 +184,7 @@ class TermsClause extends AbstractClause
      */
     private function validateBooleanRelatedFilter(ExecutionContextInterface $context, $payload)
     {
+
         foreach ($this->testedValues as $key => $testedValue) {
             if (!is_bool($testedValue)) {
                 $context->buildViolation('The tested value is not a valid boolean.')
@@ -199,6 +202,7 @@ class TermsClause extends AbstractClause
      */
     private function validateURLRelatedFilter(ExecutionContextInterface $context, $payload)
     {
+
         foreach ($this->testedValues as $key => $testedValue) {
             $validator = new Assert\UrlValidator();
             $validator->initialize($context);

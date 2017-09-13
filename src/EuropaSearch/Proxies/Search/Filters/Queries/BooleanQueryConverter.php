@@ -33,6 +33,7 @@ class BooleanQueryConverter implements FilterQueryConverterInterface
      */
     public function convertComponentWithChildren(FilterQueryInterface $query, array $convertedComponents)
     {
+
         $convertedComponent = ['bool' => []];
 
         // Add only the filled components.

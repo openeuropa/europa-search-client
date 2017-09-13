@@ -53,6 +53,7 @@ class BoostingQuery extends BoostableFilter implements FilterQueryInterface
      */
     public function __construct()
     {
+
         $this->positiveFilters = new FilterQueryComponent('positive');
         $this->negativeFilters = new FilterQueryComponent('negative');
     }
@@ -139,7 +140,6 @@ class BoostingQuery extends BoostableFilter implements FilterQueryInterface
 
         $metadata->addPropertyConstraint('negativeFilters', new Assert\Valid());
         $metadata->addPropertyConstraint('positiveFilters', new Assert\Valid());
-
         $metadata->addConstraint(new Assert\Callback('validate'));
     }
 
@@ -178,6 +178,7 @@ class BoostingQuery extends BoostableFilter implements FilterQueryInterface
      */
     public function validateFilter(array $filterList, $checkProperty, ExecutionContextInterface $context, $payload)
     {
+
         foreach ($filterList as $key => $filter) {
             $filterMetadata = $filter->getImpliedMetadata();
 

@@ -205,6 +205,7 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function setSortCriteria($sortField, $sortDirection = self::SEARCH_SORT_ASC)
     {
+
         $this->sortField = $sortField;
         $this->sortDirection = $sortDirection;
     }
@@ -241,6 +242,7 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function setPagination($paginationSize, $paginationLocation)
     {
+
         $this->paginationSize = $paginationSize;
         $this->paginationLocation = $paginationLocation;
     }
@@ -277,6 +279,7 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function setHighLightParameters($highlightRegex, $highLightLimit)
     {
+
         $this->highlightRegex = $highlightRegex;
         $this->highLightLimit = $highLightLimit;
     }

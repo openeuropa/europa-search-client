@@ -23,6 +23,7 @@ use GuzzleHttp\Middleware;
  */
 abstract class AbstractTransporter implements TransporterInterface
 {
+
     /**
      * History of all requests sent to web services.
      *

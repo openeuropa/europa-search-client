@@ -50,6 +50,7 @@ class BooleanQuery extends BoostableFilter implements FilterQueryInterface
      */
     public function __construct()
     {
+
         $this->mustFilterList = new FilterQueryComponent('must');
         $this->shouldFilterList = new FilterQueryComponent('should');
         $this->mustNotFilterList = new FilterQueryComponent('must_not');
@@ -171,7 +172,6 @@ class BooleanQuery extends BoostableFilter implements FilterQueryInterface
         $metadata->addPropertyConstraint('mustFilterList', new Assert\Valid());
         $metadata->addPropertyConstraint('mustNotFilterList', new Assert\Valid());
         $metadata->addPropertyConstraint('shouldFilterList', new Assert\Valid());
-
         $metadata->addConstraint(new Assert\Callback('validate'));
     }
 

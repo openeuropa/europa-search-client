@@ -137,6 +137,7 @@ class TermClause extends AbstractClause
      */
     private function validateDateRelatedFilter(ExecutionContextInterface $context, $payload)
     {
+
         if (!date_create($this->testedValue)) {
             $context->buildViolation('The tested value is not a valid date.')
                 ->atPath('testedValue')
@@ -152,6 +153,7 @@ class TermClause extends AbstractClause
      */
     private function validateFloatRelatedFilter(ExecutionContextInterface $context, $payload)
     {
+
         if (!is_float($this->testedValue)) {
             $context->buildViolation('The tested value is not a valid float.')
                 ->atPath('testedValue')
@@ -167,6 +169,7 @@ class TermClause extends AbstractClause
      */
     private function validateIntRelatedFilter(ExecutionContextInterface $context, $payload)
     {
+
         if (!is_int($this->testedValue)) {
             $context->buildViolation('The tested value is not a valid integer.')
                 ->atPath('testedValue')
@@ -182,6 +185,7 @@ class TermClause extends AbstractClause
      */
     private function validateBooleanRelatedFilter(ExecutionContextInterface $context, $payload)
     {
+
         if (!is_bool($this->testedValue)) {
             $context->buildViolation('The tested value is not a valid boolean.')
                 ->atPath('testedValue')
@@ -197,6 +201,7 @@ class TermClause extends AbstractClause
      */
     private function validateURLRelatedFilter(ExecutionContextInterface $context, $payload)
     {
+
         $validator = new Assert\UrlValidator();
         $validator->initialize($context);
         // Re-inject the validator in the context in order to point on

@@ -25,6 +25,7 @@ use EC\EuropaWS\Messages\ValidatableMessageInterface;
  */
 interface ClientInterface
 {
+
     /**
      * Sends a message to the web service.
      *

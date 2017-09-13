@@ -32,6 +32,7 @@ class DefaultMetadataConverter implements ComponentConverterInterface
      */
     public function convertComponent(ComponentInterface $metadata)
     {
+
         $values = $metadata->getValues();
         $name = $metadata->getEuropaSearchName();
 

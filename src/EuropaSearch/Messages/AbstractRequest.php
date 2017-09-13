@@ -19,8 +19,18 @@ use EC\EuropaWS\Messages\RequestInterface;
  */
 abstract class AbstractRequest implements RequestInterface
 {
+    /**
+     * HTTP request body.
+     *
+     * @var array
+     */
     protected $body = [];
 
+    /**
+     * HTTP request query.
+     *
+     * @var array
+     */
     protected $query = [];
 
     /**

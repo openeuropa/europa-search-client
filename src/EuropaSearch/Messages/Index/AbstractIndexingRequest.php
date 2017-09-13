@@ -139,6 +139,7 @@ abstract class AbstractIndexingRequest extends AbstractRequest
      */
     public function addConvertedComponents(array $components)
     {
+
         $componentsAsObject = new \stdClass();
         array_walk($components, function ($metadataDefinition, $key, $finalObject) {
             foreach ($metadataDefinition as $name => $value) {

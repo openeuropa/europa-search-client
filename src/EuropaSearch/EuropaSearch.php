@@ -20,7 +20,6 @@ use EC\EuropaWS\Common\WSConfigurationInterface;
 class EuropaSearch extends ClientContainerFactory
 {
 
-
     /**
      * EuropaSearch constructor.
      *
@@ -29,6 +28,7 @@ class EuropaSearch extends ClientContainerFactory
      */
     public function __construct(WSConfigurationInterface $configuration)
     {
+
         $this->configRepoPath = __DIR__.'/config';
         $this->configuration = $configuration;
     }
@@ -44,7 +44,6 @@ class EuropaSearch extends ClientContainerFactory
      */
     public function getIndexingWebContentClient()
     {
-
         return $this->getClient('client.indexing.webDocument');
     }
 

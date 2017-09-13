@@ -39,7 +39,6 @@ class SearchRequest extends AbstractRequest
      */
     public function setQueryJSON($queryJSON)
     {
-
         $this->body['query'] = [
             'name' => 'query',
             'contents' => $queryJSON,
@@ -66,7 +65,6 @@ class SearchRequest extends AbstractRequest
      */
     public function setText($text)
     {
-
         $this->body['text'] = [
             'name' => 'text',
             'contents' => $text,
@@ -92,7 +90,6 @@ class SearchRequest extends AbstractRequest
      */
     public function setLanguages(array $languages)
     {
-
         $this->body['languages'] = [
             'name' => 'languages',
             'contents' => json_encode($languages),
@@ -230,7 +227,6 @@ class SearchRequest extends AbstractRequest
      */
     public function setSort($sort)
     {
-
         $this->body['sort'] = [
             'name' => 'sort',
             'contents' => $sort,
