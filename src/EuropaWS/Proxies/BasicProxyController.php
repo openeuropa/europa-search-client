@@ -11,6 +11,7 @@ use EC\EuropaWS\Common\WSConfigurationInterface;
 use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Exceptions\ConnectionException;
 use EC\EuropaWS\Exceptions\ProxyException;
+use EC\EuropaWS\Exceptions\WebServiceErrorException;
 use EC\EuropaWS\Messages\Components\ComponentInterface;
 use EC\EuropaWS\Messages\MessageInterface;
 use EC\EuropaWS\Messages\StringResponseMessage;
@@ -219,9 +220,17 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
 
             // TODO Waiting the actual implementation, we return directly the dummy string.
             return new StringResponseMessage(print_r($response->getBody(), true));
+        } catch (ProxyException $pe) {
+            throw $pe;
+        } catch (ClientInstantiationException $cie) {
+            throw $cie;
+        } catch (ConnectionException $ce) {
+            throw $ce;
+        } catch (WebServiceErrorException $wse) {
+            throw $wse;
         } catch (\Exception $e) {
-            throw new ConnectionException(
-                'A problem occurred with the connection to the web service.',
+            throw new ProxyException(
+                'A problem occurred during the request treatment.',
                 $e
             );
         }
