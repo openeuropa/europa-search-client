@@ -38,6 +38,7 @@ class WebContentRequest extends AbstractIndexingRequest
         $this->body['text'] = [
             'name' => 'text',
             'contents' => $documentContent,
+            'headers' => ['content-type' => 'application/json'],
         ];
     }
 }
