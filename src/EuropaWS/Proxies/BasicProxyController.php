@@ -85,13 +85,7 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
     }
 
     /**
-     * Gets a specific converter instances.
-     *
-     * @param string $convertId
-     *   The converter registry id.
-     *
-     * @return mixed
-     *   The converter instance.
+     * {@inheritdoc}
      *
      * @internal Do not used, it is designed for unit tests only.
      */
@@ -106,12 +100,10 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
     /**
      * {@inheritdoc}
      */
-    public function convertMessage(ValidatableMessageInterface $message)
+    public function convertMessage(MessageConverterInterface $converter, ValidatableMessageInterface $message)
     {
 
         try {
-            $converterId = $message->getConverterIdentifier();
-            $converter = $this->container->get($converterId);
             $convertedMessage = $converter->convertMessage($converter, $this->WSConfiguration);
 
             return $convertedMessage;
@@ -126,12 +118,10 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
     /**
      * {@inheritdoc}
      */
-    public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent)
+    public function convertMessageWithComponents(MessageConverterInterface $converter, ValidatableMessageInterface $message, array $convertedComponent)
     {
 
         try {
-            $converterId = $message->getConverterIdentifier();
-            $converter = $this->container->get($converterId);
             $convertedMessage = $converter->convertMessageWithComponents(
                 $message,
                 $convertedComponent,
@@ -160,7 +150,9 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
             }
 
             foreach ($components as $key => $component) {
-                $convertedComponents[$key] = $this->convertComponent($component);
+                $converterId = $component->getConverterIdentifier();
+                $converter = $this->container->get($converterId);
+                $convertedComponents[$key] = $this->convertComponent($converter, $component);
             }
 
             return $convertedComponents;
@@ -175,12 +167,10 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
     /**
      * {@inheritdoc}
      */
-    public function convertComponent(ComponentInterface $component)
+    public function convertComponent(ComponentConverterInterface $converter, ComponentInterface $component)
     {
 
         try {
-            $converterId = $component->getConverterIdentifier();
-            $converter = $this->container->get($converterId);
             $convertedComponent = $converter->convertComponent($component);
 
             return $convertedComponent;
@@ -209,17 +199,18 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
     {
 
         try {
+            $converterId = $message->getConverterIdentifier();
+            $converter = $this->container->get($converterId);
             if ($message instanceof ValidatableMessageInterface) {
                 $convertedComponents = $this->convertComponents($message->getComponents());
-                $request = $this->convertMessageWithComponents($message, $convertedComponents);
+                $request = $this->convertMessageWithComponents($converter, $message, $convertedComponents);
             } else {
-                $request = $this->convertMessage($message);
+                $request = $this->convertMessage($converter, $message);
             }
 
             $response = $transporter->send($request);
 
-            // TODO Waiting the actual implementation, we return directly the dummy string.
-            return new StringResponseMessage(print_r($response->getBody(), true));
+            return $this->convertResponse($converter, $response);
         } catch (ProxyException $pe) {
             throw $pe;
         } catch (ClientInstantiationException $cie) {
@@ -234,5 +225,13 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
                 $e
             );
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function convertResponse(MessageConverterInterface $converter, $response)
+    {
+        return $converter->convertMessageResponse($response);
     }
 }

@@ -33,6 +33,8 @@ interface ProxyControllerInterface
     /**
      * Converts the message.
      *
+     * @param MessageConverterInterface   $converter
+     *   The converter to use.
      * @param ValidatableMessageInterface $message
      *   The message to convert.
      *
@@ -42,11 +44,13 @@ interface ProxyControllerInterface
      * @throws ProxyException
      *   Raised if a problem occurred during the conversion process.
      */
-    public function convertMessage(ValidatableMessageInterface $message);
+    public function convertMessage(MessageConverterInterface $converter, ValidatableMessageInterface $message);
 
     /**
      * Converts the message and integrate their converted components in it.
      *
+     * @param MessageConverterInterface   $converter
+     *   The converter to use.
      * @param ValidatableMessageInterface $message
      *   The message to convert.
      * @param array                       $convertedComponent
@@ -58,7 +62,7 @@ interface ProxyControllerInterface
      * @throws ProxyException
      *   Raised if a problem occurred during the conversion process.
      */
-    public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent);
+    public function convertMessageWithComponents(MessageConverterInterface $converter, ValidatableMessageInterface $message, array $convertedComponent);
 
     /**
      * Converts a list of components.
@@ -78,7 +82,9 @@ interface ProxyControllerInterface
     /**
      * Converts a component.
      *
-     * @param ComponentInterface $component
+     * @param ComponentConverterInterface $converter
+     *   The converter to use.
+     * @param ComponentInterface          $component
      *   The component to convert.
      *
      * @return mixed
@@ -89,10 +95,10 @@ interface ProxyControllerInterface
      * @throws ProxyException
      *   Raised if a problem occured during the conversion process.
      */
-    public function convertComponent(ComponentInterface $component);
+    public function convertComponent(ComponentConverterInterface $converter, ComponentInterface $component);
 
     /**
-     * Sends the request to teh web service via the Transporter layer.
+     * Sends the request to the web service via the Transporter layer.
      *
      * @param MessageInterface     $message
      *   The message to send.
@@ -109,6 +115,30 @@ interface ProxyControllerInterface
      *   HTTP error or an error returned by the webd service itself.
      */
     public function sendRequest(MessageInterface $message, TransporterInterface $transporter);
+
+    /**
+     * Converts a web service response.
+     *
+     * @param MessageConverterInterface $converter
+     *   The converter to use for the conversion.
+     * @param mixed                     $response
+     *   The response received from the Transporters layer
+     *
+     * @return MessageInterface
+     *   The converted response usable by above layers.
+     */
+    public function convertResponse(MessageConverterInterface $converter, $response);
+
+    /**
+     * Gets a specific converter instances.
+     *
+     * @param string $convertId
+     *   The converter registry id.
+     *
+     * @return mixed
+     *   The converter instance.
+     */
+    public function getConverterObject($convertId);
 
     /**
      * Initializes the HTTP client configuration.

@@ -33,9 +33,11 @@ class IndexingWebContentConvertTest extends AbstractEuropaSearchTest
 
         $proxy = $this->getContainer()->get('proxyController');
         $proxy->initProxy($this->getDummyConfig());
-
         $convertedComponents = $proxy->convertComponents($submitted->getComponents());
-        $indexingRequest = $proxy->convertMessageWithComponents($submitted, $convertedComponents);
+
+        $converterId = $submitted->getConverterIdentifier();
+        $converter = $proxy->getConverterObject($converterId);
+        $indexingRequest = $proxy->convertMessageWithComponents($converter, $submitted, $convertedComponents);
 
         $this->assertEquals($expected, $indexingRequest, 'The conversion of the IndexingWebContent object has failed.');
     }
