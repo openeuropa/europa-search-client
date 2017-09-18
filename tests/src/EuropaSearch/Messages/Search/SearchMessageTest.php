@@ -8,7 +8,7 @@
 namespace EC\EuropaSearch\Messages\Search;
 
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
-use EC\EuropaSearch\Tests\Messages\Search\Filters\Combined\BooleanQueryDataProvider;
+use EC\EuropaSearch\Tests\Messages\Search\Filters\Queries\BooleanQueryDataProvider;
 
 /**
  * Class SearchMessageTest.

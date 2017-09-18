@@ -32,14 +32,11 @@ class DateMetadataConverter implements ComponentConverterInterface
      */
     public function convertComponent(ComponentInterface $metadata)
     {
+
         $values = $metadata->getValues();
         $name = $metadata->getEuropaSearchName();
 
         $values = $this->getMetadataDateValue($values);
-
-        if (count($values) <= 1) {
-            $values = reset($values);
-        }
 
         return [$name => $values];
     }
@@ -54,6 +51,7 @@ class DateMetadataConverter implements ComponentConverterInterface
      */
     private function getMetadataDateValue($values)
     {
+
         $finalValues = [];
         foreach ($values as $item) {
             $dateTime = new \DateTime($item);

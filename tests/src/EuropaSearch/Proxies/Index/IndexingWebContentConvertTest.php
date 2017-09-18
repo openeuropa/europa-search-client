@@ -24,6 +24,7 @@ class IndexingWebContentConvertTest extends AbstractEuropaSearchTest
      */
     public function testConvertIndexingWebContentSuccess()
     {
+
         $provider = new WebContentDataProvider();
         $data = $provider->indexedDocumentProvider();
 
@@ -31,13 +32,11 @@ class IndexingWebContentConvertTest extends AbstractEuropaSearchTest
         $expected = $data['expected'];
 
         $proxy = $this->getContainer()->get('proxyController');
+        $proxy->initProxy($this->getDummyConfig());
 
         $convertedComponents = $proxy->convertComponents($submitted->getComponents());
         $indexingRequest = $proxy->convertMessageWithComponents($submitted, $convertedComponents);
 
-        $expected = json_encode($expected);
-        $returned = json_encode($indexingRequest);
-
-        $this->assertJsonStringEqualsJsonString($expected, $returned, 'The conversion of the IndexingWebContent object has failed.');
+        $this->assertEquals($expected, $indexingRequest, 'The conversion of the IndexingWebContent object has failed.');
     }
 }

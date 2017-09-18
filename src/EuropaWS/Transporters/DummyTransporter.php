@@ -21,23 +21,13 @@ use EC\EuropaWS\Messages\RequestInterface;
  */
 class DummyTransporter implements TransporterInterface
 {
+
     /**
      * Web service configuration.
      *
      * @var WSConfigurationInterface
      */
     private $WSConfiguration;
-
-    /**
-     * DummyTransporter constructor.
-     *
-     * @param WSConfigurationInterface $WSConfiguration
-     */
-    public function __construct(WSConfigurationInterface $WSConfiguration)
-    {
-        $this->WSConfiguration = $WSConfiguration;
-    }
-
 
     /**
      * {@inheritDoc}
@@ -50,7 +40,7 @@ class DummyTransporter implements TransporterInterface
     /**
      * {@inheritDoc}
      */
-    public function setWSConfiguration(WSConfigurationInterface $configuration)
+    public function initTransporter(WSConfigurationInterface $configuration)
     {
         $this->WSConfiguration = $configuration;
     }

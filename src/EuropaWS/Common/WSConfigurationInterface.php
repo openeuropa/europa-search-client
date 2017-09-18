@@ -35,4 +35,20 @@ interface WSConfigurationInterface
      *   The credentials to use.
      */
     public function getCredentials();
+
+    /**
+     * Determines if the client must use a mock.
+     *
+     * @return boolean
+     *   true if the client must use the mock; otherwise false.
+     */
+    public function useMock();
+
+    /**
+     * Gets mock configurations; if the client must use a mock.
+     *
+     * @return array
+     *   The mock configurations.
+     */
+    public function getMockConfigurations();
 }

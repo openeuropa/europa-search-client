@@ -17,43 +17,8 @@ use EC\EuropaSearch\Messages\AbstractRequest;
  *
  * @package EC\EuropaSearch\Messages\Index
  */
-class AbstractIndexingRequest extends AbstractRequest
+abstract class AbstractIndexingRequest extends AbstractRequest
 {
-
-    /**
-     * The database to send with the request.
-     *
-     * @var string
-     */
-    private $database;
-
-    /**
-     * The document identifier to send with the request.
-     *
-     * @var string
-     */
-    private $documentId;
-
-    /**
-     * The document language to send with the request.
-     *
-     * @var string
-     */
-    private $documentLanguage;
-
-    /**
-     * The document URI to send with the request.
-     *
-     * @var string
-     */
-    private $documentURI;
-
-    /**
-     * The document metadata in JSON format to send with the request.
-     *
-     * @var string
-     */
-    private $metadataJSON;
 
     /**
      * Gets the database to send.
@@ -63,7 +28,7 @@ class AbstractIndexingRequest extends AbstractRequest
      */
     public function getDatabase()
     {
-        return $this->database;
+        return $this->query['database'];
     }
 
     /**
@@ -74,7 +39,7 @@ class AbstractIndexingRequest extends AbstractRequest
      */
     public function setDatabase($database)
     {
-        $this->database = $database;
+        $this->query['database'] = $database;
     }
 
     /**
@@ -85,7 +50,7 @@ class AbstractIndexingRequest extends AbstractRequest
      */
     public function getDocumentId()
     {
-        return $this->documentId;
+        return $this->query['reference'];
     }
 
     /**
@@ -96,7 +61,7 @@ class AbstractIndexingRequest extends AbstractRequest
      */
     public function setDocumentId($documentId)
     {
-        $this->documentId = $documentId;
+        $this->query['reference'] = $documentId;
     }
 
     /**
@@ -107,7 +72,7 @@ class AbstractIndexingRequest extends AbstractRequest
      */
     public function getDocumentLanguage()
     {
-        return $this->documentLanguage;
+        return $this->query['language'];
     }
 
     /**
@@ -118,7 +83,7 @@ class AbstractIndexingRequest extends AbstractRequest
      */
     public function setDocumentLanguage($documentLanguage)
     {
-        $this->documentLanguage = $documentLanguage;
+        $this->query['language'] = $documentLanguage;
     }
 
     /**
@@ -129,7 +94,7 @@ class AbstractIndexingRequest extends AbstractRequest
      */
     public function getDocumentURI()
     {
-        return $this->documentURI;
+        return $this->query['uri'];
     }
 
     /**
@@ -140,7 +105,7 @@ class AbstractIndexingRequest extends AbstractRequest
      */
     public function setDocumentURI($documentURI)
     {
-        $this->documentURI = $documentURI;
+        $this->query['uri'] = $documentURI;
     }
 
     /**
@@ -151,7 +116,7 @@ class AbstractIndexingRequest extends AbstractRequest
      */
     public function getMetadataJSON()
     {
-        return $this->metadataJSON;
+        return $this->body['metadata']['contents'];
     }
 
     /**
@@ -162,7 +127,11 @@ class AbstractIndexingRequest extends AbstractRequest
      */
     public function setMetadataJSON($metadataJSON)
     {
-        $this->metadataJSON = $metadataJSON;
+        $this->body['metadata'] = [
+            'name' => 'metadata',
+            'contents' => $metadataJSON,
+            'headers' => ['content-type' => 'application/json'],
+        ];
     }
 
     /**
@@ -170,7 +139,15 @@ class AbstractIndexingRequest extends AbstractRequest
      */
     public function addConvertedComponents(array $components)
     {
-        $json = json_encode($components);
+
+        $componentsAsObject = new \stdClass();
+        array_walk($components, function ($metadataDefinition, $key, $finalObject) {
+            foreach ($metadataDefinition as $name => $value) {
+                $finalObject->{$name} = $value;
+            }
+        }, $componentsAsObject);
+
+        $json = json_encode($componentsAsObject);
         $this->setMetadataJSON($json);
     }
 }

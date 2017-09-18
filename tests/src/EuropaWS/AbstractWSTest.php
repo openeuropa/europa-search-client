@@ -19,6 +19,7 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class AbstractWSTest extends TestCase
 {
+
     /**
      * Gets the ContainerBuilder used by unit tests.
      *

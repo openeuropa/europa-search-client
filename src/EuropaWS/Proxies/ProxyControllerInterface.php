@@ -7,12 +7,13 @@
 
 namespace EC\EuropaWS\Proxies;
 
+use EC\EuropaWS\Common\WSConfigurationInterface;
 use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Exceptions\ConnectionException;
 use EC\EuropaWS\Exceptions\ProxyException;
 use EC\EuropaWS\Messages\Components\ComponentInterface;
+use EC\EuropaWS\Messages\MessageInterface;
 use EC\EuropaWS\Messages\ValidatableMessageInterface;
-use EC\EuropaWS\Messages\RequestInterface;
 use EC\EuropaWS\Transporters\TransporterInterface;
 
 /**
@@ -28,26 +29,6 @@ use EC\EuropaWS\Transporters\TransporterInterface;
  */
 interface ProxyControllerInterface
 {
-
-    /**
-     * Adds a message converter to the object registry.
-     *
-     * @param string                    $converterId
-     *   The id of the converter into the registry.
-     * @param MessageConverterInterface $converter
-     *   The message converter to add.
-     */
-    public function defineMessageConverter($converterId, MessageConverterInterface $converter);
-
-    /**
-     * Adds a component converter to the object registry.
-     *
-     * @param string                      $converterId
-     *   The id of the converter into the registry.
-     * @param ComponentConverterInterface $converter
-     *   The component converter to add.
-     */
-    public function defineComponentConverter($converterId, ComponentConverterInterface $converter);
 
     /**
      * Converts the message.
@@ -113,8 +94,8 @@ interface ProxyControllerInterface
     /**
      * Sends the request to teh web service via the Transporter layer.
      *
-     * @param RequestInterface     $request
-     *   The request to send.
+     * @param MessageInterface     $message
+     *   The message to send.
      * @param TransporterInterface $transporter
      *   The transporter in charge of the actual sending.
      *
@@ -127,5 +108,13 @@ interface ProxyControllerInterface
      *   Raised if a problem occurred with the web service call. That can be an
      *   HTTP error or an error returned by the webd service itself.
      */
-    public function sendRequest(RequestInterface $request, TransporterInterface $transporter);
+    public function sendRequest(MessageInterface $message, TransporterInterface $transporter);
+
+    /**
+     * Initializes the HTTP client configuration.
+     *
+     * @param WSConfigurationInterface $configuration
+     *   The web service configuration for the initialization.
+     */
+    public function initProxy(WSConfigurationInterface $configuration);
 }

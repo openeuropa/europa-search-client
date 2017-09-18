@@ -29,7 +29,7 @@ class SearchConverter implements MessageConverterInterface
      */
     public function convertMessage(ValidatableMessageInterface $message, WSConfigurationInterface $configuration)
     {
-        throw new ProxyException('The "convertMessage()" method is not supported.', 283);
+        throw new ProxyException('The "convertMessage()" method is not supported.');
     }
 
     /**
@@ -37,6 +37,7 @@ class SearchConverter implements MessageConverterInterface
      */
     public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent, WSConfigurationInterface $configuration)
     {
+
         $request = new SearchRequest();
 
         $parameter = $message->getSearchedLanguages();

@@ -31,13 +31,11 @@ class SearchMessageConverterTest extends AbstractEuropaSearchTest
         $expected = $data['expected'];
 
         $proxy = $this->getContainer()->get('proxyController.search');
+        $proxy->initProxy($this->getDummyConfig());
 
         $convertedComponents = $proxy->convertComponents($submitted->getComponents());
         $searchRequest = $proxy->convertMessageWithComponents($submitted, $convertedComponents);
 
-        $expected = json_encode($expected);
-        $returned = json_encode($searchRequest);
-
-        $this->assertJsonStringEqualsJsonString($expected, $returned, 'The conversion of the SearchMessage object has failed.');
+        $this->assertEquals($expected, $searchRequest, 'The conversion of the SearchMessage object has failed.');
     }
 }

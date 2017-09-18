@@ -22,6 +22,7 @@ use EC\EuropaWS\Messages\RequestInterface;
  */
 interface MessageConverterInterface
 {
+
     /**
      * Converts a message.
      *

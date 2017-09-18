@@ -51,6 +51,7 @@ class WSConfigurationDummy implements WSConfigurationInterface
      */
     public function __construct(array $connectionConfig, $userName, $userPassword)
     {
+
         $this->connectionConfig = $connectionConfig;
         $this->userName = $userName;
         $this->userPassword = $userPassword;
@@ -127,7 +128,6 @@ class WSConfigurationDummy implements WSConfigurationInterface
      */
     public function getConnectionConfig()
     {
-
         return [
             'ws.connection.url' => $this->connectionConfig,
         ];
@@ -138,10 +138,25 @@ class WSConfigurationDummy implements WSConfigurationInterface
      */
     public function getCredentials()
     {
-
         return [
             'ws.credentials.name' => $this->userName,
             'ws.credentials.password' => $this->userPassword,
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function useMock()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMockConfigurations()
+    {
+        return [];
     }
 }

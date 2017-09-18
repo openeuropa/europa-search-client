@@ -7,6 +7,7 @@
 
 namespace EC\EuropaWS\Clients;
 
+use EC\EuropaWS\Common\WSConfigurationInterface;
 use EC\EuropaWS\Exceptions\ConnectionException;
 use EC\EuropaWS\Exceptions\ProxyException;
 use EC\EuropaWS\Exceptions\ValidationException;
@@ -24,6 +25,7 @@ use EC\EuropaWS\Messages\ValidatableMessageInterface;
  */
 interface ClientInterface
 {
+
     /**
      * Sends a message to the web service.
      *
@@ -54,4 +56,11 @@ interface ClientInterface
      *  Raised if the message is invalid. It returns all errors messages.
      */
     public function validateMessage(ValidatableMessageInterface $message);
+
+  /**
+   * Sets the web service configuration of the HTTP client.
+   *
+   * @param WSConfigurationInterface $configuration
+   */
+    public function setWSConfiguration(WSConfigurationInterface $configuration);
 }
