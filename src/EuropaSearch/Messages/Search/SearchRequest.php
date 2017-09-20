@@ -242,4 +242,31 @@ class SearchRequest extends AbstractRequest
         $json = json_encode($components);
         $this->setQueryJSON($json);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRequestMethod()
+    {
+        return 'POST';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRequestURI()
+    {
+        return '/es/search-api/rest/search';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRequestOptions()
+    {
+        return [
+            'multipart' => $this->getRequestBody(),
+            'query' => $this->getRequestQuery(),
+        ];
+    }
 }

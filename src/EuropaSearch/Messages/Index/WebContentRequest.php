@@ -41,4 +41,31 @@ class WebContentRequest extends AbstractIndexingRequest
             'headers' => ['content-type' => 'application/json'],
         ];
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRequestMethod()
+    {
+        return 'POST';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRequestURI()
+    {
+        return '/es/ingestion-api/rest/ingestion/text';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRequestOptions()
+    {
+        return [
+            'multipart' => $this->getRequestBody(),
+            'query' => $this->getRequestQuery(),
+        ];
+    }
 }

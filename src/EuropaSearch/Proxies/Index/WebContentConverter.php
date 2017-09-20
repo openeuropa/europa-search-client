@@ -7,11 +7,12 @@
 
 namespace EC\EuropaSearch\Proxies\Index;
 
+use EC\EuropaSearch\Proxies\AbstractMessageConverter;
 use EC\EuropaWS\Common\WSConfigurationInterface;
 use EC\EuropaSearch\Messages\Index\WebContentRequest;
 use EC\EuropaWS\Exceptions\ProxyException;
+use EC\EuropaWS\Messages\StringResponseMessage;
 use EC\EuropaWS\Messages\ValidatableMessageInterface;
-use EC\EuropaWS\Proxies\MessageConverterInterface;
 
 /**
  * Class WebContentConverter.
@@ -20,7 +21,7 @@ use EC\EuropaWS\Proxies\MessageConverterInterface;
  *
  * @package EC\EuropaSearch\Proxies\Index
  */
-class WebContentConverter implements MessageConverterInterface
+class WebContentConverter extends AbstractMessageConverter
 {
 
     /**
@@ -57,7 +58,21 @@ class WebContentConverter implements MessageConverterInterface
     }
 
     /**
-     * Format the web content before sending the request.
+     * {@inheritDoc}
+     */
+    public function convertMessageResponse($response, WSConfigurationInterface $configuration)
+    {
+        $rawResult = parent::convertMessageResponse($response, $configuration);
+
+        if (empty($rawResult->reference)) {
+            throw new ProxyException("The reference is not returned by the service; which indicating a problem");
+        }
+
+        return new StringResponseMessage($rawResult->reference);
+    }
+
+    /**
+     * Formats the web content before sending the request.
      *
      * @param string $documentContent
      *   The content to clean.

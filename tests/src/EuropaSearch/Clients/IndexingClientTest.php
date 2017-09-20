@@ -17,6 +17,7 @@ use EC\EuropaSearch\Messages\Index\IndexingWebContent;
 use EC\EuropaSearch\Tests\EuropaSearchDummy;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use EC\EuropaSearch\Tests\Proxies\Index\WebContentDataProvider;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Class IndexingClientTest.
@@ -37,15 +38,36 @@ class IndexingClientTest extends AbstractEuropaSearchTest
         $provider = new WebContentDataProvider();
         $data = $provider->indexedDocumentProvider();
 
-        $factory = $this->getFactory();
+        $mockConfig = $this->getMockResponse();
+        $factory = $this->getFactory($mockConfig);
         $client = $factory->getIndexingWebContentClient();
 
         $this->assertInstanceOf('EC\EuropaWS\Clients\DefaultClient', $client, 'The returned client is not an DefaultClient object.');
 
+        $response = $client->sendMessage($data['submitted']);
 
-        // TODO Finalize the implementation with the mock.
-        //$response = $client->sendMessage($data['submitted']);
-        //$expectedResponse = 'Request received but I am a dumb transporter; I receive request but I do nothing else.';
-        //$this->assertEquals($response, $expectedResponse, 'The returned response is not the expected.');
+        $this->assertInstanceOf('EC\EuropaWS\Messages\StringResponseMessage', $response, 'The returned response is not an StringResponseMessage object.');
+
+        $this->assertEquals($response->getReturnedString(), 'web_content_client_1', 'The returned response is not the expected.');
+    }
+
+    /**
+     * Gets the web service mock responses for tests.
+     *
+     * @return array
+     *   The web service mock responses.
+     */
+    private function getMockResponse()
+    {
+
+        $body = '{
+            "apiVersion" : "2.1",
+            "trackingId" : "9e30f972-54f0-4e7d-8f94-8dd214d2fea5",
+            "reference" : "web_content_client_1"
+        }';
+        $response = new Response(200, [], $body);
+        $mockResponses = [$response];
+
+        return $mockResponses;
     }
 }

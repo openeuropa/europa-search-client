@@ -232,6 +232,6 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
      */
     public function convertResponse(MessageConverterInterface $converter, $response)
     {
-        return $converter->convertMessageResponse($response);
+        return $converter->convertMessageResponse($response, $this->WSConfiguration);
     }
 }

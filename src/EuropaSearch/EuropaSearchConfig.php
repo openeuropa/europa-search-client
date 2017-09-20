@@ -55,6 +55,13 @@ class EuropaSearchConfig implements WSConfigurationInterface
     private $mock;
 
     /**
+     * Supported API version of the contacted service.
+     *
+     * @var string
+     */
+    private $supportedServiceAPIVersion = "~2";
+
+    /**
      * EuropaSearchConfig constructor.
      *
      * @param array $connectionConfig
@@ -207,5 +214,16 @@ class EuropaSearchConfig implements WSConfigurationInterface
     public function setUseMock($useMock)
     {
         $this->useMock = $useMock;
+    }
+
+    /**
+     * Gets the Service API version used with the client.
+     *
+     * @return string
+     *   The API version.
+     */
+    public function getSupportedServiceAPIVersion()
+    {
+        return $this->supportedServiceAPIVersion;
     }
 }

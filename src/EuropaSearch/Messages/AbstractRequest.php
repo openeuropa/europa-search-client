@@ -76,4 +76,28 @@ abstract class AbstractRequest implements RequestInterface
     {
         return $this->query;
     }
+
+    /**
+     * Gets the HTTP method to use with the request.
+     *
+     * @return string
+     *   The HTTP method to use; I.E. POST, GET, DELETE...
+     */
+    abstract public function getRequestMethod();
+
+    /**
+     * Gets the service URI to use with the request.
+     *
+     * @return string
+     *   The service URI.
+     */
+    abstract public function getRequestURI();
+
+    /**
+     * Gets the options of the request to sent.
+     *
+     * @return array
+     *   The request options.
+     */
+    abstract public function getRequestOptions();
 }

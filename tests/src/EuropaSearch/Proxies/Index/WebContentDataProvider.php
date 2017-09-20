@@ -38,7 +38,7 @@ class WebContentDataProvider
     public function indexedDocumentProvider()
     {
 
-        $documentId = 'web_content_1';
+        $documentId = 'web_content_client_1';
         $documentURI = 'http://europa.test.com/content.html';
         $documentLanguage = 'fr';
 

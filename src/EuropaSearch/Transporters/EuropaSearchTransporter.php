@@ -2,26 +2,31 @@
 
 /**
  * @file
- * Contains EC\EuropaSearch\Transporters\AbstractTransporter.
+ * Contains EC\EuropaSearch\Transporters\EuropaSearchTransporter.
  */
 
 namespace EC\EuropaSearch\Transporters;
 
+use EC\EuropaWS\Exceptions\ConnectionException;
+use EC\EuropaWS\Exceptions\WebServiceErrorException;
+use EC\EuropaWS\Messages\RequestInterface;
 use EC\EuropaWS\Transporters\TransporterInterface;
 use EC\EuropaWS\Common\WSConfigurationInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 
 /**
- * Class AbstractTransporter.
+ * Class EuropaSearchTransporter.
  *
- * Extending this class allows objects to share the configuration definition
- * logic common to all transporter classes.
+ * n charge to send the requests to the REST services of
+ * Europa Search (Ingestion API and Search API).
  *
  * @package EC\EuropaSearch\Transporters
  */
-abstract class AbstractTransporter implements TransporterInterface
+class EuropaSearchTransporter implements TransporterInterface
 {
 
     /**
@@ -81,5 +86,24 @@ abstract class AbstractTransporter implements TransporterInterface
     public function getTransactionHistory()
     {
         return $this->transactionHistory;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function send(RequestInterface $request)
+    {
+
+        try {
+            $requestOptions = $request->getRequestOptions();
+            $method = $request->getRequestMethod();
+            $uri = $request->getRequestURI();
+
+            return $this->HTTPClient->request($method, $uri, $requestOptions);
+        } catch (ServerException $requestException) {
+            throw new ConnectionException('The connection to the service fails', $requestException);
+        } catch (ClientException $requestException) {
+            throw new WebServiceErrorException('The request sent to the service returned an error', $requestException);
+        }
     }
 }

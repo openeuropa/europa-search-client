@@ -29,7 +29,7 @@ class IndexingTransporterTest extends AbstractEuropaSearchTest
         $provider = new WebContentDataProvider();
         $requestToSend = $provider->webContentIndexingRequestProvider();
 
-        $transporter = $this->getContainer()->get('transporter.indexing');
+        $transporter = $this->getContainer()->get('transporter.default');
         $testConfig = $this->getMockConfiguration();
 
         $transporter->initTransporter($testConfig);

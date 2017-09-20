@@ -1,9 +1,7 @@
 services:
-  transporter:
-      class: EC\EuropaWS\Transporters\DummyTransporter
+  transporter.default:
+      class: EC\EuropaSearch\Transporters\EuropaSearchTransporter
   # WebContent Indexing service.
-  transporter.indexing:
-     class: EC\EuropaSearch\Transporters\IndexingTransporter
   messageProxy.indexing.webContent:
       class: EC\EuropaSearch\Proxies\Index\WebContentConverter
   componentProxy.metadata.boolean:
@@ -22,11 +20,9 @@ services:
           - [setContainer, ['@service_container']]
   client.indexing.webDocument:
     class: EC\EuropaWS\Clients\DefaultClient
-    arguments: ['@validator.default', '@proxyController', '@transporter.indexing']
+    arguments: ['@validator.default', '@proxyController', '@transporter.default']
 
   # Search Service
-  transporter.searching:
-     class: EC\EuropaSearch\Transporters\SearchTransporter
   messageProxy.searching.search:
         class: EC\EuropaSearch\Proxies\Search\SearchConverter
   componentProxy.searching.filters.clauses.fieldExists:
@@ -49,4 +45,4 @@ services:
           - [setContainer, ['@service_container']]
   client.searching.search:
     class: EC\EuropaWS\Clients\DefaultClient
-    arguments: ['@validator.default', '@proxyController.search', '@transporter.searching']
+    arguments: ['@validator.default', '@proxyController.search', '@transporter.default']
