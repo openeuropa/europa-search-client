@@ -330,8 +330,21 @@ class SearchResult
      * @param array $resultMetadata
      *   Array of Metadata.
      */
-    public function setResultMetadata($resultMetadata)
+    public function setResultMetadata(array $resultMetadata)
     {
         $this->resultMetadata = $resultMetadata;
+    }
+
+    /**
+     * Adds a metadata to the list.
+     *
+     * @param string $systemName
+     *   The metadata name as know by the client consumer system.
+     * @param mixed  $value
+     *   The set metadata value.
+     */
+    public function addResultMetadata($systemName, $value)
+    {
+        $this->resultMetadata[$systemName] = $value;
     }
 }

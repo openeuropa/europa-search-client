@@ -95,7 +95,10 @@ abstract class AbstractMetadata implements ComponentInterface
      *
      * @internal Used by the library process, should not be called outside.
      */
-    abstract public function getEuropaSearchName();
+    public function getEuropaSearchName()
+    {
+        return $this::EUROPA_SEARCH_NAME_PREFIX.'_'.$this->name;
+    }
 
     /**
      * {@inheritdoc}

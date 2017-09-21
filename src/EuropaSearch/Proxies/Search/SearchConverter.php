@@ -113,13 +113,13 @@ class SearchConverter extends AbstractMessageConverter
     private function setSearchResponseAttribute(SearchResponse $convertedResponse, $attributeName, $attributeValue)
     {
 
-        if ($attributeName == 'queryLanguage') {
+        if ('queryLanguage' == $attributeName) {
             $this->setSearchResponseLanguageData($convertedResponse, $attributeValue);
 
             return;
         }
 
-        if ($attributeName == 'results') {
+        if ('results' == $attributeName) {
             $this->setSearchResponseResults($convertedResponse, $attributeValue);
 
             return;
@@ -209,7 +209,7 @@ class SearchConverter extends AbstractMessageConverter
     private function setSearchResultAttribute(SearchResult $convertedResult, $attributeName, $attributeValue)
     {
 
-        if ($attributeName == 'metadata') {
+        if ('metadata' == $attributeName) {
             $this->setSearchResultMetadata($convertedResult, $attributeValue);
 
             return;
@@ -220,7 +220,7 @@ class SearchConverter extends AbstractMessageConverter
             'url' => 'setEuropaSearchURL',
             'contentType' => 'setContentType',
             'databaseLabel' => 'setDatabaseLabel',
-            'database' => 'setDatabaseLabel',
+            'database' => 'setDatabase',
             'summary' => 'setResultSummary',
             'weight' => 'setSortingWeight',
             'content' => 'setResultFullContent',
@@ -245,15 +245,15 @@ class SearchConverter extends AbstractMessageConverter
     {
 
         foreach ($metadataList as $name => $value) {
-            if ($name == 'esST_URL') {
+            if ('esST_URL' == $name) {
                 // The actual content url is stored in metadata.
-                $convertedResult->setActualURL($value);
+                $url = reset($value);
+                $convertedResult->setActualURL($url);
                 continue;
             }
 
-            list($prefix, $systemName) = explode('_', $name, 2);
-
-            // TODO metadata mapping.
+            list( , $systemName) = explode('_', $name, 2);
+            $convertedResult->addResultMetadata($systemName, $value);
         }
     }
 }
