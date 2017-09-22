@@ -38,11 +38,6 @@ class BasicProxyControllerTest extends AbstractWSTest
 
         $proxy = $container->get('proxyController.default');
 
-        // Tests expected converters are really in the list.
-        $converterIds = $proxy->getConverterIdList();
-        $this->assertContains('messageProxy.messageDummy', $converterIds, 'The Message converter is not registered!');
-        $this->assertContains('componentProxy.componentDummy', $converterIds, 'The Component converter is not registered!');
-
         // Tests the class type for the message converting object is the expected one.
         $messageConverter = $proxy->getConverterObject('messageProxy.messageDummy');
         $this->assertInstanceOf(

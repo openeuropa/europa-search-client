@@ -187,7 +187,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
             'ContentType' => ['text/plain'],
             'uri' => [sprintf('http://www.europa%d.com', $resultId)],
             'title' => ['this the title '.$resultId],
-            'publishing_date' => [sprintf('201%d-0%d-2%dT00:00:00+0000', $resultId, $resultId, $resultId)],
+            'publishing_date' => [sprintf('201%d-0%d-2%dT00:00:00+00:00', $resultId, $resultId, $resultId)],
             'percentage' => ['0.'.$resultId],
             'tag' => ['taxonomy term '.$resultId],
         ];

@@ -7,6 +7,7 @@
 
 namespace EC\EuropaSearch\Proxies\Search\Filters\Clauses;
 
+use EC\EuropaSearch\Proxies\Utils\DateComponentConverter;
 use EC\EuropaWS\Proxies\ComponentConverterInterface;
 
 /**
@@ -16,22 +17,8 @@ use EC\EuropaWS\Proxies\ComponentConverterInterface;
  *
  * @package EC\EuropaSearch\Proxies\Search\Filters\Clauses
  */
-abstract class AbstractClauseConverter implements ComponentConverterInterface
+abstract class AbstractClauseConverter extends DateComponentConverter implements ComponentConverterInterface
 {
 
-    /**
-     *  Gets the date value consumable by Europa Search service.
-     *
-     * @param mixed $value
-     *   The raw date value to convert.
-     * @return mixed $finalValue
-     *   The converted date values.
-     */
-    protected function getConvertedDateValue($value)
-    {
 
-        $dateTime = new \DateTime($value);
-
-        return $dateTime->format(\DateTime::ISO8601);
-    }
 }

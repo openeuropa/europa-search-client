@@ -38,7 +38,7 @@
           "this the title 1"
         ],
         "esDA_publishing_date": [
-          "2011-01-21T00:00:00+0000"
+          "2011-01-21T00:00:00+00:00"
         ],
         "esNU_percentage": [
           "0.1"
@@ -79,7 +79,7 @@
           "this the title 2"
         ],
         "esDA_publishing_date": [
-          "2012-02-22T00:00:00+0000"
+          "2012-02-22T00:00:00+00:00"
         ],
         "esNU_percentage": [
           "0.2"
@@ -120,7 +120,7 @@
           "this the title 3"
         ],
         "esDA_publishing_date": [
-          "2013-03-23T00:00:00+0000"
+          "2013-03-23T00:00:00+00:00"
         ],
         "esNU_percentage": [
           "0.3"
