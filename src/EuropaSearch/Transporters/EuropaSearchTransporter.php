@@ -55,7 +55,6 @@ class EuropaSearchTransporter implements TransporterInterface
      */
     public function initTransporter(WSConfigurationInterface $configuration)
     {
-
         $this->configuration = $configuration;
         $this->transactionHistory = [];
         $stack = HandlerStack::create();
@@ -93,12 +92,11 @@ class EuropaSearchTransporter implements TransporterInterface
      */
     public function send(RequestInterface $request)
     {
+        $requestOptions = $request->getRequestOptions();
+        $method = $request->getRequestMethod();
+        $uri = $request->getRequestURI();
 
         try {
-            $requestOptions = $request->getRequestOptions();
-            $method = $request->getRequestMethod();
-            $uri = $request->getRequestURI();
-
             return $this->HTTPClient->request($method, $uri, $requestOptions);
         } catch (ServerException $requestException) {
             throw new ConnectionException('The connection to the service fails', $requestException);

@@ -61,7 +61,6 @@ class DefaultClient implements ClientInterface
      */
     public function __construct(ValidatorBuilder $validator, BasicProxyController $proxy, TransporterInterface $transporter)
     {
-
         $this->validator = $validator->getValidator();
         $this->proxy = $proxy;
         $this->transporter = $transporter;
@@ -72,7 +71,6 @@ class DefaultClient implements ClientInterface
      */
     public function setWSConfiguration(WSConfigurationInterface $configuration)
     {
-
         $this->WSConfiguration = $configuration;
         $this->proxy->initProxy($configuration);
         $this->transporter->initTransporter($configuration);
@@ -83,12 +81,9 @@ class DefaultClient implements ClientInterface
      */
     public function sendMessage(ValidatableMessageInterface $message)
     {
-
         $this->validateMessage($message);
 
-        $response = $this->proxy->sendRequest($message, $this->transporter);
-
-        return $response;
+        return $this->proxy->sendRequest($message, $this->transporter);
     }
 
     /**
@@ -96,7 +91,6 @@ class DefaultClient implements ClientInterface
      */
     public function validateMessage(ValidatableMessageInterface $message)
     {
-
         $violations = $this->validator->validate($message);
         if (!empty($violations) && ($violations->count() != 0)) {
             $errorMessages = [];

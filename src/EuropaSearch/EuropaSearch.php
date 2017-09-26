@@ -28,7 +28,6 @@ class EuropaSearch extends ClientContainerFactory
      */
     public function __construct(WSConfigurationInterface $configuration)
     {
-
         $this->configRepoPath = __DIR__.'/config';
         $this->configuration = $configuration;
     }

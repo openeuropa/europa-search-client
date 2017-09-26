@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Validator\RecursiveValidator;
 /**
  * Class ClientContainerFactory.
  *
- * It instaantiates the client container.
+ * It instantiates the client container.
  *
  * Extending this class allows objects to load their own YML configuration file.
  *
@@ -58,7 +58,6 @@ class ClientContainerFactory
      */
     public function getClientContainer()
     {
-
         $this->buildClientContainer();
 
         return $this->container;
@@ -72,7 +71,6 @@ class ClientContainerFactory
      */
     public function __construct(WSConfigurationInterface $configuration)
     {
-
         $this->configRepoPath = __DIR__.'/config';
         $this->configuration = $configuration;
     }
@@ -88,7 +86,6 @@ class ClientContainerFactory
      */
     public function getDefaultValidator()
     {
-
         try {
             $validatorBuilder = $this->getClientContainer()->get('validator.default');
 
@@ -112,7 +109,6 @@ class ClientContainerFactory
      */
     public function getClient($clientId)
     {
-
         try {
             $client = $this->getClientContainer()->get($clientId);
             $client->setWSConfiguration($this->configuration);
@@ -131,7 +127,6 @@ class ClientContainerFactory
      */
     protected function buildClientContainer()
     {
-
         if (!is_null($this->container)) {
             return;
         }

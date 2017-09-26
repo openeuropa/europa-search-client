@@ -50,7 +50,6 @@ class BooleanQuery extends BoostableFilter implements FilterQueryInterface
      */
     public function __construct()
     {
-
         $this->mustFilterList = new FilterQueryComponent('must');
         $this->shouldFilterList = new FilterQueryComponent('should');
         $this->mustNotFilterList = new FilterQueryComponent('must_not');
@@ -59,7 +58,7 @@ class BooleanQuery extends BoostableFilter implements FilterQueryInterface
     /**
      * Gets the list of filters that MUST fulfil the search items.
      *
-     * @return AggregatedFilters
+     * @return array
      *   The list of filters.
      */
     public function getMustFilterList()
@@ -70,7 +69,7 @@ class BooleanQuery extends BoostableFilter implements FilterQueryInterface
     /**
      * Gets the list of filters that SHOULD fulfil the search items.
      *
-     * @return AggregatedFilters
+     * @return array
      *   The list of filters.
      */
     public function getShouldFilterList()
@@ -81,7 +80,7 @@ class BooleanQuery extends BoostableFilter implements FilterQueryInterface
     /**
      * Gets the list of filters that MUST NOT fulfil the search items.
      *
-     * @return AggregatedFilters
+     * @return array
      *   The list of filters.
      */
     public function getMustNotFilterList()
@@ -168,7 +167,6 @@ class BooleanQuery extends BoostableFilter implements FilterQueryInterface
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-
         $metadata->addPropertyConstraint('mustFilterList', new Assert\Valid());
         $metadata->addPropertyConstraint('mustNotFilterList', new Assert\Valid());
         $metadata->addPropertyConstraint('shouldFilterList', new Assert\Valid());
@@ -183,7 +181,6 @@ class BooleanQuery extends BoostableFilter implements FilterQueryInterface
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {
-
         if (empty($this->getMustFilterList()) && empty($this->getMustNotFilterList()) && empty($this->getShouldFilterList())) {
             $context->buildViolation('At least one of the filter list must filled.')
                 ->atPath('mustFilterList')

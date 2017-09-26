@@ -14,7 +14,6 @@ use EC\EuropaWS\Exceptions\ProxyException;
 use EC\EuropaWS\Exceptions\WebServiceErrorException;
 use EC\EuropaWS\Messages\Components\ComponentInterface;
 use EC\EuropaWS\Messages\MessageInterface;
-use EC\EuropaWS\Messages\StringResponseMessage;
 use EC\EuropaWS\Messages\ValidatableMessageInterface;
 use EC\EuropaWS\Transporters\TransporterInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -71,7 +70,6 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
      */
     public function getConverterIdList()
     {
-
         $serviceList = $this->container->getServiceIds();
 
         $converterList = array_filter($serviceList, function ($value) {
@@ -91,7 +89,6 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
      */
     public function getConverterObject($convertId)
     {
-
         $converterObject = $this->container->get($convertId);
 
         return $converterObject;
@@ -102,17 +99,13 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
      */
     public function convertMessage(MessageConverterInterface $converter, ValidatableMessageInterface $message)
     {
-
         try {
             $convertedMessage = $converter->convertMessage($converter, $this->WSConfiguration);
-
-            return $convertedMessage;
         } catch (Exception $e) {
-            throw new ProxyException(
-                'The conversion process for the message failed!',
-                $e
-            );
+            throw new ProxyException('The conversion process for the message failed!', $e);
         }
+
+        return $convertedMessage;
     }
 
     /**
@@ -120,21 +113,17 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
      */
     public function convertMessageWithComponents(MessageConverterInterface $converter, ValidatableMessageInterface $message, array $convertedComponent)
     {
-
         try {
             $convertedMessage = $converter->convertMessageWithComponents(
                 $message,
                 $convertedComponent,
                 $this->WSConfiguration
             );
-
-            return $convertedMessage;
         } catch (Exception $e) {
-            throw new ProxyException(
-                'The conversion process of the message with its components failed!',
-                $e
-            );
+            throw new ProxyException('The conversion process of the message with its components failed!', $e);
         }
+
+        return $convertedMessage;
     }
 
     /**
@@ -142,26 +131,19 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
      */
     public function convertComponents(array $components)
     {
+        $convertedComponents = [];
 
         try {
-            $convertedComponents = [];
-            if (empty($components)) {
-                return $convertedComponents;
-            }
-
             foreach ($components as $key => $component) {
                 $converterId = $component->getConverterIdentifier();
                 $converter = $this->container->get($converterId);
                 $convertedComponents[$key] = $this->convertComponent($converter, $component);
             }
-
-            return $convertedComponents;
         } catch (Exception $e) {
-            throw new ProxyException(
-                'The conversion process of the components failed!',
-                $e
-            );
+            throw new ProxyException('The conversion process of the components failed!', $e);
         }
+
+        return $convertedComponents;
     }
 
     /**
@@ -169,11 +151,8 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
      */
     public function convertComponent(ComponentConverterInterface $converter, ComponentInterface $component)
     {
-
         try {
             $convertedComponent = $converter->convertComponent($component);
-
-            return $convertedComponent;
         } catch (ServiceCircularReferenceException $scre) {
             throw new ClientInstantiationException(
                 'The conversion of the component failed because of client implementation problem!',
@@ -190,6 +169,8 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
                 $e
             );
         }
+
+        return $convertedComponent;
     }
 
     /**
@@ -197,7 +178,6 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
      */
     public function sendRequest(MessageInterface $message, TransporterInterface $transporter)
     {
-
         try {
             $converterId = $message->getConverterIdentifier();
             $converter = $this->container->get($converterId);
@@ -220,10 +200,7 @@ class BasicProxyController implements ProxyControllerInterface, ContainerAwareIn
         } catch (WebServiceErrorException $wse) {
             throw $wse;
         } catch (\Exception $e) {
-            throw new ProxyException(
-                'A problem occurred during the request treatment.',
-                $e
-            );
+            throw new ProxyException('A problem occurred during the request treatment.', $e);
         }
     }
 

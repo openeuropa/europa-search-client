@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains EC\EuropaWS\Tests\AbstractEuropaSearchTest.
+ * Contains EC\EuropaSearch\Tests\AbstractEuropaSearchTest.
  */
 
 namespace EC\EuropaSearch\Tests;

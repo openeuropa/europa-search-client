@@ -53,7 +53,6 @@ class BoostingQuery extends BoostableFilter implements FilterQueryInterface
      */
     public function __construct()
     {
-
         $this->positiveFilters = new FilterQueryComponent('positive');
         $this->negativeFilters = new FilterQueryComponent('negative');
     }
@@ -151,7 +150,6 @@ class BoostingQuery extends BoostableFilter implements FilterQueryInterface
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {
-
         if (empty($this->getPositiveFilters()) && empty($this->getNegativeFilters())) {
             $context->buildViolation('At least one of the filter list must filled.')
                 ->atPath('positiveFilters')
@@ -178,7 +176,6 @@ class BoostingQuery extends BoostableFilter implements FilterQueryInterface
      */
     public function validateFilter(array $filterList, $checkProperty, ExecutionContextInterface $context, $payload)
     {
-
         foreach ($filterList as $key => $filter) {
             $filterMetadata = $filter->getImpliedMetadata();
 
