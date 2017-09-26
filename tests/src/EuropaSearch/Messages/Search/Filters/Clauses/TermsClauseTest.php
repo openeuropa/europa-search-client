@@ -14,6 +14,7 @@ use EC\EuropaSearch\Messages\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\URLMetadata;
 use EC\EuropaSearch\Messages\Search\Filters\Clauses\TermsClause;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class TermsClauseTest.
@@ -30,7 +31,6 @@ class TermsClauseTest extends AbstractEuropaSearchTest
      */
     public function testTermsClauseValidationSuccess()
     {
-
         $filters = [];
         $filter = new TermsClause(new StringMetadata('test_data1'));
         $filter->setTestedValues(['value to use', 'value 2']);
@@ -65,7 +65,6 @@ class TermsClauseTest extends AbstractEuropaSearchTest
      */
     public function testTermsValidationFailure()
     {
-
         $filters = [];
         $filter = new TermsClause(new StringMetadata(123));
         $filter->setTestedValues(['value to use']);
@@ -89,13 +88,9 @@ class TermsClauseTest extends AbstractEuropaSearchTest
 
         $validator = $this->getDefaultValidator();
 
-        $expected = [
-            'impliedMetadata.name_data1' => 'This value should be of type string.',
-            'testedValues[0]_data2' => 'The tested value is not a valid float.',
-            'testedValues[1]_data3' => 'The tested value is not a valid integer.',
-            'testedValues[0]_data4' => 'The tested value is not a valid date.',
-            'testedValues[0]_data5' => 'This value is not a valid URL.',
-        ];
+        $parsedData = Yaml::parse(file_get_contents(__DIR__.'/fixtures/clause_violations.yml'));
+        $expected = $parsedData['expectedViolations']['TermsClause'];
+
         foreach ($filters as $testedData => $filter) {
             $validationErrors = $validator->validate($filter);
             $violations = $this->getViolations($validationErrors);

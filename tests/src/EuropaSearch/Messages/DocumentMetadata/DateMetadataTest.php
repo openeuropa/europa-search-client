@@ -9,6 +9,7 @@ namespace EC\EuropaSearch\Tests\Common\DocumentMetadata;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\DateMetadata;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class DateMetadataTest.
@@ -25,7 +26,6 @@ class DateMetadataTest extends AbstractEuropaSearchTest
      */
     public function testDateMetadataValidationSuccess()
     {
-
         $dateDocumentMetadata = new DateMetadata('tested_date');
         $dateDocumentMetadata->setValues(['30-12-2018']);
 
@@ -40,16 +40,15 @@ class DateMetadataTest extends AbstractEuropaSearchTest
      */
     public function testDateMetadataValidationFailure()
     {
-
         $dateDocumentMetadata = new DateMetadata('tested_date');
         $dateDocumentMetadata->setValues(['33-33-2105']);
 
         $validationErrors = $this->getDefaultValidator()->validate($dateDocumentMetadata);
         $violations = $this->getViolations($validationErrors);
 
-        $expected = [
-            'values[0]' => 'The value is not a valid date.',
-        ];
+        $parsedData = Yaml::parse(file_get_contents(__DIR__.'/fixtures/documentmetadata_violations.yml'));
+        $expected = $parsedData['expectedViolations']['DateMetadata'];
+
         foreach ($violations as $name => $violation) {
             $this->assertEquals($violation, $expected[$name], 'DateMetadata validation constraints are not well defined.');
         }

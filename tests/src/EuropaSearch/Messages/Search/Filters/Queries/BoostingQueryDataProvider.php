@@ -29,7 +29,6 @@ class BoostingQueryDataProvider
      */
     public function getValidBoostingQuery()
     {
-
         $boostingQuery = new BoostingQuery();
 
         $simpleFilterProvider = new FilterClauseDataProvider();
@@ -59,7 +58,6 @@ class BoostingQueryDataProvider
      */
     public function getPositiveInValidBoostingQuery()
     {
-
         $boostingQuery = new BoostingQuery();
 
         $simpleFilterProvider = new FilterClauseDataProvider();
@@ -97,7 +95,6 @@ class BoostingQueryDataProvider
      */
     public function getNegativeInValidBoostingQuery()
     {
-
         $boostingQuery = new BoostingQuery();
 
         $simpleFilterProvider = new FilterClauseDataProvider();

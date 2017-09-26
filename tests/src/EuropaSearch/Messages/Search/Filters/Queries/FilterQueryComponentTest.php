@@ -10,6 +10,7 @@ namespace EC\EuropaSearch\Tests\Messages\Search\Filters\Queries;
 use EC\EuropaSearch\Messages\Search\Filters\Queries\FilterQueryComponent;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use EC\EuropaSearch\Tests\Messages\Search\Filters\Clauses\FilterClauseDataProvider;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class FilterQueryComponentTest.
@@ -53,7 +54,6 @@ class FilterQueryComponentTest extends AbstractEuropaSearchTest
      */
     public function testFilterQueryComponentValidationFailure($aggregatedFilter, $expectedViolations)
     {
-
         $validator = $this->getDefaultValidator();
 
         $validationErrors = $validator->validate($aggregatedFilter);
@@ -72,7 +72,6 @@ class FilterQueryComponentTest extends AbstractEuropaSearchTest
      */
     public static function validFilterQueryComponentProvider()
     {
-
         $filterProvider = new FilterClauseDataProvider();
         $boostingProvider = new BoostingQueryDataProvider();
         $booleanProvider = new BooleanQueryDataProvider();
@@ -101,80 +100,24 @@ class FilterQueryComponentTest extends AbstractEuropaSearchTest
      */
     public static function invalidFilterQueryComponentProvider()
     {
-
-        $filterProvider = new FilterClauseDataProvider();
-        $boostingProvider = new BoostingQueryDataProvider();
-        $booleanProvider = new BooleanQueryDataProvider();
-
         $inValid = new FilterQueryComponent('must');
 
+        $booleanProvider = new BooleanQueryDataProvider();
         $nestedBooleanQuery = $booleanProvider->getMustInvalidNestedBooleanQuery();
         $inValid->addFilterQuery($nestedBooleanQuery);
 
+        $filterProvider = new FilterClauseDataProvider();
         $validFilters = $filterProvider->getInValidFilters();
         foreach ($validFilters as $validFilter) {
             $inValid->addFilterClause($validFilter);
         }
 
+        $boostingProvider = new BoostingQueryDataProvider();
         $boostingQuery = $boostingProvider->getPositiveInValidBoostingQuery();
         $inValid->addFilterQuery($boostingQuery);
 
-        $expectedViolations = [
-            'filterList[0].mustFilterList.filterList[0].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[0].mustFilterList.filterList[1].lowerBoundary' => 'The lower boundary is not a valid date.',
-            'filterList[0].mustFilterList.filterList[2].lowerBoundary' => 'The lower boundary is not a valid numeric (int or float).',
-            'filterList[0].mustFilterList.filterList[3].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[0].mustFilterList.filterList[5].testedValue' => 'The tested value is not a valid integer.',
-            'filterList[0].mustFilterList.filterList[6].testedValue' => 'The tested value is not a valid float.',
-            'filterList[0].mustFilterList.filterList[7].testedValue' => 'This value is not a valid URL.',
-            'filterList[0].mustFilterList.filterList[8].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[0].mustFilterList.filterList[11].testedValues[1]' => 'The tested value is not a valid integer.',
-            'filterList[0].mustFilterList.filterList[12].testedValues[0]' => 'The tested value is not a valid float.',
-            'filterList[0].mustFilterList.filterList[12].testedValues[1]' => 'The tested value is not a valid float.',
-            'filterList[0].mustFilterList.filterList[13].testedValues[0]' => 'This value is not a valid URL.',
-            'filterList[0].mustFilterList.filterList[13].testedValues[1]' => 'This value is not a valid URL.',
-            'filterList[0].mustFilterList.filterList[14].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[0].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[1].lowerBoundary' => 'The lower boundary is not a valid date.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[2].lowerBoundary' => 'The lower boundary is not a valid numeric (int or float).',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[3].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[5].testedValue' => 'The tested value is not a valid integer.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[6].testedValue' => 'The tested value is not a valid float.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[7].testedValue' => 'This value is not a valid URL.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[8].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[11].testedValues[1]' => 'The tested value is not a valid integer.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[12].testedValues[0]' => 'The tested value is not a valid float.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[12].testedValues[1]' => 'The tested value is not a valid float.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[13].testedValues[0]' => 'This value is not a valid URL.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[13].testedValues[1]' => 'This value is not a valid URL.',
-            'filterList[0].mustFilterList.filterList[16].mustFilterList.filterList[14].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[1].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[2].lowerBoundary' => 'The lower boundary is not a valid date.',
-            'filterList[3].lowerBoundary' => 'The lower boundary is not a valid numeric (int or float).',
-            'filterList[4].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[6].testedValue' => 'The tested value is not a valid integer.',
-            'filterList[7].testedValue' => 'The tested value is not a valid float.',
-            'filterList[8].testedValue' => 'This value is not a valid URL.',
-            'filterList[9].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[12].testedValues[1]' => 'The tested value is not a valid integer.',
-            'filterList[13].testedValues[0]' => 'The tested value is not a valid float.',
-            'filterList[13].testedValues[1]' => 'The tested value is not a valid float.',
-            'filterList[14].testedValues[0]' => 'This value is not a valid URL.',
-            'filterList[14].testedValues[1]' => 'This value is not a valid URL.',
-            'filterList[15].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[17].positiveFilters[5]' => 'The Metadata implied in the filter is not supported. Only text and numerical ones are valid.',
-            'filterList[17].positiveFilters[11]' => 'The Metadata implied in the filter is not supported. Only text and numerical ones are valid.',
-            'filterList[17].positiveFilters.filterList[1].testedValue' => 'The tested value is not a valid integer.',
-            'filterList[17].positiveFilters.filterList[2].testedValue' => 'The tested value is not a valid float.',
-            'filterList[17].positiveFilters.filterList[3].testedValue' => 'This value is not a valid URL.',
-            'filterList[17].positiveFilters.filterList[4].impliedMetadata.name' => 'This value should be of type string.',
-            'filterList[17].positiveFilters.filterList[7].testedValues[1]' => 'The tested value is not a valid integer.',
-            'filterList[17].positiveFilters.filterList[8].testedValues[0]' => 'The tested value is not a valid float.',
-            'filterList[17].positiveFilters.filterList[8].testedValues[1]' => 'The tested value is not a valid float.',
-            'filterList[17].positiveFilters.filterList[9].testedValues[0]' => 'This value is not a valid URL.',
-            'filterList[17].positiveFilters.filterList[9].testedValues[1]' => 'This value is not a valid URL.',
-            'filterList[17].positiveFilters.filterList[10].impliedMetadata.name' => 'This value should be of type string.',
-        ];
+        $parsedData = Yaml::parse(file_get_contents(__DIR__.'/fixtures/filterquerycomponent_violations.yml'));
+        $expectedViolations = $parsedData['expectedViolations']['filterquerycomponent'];
 
         return [[$inValid, $expectedViolations]];
     }

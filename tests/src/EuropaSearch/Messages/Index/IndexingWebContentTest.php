@@ -12,6 +12,7 @@ use EC\EuropaSearch\Messages\DocumentMetadata\IntegerMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Messages\Index\IndexingWebContent;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class IndexingWebContentTest.
@@ -28,7 +29,6 @@ class IndexingWebContentTest extends AbstractEuropaSearchTest
      */
     public function testWebContentValidationSuccess()
     {
-
         $indexedDocument = new IndexingWebContent();
         $indexedDocument->setDocumentId('reference_indexed_document');
         $indexedDocument->setDocumentLanguage('en');
@@ -58,7 +58,6 @@ class IndexingWebContentTest extends AbstractEuropaSearchTest
      */
     public function testWebContentValidationFailure()
     {
-
         $indexedDocument = new IndexingWebContent();
         $indexedDocument->setDocumentLanguage('en');
 
@@ -77,14 +76,9 @@ class IndexingWebContentTest extends AbstractEuropaSearchTest
         $validationErrors = $this->getDefaultValidator()->validate($indexedDocument);
         $violations = $this->getViolations($validationErrors);
 
-        $expected = [
-            'documentContent' => 'This value should not be blank.',
-            'documentId' => 'This value should not be blank.',
-            'documentURI' => 'This value should not be blank.',
-            'metadata[title].values[0]' => 'This value should be of type string.',
-            'metadata[publishing_date].values[0]' => 'The value is not a valid date.',
-            'metadata[int_sets].values[0]' => 'This value should be of type integer.',
-        ];
+        $parsedData = Yaml::parse(file_get_contents(__DIR__.'/fixtures/index_violations.yml'));
+        $expected = $parsedData['expectedViolations']['IndexingWebContent'];
+
         foreach ($violations as $name => $violation) {
             $this->assertEquals($violation, $expected[$name], 'IndexedDocument validation constraints are not well defined for: '.$name);
         }

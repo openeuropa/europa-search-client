@@ -51,7 +51,6 @@ class WSConfigurationDummy implements WSConfigurationInterface
      */
     public function __construct(array $connectionConfig, $userName, $userPassword)
     {
-
         $this->connectionConfig = $connectionConfig;
         $this->userName = $userName;
         $this->userPassword = $userPassword;

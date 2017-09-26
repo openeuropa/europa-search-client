@@ -25,7 +25,6 @@ class IndexingTransporterTest extends AbstractEuropaSearchTest
      */
     public function testSendIndexingWebContentSuccess()
     {
-
         $provider = new WebContentDataProvider();
         $requestToSend = $provider->webContentIndexingRequestProvider();
 
@@ -56,7 +55,6 @@ class IndexingTransporterTest extends AbstractEuropaSearchTest
      */
     private function getMockConfiguration()
     {
-
         $body = '{
             "apiVersion" : "2.1",
             "trackingId" : "9e30f972-54f0-4e7d-8f94-8dd214d2fea5",

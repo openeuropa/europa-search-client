@@ -29,7 +29,6 @@ class BooleanQueryDataProvider
      */
     public function getValidNestedBooleanQuery()
     {
-
         $booleanQuery = new BooleanQuery();
 
         $filterProvider = new FilterClauseDataProvider();
@@ -62,7 +61,6 @@ class BooleanQueryDataProvider
      */
     public function getMustInvalidNestedBooleanQuery()
     {
-
         $booleanQuery = new BooleanQuery();
 
         $filterProvider = new FilterClauseDataProvider();
@@ -100,7 +98,6 @@ class BooleanQueryDataProvider
      */
     public function getMustNotInvalidNestedBooleanQuery()
     {
-
         $booleanQuery = new BooleanQuery();
 
         $filterProvider = new FilterClauseDataProvider();
@@ -138,7 +135,6 @@ class BooleanQueryDataProvider
      */
     public function getShouldInvalidNestedBooleanQuery()
     {
-
         $booleanQuery = new BooleanQuery();
 
         $filterProvider = new FilterClauseDataProvider();
@@ -178,7 +174,6 @@ class BooleanQueryDataProvider
      */
     public function getValidSimpleBooleanQuery()
     {
-
         $booleanQuery = new BooleanQuery();
 
         $filterProvider = new FilterClauseDataProvider();
@@ -202,7 +197,6 @@ class BooleanQueryDataProvider
      */
     public function getMustInvalidSimpleBooleanQuery()
     {
-
         $booleanQuery = new BooleanQuery();
 
         $filterProvider = new FilterClauseDataProvider();
@@ -231,7 +225,6 @@ class BooleanQueryDataProvider
      */
     public function getMustNotInvalidSimpleBooleanQuery()
     {
-
         $booleanQuery = new BooleanQuery();
 
         $filterProvider = new FilterClauseDataProvider();
@@ -260,7 +253,6 @@ class BooleanQueryDataProvider
      */
     public function getShouldInvalidSimpleBooleanQuery()
     {
-
         $booleanQuery = new BooleanQuery();
 
         $filterProvider = new FilterClauseDataProvider();
@@ -289,7 +281,6 @@ class BooleanQueryDataProvider
      */
     public function getTwoLevelBooleanQuery()
     {
-
         $booleanQuery = new BooleanQuery();
 
         $filterProvider = new FilterClauseDataProvider();

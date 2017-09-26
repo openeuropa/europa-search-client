@@ -25,7 +25,6 @@ class SearchTransporterTest extends AbstractEuropaSearchTest
      */
     public function testSendSearchSuccess()
     {
-
         $provider = new WebContentDataProvider();
         $requestToSend = $provider->searchRequestProvider();
 
@@ -56,7 +55,6 @@ class SearchTransporterTest extends AbstractEuropaSearchTest
      */
     private function getMockConfiguration()
     {
-
         $body = '{}';
         $response = new Response(201, [], $body);
         $mockResponses = [$response];

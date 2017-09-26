@@ -32,11 +32,8 @@ class BooleanMetadataConverter implements ComponentConverterInterface
      */
     public function convertComponent(ComponentInterface $metadata)
     {
-
-        $values = $metadata->getValues();
         $name = $metadata->getEuropaSearchName();
-
-        $values = $this->getBooleanMetadataValue($values);
+        $values = $this->getBooleanMetadataValue($metadata->getValues());
 
         return [$name => $values];
     }
@@ -51,7 +48,6 @@ class BooleanMetadataConverter implements ComponentConverterInterface
      */
     private function getBooleanMetadataValue($values)
     {
-
         $finalValue = [];
         foreach ($values as $item) {
             $finalValue[] = boolval($item);

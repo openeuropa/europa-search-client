@@ -12,6 +12,7 @@ use EC\EuropaSearch\Messages\DocumentMetadata\FloatMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\IntegerMetadata;
 use EC\EuropaSearch\Messages\Search\Filters\Clauses\RangeClause;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class RangeClauseTest.
@@ -28,7 +29,6 @@ class RangeClauseTest extends AbstractEuropaSearchTest
      */
     public function testRangeClauseValidationSuccess()
     {
-
         $filters = [];
         $rangeFilter = new RangeClause(new IntegerMetadata('test_data1'));
         $rangeFilter->setLowerBoundaryIncluded(1);
@@ -67,7 +67,6 @@ class RangeClauseTest extends AbstractEuropaSearchTest
      */
     public function testRangeClauseValidationFailure()
     {
-
         $filters = [];
         $rangeFilter = new RangeClause(new IntegerMetadata(1234));
         $rangeFilter->setLowerBoundaryIncluded(1);
@@ -98,15 +97,9 @@ class RangeClauseTest extends AbstractEuropaSearchTest
 
         $validator = $this->getDefaultValidator();
 
+        $parsedData = Yaml::parse(file_get_contents(__DIR__.'/fixtures/clause_violations.yml'));
+        $expected = $parsedData['expectedViolations']['RangeClause'];
 
-        $expected = [
-            'impliedMetadata.name_data1' => 'This value should be of type string.',
-            'lowerBoundary_data2' => 'The lower boundary is not a valid numeric (int or float).',
-            'lowerBoundary_data3' => 'The lower boundary is not a valid integer.',
-            'upperBoundary_data4' => 'The upper boundary is not a valid integer.',
-            'lowerBoundary_data5' => 'The lower boundary is not a valid date.',
-            'upperBoundary_data6' => 'The upper boundary is not a valid date.',
-        ];
         foreach ($filters as $testedData => $filter) {
             $validationErrors = $validator->validate($filter);
             $violations = $this->getViolations($validationErrors);

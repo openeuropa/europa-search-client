@@ -32,7 +32,6 @@ class SearchProxyController extends BasicProxyController
      */
     public function convertComponent(ComponentConverterInterface $converter, ComponentInterface $component)
     {
-
         if ($component instanceof FilterQueryInterface) {
             $converterId = $component->getConverterIdentifier();
             $converter = $this->container->get($converterId);
@@ -61,7 +60,6 @@ class SearchProxyController extends BasicProxyController
      */
     public function convertFilterQueryWithChildren(FilterQueryConverterInterface $converter, FilterQueryInterface $query)
     {
-
         try {
             $children = $query->getChildComponents();
 

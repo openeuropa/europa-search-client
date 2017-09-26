@@ -1,0 +1,8 @@
+expectedViolations:
+  IndexingWebContent:
+    documentContent: 'This value should not be blank.'
+    documentId: 'This value should not be blank.'
+    documentURI: 'This value should not be blank.'
+    metadata[title].values[0]: 'This value should be of type string.'
+    metadata[publishing_date].values[0]: 'The value is not a valid date.'
+    metadata[int_sets].values[0]: 'This value should be of type integer.'

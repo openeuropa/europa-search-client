@@ -26,20 +26,16 @@ class IndexingClientTest extends AbstractEuropaSearchTest
      */
     public function testIndexingClientProcessSuccess()
     {
-
         $provider = new ClientDataProvider();
         $indexingMessage = $provider->getWebContentMessageTestData();
 
         $mockConfig = $this->getMockResponse();
         $factory = $this->getFactory($mockConfig);
         $client = $factory->getIndexingWebContentClient();
-
-        $this->assertInstanceOf('EC\EuropaWS\Clients\DefaultClient', $client, 'The returned client is not an DefaultClient object.');
-
         $response = $client->sendMessage($indexingMessage);
 
+        $this->assertInstanceOf('EC\EuropaWS\Clients\DefaultClient', $client, 'The returned client is not an DefaultClient object.');
         $this->assertInstanceOf('EC\EuropaWS\Messages\StringResponseMessage', $response, 'The returned response is not an StringResponseMessage object.');
-
         $this->assertEquals('web_content_client_1', $response->getReturnedString(), 'The returned response is not the expected one.');
     }
 
@@ -51,13 +47,8 @@ class IndexingClientTest extends AbstractEuropaSearchTest
      */
     private function getMockResponse()
     {
-
-        $body = '{
-            "apiVersion" : "2.1",
-            "trackingId" : "9e30f972-54f0-4e7d-8f94-8dd214d2fea5",
-            "reference" : "web_content_client_1"
-        }';
-        $response = new Response(200, [], $body);
+        $body = json_decode(file_get_contents(__DIR__.'/fixtures/index_response_sample.json'));
+        $response = new Response(200, [], json_encode($body));
         $mockResponses = [$response];
 
         return $mockResponses;

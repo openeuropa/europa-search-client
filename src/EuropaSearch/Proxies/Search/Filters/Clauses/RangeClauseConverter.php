@@ -29,7 +29,6 @@ class RangeClauseConverter extends AbstractClauseConverter
      */
     public function convertComponent(ComponentInterface $component)
     {
-
         $metadata =  $component->getImpliedMetadata();
         $name = $metadata->getEuropaSearchName();
         $convertedValue = [$name => []];
@@ -75,13 +74,17 @@ class RangeClauseConverter extends AbstractClauseConverter
      */
     private function getBoundaryValue($rawValue, $metadata)
     {
-
-        if ($metadata instanceof DateMetadata) {
-            return $this->getConvertedDateValue($rawValue);
-        } elseif ($metadata instanceof BooleanMetadata) {
-            return boolval($rawValue);
+        switch (get_class($metadata)) {
+            case DateMetadata::class:
+                $return = $this->getConvertedDateValue($rawValue);
+                break;
+            case BooleanMetadata::class:
+                $return = boolval($rawValue);
+                break;
+            default:
+                $return = $rawValue;
         }
 
-        return $rawValue;
+        return $return;
     }
 }

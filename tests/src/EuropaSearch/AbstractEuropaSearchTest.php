@@ -34,7 +34,6 @@ abstract class AbstractEuropaSearchTest extends TestCase
      */
     protected function getDummyConfig(array $mockResponses = [])
     {
-
         $wsSettings = [
             'URLRoot' => 'https://intragate.acceptance.ec.europa.eu',
             'APIKey' => 'a221108a-180d-HTTP-CLIENT-LIBRARY-TEST',
@@ -61,7 +60,6 @@ abstract class AbstractEuropaSearchTest extends TestCase
      */
     protected function getFactory(array $mockResponses = [])
     {
-
         $config = $this->getDummyConfig($mockResponses);
         $container = new EuropaSearch($config);
 
@@ -76,7 +74,6 @@ abstract class AbstractEuropaSearchTest extends TestCase
      */
     protected function getContainer()
     {
-
         $factory = $this->getFactory();
 
         return $factory->getClientContainer();
@@ -101,7 +98,6 @@ abstract class AbstractEuropaSearchTest extends TestCase
      */
     protected function getViolations(ConstraintViolationListInterface $violations)
     {
-
         $collection = [];
         foreach ($violations as $violation) {
             $collection[$violation->getPropertyPath()] = $violation->getMessage();

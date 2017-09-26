@@ -29,7 +29,6 @@ class WebContentDataProvider
      */
     public function webContentIndexingRequestProvider()
     {
-
         $documentId = 'web_content_1';
         $documentURI = 'http://europa.test.com/content.html';
         $documentLanguage = 'fr';
@@ -74,7 +73,6 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
      */
     public function searchRequestProvider()
     {
-
         $searchRequest = new SearchRequest();
         $searchRequest->setLanguages(['en', 'fr']);
         $searchRequest->setHighlightRegex('<strong>{}</strong>');

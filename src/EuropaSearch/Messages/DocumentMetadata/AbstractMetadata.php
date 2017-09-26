@@ -21,6 +21,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class AbstractMetadata implements ComponentInterface
 {
+    /**
+     * Prefix applicable to all Metadata.
+     *
+     * @const
+     */
+    const EUROPA_SEARCH_NAME_PREFIX = '';
 
     /**
      * Prefix applicable to all converter id of classes extending this class.

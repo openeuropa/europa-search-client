@@ -20,5 +20,4 @@ use EC\EuropaWS\Proxies\ComponentConverterInterface;
 abstract class AbstractClauseConverter extends DateComponentConverter implements ComponentConverterInterface
 {
 
-
 }

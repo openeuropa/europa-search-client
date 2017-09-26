@@ -26,7 +26,6 @@ class FieldExistsClauseConverter extends AbstractClauseConverter
      */
     public function convertComponent(ComponentInterface $component)
     {
-
         $name = $component->getImpliedMetadata()->getEuropaSearchName();
         $convertedValue = ['field' => $name];
 

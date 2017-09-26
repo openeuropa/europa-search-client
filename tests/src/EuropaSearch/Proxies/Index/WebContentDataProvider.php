@@ -32,12 +32,11 @@ class WebContentDataProvider
      *
      * @return array
      *   The objects for the test:
-     *   - 'submitted':  IndexedDocument to convert in the test;
-     *   - 'expected' :   Excepted IndexingRequest at the end of the test;
+     *   - 'submitted': IndexedDocument to convert in the test;
+     *   - 'expected' : Excepted IndexingRequest at the end of the test;
      */
     public function indexedDocumentProvider()
     {
-
         $documentId = 'web_content_client_1';
         $documentURI = 'http://europa.test.com/content.html';
         $documentLanguage = 'fr';
@@ -95,8 +94,8 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         $indexingRequest->setDocumentURI($documentURI);
         $indexingRequest->setDocumentLanguage($documentLanguage);
 
-        $fileContent = file_get_contents(__DIR__.'/fixtures/json_sample.json');
-        $indexingRequest->setMetadataJSON($fileContent);
+        $fileContent = json_decode(file_get_contents(__DIR__.'/fixtures/json_sample.json'));
+        $indexingRequest->setMetadataJSON(json_encode($fileContent));
 
         $indexingRequest->setDocumentContent('
 

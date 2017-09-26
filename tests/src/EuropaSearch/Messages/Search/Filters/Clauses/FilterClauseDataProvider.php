@@ -37,7 +37,6 @@ class FilterClauseDataProvider
      */
     public function getValidFilters()
     {
-
         $returnedFilters = [];
 
         $rangeFilter = new RangeClause(new IntegerMetadata('test_data1'));
@@ -69,7 +68,6 @@ class FilterClauseDataProvider
      */
     public function getInValidFilters()
     {
-
         $returnedFilters = [];
 
         $rangeFilter = new RangeClause(new IntegerMetadata(1234));
@@ -105,7 +103,6 @@ class FilterClauseDataProvider
      */
     public function getValidTermList()
     {
-
         $returnedValues = [];
 
         $metadata = new StringMetadata('test1');
@@ -139,7 +136,6 @@ class FilterClauseDataProvider
      */
     public function getValidTermsList()
     {
-
         $returnedValues = [];
 
         $metadata = new StringMetadata('test1');
@@ -177,7 +173,6 @@ class FilterClauseDataProvider
      */
     public function getInValidTermList()
     {
-
         $returnedValues = [];
 
         $metadata = new StringMetadata('test1');
@@ -221,7 +216,6 @@ class FilterClauseDataProvider
      */
     public function getInValidTermsList()
     {
-
         $returnedValues = [];
 
         $metadata = new StringMetadata('test1');
@@ -241,10 +235,7 @@ class FilterClauseDataProvider
 
         $metadata = new URLMetadata('test4');
         $filter = new TermsClause($metadata);
-        $urls = [
-            '/url1.com',
-            342.3,
-        ];
+        $urls = ['/url1.com', 342.3];
         $filter->setTestedValues($urls);
         $returnedValues[] = $filter;
 

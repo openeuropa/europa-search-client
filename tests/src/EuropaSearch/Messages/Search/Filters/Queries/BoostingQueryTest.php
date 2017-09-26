@@ -9,6 +9,7 @@ namespace EC\EuropaSearch\Tests\Messages\Search\Filters\Queries;
 
 use EC\EuropaSearch\Messages\Search\Filters\Queries\BoostingQuery;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class BoostingQueryTest.
@@ -30,7 +31,6 @@ class BoostingQueryTest extends AbstractEuropaSearchTest
      */
     public function testBoostingQueryValidationSuccess($boostingQuery)
     {
-
         $validator = $this->getDefaultValidator();
 
         $validationErrors = $validator->validate($boostingQuery);
@@ -53,7 +53,6 @@ class BoostingQueryTest extends AbstractEuropaSearchTest
      */
     public function testBoostingQueryValidationFailure($boostingQuery, $expectedViolations)
     {
-
         $validator = $this->getDefaultValidator();
 
         $validationErrors = $validator->validate($boostingQuery);
@@ -72,7 +71,6 @@ class BoostingQueryTest extends AbstractEuropaSearchTest
      */
     public static function validBoostingQueryProvider()
     {
-
         $boostingProvider = new BoostingQueryDataProvider();
         $boostingQuery = $boostingProvider->getValidBoostingQuery();
 
@@ -87,51 +85,25 @@ class BoostingQueryTest extends AbstractEuropaSearchTest
      */
     public static function invalidBoostingQueryProvider()
     {
-
         $boostingProvider = new BoostingQueryDataProvider();
 
-        $returned = [[]];
+        $parsedData = Yaml::parse(file_get_contents(__DIR__.'/fixtures/boostingquery_violations.yml'));
+        $expectedViolations = $parsedData['expectedViolations'];
 
-        $returned[0][] = $boostingProvider->getPositiveInValidBoostingQuery();
-        $expectedViolations = [
-            'positiveFilters[5]' => 'The Metadata implied in the filter is not supported. Only text and numerical ones are valid.',
-            'positiveFilters[11]' => 'The Metadata implied in the filter is not supported. Only text and numerical ones are valid.',
-            'positiveFilters.filterList[1].testedValue' => 'The tested value is not a valid integer.',
-            'positiveFilters.filterList[2].testedValue' => 'The tested value is not a valid float.',
-            'positiveFilters.filterList[3].testedValue' => 'This value is not a valid URL.',
-            'positiveFilters.filterList[4].impliedMetadata.name' => 'This value should be of type string.',
-            'positiveFilters.filterList[7].testedValues[1]' => 'The tested value is not a valid integer.',
-            'positiveFilters.filterList[8].testedValues[0]' => 'The tested value is not a valid float.',
-            'positiveFilters.filterList[8].testedValues[1]' => 'The tested value is not a valid float.',
-            'positiveFilters.filterList[9].testedValues[0]' => 'This value is not a valid URL.',
-            'positiveFilters.filterList[9].testedValues[1]' => 'This value is not a valid URL.',
-            'positiveFilters.filterList[10].impliedMetadata.name' => 'This value should be of type string.',
+        $returned = [
+            [
+                $boostingProvider->getPositiveInValidBoostingQuery(),
+                $expectedViolations['getPositiveInValidBoostingQuery'],
+            ],
+            [
+                $boostingProvider->getNegativeInValidBoostingQuery(),
+                $expectedViolations['getNegativeInValidBoostingQuery'],
+            ],
+            [
+                new BoostingQuery(),
+                $expectedViolations['BoostingQuery'],
+            ],
         ];
-        $returned[0][] = $expectedViolations;
-
-        $returned[1][] = $boostingProvider->getNegativeInValidBoostingQuery();
-        $expectedViolations = [
-            'negativeFilters[5]' => 'The Metadata implied in the filter is not supported. Only text and numerical ones are valid.',
-            'negativeFilters[11]' => 'The Metadata implied in the filter is not supported. Only text and numerical ones are valid.',
-            'negativeFilters.filterList[1].testedValue' => 'The tested value is not a valid integer.',
-            'negativeFilters.filterList[2].testedValue' => 'The tested value is not a valid float.',
-            'negativeFilters.filterList[3].testedValue' => 'This value is not a valid URL.',
-            'negativeFilters.filterList[4].impliedMetadata.name' => 'This value should be of type string.',
-            'negativeFilters.filterList[7].testedValues[1]' => 'The tested value is not a valid integer.',
-            'negativeFilters.filterList[8].testedValues[0]' => 'The tested value is not a valid float.',
-            'negativeFilters.filterList[8].testedValues[1]' => 'The tested value is not a valid float.',
-            'negativeFilters.filterList[9].testedValues[0]' => 'This value is not a valid URL.',
-            'negativeFilters.filterList[9].testedValues[1]' => 'This value is not a valid URL.',
-            'negativeFilters.filterList[10].impliedMetadata.name' => 'This value should be of type string.',
-        ];
-        $returned[1][] = $expectedViolations;
-
-        $returned[2][] = new BoostingQuery();
-        $expectedViolations = [
-            'positiveFilters' => 'At least one of the filter list must filled.',
-        ];
-        $returned[2][] = $expectedViolations;
-
 
         return $returned;
     }

@@ -40,7 +40,6 @@ class ClientDataProvider
      */
     public function getWebContentMessageTestData()
     {
-
         $documentId = 'web_content_client_1';
         $documentURI = 'http://europa.test.com/content.html';
         $documentLanguage = 'fr';
@@ -103,7 +102,6 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
      */
     public function getSearchMessageTestData()
     {
-
         // Define search message to send.
         $searchMessage = new SearchMessage();
         $searchMessage->setSearchedLanguages(['fr']);
@@ -140,7 +138,6 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
      */
     private function setWebContentResultsTestData(SearchResponse $searchResponse)
     {
-
         foreach ([1, 2, 3] as $resultId) {
             $result = new SearchResult();
             $result->setResultReference('web_content_'.$resultId);
@@ -180,7 +177,6 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
      */
     private function setResultMetadataTestData(SearchResult $result, $resultId)
     {
-
         $metadata = [
             'rank' => [$resultId],
             'FILENAME' => ['file.txt'],

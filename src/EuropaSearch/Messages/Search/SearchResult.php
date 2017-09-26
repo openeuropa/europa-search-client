@@ -91,7 +91,7 @@ class SearchResult
      *
      * @var array
      */
-    private $resultMetadata = array();
+    private $resultMetadata = [];
 
     /**
      * Gets the result id.

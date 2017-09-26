@@ -33,11 +33,8 @@ class DateMetadataConverter extends DateComponentConverter implements ComponentC
      */
     public function convertComponent(ComponentInterface $metadata)
     {
-
-        $values = $metadata->getValues();
         $name = $metadata->getEuropaSearchName();
-        $values = $this->getMetadataDateValues($values);
-
+        $values = $this->getMetadataDateValues($metadata->getValues());
 
         return [$name => $values];
     }
@@ -52,7 +49,6 @@ class DateMetadataConverter extends DateComponentConverter implements ComponentC
      */
     private function getMetadataDateValues($values)
     {
-
         $finalValues = [];
         foreach ($values as $item) {
             $finalValues[] = $this->getConvertedDateValue($item);

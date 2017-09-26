@@ -44,7 +44,6 @@ class SearchDataProvider
         $searchQuery = $booleanProvider->getValidNestedBooleanQuery();
         $searchMessage->setQuery($searchQuery);
 
-
         $searchRequest = new SearchRequest();
         $searchRequest->setLanguages(['en', 'fr']);
         $searchRequest->setHighlightRegex('<strong>{}</strong>');
@@ -56,9 +55,9 @@ class SearchDataProvider
         $searchRequest->setSessionToken('123456');
         $searchRequest->setAPIKey('a221108a-180d-HTTP-CLIENT-LIBRARY-TEST');
 
-        $fileContent = file_get_contents(__DIR__.'/fixtures/json_sample.json');
+        $fileContent = json_decode(file_get_contents(__DIR__.'/fixtures/json_sample.json'));
 
-        $searchRequest->setQueryJSON($fileContent);
+        $searchRequest->setQueryJSON(json_encode($fileContent));
 
         return [
             'submitted' => $searchMessage,

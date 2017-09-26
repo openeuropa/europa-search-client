@@ -28,7 +28,6 @@ class TermClauseConverter extends AbstractClauseConverter
      */
     public function convertComponent(ComponentInterface $component)
     {
-
         $metadata = $component->getImpliedMetadata();
         $name = $metadata->getEuropaSearchName();
 

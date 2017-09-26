@@ -14,6 +14,7 @@ use EC\EuropaSearch\Messages\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\URLMetadata;
 use EC\EuropaSearch\Messages\Search\Filters\Clauses\TermClause;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class TermClauseTest.
@@ -30,7 +31,6 @@ class TermClauseTest extends AbstractEuropaSearchTest
      */
     public function testTermClauseValidationSuccess()
     {
-
         $filters = [];
         $filter = new TermClause(new StringMetadata('test_data1'));
         $filter->setTestedValue('value to use');
@@ -66,7 +66,6 @@ class TermClauseTest extends AbstractEuropaSearchTest
      */
     public function testTermClauseValidationFailure()
     {
-
         $filters = [];
         $metadata = new StringMetadata(123);
         $filter = new TermClause($metadata);
@@ -78,7 +77,7 @@ class TermClauseTest extends AbstractEuropaSearchTest
         $filters['data2'] = $filter;
 
         $filter = new TermClause(new IntegerMetadata('test_data3'));
-        $filter->setTestedValue(15.0);
+        $filter->setTestedValue(15.5);
         $filters['data3'] = $filter;
 
         $filter = new TermClause(new DateMetadata('test_data4'));
@@ -95,14 +94,9 @@ class TermClauseTest extends AbstractEuropaSearchTest
 
         $validator = $this->getDefaultValidator();
 
-        $expected = [
-            'impliedMetadata.name_data1' => 'This value should be of type string.',
-            'testedValue_data2' => 'The tested value is not a valid float.',
-            'testedValue_data3' => 'The tested value is not a valid integer.',
-            'testedValue_data4' => 'The tested value is not a valid date.',
-            'testedValue_data5' => 'This value is not a valid URL.',
-            'testedValue_data6' => 'This value should be of type scalar.',
-        ];
+        $parsedData = Yaml::parse(file_get_contents(__DIR__.'/fixtures/clause_violations.yml'));
+        $expected = $parsedData['expectedViolations']['TermClause'];
+
         foreach ($filters as $testedData => $filter) {
             $validationErrors = $validator->validate($filter);
             $violations = $this->getViolations($validationErrors);

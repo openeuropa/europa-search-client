@@ -37,7 +37,6 @@ class WebContentConverter extends AbstractMessageConverter
      */
     public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent, WSConfigurationInterface $configuration)
     {
-
         $request = new WebContentRequest();
 
         $request->setDocumentId($message->getDocumentId());

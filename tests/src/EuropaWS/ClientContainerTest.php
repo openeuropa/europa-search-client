@@ -28,27 +28,19 @@ class ClientContainerTest extends AbstractWSTest
      */
     public function testClientContainerInstantiation()
     {
-
         $container = $this->getContainer();
 
-        // Test Client instance.
-        $client = $container->get('client.dummy');
-        $this->assertInstanceOf(ClientDummy::class, $client, 'The returned client is not a ClientDummy instance.');
+        $instances = [
+            'client.dummy' => ClientDummy::class,
+            'proxyController.default' => BasicProxyController::class,
+            'transporter.default' => DummyTransporter::class,
+            'ws.settings.default' => WSConfigurationDummy::class,
+            'validator.default' => DefaultValidatorBuilder::class,
+        ];
 
-        // Test BasicProxyController.
-        $proxy = $container->get('proxyController.default');
-        $this->assertInstanceOf(BasicProxyController::class, $proxy, 'The returned proxy provider is not a BasicProxyController instance.');
-
-        // Test Transporter.
-        $transporter = $container->get('transporter.default');
-        $this->assertInstanceOf(DummyTransporter::class, $transporter, 'The returned transporter is not a DummyTransporter instance.');
-
-        // Test WS configuration.
-        $settings = $container->get('ws.settings.default');
-        $this->assertInstanceOf(WSConfigurationDummy::class, $settings, 'The returned settings object is not a WSConfigurationDummy instance.');
-
-        // Test Validaot configuration.
-        $settings = $container->get('validator.default');
-        $this->assertInstanceOf(DefaultValidatorBuilder::class, $settings, 'The returned validator builder object is not a DefaultValidatorBuilder instance.');
+        foreach ($instances as $key => $value) {
+            $instance = $container->get($key);
+            $this->assertInstanceOf($value, $instance, 'The returned settings object is not a '.$value.' instance.');
+        }
     }
 }

@@ -49,7 +49,6 @@ class FilterQueryComponent implements FilterQueryInterface
      */
     public function __construct($aggregationLabel)
     {
-
         $this->aggregationLabel = $aggregationLabel;
         $this->filterList = [];
     }

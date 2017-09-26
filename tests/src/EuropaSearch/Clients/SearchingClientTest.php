@@ -42,10 +42,9 @@ class SearchingClientTest extends AbstractEuropaSearchTest
         $mockConfig = $this->getMockResponse();
         $factory = $this->getFactory($mockConfig);
         $client = $factory->getSearchingClient();
+        $response = $client->sendMessage($data['submitted']);
 
         $this->assertInstanceOf('EC\EuropaWS\Clients\DefaultClient', $client, 'The returned client is not an DefaultClient object.');
-
-        $response = $client->sendMessage($data['submitted']);
         $this->assertEquals($data['expected'], $response, 'The returned response is not the expected one.');
     }
 
@@ -57,9 +56,8 @@ class SearchingClientTest extends AbstractEuropaSearchTest
      */
     private function getMockResponse()
     {
-        $body = file_get_contents(__DIR__.'/fixtures/search_response_sample.json');
-
-        $response = new Response(200, [], $body);
+        $body = json_decode(file_get_contents(__DIR__.'/fixtures/search_response_sample.json'));
+        $response = new Response(200, [], json_encode($body));
         $mockResponses = [$response];
 
         return $mockResponses;

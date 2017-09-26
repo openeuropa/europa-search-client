@@ -31,7 +31,6 @@ class BooleanQueryTest extends AbstractEuropaSearchTest
      */
     public function testBooleanQueryValidationSuccess($booleanQuery)
     {
-
         $validator = $this->getDefaultValidator();
 
         $validationErrors = $validator->validate($booleanQuery);
@@ -53,7 +52,6 @@ class BooleanQueryTest extends AbstractEuropaSearchTest
      */
     public function testBooleanQueryValidationFailure($booleanQuery, $expectedViolations)
     {
-
         $validator = $this->getDefaultValidator();
 
         $validationErrors = $validator->validate($booleanQuery);
@@ -72,13 +70,12 @@ class BooleanQueryTest extends AbstractEuropaSearchTest
      */
     public static function validBooleanQueryProvider()
     {
-
         $booleanProvider = new BooleanQueryDataProvider();
 
-        $returned = [[]];
-
-        $returned[0][] = $booleanProvider->getValidSimpleBooleanQuery();
-        $returned[1][] = $booleanProvider->getValidNestedBooleanQuery();
+        $returned = [
+            [$booleanProvider->getValidSimpleBooleanQuery()],
+            [$booleanProvider->getValidNestedBooleanQuery()],
+        ];
 
         return $returned;
     }
@@ -93,36 +90,41 @@ class BooleanQueryTest extends AbstractEuropaSearchTest
      */
     public static function invalidBooleanQueryProvider()
     {
-
         $booleanProvider = new BooleanQueryDataProvider();
 
-        $returned = [[]];
-
-
-        $fileContent = file_get_contents(__DIR__.'/fixtures/booleanquery_violations.yml');
-        $parsedData = Yaml::parse($fileContent);
+        $parsedData = Yaml::parse(file_get_contents(__DIR__.'/fixtures/booleanquery_violations.yml'));
         $expectedViolations = $parsedData['expectedViolations'];
 
-        $returned[0][] = $booleanProvider->getMustInvalidSimpleBooleanQuery();
-        $returned[0][] = $expectedViolations[0];
-
-        $returned[1][] = $booleanProvider->getMustNotInvalidSimpleBooleanQuery();
-        $returned[1][] = $expectedViolations[1];
-
-        $returned[2][] = $booleanProvider->getShouldInvalidSimpleBooleanQuery();
-        $returned[2][] = $expectedViolations[2];
-
-        $returned[3][] = $booleanProvider->getMustInvalidNestedBooleanQuery();
-        $returned[3][] = $expectedViolations[3];
-
-        $returned[4][] = $booleanProvider->getMustNotInvalidNestedBooleanQuery();
-        $returned[4][] = $expectedViolations[4];
-
-        $returned[5][] = $booleanProvider->getShouldInValidNestedBooleanQuery();
-        $returned[5][] = $expectedViolations[5];
-
-        $returned[6][] = new BooleanQuery();
-        $returned[6][] = $expectedViolations[6];
+        $returned = [
+            [
+                $booleanProvider->getMustInvalidSimpleBooleanQuery(),
+                $expectedViolations['getMustInvalidSimpleBooleanQuery'],
+            ],
+            [
+                $booleanProvider->getMustNotInvalidSimpleBooleanQuery(),
+                $expectedViolations['getMustNotInvalidSimpleBooleanQuery'],
+            ],
+            [
+                $booleanProvider->getShouldInvalidSimpleBooleanQuery(),
+                $expectedViolations['getShouldInvalidSimpleBooleanQuery'],
+            ],
+            [
+                $booleanProvider->getMustInvalidNestedBooleanQuery(),
+                $expectedViolations['getMustInvalidNestedBooleanQuery'],
+            ],
+            [
+                $booleanProvider->getMustNotInvalidNestedBooleanQuery(),
+                $expectedViolations['getMustNotInvalidNestedBooleanQuery'],
+            ],
+            [
+                $booleanProvider->getShouldInValidNestedBooleanQuery(),
+                $expectedViolations['getShouldInValidNestedBooleanQuery'],
+            ],
+            [
+                new BooleanQuery(),
+                $expectedViolations['BooleanQuery'],
+            ],
+        ];
 
         return $returned;
     }

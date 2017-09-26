@@ -1,5 +1,5 @@
 expectedViolations:
-  0:
+  getMustInvalidSimpleBooleanQuery:
     mustFilterList.filterList[0].impliedMetadata.name: 'This value should be of type string.'
     mustFilterList.filterList[1].lowerBoundary: 'The lower boundary is not a valid date.'
     mustFilterList.filterList[2].lowerBoundary: 'The lower boundary is not a valid numeric (int or float).'
@@ -14,7 +14,7 @@ expectedViolations:
     mustFilterList.filterList[13].testedValues[0]: 'This value is not a valid URL.'
     mustFilterList.filterList[13].testedValues[1]: 'This value is not a valid URL.'
     mustFilterList.filterList[14].impliedMetadata.name: 'This value should be of type string.'
-  1:
+  getMustNotInvalidSimpleBooleanQuery:
     mustNotFilterList.filterList[0].impliedMetadata.name: 'This value should be of type string.'
     mustNotFilterList.filterList[1].lowerBoundary: 'The lower boundary is not a valid date.'
     mustNotFilterList.filterList[2].lowerBoundary: 'The lower boundary is not a valid numeric (int or float).'
@@ -29,7 +29,7 @@ expectedViolations:
     mustNotFilterList.filterList[13].testedValues[0]: 'This value is not a valid URL.'
     mustNotFilterList.filterList[13].testedValues[1]: 'This value is not a valid URL.'
     mustNotFilterList.filterList[14].impliedMetadata.name: 'This value should be of type string.'
-  2:
+  getShouldInvalidSimpleBooleanQuery:
     shouldFilterList.filterList[0].impliedMetadata.name: 'This value should be of type string.'
     shouldFilterList.filterList[1].lowerBoundary: 'The lower boundary is not a valid date.'
     shouldFilterList.filterList[2].lowerBoundary: 'The lower boundary is not a valid numeric (int or float).'
@@ -44,7 +44,7 @@ expectedViolations:
     shouldFilterList.filterList[13].testedValues[0]: 'This value is not a valid URL.'
     shouldFilterList.filterList[13].testedValues[1]: 'This value is not a valid URL.'
     shouldFilterList.filterList[14].impliedMetadata.name: 'This value should be of type string.'
-  3:
+  getMustInvalidNestedBooleanQuery:
     mustFilterList.filterList[0].impliedMetadata.name: 'This value should be of type string.'
     mustFilterList.filterList[1].lowerBoundary: 'The lower boundary is not a valid date.'
     mustFilterList.filterList[2].lowerBoundary: 'The lower boundary is not a valid numeric (int or float).'
@@ -73,7 +73,7 @@ expectedViolations:
     mustFilterList.filterList[16].mustFilterList.filterList[13].testedValues[0]: 'This value is not a valid URL.'
     mustFilterList.filterList[16].mustFilterList.filterList[13].testedValues[1]: 'This value is not a valid URL.'
     mustFilterList.filterList[16].mustFilterList.filterList[14].impliedMetadata.name: 'This value should be of type string.'
-  4:
+  getMustNotInvalidNestedBooleanQuery:
     mustNotFilterList.filterList[0].impliedMetadata.name: 'This value should be of type string.'
     mustNotFilterList.filterList[1].lowerBoundary: 'The lower boundary is not a valid date.'
     mustNotFilterList.filterList[2].lowerBoundary: 'The lower boundary is not a valid numeric (int or float).'
@@ -102,7 +102,7 @@ expectedViolations:
     mustNotFilterList.filterList[16].mustFilterList.filterList[13].testedValues[0]: 'This value is not a valid URL.'
     mustNotFilterList.filterList[16].mustFilterList.filterList[13].testedValues[1]: 'This value is not a valid URL.'
     mustNotFilterList.filterList[16].mustFilterList.filterList[14].impliedMetadata.name: 'This value should be of type string.'
-  5:
+  getShouldInValidNestedBooleanQuery:
     shouldFilterList.filterList[0].impliedMetadata.name: 'This value should be of type string.'
     shouldFilterList.filterList[1].lowerBoundary: 'The lower boundary is not a valid date.'
     shouldFilterList.filterList[2].lowerBoundary: 'The lower boundary is not a valid numeric (int or float).'
@@ -143,5 +143,5 @@ expectedViolations:
     shouldFilterList.filterList[17].positiveFilters.filterList[9].testedValues[0]: 'This value is not a valid URL.'
     shouldFilterList.filterList[17].positiveFilters.filterList[9].testedValues[1]: 'This value is not a valid URL.'
     shouldFilterList.filterList[17].positiveFilters.filterList[10].impliedMetadata.name: 'This value should be of type string.'
-  6:
+  BooleanQuery:
     mustFilterList: 'At least one of the filter list must filled.'
