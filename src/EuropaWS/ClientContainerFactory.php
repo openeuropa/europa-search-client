@@ -8,6 +8,7 @@
 namespace EC\EuropaWS;
 
 use EC\EuropaWS\Clients\ClientInterface;
+use EC\EuropaWS\Common\WSConfigurationInterface;
 use EC\EuropaWS\Exceptions\ClientInstantiationException;
 use EC\EuropaWS\Common\DefaultValidatorBuilder;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -19,7 +20,7 @@ use Symfony\Component\Validator\Validator\RecursiveValidator;
 /**
  * Class ClientContainerFactory.
  *
- * It instaantiates the client container.
+ * It instantiates the client container.
  *
  * Extending this class allows objects to load their own YML configuration file.
  *
@@ -43,6 +44,13 @@ class ClientContainerFactory
     protected $configRepoPath;
 
     /**
+     * The client configuration.
+     *
+     * @var WSConfigurationInterface
+     */
+    protected $configuration;
+
+    /**
      * Gest the client container with the services definitions.
      *
      * @return ContainerBuilder
@@ -50,7 +58,6 @@ class ClientContainerFactory
      */
     public function getClientContainer()
     {
-
         $this->buildClientContainer();
 
         return $this->container;
@@ -58,10 +65,14 @@ class ClientContainerFactory
 
     /**
      * ClientContainer constructor.
+     *
+     * @param WSConfigurationInterface $configuration
+     *   The client configuration.
      */
-    public function __construct()
+    public function __construct(WSConfigurationInterface $configuration)
     {
         $this->configRepoPath = __DIR__.'/config';
+        $this->configuration = $configuration;
     }
 
     /**
@@ -75,13 +86,12 @@ class ClientContainerFactory
      */
     public function getDefaultValidator()
     {
-
         try {
             $validatorBuilder = $this->getClientContainer()->get('validator.default');
 
             return $validatorBuilder->getValidator();
         } catch (\Exception $e) {
-            throw new ClientInstantiationException('The client is not retrieved.', 281, $e);
+            throw new ClientInstantiationException('The client is not retrieved.', $e);
         }
     }
 
@@ -99,11 +109,13 @@ class ClientContainerFactory
      */
     public function getClient($clientId)
     {
-
         try {
-            return $this->getClientContainer()->get($clientId);
+            $client = $this->getClientContainer()->get($clientId);
+            $client->setWSConfiguration($this->configuration);
+
+            return $client;
         } catch (\Exception $e) {
-            throw new ClientInstantiationException('The client is not retrieved.', 281, $e);
+            throw new ClientInstantiationException('The client is not retrieved.', $e);
         }
     }
 
@@ -115,7 +127,6 @@ class ClientContainerFactory
      */
     protected function buildClientContainer()
     {
-
         if (!is_null($this->container)) {
             return;
         }
@@ -129,7 +140,7 @@ class ClientContainerFactory
 
             $this->container = $container;
         } catch (Exception $e) {
-            throw new ClientInstantiationException('The client container instantiation failed.', 281, $e);
+            throw new ClientInstantiationException('The client container instantiation failed.', $e);
         }
     }
 }

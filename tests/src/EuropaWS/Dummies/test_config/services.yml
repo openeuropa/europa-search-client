@@ -17,8 +17,7 @@ services:
         class:     EC\EuropaWS\Proxies\BasicProxyController
         arguments: ['@ws.settings.default']
         calls:
-            - [defineMessageConverter, ['messageProxy.messageDummy', '@messageProxy.messageDummy']]
-            - [defineComponentConverter, ['componentProxy.componentDummy', '@componentProxy.componentDummy']]
+            - [setContainer, ['@service_container']]
     client.dummy:
         class:     EC\EuropaWS\Tests\Dummies\Clients\ClientDummy
         arguments: ['@validator.default', '@proxyController.default', '@transporter.default', '@ws.settings.default']

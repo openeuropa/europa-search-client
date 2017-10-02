@@ -20,6 +20,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class BooleanMetadata extends AbstractMetadata implements IndexableMetadataInterface
 {
 
+    const EUROPA_SEARCH_NAME_PREFIX = 'esBO';
+
     /**
      * BooleanMetadata constructor.
      *
@@ -37,14 +39,6 @@ class BooleanMetadata extends AbstractMetadata implements IndexableMetadataInter
     public static function getConstraints(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('values', new Assert\All(['constraints' => [new Assert\Type('bool')]]));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEuropaSearchName()
-    {
-        return 'esBO_'.$this->name;
     }
 
     /**

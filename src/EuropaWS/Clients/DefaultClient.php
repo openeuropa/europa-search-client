@@ -23,6 +23,7 @@ use EC\EuropaWS\Common\WSConfigurationInterface;
  */
 class DefaultClient implements ClientInterface
 {
+
     /**
      * The validator to use with messages
      *
@@ -57,33 +58,32 @@ class DefaultClient implements ClientInterface
      * @param \Symfony\Component\Validator\ValidatorBuilder  $validator
      * @param \EC\EuropaWS\Proxies\BasicProxyController      $proxy
      * @param \EC\EuropaWS\Transporters\TransporterInterface $transporter
-     * @param \EC\EuropaWS\Common\WSConfigurationInterface   $WSConfiguration
      */
-    public function __construct(ValidatorBuilder $validator, BasicProxyController $proxy, TransporterInterface $transporter, WSConfigurationInterface $WSConfiguration)
+    public function __construct(ValidatorBuilder $validator, BasicProxyController $proxy, TransporterInterface $transporter)
     {
-
         $this->validator = $validator->getValidator();
         $this->proxy = $proxy;
         $this->transporter = $transporter;
-        $this->WSConfiguration = $WSConfiguration;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function setWSConfiguration(WSConfigurationInterface $configuration)
+    {
+        $this->WSConfiguration = $configuration;
+        $this->proxy->initProxy($configuration);
+        $this->transporter->initTransporter($configuration);
+    }
 
     /**
      * {@inheritDoc}
      */
     public function sendMessage(ValidatableMessageInterface $message)
     {
-
         $this->validateMessage($message);
-        $convertedComponents = $this->proxy->convertComponents($message->getComponents());
-        $request = $this->proxy->convertMessageWithComponents($message, $convertedComponents);
-        $this->transporter->setWSConfiguration($this->WSConfiguration);
 
-        // TODO Adapting dpending on the Transportation layer implementation:
-        $response = $this->transporter->send($request, $this->WSConfiguration);
-
-        return $response;
+        return $this->proxy->sendRequest($message, $this->transporter);
     }
 
     /**
@@ -91,14 +91,13 @@ class DefaultClient implements ClientInterface
      */
     public function validateMessage(ValidatableMessageInterface $message)
     {
-
         $violations = $this->validator->validate($message);
         if (!empty($violations) && ($violations->count() != 0)) {
             $errorMessages = [];
             foreach ($violations as $violation) {
                 $errorMessages[$violation->getPropertyPath()] = $violation->getMessage();
             }
-            $validException =  new ValidationException('The message submitted is invalid', 282);
+            $validException =  new ValidationException('The message submitted is invalid');
             $validException->setValidationErrors($errorMessages);
 
             throw $validException;

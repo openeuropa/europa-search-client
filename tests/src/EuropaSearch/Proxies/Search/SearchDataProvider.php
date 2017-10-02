@@ -9,7 +9,7 @@ namespace EC\EuropaSearch\Tests\Proxies\Search;
 
 use EC\EuropaSearch\Messages\Search\SearchMessage;
 use EC\EuropaSearch\Messages\Search\SearchRequest;
-use EC\EuropaSearch\Tests\Messages\Search\Filters\Combined\BooleanQueryDataProvider;
+use EC\EuropaSearch\Tests\Messages\Search\Filters\Queries\BooleanQueryDataProvider;
 
 /**
  * Class SearchDataProvider.
@@ -27,7 +27,7 @@ class SearchDataProvider
      * @return array
      *   The objects for the test:
      *   - 'submitted':  IndexedDocument to convert in the test;
-     *   - 'expected' :   Excepted IndexingRequest at the end of the test;
+     *   - 'expected' :  Excepted SearchRequest at the end of the test.
      */
     public function searchRequestProvider()
     {
@@ -35,7 +35,7 @@ class SearchDataProvider
         $searchMessage = new SearchMessage();
         $searchMessage->setSearchedLanguages(['en', 'fr']);
         $searchMessage->setHighLightParameters('<strong>{}</strong>', 250);
-        $searchMessage->setPagination(1, 20);
+        $searchMessage->setPagination(20, 1);
         $searchMessage->setSearchedText('text to search');
         $searchMessage->setSortCriteria('field', SearchMessage::SEARCH_SORT_DESC);
         $searchMessage->setSessionToken('123456');
@@ -44,21 +44,20 @@ class SearchDataProvider
         $searchQuery = $booleanProvider->getValidNestedBooleanQuery();
         $searchMessage->setQuery($searchQuery);
 
-
         $searchRequest = new SearchRequest();
         $searchRequest->setLanguages(['en', 'fr']);
         $searchRequest->setHighlightRegex('<strong>{}</strong>');
         $searchRequest->setHighlightLimit(250);
-        $searchRequest->setPageNumber(1);
         $searchRequest->setPageSize(20);
+        $searchRequest->setPageNumber(1);
         $searchRequest->setText('text to search');
-        $searchRequest->setSort('filed:DESC');
+        $searchRequest->setSort('field:DESC');
         $searchRequest->setSessionToken('123456');
-        $searchRequest->setAPIKey('abcd1234');
+        $searchRequest->setAPIKey('a221108a-180d-HTTP-CLIENT-LIBRARY-TEST');
 
-        $fileContent = file_get_contents(__DIR__.'/fixtures/json_sample.json');
+        $fileContent = json_decode(file_get_contents(__DIR__.'/fixtures/json_sample.json'));
 
-        $searchRequest->setQueryJSON($fileContent);
+        $searchRequest->setQueryJSON(json_encode($fileContent));
 
         return [
             'submitted' => $searchMessage,

@@ -33,30 +33,17 @@ class BasicProxyControllerTest extends AbstractWSTest
      */
     public function testBasicProxyControllerRegistry()
     {
-
         $container = $this->getContainer();
-
         $proxy = $container->get('proxyController.default');
 
-        // Tests expected converters are really in the list.
-        $converterIds = $proxy->getConverterIdList();
-        $this->assertContains('messageProxy.messageDummy', $converterIds, 'The Message converter is not registered!');
-        $this->assertContains('componentProxy.componentDummy', $converterIds, 'The Component converter is not registered!');
+        $proxies = [
+            'messageProxy.messageDummy' => MessageConverterDummy::class,
+            'componentProxy.componentDummy' => ComponentConverterDummy::class,
+        ];
 
-        // Tests the class type for the message converting object is the expected one.
-        $messageConverter = $proxy->getConverterObject('messageProxy.messageDummy');
-        $this->assertInstanceOf(
-            MessageConverterDummy::class,
-            $messageConverter,
-            'The returned message converter object is not a MessageConverterDummy instance.'
-        );
-
-        // Tests the class type for the component converting object is the expected one.
-        $componentConverter = $proxy->getConverterObject('componentProxy.componentDummy');
-        $this->assertInstanceOf(
-            ComponentConverterDummy::class,
-            $componentConverter,
-            'The returned component converter object is not a ComponentConverterDummy instance.'
-        );
+        foreach ($proxies as $key => $value) {
+            $instance = $proxy->getConverterObject($key);
+            $this->assertInstanceOf($value, $instance, 'The returned converter object is not a '.$value.' instance.');
+        }
     }
 }

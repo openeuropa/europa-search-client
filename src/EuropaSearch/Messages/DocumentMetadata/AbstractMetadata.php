@@ -21,6 +21,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class AbstractMetadata implements ComponentInterface
 {
+    /**
+     * Prefix applicable to all Metadata.
+     *
+     * @const
+     */
+    const EUROPA_SEARCH_NAME_PREFIX = '';
 
     /**
      * Prefix applicable to all converter id of classes extending this class.
@@ -95,7 +101,10 @@ abstract class AbstractMetadata implements ComponentInterface
      *
      * @internal Used by the library process, should not be called outside.
      */
-    abstract public function getEuropaSearchName();
+    public function getEuropaSearchName()
+    {
+        return $this::EUROPA_SEARCH_NAME_PREFIX.'_'.$this->name;
+    }
 
     /**
      * {@inheritdoc}

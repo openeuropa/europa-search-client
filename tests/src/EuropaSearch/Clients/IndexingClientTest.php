@@ -2,28 +2,21 @@
 
 /**
  * @file
- * Contains EC\EuropaSearch\Clients\IndexingClientTest.
+ * Contains EC\EuropaSearch\Tests\Clients\IndexingClientTest.
  */
 
 namespace EC\EuropaSearch\Clients;
 
-use EC\EuropaSearch\Messages\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Messages\DocumentMetadata\FloatMetadata;
-use EC\EuropaSearch\Messages\DocumentMetadata\FullTextMetadata;
-use EC\EuropaSearch\Messages\DocumentMetadata\IntegerMetadata;
-use EC\EuropaSearch\Messages\DocumentMetadata\StringMetadata;
-use EC\EuropaSearch\Messages\DocumentMetadata\URLMetadata;
-use EC\EuropaSearch\Messages\Index\IndexingWebContent;
-use EC\EuropaSearch\Tests\EuropaSearchDummy;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
-use EC\EuropaSearch\Tests\Proxies\Index\WebContentDataProvider;
+use EC\EuropaSearch\Tests\Clients\ClientDataProvider;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Class IndexingClientTest.
  *
  * Tests the client layer related to the indexing process.
  *
- * @package EC\EuropaSearch\Clients
+ * @package EC\EuropaSearch\Tests\Clients
  */
 class IndexingClientTest extends AbstractEuropaSearchTest
 {
@@ -33,18 +26,31 @@ class IndexingClientTest extends AbstractEuropaSearchTest
      */
     public function testIndexingClientProcessSuccess()
     {
+        $provider = new ClientDataProvider();
+        $indexingMessage = $provider->getWebContentMessageTestData();
 
-        $provider = new WebContentDataProvider();
-        $data = $provider->indexedDocumentProvider();
-
-        $factory = $this->getFactory();
+        $mockConfig = $this->getMockResponse();
+        $factory = $this->getFactory($mockConfig);
         $client = $factory->getIndexingWebContentClient();
+        $response = $client->sendMessage($indexingMessage);
 
         $this->assertInstanceOf('EC\EuropaWS\Clients\DefaultClient', $client, 'The returned client is not an DefaultClient object.');
+        $this->assertInstanceOf('EC\EuropaWS\Messages\StringResponseMessage', $response, 'The returned response is not an StringResponseMessage object.');
+        $this->assertEquals('web_content_client_1', $response->getReturnedString(), 'The returned response is not the expected one.');
+    }
 
-        $response = $client->sendMessage($data['submitted']);
+    /**
+     * Gets the web service mock responses for tests.
+     *
+     * @return array
+     *   The web service mock responses.
+     */
+    private function getMockResponse()
+    {
+        $body = json_decode(file_get_contents(__DIR__.'/fixtures/index_response_sample.json'));
+        $response = new Response(200, [], json_encode($body));
+        $mockResponses = [$response];
 
-        $expectedResponse = 'Request received but I am a dumb transporter; I receive request but I do nothing else.';
-        $this->assertEquals($response, $expectedResponse, 'The returned response is not the expected.');
+        return $mockResponses;
     }
 }

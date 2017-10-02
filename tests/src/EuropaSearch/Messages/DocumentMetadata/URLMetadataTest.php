@@ -9,6 +9,7 @@ namespace EC\EuropaSearch\Tests\Common\DocumentMetadata;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\URLMetadata;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class URLMetadataTest.
@@ -25,7 +26,6 @@ class URLMetadataTest extends AbstractEuropaSearchTest
      */
     public function testURLMetadataValidationSuccess()
     {
-
         $uRLMetadata = new URLMetadata('tested_data');
         $uRLMetadata->setValues(['http://metadata.com']);
 
@@ -40,18 +40,15 @@ class URLMetadataTest extends AbstractEuropaSearchTest
      */
     public function testURLMetadataValidationFailure()
     {
-
         $uRLMetadata = new URLMetadata(null);
         $uRLMetadata->setValues([true, '/blabla/test']);
 
         $validationErrors = $this->getDefaultValidator()->validate($uRLMetadata);
         $violations = $this->getViolations($validationErrors);
 
-        $expected = [
-            'name' => 'This value should not be blank.',
-            'values[0]' => 'This value should be of type string.',
-            'values[1]' => 'This value is not a valid URL.',
-        ];
+        $parsedData = Yaml::parse(file_get_contents(__DIR__.'/fixtures/documentmetadata_violations.yml'));
+        $expected = $parsedData['expectedViolations']['URLMetadata'];
+
         foreach ($violations as $name => $violation) {
             $this->assertEquals($violation, $expected[$name], 'URLMetadata validation constraints are not well defined.');
         }

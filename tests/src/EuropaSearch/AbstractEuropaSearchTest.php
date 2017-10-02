@@ -2,15 +2,13 @@
 
 /**
  * @file
- * Contains EC\EuropaWS\Tests\AbstractEuropaSearchTest.
+ * Contains EC\EuropaSearch\Tests\AbstractEuropaSearchTest.
  */
 
 namespace EC\EuropaSearch\Tests;
 
 use EC\EuropaSearch\EuropaSearch;
 use EC\EuropaSearch\EuropaSearchConfig;
-use EC\EuropaSearch\Tests\EuropaSearchDummy;
-use EC\EuropaWS\Tests\Dummies\WSConfigurationDummy;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
@@ -25,25 +23,45 @@ abstract class AbstractEuropaSearchTest extends TestCase
 {
 
     /**
+     * Gets a dummy service configuration for test purpose.
+     *
+     * @param array $mockResponses
+     *   [optional] Array of Response objects used by the mock called during
+     *   the test.
+     *
+     * @return EuropaSearchConfig
+     *   The dummy service configuration.
+     */
+    protected function getDummyConfig(array $mockResponses = [])
+    {
+        $wsSettings = [
+            'URLRoot' => 'https://intragate.acceptance.ec.europa.eu',
+            'APIKey' => 'a221108a-180d-HTTP-CLIENT-LIBRARY-TEST',
+            'database' => 'EC-EUROPA-DUMMY',
+        ];
+
+        $config = new EuropaSearchConfig($wsSettings);
+        $config->setUseMock(true);
+        if ($mockResponses) {
+            $config->setMockConfigurations($mockResponses);
+        }
+
+        return $config;
+    }
+    /**
      * Gets the client factory for tests.
+     *
+     * @param array $mockResponses
+     *   [optional] Array of Response objects used by the mock called during
+     *   the test.
      *
      * @return EuropaSearch
      *   The client factory.
      */
-    protected function getFactory()
+    protected function getFactory(array $mockResponses = [])
     {
-
-        $container = new EuropaSearch();
-
-        $wsSettings = [
-            'URL' => 'http://www.dummy.com/ws',
-            'APIKey' => 'abcd1234',
-            'database' => 'abcd',
-        ];
-        $config = new EuropaSearchConfig($wsSettings, 'dumb', 'dumber');
-        $config->setUserName('dumb');
-        $config->setUserPassword('dumber');
-        $container->setWSConfig($config);
+        $config = $this->getDummyConfig($mockResponses);
+        $container = new EuropaSearch($config);
 
         return $container;
     }
@@ -56,7 +74,6 @@ abstract class AbstractEuropaSearchTest extends TestCase
      */
     protected function getContainer()
     {
-
         $factory = $this->getFactory();
 
         return $factory->getClientContainer();
@@ -81,7 +98,6 @@ abstract class AbstractEuropaSearchTest extends TestCase
      */
     protected function getViolations(ConstraintViolationListInterface $violations)
     {
-
         $collection = [];
         foreach ($violations as $violation) {
             $collection[$violation->getPropertyPath()] = $violation->getMessage();

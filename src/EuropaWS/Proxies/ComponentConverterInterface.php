@@ -19,6 +19,7 @@ use EC\EuropaWS\Messages\Components\ComponentInterface;
  */
 interface ComponentConverterInterface
 {
+
     /**
      * Converts a message component.
      *

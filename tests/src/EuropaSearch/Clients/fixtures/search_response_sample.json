@@ -1,0 +1,138 @@
+{
+  "apiVersion": "2.1",
+  "terms": "ipsum",
+  "responseTime": 2049,
+  "totalResults": 3,
+  "pageNumber": 1,
+  "pageSize": 10,
+  "sort": "relevance",
+  "queryLanguage": {
+    "language": "en",
+    "probability": 0
+  },
+  "results": [
+    {
+      "reference": "web_content_1",
+      "url": "https://intragate.acceptance.ec.europa.eu/es/search/url/click?data=token1==",
+      "contentType": "text/plain",
+      "databaseLabel": "EC-EUROPA-EU-MULTISITE-TEST",
+      "database": "EC-EUROPA-EU-MULTISITE-TEST",
+      "summary": "1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor mattis sem vitae egestas. Nulla sed mauris sed ante convallis scelerisque. Vestibulum urna nisl, aliquam non risus vel, varius commodo augue. Aliquam efficitur elementum dapibus. Aliquam erat volutpat. Nulla orci purus, ultricies non velit at, venenatis fringilla ipsum. Sed porta nunc sit amet felis semper, at tempor erat dapibus. Sed id ipsum enim. Mauris suscipit pharetra lacinia. In nisi sem, tincidunt ac vestibulum ut, ultrices sed nisi. Phasellus nec diam at libero suscipit consequat. Nunc dapibus, ante ac hendrerit varius, sapien ex consequat ante, non venenatis ipsum metus eu ligula. Phasellus mattis arcu ut erat vulputate, sit amet blandit magna egestas. Vivamus nisl ipsum, maximus non tempor nec, finibus eu nisl. Phasellus lacinia interdum iaculis. summary.",
+      "weight": 61,
+      "content": "1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor mattis sem vitae egestas. Nulla sed mauris sed ante convallis scelerisque. Vestibulum urna nisl, aliquam non risus vel, varius commodo augue. Aliquam efficitur elementum dapibus. Aliquam erat volutpat. Nulla orci purus, ultricies non velit at, venenatis fringilla ipsum. Sed porta nunc sit amet felis semper, at tempor erat dapibus. Sed id ipsum enim. Mauris suscipit pharetra lacinia. In nisi sem, tincidunt ac vestibulum ut, ultrices sed nisi. Phasellus nec diam at libero suscipit consequat. Nunc dapibus, ante ac hendrerit varius, sapien ex consequat ante, non venenatis ipsum metus eu ligula. Phasellus mattis arcu ut erat vulputate, sit amet blandit magna egestas. Vivamus nisl ipsum, maximus non tempor nec, finibus eu nisl. Phasellus lacinia interdum iaculis. content.",
+      "accessRestriction": false,
+      "metadata": {
+        "esNU_rank": [
+          "1"
+        ],
+        "ESST_FILENAME": [
+          "file.txt"
+        ],
+        "es_ContentType": [
+          "text/plain"
+        ],
+        "esST_uri": [
+          "http://www.europa1.com"
+        ],
+        "esIN_title": [
+          "this the title 1"
+        ],
+        "esDA_publishing_date": [
+          "2011-01-21T00:00:00+00:00"
+        ],
+        "esNU_percentage": [
+          "0.1"
+        ],
+        "esST_tag": [
+          "taxonomy term 1"
+        ],
+        "esST_URL": [
+          "http://test.europa.eu/web_content_1"
+        ]
+      },
+      "children": []
+    },
+    {
+      "reference": "web_content_2",
+      "url": "https://intragate.acceptance.ec.europa.eu/es/search/url/click?data=token2==",
+      "contentType": "text/plain",
+      "databaseLabel": "EC-EUROPA-EU-MULTISITE-TEST",
+      "database": "EC-EUROPA-EU-MULTISITE-TEST",
+      "summary": "2: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor mattis sem vitae egestas. Nulla sed mauris sed ante convallis scelerisque. Vestibulum urna nisl, aliquam non risus vel, varius commodo augue. Aliquam efficitur elementum dapibus. Aliquam erat volutpat. Nulla orci purus, ultricies non velit at, venenatis fringilla ipsum. Sed porta nunc sit amet felis semper, at tempor erat dapibus. Sed id ipsum enim. Mauris suscipit pharetra lacinia. In nisi sem, tincidunt ac vestibulum ut, ultrices sed nisi. Phasellus nec diam at libero suscipit consequat. Nunc dapibus, ante ac hendrerit varius, sapien ex consequat ante, non venenatis ipsum metus eu ligula. Phasellus mattis arcu ut erat vulputate, sit amet blandit magna egestas. Vivamus nisl ipsum, maximus non tempor nec, finibus eu nisl. Phasellus lacinia interdum iaculis. summary.",
+      "weight": 62,
+      "content": "2: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor mattis sem vitae egestas. Nulla sed mauris sed ante convallis scelerisque. Vestibulum urna nisl, aliquam non risus vel, varius commodo augue. Aliquam efficitur elementum dapibus. Aliquam erat volutpat. Nulla orci purus, ultricies non velit at, venenatis fringilla ipsum. Sed porta nunc sit amet felis semper, at tempor erat dapibus. Sed id ipsum enim. Mauris suscipit pharetra lacinia. In nisi sem, tincidunt ac vestibulum ut, ultrices sed nisi. Phasellus nec diam at libero suscipit consequat. Nunc dapibus, ante ac hendrerit varius, sapien ex consequat ante, non venenatis ipsum metus eu ligula. Phasellus mattis arcu ut erat vulputate, sit amet blandit magna egestas. Vivamus nisl ipsum, maximus non tempor nec, finibus eu nisl. Phasellus lacinia interdum iaculis. content.",
+      "accessRestriction": false,
+      "metadata": {
+        "esNU_rank": [
+          "2"
+        ],
+        "ESST_FILENAME": [
+          "file.txt"
+        ],
+        "es_ContentType": [
+          "text/plain"
+        ],
+        "esST_uri": [
+          "http://www.europa2.com"
+        ],
+        "esIN_title": [
+          "this the title 2"
+        ],
+        "esDA_publishing_date": [
+          "2012-02-22T00:00:00+00:00"
+        ],
+        "esNU_percentage": [
+          "0.2"
+        ],
+        "esST_tag": [
+          "taxonomy term 2"
+        ],
+        "esST_URL": [
+          "http://test.europa.eu/web_content_2"
+        ]
+      },
+      "children": []
+    },
+    {
+      "reference": "web_content_3",
+      "url": "https://intragate.acceptance.ec.europa.eu/es/search/url/click?data=token3==",
+      "contentType": "text/plain",
+      "databaseLabel": "EC-EUROPA-EU-MULTISITE-TEST",
+      "database": "EC-EUROPA-EU-MULTISITE-TEST",
+      "summary": "3: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor mattis sem vitae egestas. Nulla sed mauris sed ante convallis scelerisque. Vestibulum urna nisl, aliquam non risus vel, varius commodo augue. Aliquam efficitur elementum dapibus. Aliquam erat volutpat. Nulla orci purus, ultricies non velit at, venenatis fringilla ipsum. Sed porta nunc sit amet felis semper, at tempor erat dapibus. Sed id ipsum enim. Mauris suscipit pharetra lacinia. In nisi sem, tincidunt ac vestibulum ut, ultrices sed nisi. Phasellus nec diam at libero suscipit consequat. Nunc dapibus, ante ac hendrerit varius, sapien ex consequat ante, non venenatis ipsum metus eu ligula. Phasellus mattis arcu ut erat vulputate, sit amet blandit magna egestas. Vivamus nisl ipsum, maximus non tempor nec, finibus eu nisl. Phasellus lacinia interdum iaculis. summary.",
+      "weight": 63,
+      "content": "3: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor mattis sem vitae egestas. Nulla sed mauris sed ante convallis scelerisque. Vestibulum urna nisl, aliquam non risus vel, varius commodo augue. Aliquam efficitur elementum dapibus. Aliquam erat volutpat. Nulla orci purus, ultricies non velit at, venenatis fringilla ipsum. Sed porta nunc sit amet felis semper, at tempor erat dapibus. Sed id ipsum enim. Mauris suscipit pharetra lacinia. In nisi sem, tincidunt ac vestibulum ut, ultrices sed nisi. Phasellus nec diam at libero suscipit consequat. Nunc dapibus, ante ac hendrerit varius, sapien ex consequat ante, non venenatis ipsum metus eu ligula. Phasellus mattis arcu ut erat vulputate, sit amet blandit magna egestas. Vivamus nisl ipsum, maximus non tempor nec, finibus eu nisl. Phasellus lacinia interdum iaculis. content.",
+      "accessRestriction": false,
+      "metadata": {
+        "esNU_rank": [
+          "3"
+        ],
+        "ESST_FILENAME": [
+          "file.txt"
+        ],
+        "es_ContentType": [
+          "text/plain"
+        ],
+        "esST_uri": [
+          "http://www.europa3.com"
+        ],
+        "esIN_title": [
+          "this the title 3"
+        ],
+        "esDA_publishing_date": [
+          "2013-03-23T00:00:00+00:00"
+        ],
+        "esNU_percentage": [
+          "0.3"
+        ],
+        "esST_tag": [
+          "taxonomy term 3"
+        ],
+        "esST_URL": [
+          "http://test.europa.eu/web_content_3"
+        ]
+      },
+      "children": []
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+expectedViolations:
+  FieldExistsClause:
+    impliedMetadata.name: 'This value should be of type string.'
+  RangeClause:
+    impliedMetadata.name_data1: 'This value should be of type string.'
+    lowerBoundary_data2: 'The lower boundary is not a valid numeric (int or float).'
+    lowerBoundary_data3: 'The lower boundary is not a valid integer.'
+    upperBoundary_data4: 'The upper boundary is not a valid integer.'
+    lowerBoundary_data5: 'The lower boundary is not a valid date.'
+    upperBoundary_data6: 'The upper boundary is not a valid date.'
+  TermClause:
+    impliedMetadata.name_data1: 'This value should be of type string.'
+    testedValue_data2: 'The tested value is not a valid float.'
+    testedValue_data3: 'The tested value is not a valid integer.'
+    testedValue_data4: 'The tested value is not a valid date.'
+    testedValue_data5: 'This value is not a valid URL.'
+    testedValue_data6: 'This value should be of type scalar.'
+  TermsClause:
+    impliedMetadata.name_data1: 'This value should be of type string.'
+    testedValues[0]_data2: 'The tested value is not a valid float.'
+    testedValues[1]_data3: 'The tested value is not a valid integer.'
+    testedValues[0]_data4: 'The tested value is not a valid date.'
+    testedValues[0]_data5: 'This value is not a valid URL.'

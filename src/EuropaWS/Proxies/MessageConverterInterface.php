@@ -8,6 +8,7 @@
 namespace EC\EuropaWS\Proxies;
 
 use EC\EuropaWS\Common\WSConfigurationInterface;
+use EC\EuropaWS\Messages\MessageInterface;
 use EC\EuropaWS\Messages\ValidatableMessageInterface;
 use EC\EuropaWS\Messages\RequestInterface;
 
@@ -22,6 +23,7 @@ use EC\EuropaWS\Messages\RequestInterface;
  */
 interface MessageConverterInterface
 {
+
     /**
      * Converts a message.
      *
@@ -50,4 +52,17 @@ interface MessageConverterInterface
      *   The converted message (components included) ready to be sent.
      */
     public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent, WSConfigurationInterface $configuration);
+
+    /**
+     * Converts a response received from the Transporter layer into a Message object.
+     *
+     * @param mixed                    $response
+     *   The response received from the Transporter layer.
+     * @param WSConfigurationInterface $configuration
+     *   The Web service configuration.
+     *
+     * @return MessageInterface
+     *   The obtained Message object.
+     */
+    public function convertMessageResponse($response, WSConfigurationInterface $configuration);
 }

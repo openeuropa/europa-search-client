@@ -1,0 +1,30 @@
+expectedViolations:
+  BooleanMetadata:
+    name: 'This value should not be blank.'
+    values[1]: 'This value should be of type bool.'
+  DateMetadata:
+    values[0]: 'The value is not a valid date.'
+  FloatMetadata:
+    name: 'This value should not be blank.'
+    values[0]: 'This value should be of type float.'
+    values[1]: 'This value should be of type float.'
+  FullTextMetadata:
+    name: 'This value should not be blank.'
+    values[0]: 'This value should be of type string.'
+    values[1]: 'This value should be of type string.'
+  IntegerMetadata:
+    name: 'This value should not be blank.'
+    values[0]: 'This value should be of type integer.'
+    values[1]: 'This value should be of type integer.'
+  NotIndexedMetadata:
+    name: 'This value should not be blank.'
+    values[0]: 'This value should be of type string.'
+    values[1]: 'This value should be of type string.'
+  StringMetadata:
+    name: 'This value should not be blank.'
+    values[0]: 'This value should be of type string.'
+    values[1]: 'This value should be of type string.'
+  URLMetadata:
+    name: 'This value should not be blank.'
+    values[0]: 'This value should be of type string.'
+    values[1]: 'This value is not a valid URL.'

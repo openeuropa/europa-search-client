@@ -7,6 +7,7 @@
 
 namespace EC\EuropaSearch\Proxies\Index\DocumentMetadata;
 
+use EC\EuropaSearch\Proxies\Utils\DateComponentConverter;
 use EC\EuropaWS\Messages\Components\ComponentInterface;
 use EC\EuropaWS\Proxies\ComponentConverterInterface;
 
@@ -19,7 +20,7 @@ use EC\EuropaWS\Proxies\ComponentConverterInterface;
  *
  * @package EC\EuropaSearch\Proxies\Index\DocumentMetadata
  */
-class DateMetadataConverter implements ComponentConverterInterface
+class DateMetadataConverter extends DateComponentConverter implements ComponentConverterInterface
 {
 
     /**
@@ -32,14 +33,8 @@ class DateMetadataConverter implements ComponentConverterInterface
      */
     public function convertComponent(ComponentInterface $metadata)
     {
-        $values = $metadata->getValues();
         $name = $metadata->getEuropaSearchName();
-
-        $values = $this->getMetadataDateValue($values);
-
-        if (count($values) <= 1) {
-            $values = reset($values);
-        }
+        $values = $this->getMetadataDateValues($metadata->getValues());
 
         return [$name => $values];
     }
@@ -52,12 +47,11 @@ class DateMetadataConverter implements ComponentConverterInterface
      * @return array $finalValues
      *   The converted date values.
      */
-    private function getMetadataDateValue($values)
+    private function getMetadataDateValues($values)
     {
         $finalValues = [];
         foreach ($values as $item) {
-            $dateTime = new \DateTime($item);
-            $finalValues[] = $dateTime->format(\DateTime::ISO8601);
+            $finalValues[] = $this->getConvertedDateValue($item);
         }
 
         return $finalValues;

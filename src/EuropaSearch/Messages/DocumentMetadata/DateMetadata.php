@@ -21,6 +21,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class DateMetadata extends AbstractMetadata implements IndexableMetadataInterface
 {
 
+    const EUROPA_SEARCH_NAME_PREFIX = 'esDA';
+
     /**
      * DateMetadata constructor.
      *
@@ -64,14 +66,6 @@ class DateMetadata extends AbstractMetadata implements IndexableMetadataInterfac
                     ->addViolation();
             }
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEuropaSearchName()
-    {
-        return 'esDA_'.$this->name;
     }
 
     /**

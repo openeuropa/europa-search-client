@@ -32,14 +32,8 @@ class BooleanMetadataConverter implements ComponentConverterInterface
      */
     public function convertComponent(ComponentInterface $metadata)
     {
-        $values = $metadata->getValues();
         $name = $metadata->getEuropaSearchName();
-
-        $values = $this->getBooleanMetadataValue($values);
-
-        if (count($values) <= 1) {
-            $values = reset($values);
-        }
+        $values = $this->getBooleanMetadataValue($metadata->getValues());
 
         return [$name => $values];
     }

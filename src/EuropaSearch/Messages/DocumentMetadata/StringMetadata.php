@@ -20,6 +20,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class StringMetadata extends AbstractMetadata implements IndexableMetadataInterface
 {
 
+    const EUROPA_SEARCH_NAME_PREFIX = 'esST';
+
     /**
      * StringMetadata constructor.
      *
@@ -37,13 +39,6 @@ class StringMetadata extends AbstractMetadata implements IndexableMetadataInterf
     public static function getConstraints(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('values', new Assert\All(['constraints' => [new Assert\Type('string')]]));
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function getEuropaSearchName()
-    {
-        return 'esST_'.$this->name;
     }
 
     /**

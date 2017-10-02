@@ -8,6 +8,7 @@
 namespace EC\EuropaSearch;
 
 use EC\EuropaWS\ClientContainerFactory;
+use EC\EuropaWS\Common\WSConfigurationInterface;
 
 /**
  * Class EuropaSearch
@@ -21,22 +22,14 @@ class EuropaSearch extends ClientContainerFactory
 
     /**
      * EuropaSearch constructor.
+     *
+     * @param WSConfigurationInterface $configuration
+     *   The client configuration.
      */
-    public function __construct()
+    public function __construct(WSConfigurationInterface $configuration)
     {
         $this->configRepoPath = __DIR__.'/config';
-    }
-
-    /**
-     * Set the web service configuration if not done via the service.yml.
-     *
-     * @param EuropaSearchConfig $config
-     *   The web service configuration.
-     */
-    public function setWSConfig(EuropaSearchConfig $config)
-    {
-        $this->buildClientContainer();
-        $this->container->set('europaSearch.ws.settings', $config);
+        $this->configuration = $configuration;
     }
 
     /**

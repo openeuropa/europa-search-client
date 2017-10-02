@@ -20,6 +20,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class NotIndexedMetadata extends AbstractMetadata
 {
 
+    const EUROPA_SEARCH_NAME_PREFIX = 'esNI';
+
     /**
      * StringMetadata constructor.
      *
@@ -37,14 +39,6 @@ class NotIndexedMetadata extends AbstractMetadata
     public static function getConstraints(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('values', new Assert\All(['constraints' => [new Assert\Type('string')]]));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEuropaSearchName()
-    {
-        return 'esNI_'.$this->name;
     }
 
     /**

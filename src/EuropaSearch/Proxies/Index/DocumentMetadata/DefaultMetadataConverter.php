@@ -35,10 +35,6 @@ class DefaultMetadataConverter implements ComponentConverterInterface
         $values = $metadata->getValues();
         $name = $metadata->getEuropaSearchName();
 
-        if (count($values) <= 1) {
-            $values = reset($values);
-        }
-
         return [$name => $values];
     }
 }

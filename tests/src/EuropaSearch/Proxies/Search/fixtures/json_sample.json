@@ -12,7 +12,7 @@
       {
         "range": {
           "esDA_test_data4": {
-            "gt": "30-07-2018"
+            "gt": "2018-07-30T00:00:00+00:00"
           }
         }
       },
@@ -43,7 +43,7 @@
       },
       {
         "term": {
-          "esST_test4": "http:\/\/www.positive.com"
+          "esST_test4": "http://www.positive.com"
         }
       },
       {
@@ -73,8 +73,8 @@
       {
         "terms": {
           "esST_test4": [
-            "http:\/\/www.url1.com",
-            "http:\/\/www.url2.com"
+            "http://www.url1.com",
+            "http://www.url2.com"
           ]
         }
       },
@@ -92,7 +92,7 @@
             {
               "range": {
                 "esDA_test_data4": {
-                  "gt": "30-07-2018"
+                  "gt": "2018-07-30T00:00:00+00:00"
                 }
               }
             },
@@ -123,7 +123,7 @@
             },
             {
               "term": {
-                "esST_test4": "http:\/\/www.positive.com"
+                "esST_test4": "http://www.positive.com"
               }
             },
             {
@@ -153,8 +153,8 @@
             {
               "terms": {
                 "esST_test4": [
-                  "http:\/\/www.url1.com",
-                  "http:\/\/www.url2.com"
+                  "http://www.url1.com",
+                  "http://www.url2.com"
                 ]
               }
             }
@@ -171,7 +171,7 @@
             {
               "range": {
                 "esDA_test_data4": {
-                  "gt": "30-07-2018"
+                  "gt": "2018-07-30T00:00:00+00:00"
                 }
               }
             },
@@ -202,7 +202,7 @@
             },
             {
               "term": {
-                "esST_test4": "http:\/\/www.positive.com"
+                "esST_test4": "http://www.positive.com"
               }
             },
             {
@@ -232,8 +232,8 @@
             {
               "terms": {
                 "esST_test4": [
-                  "http:\/\/www.url1.com",
-                  "http:\/\/www.url2.com"
+                  "http://www.url1.com",
+                  "http://www.url2.com"
                 ]
               }
             }
@@ -250,7 +250,7 @@
             {
               "range": {
                 "esDA_test_data4": {
-                  "gt": "30-07-2018"
+                  "gt": "2018-07-30T00:00:00+00:00"
                 }
               }
             },
@@ -281,7 +281,7 @@
             },
             {
               "term": {
-                "esST_test4": "http:\/\/www.positive.com"
+                "esST_test4": "http://www.positive.com"
               }
             },
             {
@@ -311,8 +311,8 @@
             {
               "terms": {
                 "esST_test4": [
-                  "http:\/\/www.url1.com",
-                  "http:\/\/www.url2.com"
+                  "http://www.url1.com",
+                  "http://www.url2.com"
                 ]
               }
             }
@@ -332,7 +332,7 @@
       {
         "range": {
           "esDA_test_data4": {
-            "gt": "30-07-2018"
+            "gt": "2018-07-30T00:00:00+00:00"
           }
         }
       },
@@ -363,7 +363,7 @@
       },
       {
         "term": {
-          "esST_test4": "http:\/\/www.positive.com"
+          "esST_test4": "http://www.positive.com"
         }
       },
       {
@@ -393,8 +393,8 @@
       {
         "terms": {
           "esST_test4": [
-            "http:\/\/www.url1.com",
-            "http:\/\/www.url2.com"
+            "http://www.url1.com",
+            "http://www.url2.com"
           ]
         }
       },
@@ -412,7 +412,7 @@
             {
               "range": {
                 "esDA_test_data4": {
-                  "gt": "30-07-2018"
+                  "gt": "2018-07-30T00:00:00+00:00"
                 }
               }
             },
@@ -443,7 +443,7 @@
             },
             {
               "term": {
-                "esST_test4": "http:\/\/www.positive.com"
+                "esST_test4": "http://www.positive.com"
               }
             },
             {
@@ -473,8 +473,8 @@
             {
               "terms": {
                 "esST_test4": [
-                  "http:\/\/www.url1.com",
-                  "http:\/\/www.url2.com"
+                  "http://www.url1.com",
+                  "http://www.url2.com"
                 ]
               }
             }
@@ -491,7 +491,7 @@
             {
               "range": {
                 "esDA_test_data4": {
-                  "gt": "30-07-2018"
+                  "gt": "2018-07-30T00:00:00+00:00"
                 }
               }
             },
@@ -522,7 +522,7 @@
             },
             {
               "term": {
-                "esST_test4": "http:\/\/www.positive.com"
+                "esST_test4": "http://www.positive.com"
               }
             },
             {
@@ -552,8 +552,8 @@
             {
               "terms": {
                 "esST_test4": [
-                  "http:\/\/www.url1.com",
-                  "http:\/\/www.url2.com"
+                  "http://www.url1.com",
+                  "http://www.url2.com"
                 ]
               }
             }
@@ -570,7 +570,7 @@
             {
               "range": {
                 "esDA_test_data4": {
-                  "gt": "30-07-2018"
+                  "gt": "2018-07-30T00:00:00+00:00"
                 }
               }
             },
@@ -601,7 +601,7 @@
             },
             {
               "term": {
-                "esST_test4": "http:\/\/www.positive.com"
+                "esST_test4": "http://www.positive.com"
               }
             },
             {
@@ -631,8 +631,8 @@
             {
               "terms": {
                 "esST_test4": [
-                  "http:\/\/www.url1.com",
-                  "http:\/\/www.url2.com"
+                  "http://www.url1.com",
+                  "http://www.url2.com"
                 ]
               }
             }
@@ -652,7 +652,7 @@
       {
         "range": {
           "esDA_test_data4": {
-            "gt": "30-07-2018"
+            "gt": "2018-07-30T00:00:00+00:00"
           }
         }
       },
@@ -683,7 +683,7 @@
       },
       {
         "term": {
-          "esST_test4": "http:\/\/www.positive.com"
+          "esST_test4": "http://www.positive.com"
         }
       },
       {
@@ -713,8 +713,8 @@
       {
         "terms": {
           "esST_test4": [
-            "http:\/\/www.url1.com",
-            "http:\/\/www.url2.com"
+            "http://www.url1.com",
+            "http://www.url2.com"
           ]
         }
       },
@@ -732,7 +732,7 @@
             {
               "range": {
                 "esDA_test_data4": {
-                  "gt": "30-07-2018"
+                  "gt": "2018-07-30T00:00:00+00:00"
                 }
               }
             },
@@ -763,7 +763,7 @@
             },
             {
               "term": {
-                "esST_test4": "http:\/\/www.positive.com"
+                "esST_test4": "http://www.positive.com"
               }
             },
             {
@@ -793,8 +793,8 @@
             {
               "terms": {
                 "esST_test4": [
-                  "http:\/\/www.url1.com",
-                  "http:\/\/www.url2.com"
+                  "http://www.url1.com",
+                  "http://www.url2.com"
                 ]
               }
             }
@@ -811,7 +811,7 @@
             {
               "range": {
                 "esDA_test_data4": {
-                  "gt": "30-07-2018"
+                  "gt": "2018-07-30T00:00:00+00:00"
                 }
               }
             },
@@ -842,7 +842,7 @@
             },
             {
               "term": {
-                "esST_test4": "http:\/\/www.positive.com"
+                "esST_test4": "http://www.positive.com"
               }
             },
             {
@@ -872,8 +872,8 @@
             {
               "terms": {
                 "esST_test4": [
-                  "http:\/\/www.url1.com",
-                  "http:\/\/www.url2.com"
+                  "http://www.url1.com",
+                  "http://www.url2.com"
                 ]
               }
             }
@@ -890,7 +890,7 @@
             {
               "range": {
                 "esDA_test_data4": {
-                  "gt": "30-07-2018"
+                  "gt": "2018-07-30T00:00:00+00:00"
                 }
               }
             },
@@ -921,7 +921,7 @@
             },
             {
               "term": {
-                "esST_test4": "http:\/\/www.positive.com"
+                "esST_test4": "http://www.positive.com"
               }
             },
             {
@@ -951,8 +951,8 @@
             {
               "terms": {
                 "esST_test4": [
-                  "http:\/\/www.url1.com",
-                  "http:\/\/www.url2.com"
+                  "http://www.url1.com",
+                  "http://www.url2.com"
                 ]
               }
             }
@@ -979,7 +979,7 @@
             },
             {
               "term": {
-                "esST_test4": "http:\/\/www.positive.com"
+                "esST_test4": "http://www.positive.com"
               }
             },
             {
@@ -1009,8 +1009,8 @@
             {
               "terms": {
                 "esST_test4": [
-                  "http:\/\/www.url1.com",
-                  "http:\/\/www.url2.com"
+                  "http://www.url1.com",
+                  "http://www.url2.com"
                 ]
               }
             }
@@ -1033,7 +1033,7 @@
             },
             {
               "term": {
-                "esST_test4": "http:\/\/www.positive.com"
+                "esST_test4": "http://www.positive.com"
               }
             },
             {
@@ -1063,8 +1063,8 @@
             {
               "terms": {
                 "esST_test4": [
-                  "http:\/\/www.url1.com",
-                  "http:\/\/www.url2.com"
+                  "http://www.url1.com",
+                  "http://www.url2.com"
                 ]
               }
             }

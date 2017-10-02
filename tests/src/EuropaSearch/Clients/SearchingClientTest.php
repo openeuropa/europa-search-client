@@ -14,14 +14,17 @@ use EC\EuropaSearch\Messages\DocumentMetadata\IntegerMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Messages\DocumentMetadata\URLMetadata;
 use EC\EuropaSearch\Messages\Index\IndexingWebContent;
+use EC\EuropaSearch\Tests\Clients\ClientDataProvider;
+use EC\EuropaSearch\Tests\Clients\WebContentDataProvider;
 use EC\EuropaSearch\Tests\EuropaSearchDummy;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use EC\EuropaSearch\Tests\Proxies\Search\SearchDataProvider;
+use GuzzleHttp\Psr7\Response;
 
 /**
- * Class IndexingClientTest.
+ * Class ClientDataProvider.
  *
- * Tests the client layer related to the searching process.
+ * Tests the client layer related to the searching/indexing process.
  *
  * @package EC\EuropaSearch\Clients
  */
@@ -33,17 +36,30 @@ class SearchingClientTest extends AbstractEuropaSearchTest
      */
     public function testClientProcessSuccess()
     {
-        $provider = new SearchDataProvider();
-        $data = $provider->searchRequestProvider();
+        $provider = new ClientDataProvider();
+        $data = $provider->getSearchMessageTestData();
 
-        $factory = $this->getFactory();
+        $mockConfig = $this->getMockResponse();
+        $factory = $this->getFactory($mockConfig);
         $client = $factory->getSearchingClient();
-
-        $this->assertInstanceOf('EC\EuropaWS\Clients\DefaultClient', $client, 'The returned client is not an DefaultClient object.');
-
         $response = $client->sendMessage($data['submitted']);
 
-        $expectedResponse = 'Request received but I am a dumb transporter; I receive request but I do nothing else.';
-        $this->assertEquals($response, $expectedResponse, 'The returned response is not the expected.');
+        $this->assertInstanceOf('EC\EuropaWS\Clients\DefaultClient', $client, 'The returned client is not an DefaultClient object.');
+        $this->assertEquals($data['expected'], $response, 'The returned response is not the expected one.');
+    }
+
+    /**
+     * Gets the web service mock responses for tests.
+     *
+     * @return array
+     *   The web service mock responses.
+     */
+    private function getMockResponse()
+    {
+        $body = json_decode(file_get_contents(__DIR__.'/fixtures/search_response_sample.json'));
+        $response = new Response(200, [], json_encode($body));
+        $mockResponses = [$response];
+
+        return $mockResponses;
     }
 }

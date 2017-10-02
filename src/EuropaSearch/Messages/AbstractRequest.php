@@ -19,13 +19,19 @@ use EC\EuropaWS\Messages\RequestInterface;
  */
 abstract class AbstractRequest implements RequestInterface
 {
+    /**
+     * HTTP request body.
+     *
+     * @var array
+     */
+    protected $body = [];
 
     /**
-     * The API key to send with the request.
+     * HTTP request query.
      *
-     * @var string
+     * @var array
      */
-    private $APIKey;
+    protected $query = [];
 
     /**
      * Gets the API key to send.
@@ -35,7 +41,7 @@ abstract class AbstractRequest implements RequestInterface
      */
     public function getAPIKey()
     {
-        return $this->APIKey;
+        return $this->query['apiKey'];
     }
 
     /**
@@ -46,6 +52,52 @@ abstract class AbstractRequest implements RequestInterface
      */
     public function setAPIKey($APIKey)
     {
-        $this->APIKey = $APIKey;
+        $this->query['apiKey'] = $APIKey;
     }
+
+    /**
+     * Gets the Request body sent to the client.
+     *
+     * @return array
+     *   The body structure.
+     */
+    public function getRequestBody()
+    {
+        return array_values($this->body);
+    }
+
+    /**
+     * Gets the Request query parameters sent to the client.
+     *
+     * @return array
+     *   The query parameters.
+     */
+    public function getRequestQuery()
+    {
+        return $this->query;
+    }
+
+    /**
+     * Gets the HTTP method to use with the request.
+     *
+     * @return string
+     *   The HTTP method to use; I.E. POST, GET, DELETE...
+     */
+    abstract public function getRequestMethod();
+
+    /**
+     * Gets the service URI to use with the request.
+     *
+     * @return string
+     *   The service URI.
+     */
+    abstract public function getRequestURI();
+
+    /**
+     * Gets the options of the request to sent.
+     *
+     * @return array
+     *   The request options.
+     */
+    abstract public function getRequestOptions();
 }
