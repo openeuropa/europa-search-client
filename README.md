@@ -1,6 +1,7 @@
 # Europa Search Client Library
 
 [![Build Status](https://travis-ci.org/ec-europa/oe-europa-search-client.svg?branch=master)](https://travis-ci.org/ec-europa/oe-europa-search-client)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ec-europa/oe-europa-search-client/badges/quality-score.png?b=issue-12-nept-1461)](https://scrutinizer-ci.com/g/ec-europa/oe-europa-search-client/?branch=issue-12-nept-1461)
 
 The Europa Search Client Library aims to hide Europa Search services complexity behind a 
 easy-to-use client library so that users don't have to worry about building their own 
