@@ -35,6 +35,22 @@ class DateMetadata extends AbstractMetadata implements IndexableMetadataInterfac
     }
 
     /**
+     * Sets the metadata values based on a list of timestamp values.
+     *
+     * @param array $values
+     *   The array of timestamp values to set.
+     */
+    public function setTimestampValues(array $values)
+    {
+        foreach ($values as &$value) {
+            $value = is_numeric($value) ? (int) $value : strtotime($value);
+            $dateTime = new DateTime('@'.$value);
+            $value = $dateTime ->format('d-m-Y H:i:s');
+        }
+        $this->setValues($values);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function getConstraints(ClassMetadata $metadata)
