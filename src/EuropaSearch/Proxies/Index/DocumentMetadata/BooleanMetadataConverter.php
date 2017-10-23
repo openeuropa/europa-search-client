@@ -32,27 +32,10 @@ class BooleanMetadataConverter implements ComponentConverterInterface
      */
     public function convertComponent(ComponentInterface $metadata)
     {
+
+        $values = $metadata->getValues();
         $name = $metadata->getEuropaSearchName();
-        $values = $this->getBooleanMetadataValue($metadata->getValues());
 
         return [$name => $values];
-    }
-
-    /**
-     * Gets the boolean format of metadata values.
-     *
-     * @param array $values
-     *   The raw date values to convert.
-     * @return array $finalValue
-     *   The converted date values.
-     */
-    private function getBooleanMetadataValue($values)
-    {
-        $finalValue = [];
-        foreach ($values as $item) {
-            $finalValue[] = boolval($item);
-        }
-
-        return $finalValue;
     }
 }

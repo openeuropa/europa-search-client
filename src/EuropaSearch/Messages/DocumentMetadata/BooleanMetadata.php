@@ -48,4 +48,21 @@ class BooleanMetadata extends AbstractMetadata implements IndexableMetadataInter
     {
         return self::CONVERTER_NAME_PREFIX.'boolean';
     }
+
+    /**
+     * Gets the boolean format of metadata values.
+     *
+     * @param array $values
+     *   The raw date values to convert.
+     * @return array $finalValue
+     *   The converted date values.
+     */
+    public function setRawValues($values)
+    {
+        foreach ($values as &$value) {
+            $value = boolval($value);
+        }
+
+        $this->setValues($values);
+    }
 }

@@ -26,13 +26,22 @@ class DateMetadataTest extends AbstractEuropaSearchTest
      */
     public function testDateMetadataValidationSuccess()
     {
+        // Test with actual date.
         $dateDocumentMetadata = new DateMetadata('tested_date');
         $dateDocumentMetadata->setValues(['30-12-2018']);
 
         $validationErrors = $this->getDefaultValidator()->validate($dateDocumentMetadata);
         $violations = $this->getViolations($validationErrors);
 
-        $this->assertEmpty($violations, 'DateMetadata validation constraints are not well defined.');
+        $this->assertEmpty($violations, 'DateMetadata validation constraints are not well defined with date.');
+
+        // Test with timestamp.
+        $dateDocumentMetadata->setTimestampValues([136526644]);
+
+        $validationErrors = $this->getDefaultValidator()->validate($dateDocumentMetadata);
+        $violations = $this->getViolations($validationErrors);
+
+        $this->assertEmpty($violations, 'DateMetadata validation constraints are not well defined with a timestamp.');
     }
 
     /**

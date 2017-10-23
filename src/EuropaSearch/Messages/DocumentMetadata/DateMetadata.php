@@ -44,7 +44,7 @@ class DateMetadata extends AbstractMetadata implements IndexableMetadataInterfac
     {
         foreach ($values as &$value) {
             $value = is_numeric($value) ? (int) $value : strtotime($value);
-            $dateTime = new DateTime('@'.$value);
+            $dateTime = new \DateTime('@'.$value);
             $value = $dateTime ->format('d-m-Y H:i:s');
         }
         $this->setValues($values);

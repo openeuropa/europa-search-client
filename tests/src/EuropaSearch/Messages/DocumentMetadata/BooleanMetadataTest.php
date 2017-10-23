@@ -9,7 +9,6 @@ namespace EC\EuropaSearch\Tests\Common\DocumentMetadata;
 
 use EC\EuropaSearch\Messages\DocumentMetadata\BooleanMetadata;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class BooleanMetadataTest.
@@ -26,13 +25,22 @@ class BooleanMetadataTest extends AbstractEuropaSearchTest
      */
     public function testBooleanMetadataValidationSuccess()
     {
+        // Tests with real booleans (true or false).
         $booleanMetadata = new BooleanMetadata('tested_boolean');
         $booleanMetadata->setValues([true, false]);
 
         $validationErrors = $this->getDefaultValidator()->validate($booleanMetadata);
         $violations = $this->getViolations($validationErrors);
 
-        $this->assertEmpty($violations, 'BooleanMetadata validation constraints are not well defined.');
+        $this->assertEmpty($violations, 'BooleanMetadata validation constraints are not well defined with an array of real booleans.');
+
+        // Tests with boolean equivalent booleans (0, empty).
+        $booleanMetadata->setRawValues(['', 0, 1, true]);
+
+        $validationErrors = $this->getDefaultValidator()->validate($booleanMetadata);
+        $violations = $this->getViolations($validationErrors);
+
+        $this->assertEmpty($violations, 'BooleanMetadata validation constraints are not well defined with an array of raw values.');
     }
 
     /**
@@ -40,15 +48,17 @@ class BooleanMetadataTest extends AbstractEuropaSearchTest
      */
     public function testBooleanMetadataValidationFailure()
     {
+
         $booleanMetadata = new BooleanMetadata(null);
         $booleanMetadata->setValues([true, 0]);
 
         $validationErrors = $this->getDefaultValidator()->validate($booleanMetadata);
         $violations = $this->getViolations($validationErrors);
 
-        $parsedData = Yaml::parse(file_get_contents(__DIR__.'/fixtures/documentmetadata_violations.yml'));
-        $expected = $parsedData['expectedViolations']['BooleanMetadata'];
-
+        $expected = [
+            'name' => 'This value should not be blank.',
+            'values[1]' => 'This value should be of type bool.',
+        ];
         foreach ($violations as $name => $violation) {
             $this->assertEquals($violation, $expected[$name], 'BooleanMetadata validation constraints are not well defined.');
         }
