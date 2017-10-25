@@ -1,14 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Messages\Search\SearchMessageTest.
- */
-
 namespace EC\EuropaSearch\Messages\Search;
 
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
-use EC\EuropaSearch\Tests\Messages\Search\Filters\Queries\BooleanQueryDataProvider;
+use EC\EuropaSearch\Tests\Messages\Components\Filters\Queries\BooleanQueryDataProvider;
 use Symfony\Component\Yaml\Yaml;
 
 /**

@@ -1,13 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaWS\Messages\MessageInterface\SearchResponse.
- */
-
 namespace EC\EuropaSearch\Messages\Search;
 
-use EC\EuropaWS\Messages\MessageInterface;
+use EC\EuropaSearch\Messages\MessageInterface;
 
 /**
  * Class SearchResponse.

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Messages\Index\IndexingFile.
- */
-
 namespace EC\EuropaSearch\Messages\Index;
 
 use Symfony\Component\Validator\Mapping\ClassMetadata;

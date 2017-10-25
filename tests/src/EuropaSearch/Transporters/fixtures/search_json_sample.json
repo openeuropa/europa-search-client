@@ -3,7 +3,7 @@
     "must":[
       {
         "range":{
-          "esNU_test_data1":{
+          "ESNU_test_data1":{
             "gte":1,
             "lte":5
           }
@@ -11,44 +11,44 @@
       },
       {
         "range":{
-          "esDA_test_data4":{
+          "ESDA_test_data4":{
             "gt":"2018-07-30T00:00:00+00:00"
           }
         }
       },
       {
         "exists":{
-          "field":"esDA_test_data4"
+          "field":"ESDA_test_data4"
         }
       },
       {
         "exists":{
-          "field":"esNU_test_data5"
+          "field":"ESNU_test_data5"
         }
       },
       {
         "term":{
-          "esST_test1":"test2"
+          "ESST_test1":"test2"
         }
       },
       {
         "term":{
-          "esNU_test2":2
+          "ESNU_test2":2
         }
       },
       {
         "term":{
-          "esNU_test3":3.2
+          "ESNU_test3":3.2
         }
       },
       {
         "term":{
-          "esST_test4":"http:\/\/www.positive.com"
+          "ESST_test4":"http:\/\/www.positive.com"
         }
       },
       {
         "terms":{
-          "esST_test1":[
+          "ESST_test1":[
             "test21",
             "test22"
           ]
@@ -56,7 +56,7 @@
       },
       {
         "terms":{
-          "esNU_test2":[
+          "ESNU_test2":[
             21,
             22
           ]
@@ -64,7 +64,7 @@
       },
       {
         "terms":{
-          "esNU_test3":[
+          "ESNU_test3":[
             3.21,
             3.22
           ]
@@ -72,7 +72,7 @@
       },
       {
         "terms":{
-          "esST_test4":[
+          "ESST_test4":[
             "http:\/\/www.url1.com",
             "http:\/\/www.url2.com"
           ]
@@ -83,7 +83,7 @@
           "must":[
             {
               "range":{
-                "esNU_test_data1":{
+                "ESNU_test_data1":{
                   "gte":1,
                   "lte":5
                 }
@@ -91,44 +91,44 @@
             },
             {
               "range":{
-                "esDA_test_data4":{
+                "ESDA_test_data4":{
                   "gt":"2018-07-30T00:00:00+00:00"
                 }
               }
             },
             {
               "exists":{
-                "field":"esDA_test_data4"
+                "field":"ESDA_test_data4"
               }
             },
             {
               "exists":{
-                "field":"esNU_test_data5"
+                "field":"ESNU_test_data5"
               }
             },
             {
               "term":{
-                "esST_test1":"test2"
+                "ESST_test1":"test2"
               }
             },
             {
               "term":{
-                "esNU_test2":2
+                "ESNU_test2":2
               }
             },
             {
               "term":{
-                "esNU_test3":3.2
+                "ESNU_test3":3.2
               }
             },
             {
               "term":{
-                "esST_test4":"http:\/\/www.positive.com"
+                "ESST_test4":"http:\/\/www.positive.com"
               }
             },
             {
               "terms":{
-                "esST_test1":[
+                "ESST_test1":[
                   "test21",
                   "test22"
                 ]
@@ -136,7 +136,7 @@
             },
             {
               "terms":{
-                "esNU_test2":[
+                "ESNU_test2":[
                   21,
                   22
                 ]
@@ -144,7 +144,7 @@
             },
             {
               "terms":{
-                "esNU_test3":[
+                "ESNU_test3":[
                   3.21,
                   3.22
                 ]
@@ -152,7 +152,7 @@
             },
             {
               "terms":{
-                "esST_test4":[
+                "ESST_test4":[
                   "http:\/\/www.url1.com",
                   "http:\/\/www.url2.com"
                 ]
@@ -162,7 +162,7 @@
           "must_not":[
             {
               "range":{
-                "esNU_test_data1":{
+                "ESNU_test_data1":{
                   "gte":1,
                   "lte":5
                 }
@@ -170,44 +170,44 @@
             },
             {
               "range":{
-                "esDA_test_data4":{
+                "ESDA_test_data4":{
                   "gt":"2018-07-30T00:00:00+00:00"
                 }
               }
             },
             {
               "exists":{
-                "field":"esDA_test_data4"
+                "field":"ESDA_test_data4"
               }
             },
             {
               "exists":{
-                "field":"esNU_test_data5"
+                "field":"ESNU_test_data5"
               }
             },
             {
               "term":{
-                "esST_test1":"test2"
+                "ESST_test1":"test2"
               }
             },
             {
               "term":{
-                "esNU_test2":2
+                "ESNU_test2":2
               }
             },
             {
               "term":{
-                "esNU_test3":3.2
+                "ESNU_test3":3.2
               }
             },
             {
               "term":{
-                "esST_test4":"http:\/\/www.positive.com"
+                "ESST_test4":"http:\/\/www.positive.com"
               }
             },
             {
               "terms":{
-                "esST_test1":[
+                "ESST_test1":[
                   "test21",
                   "test22"
                 ]
@@ -215,7 +215,7 @@
             },
             {
               "terms":{
-                "esNU_test2":[
+                "ESNU_test2":[
                   21,
                   22
                 ]
@@ -223,7 +223,7 @@
             },
             {
               "terms":{
-                "esNU_test3":[
+                "ESNU_test3":[
                   3.21,
                   3.22
                 ]
@@ -231,7 +231,7 @@
             },
             {
               "terms":{
-                "esST_test4":[
+                "ESST_test4":[
                   "http:\/\/www.url1.com",
                   "http:\/\/www.url2.com"
                 ]
@@ -241,7 +241,7 @@
           "should":[
             {
               "range":{
-                "esNU_test_data1":{
+                "ESNU_test_data1":{
                   "gte":1,
                   "lte":5
                 }
@@ -249,44 +249,44 @@
             },
             {
               "range":{
-                "esDA_test_data4":{
+                "ESDA_test_data4":{
                   "gt":"2018-07-30T00:00:00+00:00"
                 }
               }
             },
             {
               "exists":{
-                "field":"esDA_test_data4"
+                "field":"ESDA_test_data4"
               }
             },
             {
               "exists":{
-                "field":"esNU_test_data5"
+                "field":"ESNU_test_data5"
               }
             },
             {
               "term":{
-                "esST_test1":"test2"
+                "ESST_test1":"test2"
               }
             },
             {
               "term":{
-                "esNU_test2":2
+                "ESNU_test2":2
               }
             },
             {
               "term":{
-                "esNU_test3":3.2
+                "ESNU_test3":3.2
               }
             },
             {
               "term":{
-                "esST_test4":"http:\/\/www.positive.com"
+                "ESST_test4":"http:\/\/www.positive.com"
               }
             },
             {
               "terms":{
-                "esST_test1":[
+                "ESST_test1":[
                   "test21",
                   "test22"
                 ]
@@ -294,7 +294,7 @@
             },
             {
               "terms":{
-                "esNU_test2":[
+                "ESNU_test2":[
                   21,
                   22
                 ]
@@ -302,7 +302,7 @@
             },
             {
               "terms":{
-                "esNU_test3":[
+                "ESNU_test3":[
                   3.21,
                   3.22
                 ]
@@ -310,7 +310,7 @@
             },
             {
               "terms":{
-                "esST_test4":[
+                "ESST_test4":[
                   "http:\/\/www.url1.com",
                   "http:\/\/www.url2.com"
                 ]
@@ -323,7 +323,7 @@
     "must_not":[
       {
         "range":{
-          "esNU_test_data1":{
+          "ESNU_test_data1":{
             "gte":1,
             "lte":5
           }
@@ -331,44 +331,44 @@
       },
       {
         "range":{
-          "esDA_test_data4":{
+          "ESDA_test_data4":{
             "gt":"2018-07-30T00:00:00+00:00"
           }
         }
       },
       {
         "exists":{
-          "field":"esDA_test_data4"
+          "field":"ESDA_test_data4"
         }
       },
       {
         "exists":{
-          "field":"esNU_test_data5"
+          "field":"ESNU_test_data5"
         }
       },
       {
         "term":{
-          "esST_test1":"test2"
+          "ESST_test1":"test2"
         }
       },
       {
         "term":{
-          "esNU_test2":2
+          "ESNU_test2":2
         }
       },
       {
         "term":{
-          "esNU_test3":3.2
+          "ESNU_test3":3.2
         }
       },
       {
         "term":{
-          "esST_test4":"http:\/\/www.positive.com"
+          "ESST_test4":"http:\/\/www.positive.com"
         }
       },
       {
         "terms":{
-          "esST_test1":[
+          "ESST_test1":[
             "test21",
             "test22"
           ]
@@ -376,7 +376,7 @@
       },
       {
         "terms":{
-          "esNU_test2":[
+          "ESNU_test2":[
             21,
             22
           ]
@@ -384,7 +384,7 @@
       },
       {
         "terms":{
-          "esNU_test3":[
+          "ESNU_test3":[
             3.21,
             3.22
           ]
@@ -392,7 +392,7 @@
       },
       {
         "terms":{
-          "esST_test4":[
+          "ESST_test4":[
             "http:\/\/www.url1.com",
             "http:\/\/www.url2.com"
           ]
@@ -403,7 +403,7 @@
           "must":[
             {
               "range":{
-                "esNU_test_data1":{
+                "ESNU_test_data1":{
                   "gte":1,
                   "lte":5
                 }
@@ -411,44 +411,44 @@
             },
             {
               "range":{
-                "esDA_test_data4":{
+                "ESDA_test_data4":{
                   "gt":"2018-07-30T00:00:00+00:00"
                 }
               }
             },
             {
               "exists":{
-                "field":"esDA_test_data4"
+                "field":"ESDA_test_data4"
               }
             },
             {
               "exists":{
-                "field":"esNU_test_data5"
+                "field":"ESNU_test_data5"
               }
             },
             {
               "term":{
-                "esST_test1":"test2"
+                "ESST_test1":"test2"
               }
             },
             {
               "term":{
-                "esNU_test2":2
+                "ESNU_test2":2
               }
             },
             {
               "term":{
-                "esNU_test3":3.2
+                "ESNU_test3":3.2
               }
             },
             {
               "term":{
-                "esST_test4":"http:\/\/www.positive.com"
+                "ESST_test4":"http:\/\/www.positive.com"
               }
             },
             {
               "terms":{
-                "esST_test1":[
+                "ESST_test1":[
                   "test21",
                   "test22"
                 ]
@@ -456,7 +456,7 @@
             },
             {
               "terms":{
-                "esNU_test2":[
+                "ESNU_test2":[
                   21,
                   22
                 ]
@@ -464,7 +464,7 @@
             },
             {
               "terms":{
-                "esNU_test3":[
+                "ESNU_test3":[
                   3.21,
                   3.22
                 ]
@@ -472,7 +472,7 @@
             },
             {
               "terms":{
-                "esST_test4":[
+                "ESST_test4":[
                   "http:\/\/www.url1.com",
                   "http:\/\/www.url2.com"
                 ]
@@ -482,7 +482,7 @@
           "must_not":[
             {
               "range":{
-                "esNU_test_data1":{
+                "ESNU_test_data1":{
                   "gte":1,
                   "lte":5
                 }
@@ -490,44 +490,44 @@
             },
             {
               "range":{
-                "esDA_test_data4":{
+                "ESDA_test_data4":{
                   "gt":"2018-07-30T00:00:00+00:00"
                 }
               }
             },
             {
               "exists":{
-                "field":"esDA_test_data4"
+                "field":"ESDA_test_data4"
               }
             },
             {
               "exists":{
-                "field":"esNU_test_data5"
+                "field":"ESNU_test_data5"
               }
             },
             {
               "term":{
-                "esST_test1":"test2"
+                "ESST_test1":"test2"
               }
             },
             {
               "term":{
-                "esNU_test2":2
+                "ESNU_test2":2
               }
             },
             {
               "term":{
-                "esNU_test3":3.2
+                "ESNU_test3":3.2
               }
             },
             {
               "term":{
-                "esST_test4":"http:\/\/www.positive.com"
+                "ESST_test4":"http:\/\/www.positive.com"
               }
             },
             {
               "terms":{
-                "esST_test1":[
+                "ESST_test1":[
                   "test21",
                   "test22"
                 ]
@@ -535,7 +535,7 @@
             },
             {
               "terms":{
-                "esNU_test2":[
+                "ESNU_test2":[
                   21,
                   22
                 ]
@@ -543,7 +543,7 @@
             },
             {
               "terms":{
-                "esNU_test3":[
+                "ESNU_test3":[
                   3.21,
                   3.22
                 ]
@@ -551,7 +551,7 @@
             },
             {
               "terms":{
-                "esST_test4":[
+                "ESST_test4":[
                   "http:\/\/www.url1.com",
                   "http:\/\/www.url2.com"
                 ]
@@ -561,7 +561,7 @@
           "should":[
             {
               "range":{
-                "esNU_test_data1":{
+                "ESNU_test_data1":{
                   "gte":1,
                   "lte":5
                 }
@@ -569,44 +569,44 @@
             },
             {
               "range":{
-                "esDA_test_data4":{
+                "ESDA_test_data4":{
                   "gt":"2018-07-30T00:00:00+00:00"
                 }
               }
             },
             {
               "exists":{
-                "field":"esDA_test_data4"
+                "field":"ESDA_test_data4"
               }
             },
             {
               "exists":{
-                "field":"esNU_test_data5"
+                "field":"ESNU_test_data5"
               }
             },
             {
               "term":{
-                "esST_test1":"test2"
+                "ESST_test1":"test2"
               }
             },
             {
               "term":{
-                "esNU_test2":2
+                "ESNU_test2":2
               }
             },
             {
               "term":{
-                "esNU_test3":3.2
+                "ESNU_test3":3.2
               }
             },
             {
               "term":{
-                "esST_test4":"http:\/\/www.positive.com"
+                "ESST_test4":"http:\/\/www.positive.com"
               }
             },
             {
               "terms":{
-                "esST_test1":[
+                "ESST_test1":[
                   "test21",
                   "test22"
                 ]
@@ -614,7 +614,7 @@
             },
             {
               "terms":{
-                "esNU_test2":[
+                "ESNU_test2":[
                   21,
                   22
                 ]
@@ -622,7 +622,7 @@
             },
             {
               "terms":{
-                "esNU_test3":[
+                "ESNU_test3":[
                   3.21,
                   3.22
                 ]
@@ -630,7 +630,7 @@
             },
             {
               "terms":{
-                "esST_test4":[
+                "ESST_test4":[
                   "http:\/\/www.url1.com",
                   "http:\/\/www.url2.com"
                 ]
@@ -643,7 +643,7 @@
     "should":[
       {
         "range":{
-          "esNU_test_data1":{
+          "ESNU_test_data1":{
             "gte":1,
             "lte":5
           }
@@ -651,44 +651,44 @@
       },
       {
         "range":{
-          "esDA_test_data4":{
+          "ESDA_test_data4":{
             "gt":"2018-07-30T00:00:00+00:00"
           }
         }
       },
       {
         "exists":{
-          "field":"esDA_test_data4"
+          "field":"ESDA_test_data4"
         }
       },
       {
         "exists":{
-          "field":"esNU_test_data5"
+          "field":"ESNU_test_data5"
         }
       },
       {
         "term":{
-          "esST_test1":"test2"
+          "ESST_test1":"test2"
         }
       },
       {
         "term":{
-          "esNU_test2":2
+          "ESNU_test2":2
         }
       },
       {
         "term":{
-          "esNU_test3":3.2
+          "ESNU_test3":3.2
         }
       },
       {
         "term":{
-          "esST_test4":"http:\/\/www.positive.com"
+          "ESST_test4":"http:\/\/www.positive.com"
         }
       },
       {
         "terms":{
-          "esST_test1":[
+          "ESST_test1":[
             "test21",
             "test22"
           ]
@@ -696,7 +696,7 @@
       },
       {
         "terms":{
-          "esNU_test2":[
+          "ESNU_test2":[
             21,
             22
           ]
@@ -704,7 +704,7 @@
       },
       {
         "terms":{
-          "esNU_test3":[
+          "ESNU_test3":[
             3.21,
             3.22
           ]
@@ -712,7 +712,7 @@
       },
       {
         "terms":{
-          "esST_test4":[
+          "ESST_test4":[
             "http:\/\/www.url1.com",
             "http:\/\/www.url2.com"
           ]
@@ -723,7 +723,7 @@
           "must":[
             {
               "range":{
-                "esNU_test_data1":{
+                "ESNU_test_data1":{
                   "gte":1,
                   "lte":5
                 }
@@ -731,44 +731,44 @@
             },
             {
               "range":{
-                "esDA_test_data4":{
+                "ESDA_test_data4":{
                   "gt":"2018-07-30T00:00:00+00:00"
                 }
               }
             },
             {
               "exists":{
-                "field":"esDA_test_data4"
+                "field":"ESDA_test_data4"
               }
             },
             {
               "exists":{
-                "field":"esNU_test_data5"
+                "field":"ESNU_test_data5"
               }
             },
             {
               "term":{
-                "esST_test1":"test2"
+                "ESST_test1":"test2"
               }
             },
             {
               "term":{
-                "esNU_test2":2
+                "ESNU_test2":2
               }
             },
             {
               "term":{
-                "esNU_test3":3.2
+                "ESNU_test3":3.2
               }
             },
             {
               "term":{
-                "esST_test4":"http:\/\/www.positive.com"
+                "ESST_test4":"http:\/\/www.positive.com"
               }
             },
             {
               "terms":{
-                "esST_test1":[
+                "ESST_test1":[
                   "test21",
                   "test22"
                 ]
@@ -776,7 +776,7 @@
             },
             {
               "terms":{
-                "esNU_test2":[
+                "ESNU_test2":[
                   21,
                   22
                 ]
@@ -784,7 +784,7 @@
             },
             {
               "terms":{
-                "esNU_test3":[
+                "ESNU_test3":[
                   3.21,
                   3.22
                 ]
@@ -792,7 +792,7 @@
             },
             {
               "terms":{
-                "esST_test4":[
+                "ESST_test4":[
                   "http:\/\/www.url1.com",
                   "http:\/\/www.url2.com"
                 ]
@@ -802,7 +802,7 @@
           "must_not":[
             {
               "range":{
-                "esNU_test_data1":{
+                "ESNU_test_data1":{
                   "gte":1,
                   "lte":5
                 }
@@ -810,44 +810,44 @@
             },
             {
               "range":{
-                "esDA_test_data4":{
+                "ESDA_test_data4":{
                   "gt":"2018-07-30T00:00:00+00:00"
                 }
               }
             },
             {
               "exists":{
-                "field":"esDA_test_data4"
+                "field":"ESDA_test_data4"
               }
             },
             {
               "exists":{
-                "field":"esNU_test_data5"
+                "field":"ESNU_test_data5"
               }
             },
             {
               "term":{
-                "esST_test1":"test2"
+                "ESST_test1":"test2"
               }
             },
             {
               "term":{
-                "esNU_test2":2
+                "ESNU_test2":2
               }
             },
             {
               "term":{
-                "esNU_test3":3.2
+                "ESNU_test3":3.2
               }
             },
             {
               "term":{
-                "esST_test4":"http:\/\/www.positive.com"
+                "ESST_test4":"http:\/\/www.positive.com"
               }
             },
             {
               "terms":{
-                "esST_test1":[
+                "ESST_test1":[
                   "test21",
                   "test22"
                 ]
@@ -855,7 +855,7 @@
             },
             {
               "terms":{
-                "esNU_test2":[
+                "ESNU_test2":[
                   21,
                   22
                 ]
@@ -863,7 +863,7 @@
             },
             {
               "terms":{
-                "esNU_test3":[
+                "ESNU_test3":[
                   3.21,
                   3.22
                 ]
@@ -871,7 +871,7 @@
             },
             {
               "terms":{
-                "esST_test4":[
+                "ESST_test4":[
                   "http:\/\/www.url1.com",
                   "http:\/\/www.url2.com"
                 ]
@@ -881,7 +881,7 @@
           "should":[
             {
               "range":{
-                "esNU_test_data1":{
+                "ESNU_test_data1":{
                   "gte":1,
                   "lte":5
                 }
@@ -889,44 +889,44 @@
             },
             {
               "range":{
-                "esDA_test_data4":{
+                "ESDA_test_data4":{
                   "gt":"2018-07-30T00:00:00+00:00"
                 }
               }
             },
             {
               "exists":{
-                "field":"esDA_test_data4"
+                "field":"ESDA_test_data4"
               }
             },
             {
               "exists":{
-                "field":"esNU_test_data5"
+                "field":"ESNU_test_data5"
               }
             },
             {
               "term":{
-                "esST_test1":"test2"
+                "ESST_test1":"test2"
               }
             },
             {
               "term":{
-                "esNU_test2":2
+                "ESNU_test2":2
               }
             },
             {
               "term":{
-                "esNU_test3":3.2
+                "ESNU_test3":3.2
               }
             },
             {
               "term":{
-                "esST_test4":"http:\/\/www.positive.com"
+                "ESST_test4":"http:\/\/www.positive.com"
               }
             },
             {
               "terms":{
-                "esST_test1":[
+                "ESST_test1":[
                   "test21",
                   "test22"
                 ]
@@ -934,7 +934,7 @@
             },
             {
               "terms":{
-                "esNU_test2":[
+                "ESNU_test2":[
                   21,
                   22
                 ]
@@ -942,7 +942,7 @@
             },
             {
               "terms":{
-                "esNU_test3":[
+                "ESNU_test3":[
                   3.21,
                   3.22
                 ]
@@ -950,7 +950,7 @@
             },
             {
               "terms":{
-                "esST_test4":[
+                "ESST_test4":[
                   "http:\/\/www.url1.com",
                   "http:\/\/www.url2.com"
                 ]
@@ -964,27 +964,27 @@
           "positive":[
             {
               "term":{
-                "esST_test1":"test2"
+                "ESST_test1":"test2"
               }
             },
             {
               "term":{
-                "esNU_test2":2
+                "ESNU_test2":2
               }
             },
             {
               "term":{
-                "esNU_test3":3.2
+                "ESNU_test3":3.2
               }
             },
             {
               "term":{
-                "esST_test4":"http:\/\/www.positive.com"
+                "ESST_test4":"http:\/\/www.positive.com"
               }
             },
             {
               "terms":{
-                "esST_test1":[
+                "ESST_test1":[
                   "test21",
                   "test22"
                 ]
@@ -992,7 +992,7 @@
             },
             {
               "terms":{
-                "esNU_test2":[
+                "ESNU_test2":[
                   21,
                   22
                 ]
@@ -1000,7 +1000,7 @@
             },
             {
               "terms":{
-                "esNU_test3":[
+                "ESNU_test3":[
                   3.21,
                   3.22
                 ]
@@ -1008,7 +1008,7 @@
             },
             {
               "terms":{
-                "esST_test4":[
+                "ESST_test4":[
                   "http:\/\/www.url1.com",
                   "http:\/\/www.url2.com"
                 ]
@@ -1018,27 +1018,27 @@
           "negative":[
             {
               "term":{
-                "esST_test1":"test2"
+                "ESST_test1":"test2"
               }
             },
             {
               "term":{
-                "esNU_test2":2
+                "ESNU_test2":2
               }
             },
             {
               "term":{
-                "esNU_test3":3.2
+                "ESNU_test3":3.2
               }
             },
             {
               "term":{
-                "esST_test4":"http:\/\/www.positive.com"
+                "ESST_test4":"http:\/\/www.positive.com"
               }
             },
             {
               "terms":{
-                "esST_test1":[
+                "ESST_test1":[
                   "test21",
                   "test22"
                 ]
@@ -1046,7 +1046,7 @@
             },
             {
               "terms":{
-                "esNU_test2":[
+                "ESNU_test2":[
                   21,
                   22
                 ]
@@ -1054,7 +1054,7 @@
             },
             {
               "terms":{
-                "esNU_test3":[
+                "ESNU_test3":[
                   3.21,
                   3.22
                 ]
@@ -1062,7 +1062,7 @@
             },
             {
               "terms":{
-                "esST_test4":[
+                "ESST_test4":[
                   "http:\/\/www.url1.com",
                   "http:\/\/www.url2.com"
                 ]

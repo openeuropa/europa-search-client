@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Messages\Search\SearchMessage.
- */
-
 namespace EC\EuropaSearch\Messages\Search;
 
-use EC\EuropaSearch\Messages\Search\Filters\Queries\BooleanQuery;
-use EC\EuropaWS\Messages\ValidatableMessageInterface;
-use EC\EuropaWS\Proxies\BasicProxyController;
+use EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery;
+use EC\EuropaSearch\Messages\ValidatableMessageInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -311,7 +305,7 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function getConverterIdentifier()
     {
-        return BasicProxyController::MESSAGE_ID_PREFIX.'searching.search';
+        return 'messageProxy.searching.search';
     }
 
     /**

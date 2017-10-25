@@ -1,0 +1,1076 @@
+{
+  "bool": {
+    "must": [
+      {
+        "range": {
+          "ESNU_test_data1": {
+            "gte": 1,
+            "lte": 5
+          }
+        }
+      },
+      {
+        "range": {
+          "ESDA_test_data4": {
+            "gt": "2018-07-30T00:00:00+00:00"
+          }
+        }
+      },
+      {
+        "exists": {
+          "field": "ESDA_test_data4"
+        }
+      },
+      {
+        "exists": {
+          "field": "ESNU_test_data5"
+        }
+      },
+      {
+        "term": {
+          "ESST_test1": "test2"
+        }
+      },
+      {
+        "term": {
+          "ESNU_test2": 2
+        }
+      },
+      {
+        "term": {
+          "ESNU_test3": 3.2
+        }
+      },
+      {
+        "term": {
+          "ESST_test4": "http://www.positive.com"
+        }
+      },
+      {
+        "terms": {
+          "ESST_test1": [
+            "test21",
+            "test22"
+          ]
+        }
+      },
+      {
+        "terms": {
+          "ESNU_test2": [
+            21,
+            22
+          ]
+        }
+      },
+      {
+        "terms": {
+          "ESNU_test3": [
+            3.21,
+            3.22
+          ]
+        }
+      },
+      {
+        "terms": {
+          "ESST_test4": [
+            "http://www.url1.com",
+            "http://www.url2.com"
+          ]
+        }
+      },
+      {
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "ESNU_test_data1": {
+                  "gte": 1,
+                  "lte": 5
+                }
+              }
+            },
+            {
+              "range": {
+                "ESDA_test_data4": {
+                  "gt": "2018-07-30T00:00:00+00:00"
+                }
+              }
+            },
+            {
+              "exists": {
+                "field": "ESDA_test_data4"
+              }
+            },
+            {
+              "exists": {
+                "field": "ESNU_test_data5"
+              }
+            },
+            {
+              "term": {
+                "ESST_test1": "test2"
+              }
+            },
+            {
+              "term": {
+                "ESNU_test2": 2
+              }
+            },
+            {
+              "term": {
+                "ESNU_test3": 3.2
+              }
+            },
+            {
+              "term": {
+                "ESST_test4": "http://www.positive.com"
+              }
+            },
+            {
+              "terms": {
+                "ESST_test1": [
+                  "test21",
+                  "test22"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test2": [
+                  21,
+                  22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test3": [
+                  3.21,
+                  3.22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESST_test4": [
+                  "http://www.url1.com",
+                  "http://www.url2.com"
+                ]
+              }
+            }
+          ],
+          "must_not": [
+            {
+              "range": {
+                "ESNU_test_data1": {
+                  "gte": 1,
+                  "lte": 5
+                }
+              }
+            },
+            {
+              "range": {
+                "ESDA_test_data4": {
+                  "gt": "2018-07-30T00:00:00+00:00"
+                }
+              }
+            },
+            {
+              "exists": {
+                "field": "ESDA_test_data4"
+              }
+            },
+            {
+              "exists": {
+                "field": "ESNU_test_data5"
+              }
+            },
+            {
+              "term": {
+                "ESST_test1": "test2"
+              }
+            },
+            {
+              "term": {
+                "ESNU_test2": 2
+              }
+            },
+            {
+              "term": {
+                "ESNU_test3": 3.2
+              }
+            },
+            {
+              "term": {
+                "ESST_test4": "http://www.positive.com"
+              }
+            },
+            {
+              "terms": {
+                "ESST_test1": [
+                  "test21",
+                  "test22"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test2": [
+                  21,
+                  22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test3": [
+                  3.21,
+                  3.22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESST_test4": [
+                  "http://www.url1.com",
+                  "http://www.url2.com"
+                ]
+              }
+            }
+          ],
+          "should": [
+            {
+              "range": {
+                "ESNU_test_data1": {
+                  "gte": 1,
+                  "lte": 5
+                }
+              }
+            },
+            {
+              "range": {
+                "ESDA_test_data4": {
+                  "gt": "2018-07-30T00:00:00+00:00"
+                }
+              }
+            },
+            {
+              "exists": {
+                "field": "ESDA_test_data4"
+              }
+            },
+            {
+              "exists": {
+                "field": "ESNU_test_data5"
+              }
+            },
+            {
+              "term": {
+                "ESST_test1": "test2"
+              }
+            },
+            {
+              "term": {
+                "ESNU_test2": 2
+              }
+            },
+            {
+              "term": {
+                "ESNU_test3": 3.2
+              }
+            },
+            {
+              "term": {
+                "ESST_test4": "http://www.positive.com"
+              }
+            },
+            {
+              "terms": {
+                "ESST_test1": [
+                  "test21",
+                  "test22"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test2": [
+                  21,
+                  22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test3": [
+                  3.21,
+                  3.22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESST_test4": [
+                  "http://www.url1.com",
+                  "http://www.url2.com"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "must_not": [
+      {
+        "range": {
+          "ESNU_test_data1": {
+            "gte": 1,
+            "lte": 5
+          }
+        }
+      },
+      {
+        "range": {
+          "ESDA_test_data4": {
+            "gt": "2018-07-30T00:00:00+00:00"
+          }
+        }
+      },
+      {
+        "exists": {
+          "field": "ESDA_test_data4"
+        }
+      },
+      {
+        "exists": {
+          "field": "ESNU_test_data5"
+        }
+      },
+      {
+        "term": {
+          "ESST_test1": "test2"
+        }
+      },
+      {
+        "term": {
+          "ESNU_test2": 2
+        }
+      },
+      {
+        "term": {
+          "ESNU_test3": 3.2
+        }
+      },
+      {
+        "term": {
+          "ESST_test4": "http://www.positive.com"
+        }
+      },
+      {
+        "terms": {
+          "ESST_test1": [
+            "test21",
+            "test22"
+          ]
+        }
+      },
+      {
+        "terms": {
+          "ESNU_test2": [
+            21,
+            22
+          ]
+        }
+      },
+      {
+        "terms": {
+          "ESNU_test3": [
+            3.21,
+            3.22
+          ]
+        }
+      },
+      {
+        "terms": {
+          "ESST_test4": [
+            "http://www.url1.com",
+            "http://www.url2.com"
+          ]
+        }
+      },
+      {
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "ESNU_test_data1": {
+                  "gte": 1,
+                  "lte": 5
+                }
+              }
+            },
+            {
+              "range": {
+                "ESDA_test_data4": {
+                  "gt": "2018-07-30T00:00:00+00:00"
+                }
+              }
+            },
+            {
+              "exists": {
+                "field": "ESDA_test_data4"
+              }
+            },
+            {
+              "exists": {
+                "field": "ESNU_test_data5"
+              }
+            },
+            {
+              "term": {
+                "ESST_test1": "test2"
+              }
+            },
+            {
+              "term": {
+                "ESNU_test2": 2
+              }
+            },
+            {
+              "term": {
+                "ESNU_test3": 3.2
+              }
+            },
+            {
+              "term": {
+                "ESST_test4": "http://www.positive.com"
+              }
+            },
+            {
+              "terms": {
+                "ESST_test1": [
+                  "test21",
+                  "test22"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test2": [
+                  21,
+                  22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test3": [
+                  3.21,
+                  3.22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESST_test4": [
+                  "http://www.url1.com",
+                  "http://www.url2.com"
+                ]
+              }
+            }
+          ],
+          "must_not": [
+            {
+              "range": {
+                "ESNU_test_data1": {
+                  "gte": 1,
+                  "lte": 5
+                }
+              }
+            },
+            {
+              "range": {
+                "ESDA_test_data4": {
+                  "gt": "2018-07-30T00:00:00+00:00"
+                }
+              }
+            },
+            {
+              "exists": {
+                "field": "ESDA_test_data4"
+              }
+            },
+            {
+              "exists": {
+                "field": "ESNU_test_data5"
+              }
+            },
+            {
+              "term": {
+                "ESST_test1": "test2"
+              }
+            },
+            {
+              "term": {
+                "ESNU_test2": 2
+              }
+            },
+            {
+              "term": {
+                "ESNU_test3": 3.2
+              }
+            },
+            {
+              "term": {
+                "ESST_test4": "http://www.positive.com"
+              }
+            },
+            {
+              "terms": {
+                "ESST_test1": [
+                  "test21",
+                  "test22"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test2": [
+                  21,
+                  22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test3": [
+                  3.21,
+                  3.22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESST_test4": [
+                  "http://www.url1.com",
+                  "http://www.url2.com"
+                ]
+              }
+            }
+          ],
+          "should": [
+            {
+              "range": {
+                "ESNU_test_data1": {
+                  "gte": 1,
+                  "lte": 5
+                }
+              }
+            },
+            {
+              "range": {
+                "ESDA_test_data4": {
+                  "gt": "2018-07-30T00:00:00+00:00"
+                }
+              }
+            },
+            {
+              "exists": {
+                "field": "ESDA_test_data4"
+              }
+            },
+            {
+              "exists": {
+                "field": "ESNU_test_data5"
+              }
+            },
+            {
+              "term": {
+                "ESST_test1": "test2"
+              }
+            },
+            {
+              "term": {
+                "ESNU_test2": 2
+              }
+            },
+            {
+              "term": {
+                "ESNU_test3": 3.2
+              }
+            },
+            {
+              "term": {
+                "ESST_test4": "http://www.positive.com"
+              }
+            },
+            {
+              "terms": {
+                "ESST_test1": [
+                  "test21",
+                  "test22"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test2": [
+                  21,
+                  22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test3": [
+                  3.21,
+                  3.22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESST_test4": [
+                  "http://www.url1.com",
+                  "http://www.url2.com"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "should": [
+      {
+        "range": {
+          "ESNU_test_data1": {
+            "gte": 1,
+            "lte": 5
+          }
+        }
+      },
+      {
+        "range": {
+          "ESDA_test_data4": {
+            "gt": "2018-07-30T00:00:00+00:00"
+          }
+        }
+      },
+      {
+        "exists": {
+          "field": "ESDA_test_data4"
+        }
+      },
+      {
+        "exists": {
+          "field": "ESNU_test_data5"
+        }
+      },
+      {
+        "term": {
+          "ESST_test1": "test2"
+        }
+      },
+      {
+        "term": {
+          "ESNU_test2": 2
+        }
+      },
+      {
+        "term": {
+          "ESNU_test3": 3.2
+        }
+      },
+      {
+        "term": {
+          "ESST_test4": "http://www.positive.com"
+        }
+      },
+      {
+        "terms": {
+          "ESST_test1": [
+            "test21",
+            "test22"
+          ]
+        }
+      },
+      {
+        "terms": {
+          "ESNU_test2": [
+            21,
+            22
+          ]
+        }
+      },
+      {
+        "terms": {
+          "ESNU_test3": [
+            3.21,
+            3.22
+          ]
+        }
+      },
+      {
+        "terms": {
+          "ESST_test4": [
+            "http://www.url1.com",
+            "http://www.url2.com"
+          ]
+        }
+      },
+      {
+        "bool": {
+          "must": [
+            {
+              "range": {
+                "ESNU_test_data1": {
+                  "gte": 1,
+                  "lte": 5
+                }
+              }
+            },
+            {
+              "range": {
+                "ESDA_test_data4": {
+                  "gt": "2018-07-30T00:00:00+00:00"
+                }
+              }
+            },
+            {
+              "exists": {
+                "field": "ESDA_test_data4"
+              }
+            },
+            {
+              "exists": {
+                "field": "ESNU_test_data5"
+              }
+            },
+            {
+              "term": {
+                "ESST_test1": "test2"
+              }
+            },
+            {
+              "term": {
+                "ESNU_test2": 2
+              }
+            },
+            {
+              "term": {
+                "ESNU_test3": 3.2
+              }
+            },
+            {
+              "term": {
+                "ESST_test4": "http://www.positive.com"
+              }
+            },
+            {
+              "terms": {
+                "ESST_test1": [
+                  "test21",
+                  "test22"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test2": [
+                  21,
+                  22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test3": [
+                  3.21,
+                  3.22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESST_test4": [
+                  "http://www.url1.com",
+                  "http://www.url2.com"
+                ]
+              }
+            }
+          ],
+          "must_not": [
+            {
+              "range": {
+                "ESNU_test_data1": {
+                  "gte": 1,
+                  "lte": 5
+                }
+              }
+            },
+            {
+              "range": {
+                "ESDA_test_data4": {
+                  "gt": "2018-07-30T00:00:00+00:00"
+                }
+              }
+            },
+            {
+              "exists": {
+                "field": "ESDA_test_data4"
+              }
+            },
+            {
+              "exists": {
+                "field": "ESNU_test_data5"
+              }
+            },
+            {
+              "term": {
+                "ESST_test1": "test2"
+              }
+            },
+            {
+              "term": {
+                "ESNU_test2": 2
+              }
+            },
+            {
+              "term": {
+                "ESNU_test3": 3.2
+              }
+            },
+            {
+              "term": {
+                "ESST_test4": "http://www.positive.com"
+              }
+            },
+            {
+              "terms": {
+                "ESST_test1": [
+                  "test21",
+                  "test22"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test2": [
+                  21,
+                  22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test3": [
+                  3.21,
+                  3.22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESST_test4": [
+                  "http://www.url1.com",
+                  "http://www.url2.com"
+                ]
+              }
+            }
+          ],
+          "should": [
+            {
+              "range": {
+                "ESNU_test_data1": {
+                  "gte": 1,
+                  "lte": 5
+                }
+              }
+            },
+            {
+              "range": {
+                "ESDA_test_data4": {
+                  "gt": "2018-07-30T00:00:00+00:00"
+                }
+              }
+            },
+            {
+              "exists": {
+                "field": "ESDA_test_data4"
+              }
+            },
+            {
+              "exists": {
+                "field": "ESNU_test_data5"
+              }
+            },
+            {
+              "term": {
+                "ESST_test1": "test2"
+              }
+            },
+            {
+              "term": {
+                "ESNU_test2": 2
+              }
+            },
+            {
+              "term": {
+                "ESNU_test3": 3.2
+              }
+            },
+            {
+              "term": {
+                "ESST_test4": "http://www.positive.com"
+              }
+            },
+            {
+              "terms": {
+                "ESST_test1": [
+                  "test21",
+                  "test22"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test2": [
+                  21,
+                  22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test3": [
+                  3.21,
+                  3.22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESST_test4": [
+                  "http://www.url1.com",
+                  "http://www.url2.com"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "boosting": {
+          "positive": [
+            {
+              "term": {
+                "ESST_test1": "test2"
+              }
+            },
+            {
+              "term": {
+                "ESNU_test2": 2
+              }
+            },
+            {
+              "term": {
+                "ESNU_test3": 3.2
+              }
+            },
+            {
+              "term": {
+                "ESST_test4": "http://www.positive.com"
+              }
+            },
+            {
+              "terms": {
+                "ESST_test1": [
+                  "test21",
+                  "test22"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test2": [
+                  21,
+                  22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test3": [
+                  3.21,
+                  3.22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESST_test4": [
+                  "http://www.url1.com",
+                  "http://www.url2.com"
+                ]
+              }
+            }
+          ],
+          "negative": [
+            {
+              "term": {
+                "ESST_test1": "test2"
+              }
+            },
+            {
+              "term": {
+                "ESNU_test2": 2
+              }
+            },
+            {
+              "term": {
+                "ESNU_test3": 3.2
+              }
+            },
+            {
+              "term": {
+                "ESST_test4": "http://www.positive.com"
+              }
+            },
+            {
+              "terms": {
+                "ESST_test1": [
+                  "test21",
+                  "test22"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test2": [
+                  21,
+                  22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESNU_test3": [
+                  3.21,
+                  3.22
+                ]
+              }
+            },
+            {
+              "terms": {
+                "ESST_test4": [
+                  "http://www.url1.com",
+                  "http://www.url2.com"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

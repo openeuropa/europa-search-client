@@ -1,48 +1,43 @@
 services:
+  # WebContent Indexing service converter classes.
+  messageProxy.indexing.webContent:
+      class: EC\EuropaSearch\Proxies\Converters\Index\WebContentConverter
+  componentProxy.metadata.boolean:
+      class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\BooleanMetadataConverter
+  componentProxy.metadata.date:
+      class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DateMetadataConverter
+  componentProxy.metadata.numeric:
+      class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
+  componentProxy.metadata.notIndexed:
+      class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
+  componentProxy.metadata.string:
+      class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
+
+  # Search Service converter classes.
+  messageProxy.searching.search:
+      class: EC\EuropaSearch\Proxies\Converters\Search\SearchConverter
+  componentProxy.searching.filters.clauses.fieldExists:
+      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\FieldExistsClauseConverter
+  componentProxy.searching.filters.clauses.range:
+      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\RangeClauseConverter
+  componentProxy.searching.filters.clauses.term:
+      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\TermClauseConverter
+  componentProxy.searching.filters.clauses.terms:
+      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\TermsClauseConverter
+  componentProxy.searching.filters.queries.aggregate:
+      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\FilterQueryComponentConverter
+  componentProxy.searching.filters.queries.booleanQuery:
+      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\BooleanQueryConverter
+  componentProxy.searching.filters.queries.boostingQuery:
+      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\BoostingQueryConverter
+
+  # Default Layer classes.
   transporter.default:
       class: EC\EuropaSearch\Transporters\EuropaSearchTransporter
-  # WebContent Indexing service.
-  messageProxy.indexing.webContent:
-      class: EC\EuropaSearch\Proxies\Index\WebContentConverter
-  componentProxy.metadata.boolean:
-      class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\BooleanMetadataConverter
-  componentProxy.metadata.date:
-      class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\DateMetadataConverter
-  componentProxy.metadata.numeric:
-      class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\DefaultMetadataConverter
-  componentProxy.metadata.notIndexed:
-      class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\DefaultMetadataConverter
-  componentProxy.metadata.string:
-      class: EC\EuropaSearch\Proxies\Index\DocumentMetadata\DefaultMetadataConverter
-  proxyController:
-      class:  EC\EuropaWS\Proxies\BasicProxyController
+  proxyController.default:
+      class:  EC\EuropaSearch\Proxies\ProxyController
       calls:
           - [setContainer, ['@service_container']]
-  client.indexing.webDocument:
-    class: EC\EuropaWS\Clients\DefaultClient
-    arguments: ['@validator.default', '@proxyController', '@transporter.default']
-
-  # Search Service
-  messageProxy.searching.search:
-        class: EC\EuropaSearch\Proxies\Search\SearchConverter
-  componentProxy.searching.filters.clauses.fieldExists:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Clauses\FieldExistsClauseConverter
-  componentProxy.searching.filters.clauses.range:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Clauses\RangeClauseConverter
-  componentProxy.searching.filters.clauses.term:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Clauses\TermClauseConverter
-  componentProxy.searching.filters.clauses.terms:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Clauses\TermsClauseConverter
-  componentProxy.searching.filters.queries.aggregate:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Queries\FilterQueryComponentConverter
-  componentProxy.searching.filters.queries.booleanQuery:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Queries\BooleanQueryConverter
-  componentProxy.searching.filters.queries.boostingQuery:
-      class: EC\EuropaSearch\Proxies\Search\Filters\Queries\BoostingQueryConverter
-  proxyController.search:
-      class:  EC\EuropaSearch\Proxies\Search\SearchProxyController
-      calls:
-          - [setContainer, ['@service_container']]
-  client.searching.search:
-    class: EC\EuropaWS\Clients\DefaultClient
-    arguments: ['@validator.default', '@proxyController.search', '@transporter.default']
+  application.default:
+    class: EC\EuropaSearch\Applications\Application
+    arguments: ['@validator.default', '@proxyController.default', '@transporter.default']

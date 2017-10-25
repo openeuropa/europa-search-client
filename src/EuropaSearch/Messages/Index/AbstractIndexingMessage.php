@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Messages\Index\AbstractIndexingMessage.
- */
-
 namespace EC\EuropaSearch\Messages\Index;
 
-use EC\EuropaSearch\Messages\DocumentMetadata\AbstractMetadata;
-use EC\EuropaWS\Messages\IdentifiableMessageInterface;
-use EC\EuropaWS\Proxies\BasicProxyController;
+use EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata;
+use EC\EuropaSearch\Messages\IdentifiableMessageInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -20,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * that are common to all indexing request.
  *
  * @package EC\EuropaSearch\Messages\Index
+ *
+ * {@internal It only exists for only declaring methods common to sub-classes.}
  */
 abstract class AbstractIndexingMessage implements IdentifiableMessageInterface
 {
@@ -29,7 +25,7 @@ abstract class AbstractIndexingMessage implements IdentifiableMessageInterface
      *
      * @const
      */
-    const CONVERTER_NAME_PREFIX = BasicProxyController::MESSAGE_ID_PREFIX.'indexing.';
+    const CONVERTER_NAME_PREFIX = 'messageProxy.indexing.';
 
     /**
      * The identifier common to the system and the Europa Search services.
@@ -148,7 +144,7 @@ abstract class AbstractIndexingMessage implements IdentifiableMessageInterface
     /**
      * Adds a metadata of the indexed document.
      *
-     * @param \EC\EuropaSearch\Messages\DocumentMetadata\AbstractMetadata $metadata
+     * @param \EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata $metadata
      *   The metadata to add to the document.
      */
     public function addMetadata(AbstractMetadata $metadata)
@@ -196,7 +192,7 @@ abstract class AbstractIndexingMessage implements IdentifiableMessageInterface
         $metadata->addPropertyConstraint('documentLanguage', new Assert\Language());
         $metadata->addPropertyConstraints('metadata', [
             new Assert\NotBlank(),
-            new Assert\All(['constraints' => [new Assert\Type('\EC\EuropaSearch\Messages\DocumentMetadata\AbstractMetadata')]]),
+            new Assert\All(['constraints' => [new Assert\Type('\EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata')]]),
             new Assert\Valid(['traverse' => true]),
         ]);
     }

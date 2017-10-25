@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Tests\Transporters\SearchTransporterTest.
- */
-
 namespace EC\EuropaSearch\Tests\Transporters;
 
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
@@ -40,7 +35,7 @@ class SearchTransporterTest extends AbstractEuropaSearchTest
 
         $this->assertEquals('POST', $sentRequest->getMethod(), 'The search request does not have the right HTTP method.');
 
-        $expectedTarget = '/es/search-api/rest/search?highlightRegex=%3Cstrong%3E%7B%7D%3C%2Fstrong%3E&highlightLimit=250&pageSize=20&pageNumber=1&sessionToken=123456&apiKey=a221108a-180d-HTTP-CLIENT-LIBRARY-TEST';
+        $expectedTarget = '/es/search-api/rest/search?highlightRegex=%3Cstrong%3E%7B%7D%3C%2Fstrong%3E&highlightLimit=250&pageSize=20&pageNumber=1&sessionToken=123456&apiKey=a221108a-180d-HTTP-SEARCH-TEST';
         $this->assertEquals($expectedTarget, $sentRequest->getRequestTarget(), 'The search request does not have the right url.');
 
         $contentType = $sentRequest->getHeader('Content-Type');
@@ -59,6 +54,6 @@ class SearchTransporterTest extends AbstractEuropaSearchTest
         $response = new Response(201, [], $body);
         $mockResponses = [$response];
 
-        return $this->getDummyConfig($mockResponses);
+        return $this->getDummySearchAppConfig($mockResponses);
     }
 }

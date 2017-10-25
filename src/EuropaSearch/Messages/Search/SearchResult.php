@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Messages\Search\SearchResult.
- */
-
 namespace EC\EuropaSearch\Messages\Search;
 
 /**

@@ -1,17 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Transporters\EuropaSearchTransporter.
- */
-
 namespace EC\EuropaSearch\Transporters;
 
-use EC\EuropaWS\Exceptions\ConnectionException;
-use EC\EuropaWS\Exceptions\WebServiceErrorException;
-use EC\EuropaWS\Messages\RequestInterface;
-use EC\EuropaWS\Transporters\TransporterInterface;
-use EC\EuropaWS\Common\WSConfigurationInterface;
+use EC\EuropaSearch\EuropaSearchConfig;
+use EC\EuropaSearch\Exceptions\ConnectionException;
+use EC\EuropaSearch\Exceptions\WebServiceErrorException;
+use EC\EuropaSearch\Transporters\Requests\RequestInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
@@ -39,7 +33,7 @@ class EuropaSearchTransporter implements TransporterInterface
     /**
      * HTTP client configuration.
      *
-     * @var WSConfigurationInterface
+     * @var EuropaSearchConfig
      */
     protected $configuration;
 
@@ -53,7 +47,7 @@ class EuropaSearchTransporter implements TransporterInterface
     /**
      * {@inheritdoc}
      */
-    public function initTransporter(WSConfigurationInterface $configuration)
+    public function initTransporter(EuropaSearchConfig $configuration)
     {
         $this->configuration = $configuration;
         $this->transactionHistory = [];
@@ -69,9 +63,9 @@ class EuropaSearchTransporter implements TransporterInterface
         $history = Middleware::history($this->transactionHistory);
         $stack->push($history);
 
-        $connectionConfig = $configuration->getConnectionConfig();
+        $connectionConfig = $configuration->getConnectionConfigurations();
         $HTTPClientConfig = [
-            'base_uri' => $connectionConfig['URLRoot'],
+            'base_uri' => $connectionConfig['url_root'],
             'handler' => $stack,
         ];
         $this->HTTPClient = new Client($HTTPClientConfig);

@@ -1,15 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Tests\Messages\Index\IndexingWebContentTest.
- */
-
 namespace EC\EuropaSearch\Tests\Messages\Index;
 
-use EC\EuropaSearch\Messages\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Messages\DocumentMetadata\IntegerMetadata;
-use EC\EuropaSearch\Messages\DocumentMetadata\StringMetadata;
+use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
+use EC\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
+use EC\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Messages\Index\IndexingWebContent;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use Symfony\Component\Yaml\Yaml;
@@ -32,7 +27,7 @@ class IndexingWebContentTest extends AbstractEuropaSearchTest
         $indexedDocument = new IndexingWebContent();
         $indexedDocument->setDocumentId('reference_indexed_document');
         $indexedDocument->setDocumentLanguage('en');
-        $indexedDocument->setDocumentURI('http://test/nide/211');
+        $indexedDocument->setDocumentURI('http://test/nid/211');
         $indexedDocument->setDocumentContent('this is the content');
 
         $metadata = new StringMetadata('title');

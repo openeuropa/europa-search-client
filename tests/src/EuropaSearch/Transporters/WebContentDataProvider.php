@@ -1,14 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Tests\Transporters\Index\WebContentDataProvider.
- */
-
 namespace EC\EuropaSearch\Tests\Transporters;
 
-use EC\EuropaSearch\Messages\Index\WebContentRequest;
-use EC\EuropaSearch\Messages\Search\SearchRequest;
+use EC\EuropaSearch\Transporters\Requests\Index\WebContentRequest;
+use EC\EuropaSearch\Transporters\Requests\Search\SearchRequest;
 
 /**
  * Class WebContentDataProvider.
@@ -24,7 +19,7 @@ class WebContentDataProvider
     /**
      * Provides objects necessary for the test.
      *
-     * @return IndexingRequest
+     * @return WebContentRequest
      *   The objects for the test.
      */
     public function webContentIndexingRequestProvider()
@@ -51,8 +46,8 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
 
         // Submitted object.
         $indexingRequest = new WebContentRequest();
-        $indexingRequest->setAPIKey('a221108a-180d-HTTP-CLIENT-LIBRARY-TEST');
-        $indexingRequest->setDatabase('EC-EUROPA-DUMMY');
+        $indexingRequest->setAPIKey('a221108a-180d-HTTP-INDEXING-TEST');
+        $indexingRequest->setDatabase('EC-EUROPA-DUMMY-INDEXING');
         $indexingRequest->setDocumentId($documentId);
         $indexingRequest->setDocumentURI($documentURI);
         $indexingRequest->setDocumentLanguage($documentLanguage);
@@ -82,7 +77,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         $searchRequest->setText('text to search');
         $searchRequest->setSort('field:DESC');
         $searchRequest->setSessionToken('123456');
-        $searchRequest->setAPIKey('a221108a-180d-HTTP-CLIENT-LIBRARY-TEST');
+        $searchRequest->setAPIKey('a221108a-180d-HTTP-SEARCH-TEST');
 
         $fileContent = file_get_contents(__DIR__.'/fixtures/search_json_sample.json');
 

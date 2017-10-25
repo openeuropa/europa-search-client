@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Tests\Transporters\IndexingTransporterTest.
- */
-
 namespace EC\EuropaSearch\Tests\Transporters;
 
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
@@ -40,7 +35,7 @@ class IndexingTransporterTest extends AbstractEuropaSearchTest
 
         $this->assertEquals('POST', $sentRequest->getMethod(), 'The indexing request does not use the right HTTP method.');
 
-        $expectedTarget = '/es/ingestion-api/rest/ingestion/text?apiKey=a221108a-180d-HTTP-CLIENT-LIBRARY-TEST&database=EC-EUROPA-DUMMY&reference=web_content_1&uri=http%3A%2F%2Feuropa.test.com%2Fcontent.html&language=fr';
+        $expectedTarget = '/es/ingestion-api/rest/ingestion/text?apiKey=a221108a-180d-HTTP-INDEXING-TEST&database=EC-EUROPA-DUMMY-INDEXING&reference=web_content_1&uri=http%3A%2F%2Feuropa.test.com%2Fcontent.html&language=fr';
         $this->assertEquals($expectedTarget, $sentRequest->getRequestTarget(), 'The indexing request does not use the right url.');
 
         $contentType = $sentRequest->getHeader('Content-Type');
@@ -63,6 +58,6 @@ class IndexingTransporterTest extends AbstractEuropaSearchTest
         $response = new Response(200, [], $body);
         $mockResponses = [$response];
 
-        return $this->getDummyConfig($mockResponses);
+        return $this->getDummyIndexingAppConfig($mockResponses);
     }
 }
