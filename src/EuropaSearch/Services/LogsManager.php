@@ -296,8 +296,8 @@ class LogsManager
     public function logException(\Exception $exception)
     {
         $message = 'Exception Message: '.$exception->getMessage();
-        $message .= PHP_EOL.'Stack Trace: '.$exception->getTraceAsString();
-        $this->logger->error($message);
+        $context = ['exception' => $exception];
+        $this->logger->error($message, $context);
     }
 
     /**

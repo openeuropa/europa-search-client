@@ -209,7 +209,10 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
             $response = $transporter->send($request);
 
             if ($this->logsManager->isDebug()) {
-                $this->logsManager->logDebug('The client has received this response via the Transporter: '.PHP_EOL.print_r($response, true));
+                $this->logsManager->logDebug(
+                    'The client has received a response via the Transporter.',
+                    ['response' => $response]
+                );
             }
 
             return $this->convertResponse($converter, $response);

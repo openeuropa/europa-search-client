@@ -113,7 +113,10 @@ class EuropaSearchTransporter implements TransporterInterface
 
         try {
             if ($this->logsManager->isInfo()) {
-                $this->logsManager->logInfo('Request sent to '.$uri.'with these options:'.print_r($requestOptions, true));
+                $this->logsManager->logInfo(
+                    $method.' request sent to '.$uri.'.',
+                    ['requestOptions' => $requestOptions]
+                );
             }
 
             return $this->HTTPClient->request($method, $uri, $requestOptions);
