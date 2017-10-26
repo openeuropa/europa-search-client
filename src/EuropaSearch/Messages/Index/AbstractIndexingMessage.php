@@ -25,7 +25,7 @@ abstract class AbstractIndexingMessage implements IdentifiableMessageInterface
      *
      * @const
      */
-    const CONVERTER_NAME_PREFIX = 'messageProxy.indexing.';
+    const CONVERTER_NAME_PREFIX = 'europaSearch.messageProxy.indexing.';
 
     /**
      * The identifier common to the system and the Europa Search services.

@@ -30,16 +30,29 @@ class SearchingApplicationTest extends AbstractEuropaSearchTest
         $mockConfig = $this->getMockResponse();
         $factory = $this->getFactory($mockConfig);
         $application = $factory->getSearchApplication();
-        $applicationConfig = $application->getApplicationConfiguration();
         $response = $application->sendMessage($data['submitted']);
+
+        $this->assertInstanceOf('EC\EuropaSearch\Applications\Application', $application, 'The returned application is not an Application object.');
+        $this->assertEquals($data['expected'], $response, 'The returned response is not the expected one.');
+    }
+
+    /**
+     * Test that the application uses the right configuration.
+     *
+     * This configuration comes from the container.
+     */
+    public function testApplicationConfiguration()
+    {
+        $mockConfig = $this->getMockResponse();
+        $factory = $this->getFactory($mockConfig);
+        $application = $factory->getSearchApplication();
+        $applicationConfig = $application->getApplicationConfiguration();
 
         $this->assertArraySubset(
             $this->getTestedSearchServiceParams(),
             $applicationConfig->getConnectionConfigurations(),
             'The returned search application does not have the expected configuration.'
         );
-        $this->assertInstanceOf('EC\EuropaSearch\Applications\Application', $application, 'The returned application is not an Application object.');
-        $this->assertEquals($data['expected'], $response, 'The returned response is not the expected one.');
     }
 
     /**

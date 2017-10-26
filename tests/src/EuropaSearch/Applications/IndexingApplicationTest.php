@@ -29,17 +29,30 @@ class IndexingApplicationTest extends AbstractEuropaSearchTest
         $mockConfig = $this->getMockResponse();
         $factory = $this->getFactory($mockConfig);
         $application = $factory->getIndexingApplication();
-        $applicationConfig = $application->getApplicationConfiguration();
         $response = $application->sendMessage($indexingMessage);
+
+        $this->assertInstanceOf('EC\EuropaSearch\Applications\Application', $application, 'The returned application is not an Application object.');
+        $this->assertInstanceOf('EC\EuropaSearch\Messages\StringResponseMessage', $response, 'The returned response is not an StringResponseMessage object.');
+        $this->assertEquals('web_content_client_1', $response->getReturnedString(), 'The returned response is not the expected one.');
+    }
+
+    /**
+     * Test that the application uses the right configuration.
+     *
+     * This configuration comes from the container.
+     */
+    public function testApplicationConfiguration()
+    {
+        $mockConfig = $this->getMockResponse();
+        $factory = $this->getFactory($mockConfig);
+        $application = $factory->getIndexingApplication();
+        $applicationConfig = $application->getApplicationConfiguration();
 
         $this->assertArraySubset(
             $this->getTestedIndexingServiceParams(),
             $applicationConfig->getConnectionConfigurations(),
             'The returned indexing application does not have the expected configuration. '
         );
-        $this->assertInstanceOf('EC\EuropaSearch\Applications\Application', $application, 'The returned application is not an Application object.');
-        $this->assertInstanceOf('EC\EuropaSearch\Messages\StringResponseMessage', $response, 'The returned response is not an StringResponseMessage object.');
-        $this->assertEquals('web_content_client_1', $response->getReturnedString(), 'The returned response is not the expected one.');
     }
 
     /**

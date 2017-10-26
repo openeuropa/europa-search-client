@@ -27,7 +27,7 @@ abstract class AbstractClause extends BoostableFilter implements ComponentInterf
      *
      * @const
      */
-    const CONVERTER_NAME_PREFIX = 'componentProxy.searching.filters.clauses.';
+    const CONVERTER_NAME_PREFIX = 'europaSearch.componentProxy.searching.filters.clauses.';
 
     /**
      * The metadata implied in the criteria definition.

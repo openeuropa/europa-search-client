@@ -1,43 +1,56 @@
+parameters:
+ europaSearch.logger.class: Psr\Log\NullLogger
 services:
   # WebContent Indexing service converter classes.
-  messageProxy.indexing.webContent:
+  europaSearch.messageProxy.indexing.webContent:
       class: EC\EuropaSearch\Proxies\Converters\Index\WebContentConverter
-  componentProxy.metadata.boolean:
+  europaSearch.componentProxy.metadata.boolean:
       class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\BooleanMetadataConverter
-  componentProxy.metadata.date:
+  europaSearch.componentProxy.metadata.date:
       class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DateMetadataConverter
-  componentProxy.metadata.numeric:
+  europaSearch.componentProxy.metadata.numeric:
       class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
-  componentProxy.metadata.notIndexed:
+  europaSearch.componentProxy.metadata.notIndexed:
       class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
-  componentProxy.metadata.string:
+  europaSearch.componentProxy.metadata.string:
       class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
 
   # Search Service converter classes.
-  messageProxy.searching.search:
+  europaSearch.messageProxy.searching.search:
       class: EC\EuropaSearch\Proxies\Converters\Search\SearchConverter
-  componentProxy.searching.filters.clauses.fieldExists:
+  europaSearch.componentProxy.searching.filters.clauses.fieldExists:
       class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\FieldExistsClauseConverter
-  componentProxy.searching.filters.clauses.range:
+  europaSearch.componentProxy.searching.filters.clauses.range:
       class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\RangeClauseConverter
-  componentProxy.searching.filters.clauses.term:
+  europaSearch.componentProxy.searching.filters.clauses.term:
       class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\TermClauseConverter
-  componentProxy.searching.filters.clauses.terms:
+  europaSearch.componentProxy.searching.filters.clauses.terms:
       class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\TermsClauseConverter
-  componentProxy.searching.filters.queries.aggregate:
+  europaSearch.componentProxy.searching.filters.queries.aggregate:
       class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\FilterQueryComponentConverter
-  componentProxy.searching.filters.queries.booleanQuery:
+  europaSearch.componentProxy.searching.filters.queries.booleanQuery:
       class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\BooleanQueryConverter
-  componentProxy.searching.filters.queries.boostingQuery:
+  europaSearch.componentProxy.searching.filters.queries.boostingQuery:
       class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\BoostingQueryConverter
 
   # Default Layer classes.
-  transporter.default:
+  europaSearch.validator.default:
+      class: EC\EuropaSearch\Messages\DefaultValidatorBuilder
+  europaSearch.logger:
+      class: %europaSearch.logger.class%
+  europasearch.loggerManager:
+      class: EC\EuropaSearch\Services\LogsManager
+      arguments: ['@europaSearch.logger', 'error']
+      tags:
+        - { name: europasearch.client_logger }
+  europaSearch.transporter.default:
       class: EC\EuropaSearch\Transporters\EuropaSearchTransporter
-  proxyController.default:
+      arguments: ['@europaSearch.loggerManager']
+  europaSearch.proxyController.default:
       class:  EC\EuropaSearch\Proxies\ProxyController
+      arguments: ['@europaSearch.loggerManager']
       calls:
           - [setContainer, ['@service_container']]
-  application.default:
-    class: EC\EuropaSearch\Applications\Application
-    arguments: ['@validator.default', '@proxyController.default', '@transporter.default']
+  europaSearch.application.default:
+      class: EC\EuropaSearch\Applications\Application
+      arguments: ['@europaSearch.validator.default', '@europaSearch.proxyController.default', '@europaSearch.transporter.default', '@europaSearch.loggerManager']

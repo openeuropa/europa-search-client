@@ -31,11 +31,11 @@ For each client services, it defines:
 - The transporter implementation the client uses (see the line `transporter`).<br />
   It requires the web service settings that are currently set in the YML file.<br /><br />
   <span style="color:orange;">Note</span>: The settings location will change with the transport layer implementation.<br /><br />
-- The message converter classes the proxy layer will use to convert the message (see the lines `messageProxy.*`).<br />
-  The service key like `messageProxy.indexing.webContent` is the converter identifier set in the message object 
+- The message converter classes the proxy layer will use to convert the message (see the lines `europaSearch.messageProxy.*`).<br />
+  The service key like `europaSearch.messageProxy.indexing.webContent` is the converter identifier set in the message object 
   (`getConverterIdentifier()`).
-- The component converter classes the proxy layer will use to convert the component (see the lines `componentProxy.*`).<br />
-  The service key like `componentProxy.metadata.boolean` is the converter identifier set in the component object 
+- The component converter classes the proxy layer will use to convert the component (see the lines `europaSearch.componentProxy.*`).<br />
+  The service key like `europaSearch.componentProxy.metadata.boolean` is the converter identifier set in the component object 
   (`getConverterIdentifier()`). 
 - The proxy controller implementation the client uses to process the conversions of messages and components 
   (see the lines `proxyController.*`).<br />

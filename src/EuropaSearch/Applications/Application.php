@@ -6,6 +6,7 @@ use EC\EuropaSearch\EuropaSearchConfig;
 use EC\EuropaSearch\Exceptions\ValidationException;
 use EC\EuropaSearch\Messages\ValidatableMessageInterface;
 use EC\EuropaSearch\Proxies\ProxyControllerInterface;
+use EC\EuropaSearch\Services\LogsManager;
 use EC\EuropaSearch\Transporters\TransporterInterface;
 use Symfony\Component\Validator\ValidatorBuilder;
 
@@ -48,17 +49,26 @@ class Application implements ApplicationInterface
     protected $WSConfiguration;
 
     /**
+     * The logs manager that will manage logs record.
+     *
+     * @var \EC\EuropaSearch\Services\LogsManager
+     */
+    protected $logsManager;
+
+    /**
      * DefaultClient constructor.
      *
      * @param \Symfony\Component\Validator\ValidatorBuilder      $validator
      * @param \EC\EuropaSearch\Proxies\ProxyControllerInterface  $proxy
      * @param \EC\EuropaSearch\Transporters\TransporterInterface $transporter
+     * @param \EC\EuropaSearch\Services\LogsManager              $logsManager
      */
-    public function __construct(ValidatorBuilder $validator, ProxyControllerInterface $proxy, TransporterInterface $transporter)
+    public function __construct(ValidatorBuilder $validator, ProxyControllerInterface $proxy, TransporterInterface $transporter, LogsManager $logsManager)
     {
         $this->validator = $validator->getValidator();
         $this->proxy = $proxy;
         $this->transporter = $transporter;
+        $this->logsManager = $logsManager;
     }
 
     /**

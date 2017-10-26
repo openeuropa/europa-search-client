@@ -23,7 +23,7 @@ class SearchTransporterTest extends AbstractEuropaSearchTest
         $provider = new WebContentDataProvider();
         $requestToSend = $provider->searchRequestProvider();
 
-        $transporter = $this->getContainer()->get('transporter.default');
+        $transporter = $this->getContainer()->get('europaSearch.transporter.default');
         $testConfig = $this->getMockConfiguration();
 
         $transporter->initTransporter($testConfig);

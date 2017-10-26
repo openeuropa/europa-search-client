@@ -154,7 +154,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
      */
     public function getConverterIdentifier()
     {
-        return 'componentProxy.searching.filters.queries.booleanQuery';
+        return 'europaSearch.componentProxy.searching.filters.queries.booleanQuery';
     }
 
     /**

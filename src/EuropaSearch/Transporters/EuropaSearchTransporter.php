@@ -5,6 +5,7 @@ namespace EC\EuropaSearch\Transporters;
 use EC\EuropaSearch\EuropaSearchConfig;
 use EC\EuropaSearch\Exceptions\ConnectionException;
 use EC\EuropaSearch\Exceptions\WebServiceErrorException;
+use EC\EuropaSearch\Services\LogsManager;
 use EC\EuropaSearch\Transporters\Requests\RequestInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
@@ -45,6 +46,24 @@ class EuropaSearchTransporter implements TransporterInterface
     protected $HTTPClient;
 
     /**
+     * The logs manager that will manage logs record.
+     *
+     * @var LogsManager
+     */
+    protected $logsManager;
+
+    /**
+     * EuropaSearchTransporter constructor.
+     *
+     * @param LogsManager $logsManager
+     *   The logs manager that will manage logs record.
+     */
+    public function __construct(LogsManager $logsManager)
+    {
+        $this->logsManager = $logsManager;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function initTransporter(EuropaSearchConfig $configuration)
@@ -69,6 +88,8 @@ class EuropaSearchTransporter implements TransporterInterface
             'handler' => $stack,
         ];
         $this->HTTPClient = new Client($HTTPClientConfig);
+
+        $this->logsManager->logInfo('Transporter is initialized.');
     }
 
     /**
@@ -91,11 +112,21 @@ class EuropaSearchTransporter implements TransporterInterface
         $uri = $request->getRequestURI();
 
         try {
+            if ($this->logsManager->isInfo()) {
+                $this->logsManager->logInfo('Request sent to '.$uri.'with these options:'.print_r($requestOptions, true));
+            }
+
             return $this->HTTPClient->request($method, $uri, $requestOptions);
-        } catch (ServerException $requestException) {
-            throw new ConnectionException('The connection to the service fails', $requestException);
-        } catch (ClientException $requestException) {
-            throw new WebServiceErrorException('The request sent to the service returned an error', $requestException);
+        } catch (ServerException $serverException) {
+            if ($this->logsManager->isExceptionToLog()) {
+                $this->logsManager->logException($serverException);
+            }
+            throw new ConnectionException('The connection to the service fails', $serverException);
+        } catch (ClientException $clientException) {
+            if ($this->logsManager->isExceptionToLog()) {
+                $this->logsManager->logException($clientException);
+            }
+            throw new WebServiceErrorException('The request sent to the service returned an error', $clientException);
         }
     }
 }

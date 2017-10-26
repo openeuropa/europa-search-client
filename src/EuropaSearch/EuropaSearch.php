@@ -4,9 +4,9 @@ namespace EC\EuropaSearch;
 
 use EC\EuropaSearch\Applications\Application;
 use EC\EuropaSearch\Applications\ApplicationInterface;
-use EC\EuropaSearch\Messages\DefaultValidatorBuilder;
 use EC\EuropaSearch\Exceptions\ClientInstantiationException;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Validator\Validator\RecursiveValidator;
@@ -22,19 +22,13 @@ class EuropaSearch
 {
     const CONFIGURATION_INDEXING_SERVICE_PARAM_NAME = 'indexing_settings';
     const CONFIGURATION_SEARCH_SERVICE_PARAM_NAME = 'search_settings';
+    const CONFIGURATION_CLIENT_SERVICE_PARAM_NAME = 'services_settings';
     /**
      * Client container.
      *
      * @var \Symfony\Component\DependencyInjection\ContainerBuilder
      */
     protected $container;
-
-    /**
-     * Path of the repository path with services configuration file.
-     *
-     * @var string
-     */
-    protected $configRepoPath;
 
     /**
      * The client configuration.
@@ -65,11 +59,18 @@ class EuropaSearch
      *      - 'url_root': [mandatory] URL root (without the last slash) where the
      *        Europa Search REST services to use are host;
      *        ex.: https://search.ec.europa.eu.
-     *      - 'api_key' : [mandatory] The API key to communicate with all search requests.
+     *      - 'api_key' : [mandatory] The API key to communicate with all
+     *         search requests.
+     *   -  'services_settings': Settings specific related tothe client itself.
+     *        'logger': The PSR3 logger used to record logs from the client.
+     *        'log_level': The PSR3 level of the logs to record with the PSR3 logger.
+     *        See Psr\Log\LogLevel
      */
     public function __construct(array $clientConfiguration = array())
     {
-        $this->configRepoPath = __DIR__.'/config';
+        $clientConfiguration += array(self::CONFIGURATION_CLIENT_SERVICE_PARAM_NAME => array());
+
+        $this->buildClientContainer($clientConfiguration[self::CONFIGURATION_CLIENT_SERVICE_PARAM_NAME]);
 
         if (!empty($clientConfiguration[self::CONFIGURATION_INDEXING_SERVICE_PARAM_NAME])) {
             $config = new EuropaSearchConfig($clientConfiguration[self::CONFIGURATION_SEARCH_SERVICE_PARAM_NAME]);
@@ -90,8 +91,6 @@ class EuropaSearch
      */
     public function getClientContainer()
     {
-        $this->buildClientContainer();
-
         return $this->container;
     }
 
@@ -107,7 +106,7 @@ class EuropaSearch
     public function getDefaultValidator()
     {
         try {
-            $validatorBuilder = $this->getClientContainer()->get('validator.default');
+            $validatorBuilder = $this->getClientContainer()->get('europaSearch.validator.default');
 
             return $validatorBuilder->getValidator();
         } catch (\Exception $e) {
@@ -154,7 +153,7 @@ class EuropaSearch
     {
         $applicationConfig = $this->clientConfiguration[self::CONFIGURATION_INDEXING_SERVICE_PARAM_NAME];
 
-        return $this->getApplication('application.default', $applicationConfig);
+        return $this->getApplication('europaSearch.application.default', $applicationConfig);
     }
 
     /**
@@ -170,7 +169,7 @@ class EuropaSearch
     {
         $applicationConfig = $this->clientConfiguration[self::CONFIGURATION_SEARCH_SERVICE_PARAM_NAME];
 
-        return $this->getApplication('application.default', $applicationConfig);
+        return $this->getApplication('europaSearch.application.default', $applicationConfig);
     }
 
     /**
@@ -212,12 +211,31 @@ class EuropaSearch
     }
 
     /**
+     * Gets the service defined in the client container by its id.
+     *
+     * @param string $serviceId
+     *   The id of the service to retrieve.
+     *
+     * @return object
+     *   The service instance stored in the container.
+     *
+     * {@internal Designed primarily for unit test purpose.}
+     */
+    public function getServiceById($serviceId)
+    {
+        return $this->container->get($serviceId);
+    }
+
+    /**
      * Builds the client container.
+     *
+     * @param array $servicesSettings
+     *   Custom settings for the services container.
      *
      * @throws ClientInstantiationException
      *   It is catch when the YML file are not found or malformed.
      */
-    protected function buildClientContainer()
+    protected function buildClientContainer(array $servicesSettings)
     {
         if (!is_null($this->container)) {
             return;
@@ -225,10 +243,12 @@ class EuropaSearch
 
         $container = new ContainerBuilder();
         try {
-            //Add the default validator implementation
-            $container->register('validator.default', DefaultValidatorBuilder::class);
-            $loader = new YamlFileLoader($container, new FileLocator($this->configRepoPath));
+            $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/config'));
             $loader->load('services.yml');
+
+            if (!empty($servicesSettings['logger'])) {
+                $container->set('europaSearch.logger', $servicesSettings['logger']);
+            }
 
             $this->container = $container;
         } catch (\Exception $e) {

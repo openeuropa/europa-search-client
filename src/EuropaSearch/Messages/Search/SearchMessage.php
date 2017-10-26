@@ -305,7 +305,7 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function getConverterIdentifier()
     {
-        return 'messageProxy.searching.search';
+        return 'europaSearch.messageProxy.searching.search';
     }
 
     /**

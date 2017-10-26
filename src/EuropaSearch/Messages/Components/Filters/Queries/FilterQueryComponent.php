@@ -98,7 +98,7 @@ class FilterQueryComponent implements NestedComponentInterface
      */
     public function getConverterIdentifier()
     {
-        return 'componentProxy.searching.filters.queries.aggregate';
+        return 'europaSearch.componentProxy.searching.filters.queries.aggregate';
     }
 
     /**

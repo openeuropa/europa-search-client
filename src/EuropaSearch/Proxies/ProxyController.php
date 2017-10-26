@@ -14,6 +14,7 @@ use EC\EuropaSearch\Messages\ValidatableMessageInterface;
 use EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\FilterQueryConverterInterface;
 use EC\EuropaSearch\Proxies\Converters\Components\ComponentConverterInterface;
 use EC\EuropaSearch\Proxies\Converters\MessageConverterInterface;
+use EC\EuropaSearch\Services\LogsManager;
 use EC\EuropaSearch\Transporters\TransporterInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -35,11 +36,11 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
     /**
      * Prefix for identifier of service used as message proxy.
      */
-    const MESSAGE_ID_PREFIX = 'messageProxy.';
+    const MESSAGE_ID_PREFIX = 'europaSearch.messageProxy.';
     /**
      * Prefix for identifier of service used as component proxy.
      */
-    const COMPONENT_ID_PREFIX = 'componentProxy.';
+    const COMPONENT_ID_PREFIX = 'europaSearch.componentProxy.';
 
     /**
      * Web service configuration.
@@ -47,6 +48,24 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
      * @var EuropaSearchConfig
      */
     protected $WSConfiguration;
+
+    /**
+     * The logs manager that will manage logs record.
+     *
+     * @var LogsManager
+     */
+    protected $logsManager;
+
+    /**
+     * ProxyController constructor.
+     *
+     * @param LogsManager $logsManager
+     *   The logs manager that will manage logs record.
+     */
+    public function __construct(LogsManager $logsManager)
+    {
+        $this->logsManager = $logsManager;
+    }
 
     /**
      * {@inheritdoc}
@@ -76,6 +95,9 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
         try {
             $convertedMessage = $converter->convertMessage($message, $this->WSConfiguration);
         } catch (Exception $e) {
+            if ($this->logsManager->isExceptionToLog()) {
+                $this->logsManager->logException($e);
+            }
             throw new ProxyException('The conversion process for the message failed!', $e);
         }
 
@@ -94,6 +116,9 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
                 $this->WSConfiguration
             );
         } catch (Exception $e) {
+            if ($this->logsManager->isExceptionToLog()) {
+                $this->logsManager->logException($e);
+            }
             throw new ProxyException('The conversion process of the message with its components failed!', $e);
         }
 
@@ -114,6 +139,9 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
                 $convertedComponents[$key] = $this->convertComponent($converter, $component);
             }
         } catch (Exception $e) {
+            if ($this->logsManager->isExceptionToLog()) {
+                $this->logsManager->logException($e);
+            }
             throw new ProxyException('The conversion process of the components failed!', $e);
         }
 
@@ -135,16 +163,25 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
         try {
             $convertedComponent = $converter->convertComponent($component);
         } catch (ServiceCircularReferenceException $scre) {
+            if ($this->logsManager->isExceptionToLog()) {
+                $this->logsManager->logException($scre);
+            }
             throw new ClientInstantiationException(
                 'The conversion of the component failed because of client implementation problem!',
                 $scre
             );
         } catch (ServiceNotFoundException $snfe) {
+            if ($this->logsManager->isExceptionToLog()) {
+                $this->logsManager->logException($snfe);
+            }
             throw new ClientInstantiationException(
                 'The converter for the component has not been found!',
                 $snfe
             );
         } catch (Exception $e) {
+            if ($this->logsManager->isExceptionToLog()) {
+                $this->logsManager->logException($e);
+            }
             throw new ProxyException(
                 'The conversion process of the component failed!',
                 $e
@@ -170,6 +207,10 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
             }
 
             $response = $transporter->send($request);
+
+            if ($this->logsManager->isDebug()) {
+                $this->logsManager->logDebug('The client has received this response via the Transporter: '.PHP_EOL.print_r($response, true));
+            }
 
             return $this->convertResponse($converter, $response);
         } catch (ProxyException $pe) {
@@ -222,16 +263,25 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
 
             return $convertedComponent;
         } catch (ServiceCircularReferenceException $scre) {
+            if ($this->logsManager->isExceptionToLog()) {
+                $this->logsManager->logException($scre);
+            }
             throw new ClientInstantiationException(
                 'The conversion of the component failed because of client implementation problem!',
                 $scre
             );
         } catch (ServiceNotFoundException $snfe) {
+            if ($this->logsManager->isExceptionToLog()) {
+                $this->logsManager->logException($snfe);
+            }
             throw new ClientInstantiationException(
                 'The converter for the component has not been found!',
                 $snfe
             );
         } catch (\Exception $e) {
+            if ($this->logsManager->isExceptionToLog()) {
+                $this->logsManager->logException($e);
+            }
             throw new ProxyException(
                 'The conversion process of the component failed!',
                 $e

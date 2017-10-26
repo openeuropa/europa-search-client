@@ -30,7 +30,7 @@ abstract class AbstractMetadata implements ComponentInterface
      *
      * @const
      */
-    const CONVERTER_NAME_PREFIX = 'componentProxy.metadata.';
+    const CONVERTER_NAME_PREFIX = 'europaSearch.componentProxy.metadata.';
 
     /**
      * Metadata name.

@@ -123,7 +123,7 @@ class BoostingQuery extends BoostableFilter implements NestedComponentInterface
      */
     public function getConverterIdentifier()
     {
-        return 'componentProxy.searching.filters.queries.boostingQuery';
+        return 'europaSearch.componentProxy.searching.filters.queries.boostingQuery';
     }
 
     /**
