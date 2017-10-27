@@ -34,14 +34,14 @@ class BoostingQuery extends BoostableFilter implements NestedComponentInterface
      *
      * @var array
      */
-    private $positiveFilters;
+    protected $positiveFilters;
 
     /**
      * List of filters contributing to bias fields negatively.
      *
      * @var array
      */
-    private $negativeFilters;
+    protected $negativeFilters;
 
     /**
      * BoostingQuery constructor.

@@ -30,14 +30,14 @@ class RangeClause extends AbstractClause
      *
      * @var int
      */
-    private $lowerBoundary;
+    protected $lowerBoundary;
 
     /**
      * Indicates if the lower boundary is included in the range.
      *
      * @var boolean
      */
-    private $isLowerBoundaryIncluded = false;
+    protected $isLowerIncluded = false;
 
     /**
      * The upper boundary to use in the filter definition.
@@ -47,14 +47,14 @@ class RangeClause extends AbstractClause
      *
      * @var int
      */
-    private $upperBoundary;
+    protected $upperBoundary;
 
     /**
      * Indicates if the upper boundary is included in the range.
      *
      * @var boolean
      */
-    private $isUpperIncluded = false;
+    protected $isUpperIncluded = false;
 
     /**
      * Range constructor.
@@ -88,7 +88,7 @@ class RangeClause extends AbstractClause
     {
 
         $this->lowerBoundary = $lowerBoundary;
-        $this->isLowerBoundaryIncluded = false;
+        $this->isLowerIncluded = false;
     }
 
     /**
@@ -101,7 +101,7 @@ class RangeClause extends AbstractClause
     {
 
         $this->lowerBoundary = $lowerBoundary;
-        $this->isLowerBoundaryIncluded = true;
+        $this->isLowerIncluded = true;
     }
 
     /**
@@ -151,7 +151,7 @@ class RangeClause extends AbstractClause
      */
     public function isLowerBoundaryIncluded()
     {
-        return $this->isLowerBoundaryIncluded;
+        return $this->isLowerIncluded;
     }
 
     /**
@@ -182,7 +182,7 @@ class RangeClause extends AbstractClause
     public static function getConstraints(ClassMetadata $metadata)
     {
 
-        $metadata->addPropertyConstraint('isLowerBoundaryIncluded', new Assert\Type('bool'));
+        $metadata->addPropertyConstraint('isLowerIncluded', new Assert\Type('bool'));
         $metadata->addPropertyConstraint('isUpperIncluded', new Assert\Type('bool'));
         $metadata->addConstraint(new Assert\Callback('validate'));
     }
@@ -229,7 +229,7 @@ class RangeClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateDateRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateDateRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         if (isset($this->lowerBoundary) && !date_create($this->lowerBoundary)) {
@@ -250,7 +250,7 @@ class RangeClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateFloatRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateFloatRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         if (isset($this->lowerBoundary) && !(is_int($this->lowerBoundary) || is_float($this->lowerBoundary))) {
@@ -271,7 +271,7 @@ class RangeClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateIntRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateIntRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         if (isset($this->lowerBoundary) && !is_int($this->lowerBoundary)) {

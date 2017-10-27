@@ -121,14 +121,10 @@ class EuropaSearchTransporter implements TransporterInterface
 
             return $this->HTTPClient->request($method, $uri, $requestOptions);
         } catch (ServerException $serverException) {
-            if ($this->logsManager->isExceptionToLog()) {
-                $this->logsManager->logException($serverException);
-            }
+            $this->logsManager->logError('The Europa Search service returns an exception: '.$serverException->getMessage(), ['exception' => $serverException]);
             throw new ConnectionException('The connection to the service fails', $serverException);
         } catch (ClientException $clientException) {
-            if ($this->logsManager->isExceptionToLog()) {
-                $this->logsManager->logException($clientException);
-            }
+            $this->logsManager->logError('The Trasnporter object returns an exception: '.$clientException->getMessage(), ['exception' => $clientException]);
             throw new WebServiceErrorException('The request sent to the service returned an error', $clientException);
         }
     }

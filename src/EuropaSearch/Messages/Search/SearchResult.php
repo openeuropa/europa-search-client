@@ -17,76 +17,76 @@ class SearchResult
      *
      * @var string
      */
-    private $resultReference;
+    protected $resultReference;
 
     /**
      * The URL for displaying the result content via Europa Search.
      *
      * @var string
      */
-    private $europaSearchURL;
+    protected $europaSearchURL;
 
     /**
      * The URL of the actual result content.
      *
      * @var string
      */
-    private $actualURL;
+    protected $actualURL;
 
     /**
      * The result content type as defined in Europa Search.
      *
      * @var string
      */
-    private $contentType;
+    protected $contentType;
 
     /**
      * The label of database as defined by Europa Search.
      *
      * @var string
      */
-    private $databaseLabel;
+    protected $databaseLabel;
 
     /**
      * The database id as defined by Europa Search.
      * @var string
      */
-    private $database;
+    protected $database;
 
     /**
      * The summary of the result content.
      *
      * @var string
      */
-    private $resultSummary;
+    protected $resultSummary;
 
     /**
      * The sorting weight of the result in the list.
      *
      * @var float
      */
-    private $sortingWeight;
+    protected $sortingWeight;
 
     /**
      * The full content of the result.
      *
      * @var string
      */
-    private $resultFullContent;
+    protected $resultFullContent;
 
     /**
      * Flag indicated if the access is restricted for this result.
      *
      * @var boolean
      */
-    private $isAccessRestricted = false;
+    protected $isAccessRestricted = false;
 
     /**
      * The indexed metadata for the result.
      *
      * @var array
      */
-    private $resultMetadata = [];
+    protected $resultMetadata = [];
 
     /**
      * Gets the result id.

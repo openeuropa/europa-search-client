@@ -29,7 +29,7 @@ class TermClause extends AbstractClause
      *
      * @var string
      */
-    private $testedValue;
+    protected $testedValue;
 
     /**
      * Value constructor.
@@ -126,7 +126,7 @@ class TermClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateDateRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateDateRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         if (!date_create($this->testedValue)) {
@@ -142,7 +142,7 @@ class TermClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateFloatRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateFloatRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         if (!is_float($this->testedValue)) {
@@ -158,7 +158,7 @@ class TermClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateIntRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateIntRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         if (!is_int($this->testedValue)) {
@@ -174,7 +174,7 @@ class TermClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateBooleanRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateBooleanRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         if (!is_bool($this->testedValue)) {
@@ -190,7 +190,7 @@ class TermClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateURLRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateURLRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         $validator = new Assert\UrlValidator();

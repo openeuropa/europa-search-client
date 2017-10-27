@@ -179,17 +179,6 @@ class LogsManager
     }
 
     /**
-     * Determines if a exception log must be recorded or not.
-     *
-     * @return boolean
-     *   TRUE if exception log must be created.
-     */
-    public function isExceptionToLog()
-    {
-        return ($this->logLevel >= self::ERROR);
-    }
-
-    /**
      * Determines if the current log level is "critical" or higher.
      *
      * @return boolean
@@ -284,19 +273,6 @@ class LogsManager
      */
     public function logError($message, array $context = array())
     {
-        $this->logger->error($message, $context);
-    }
-
-    /**
-     * Adds a log concerning an exception; it receives the ERROR level.
-     *
-     * @param \Exception $exception
-     *   The exception to log.
-     */
-    public function logException(\Exception $exception)
-    {
-        $message = 'Exception Message: '.$exception->getMessage();
-        $context = ['exception' => $exception];
         $this->logger->error($message, $context);
     }
 

@@ -21,7 +21,7 @@ class IndexingWebContent extends AbstractIndexingMessage
      *
      * @var string
      */
-    private $documentContent;
+    protected $documentContent;
 
     /**
      * Gets the content of the indexed document.

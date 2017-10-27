@@ -5,7 +5,7 @@ namespace EC\EuropaSearch\Transporters\Requests\Index;
 /**
  * Class WebContentRequest.
  *
- *  It covers the web content indexing request.
+ * It covers the web content indexing request.
  *
  * @package EC\EuropaSearch\Transporters\Requests\Index
  */
@@ -51,7 +51,7 @@ class WebContentRequest extends AbstractIndexingRequest
      */
     public function getRequestURI()
     {
-        return '/es/ingestion-api/rest/ingestion/text';
+        return '/rest/ingestion/text';
     }
 
     /**

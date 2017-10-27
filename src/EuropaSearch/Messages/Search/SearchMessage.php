@@ -26,35 +26,35 @@ class SearchMessage implements ValidatableMessageInterface
      *
      * @var string
      */
-    private $searchedText;
+    protected $searchedText;
 
     /**
      * Languages used for filtering the search.
      *
      * @var array
      */
-    private $searchedLanguages;
+    protected $searchedLanguages;
 
     /**
      * Filter query applied to the search.
      *
      * @var BooleanQuery
      */
-    private $searchQuery;
+    protected $searchQuery;
 
     /**
      * Field name on which results will be sorted.
      *
      * @var string
      */
-    private $sortField;
+    protected $sortField;
 
     /**
      * Sort direction.
      *
      * @var string
      */
-    private $sortDirection;
+    protected $sortDirection;
 
     /**
      * Number of search results to send per request.
@@ -63,7 +63,7 @@ class SearchMessage implements ValidatableMessageInterface
      *
      * @var integer
      */
-    private $paginationSize;
+    protected $paginationSize;
 
     /**
      * The number of the page to retrieve with the request.
@@ -72,7 +72,7 @@ class SearchMessage implements ValidatableMessageInterface
      *
      * @var integer
      */
-    private $paginationLocation;
+    protected $paginationLocation;
 
     /**
      * Regex expression used to insert in the highlighting mechanism.
@@ -82,21 +82,21 @@ class SearchMessage implements ValidatableMessageInterface
      *
      * @var string
      */
-    private $highlightRegex;
+    protected $highlightRegex;
 
     /**
      * The maximum length of the text that can be highlighted.
      *
      * @var integer
      */
-    private $highLightLimit;
+    protected $highLightLimit;
 
     /**
      * The session token required only for secured index.
      *
      * @var
      */
-    private $sessionToken;
+    protected $sessionToken;
 
     /**
      * Gets the keywords to use for the full-text search.

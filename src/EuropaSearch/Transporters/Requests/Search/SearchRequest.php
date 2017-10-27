@@ -251,7 +251,7 @@ class SearchRequest extends AbstractRequest
      */
     public function getRequestURI()
     {
-        return '/es/search-api/rest/search';
+        return '/rest/search';
     }
 
     /**

@@ -29,7 +29,7 @@ class TermsClause extends AbstractClause
      *
      * @var array
      */
-    private $testedValues;
+    protected $testedValues;
 
     /**
      * FieldExist constructor.
@@ -123,7 +123,7 @@ class TermsClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateDateRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateDateRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         foreach ($this->testedValues as $key => $testedValue) {
@@ -141,7 +141,7 @@ class TermsClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateFloatRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateFloatRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         foreach ($this->testedValues as $key => $testedValue) {
@@ -159,7 +159,7 @@ class TermsClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateIntRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateIntRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         foreach ($this->testedValues as $key => $testedValue) {
@@ -177,7 +177,7 @@ class TermsClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateBooleanRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateBooleanRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         foreach ($this->testedValues as $key => $testedValue) {
@@ -195,7 +195,7 @@ class TermsClause extends AbstractClause
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    private function validateURLRelatedFilter(ExecutionContextInterface $context, $payload)
+    protected function validateURLRelatedFilter(ExecutionContextInterface $context, $payload)
     {
 
         foreach ($this->testedValues as $key => $testedValue) {

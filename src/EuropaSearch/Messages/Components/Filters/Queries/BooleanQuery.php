@@ -24,21 +24,21 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
      *
      * @var array
      */
-    private $mustFilterList;
+    protected $mustFilterList;
 
     /**
      * The list of filters that SHOULD fulfil the search items.
      *
      * @var array
      */
-    private $shouldFilterList;
+    protected $shouldFilterList;
 
     /**
      * The list of filters that MUST NOT fulfil the search items.
      *
      * @var array
      */
-    private $mustNotFilterList;
+    protected $mustNotFilterList;
 
     /**
      * BooleanQuery constructor.

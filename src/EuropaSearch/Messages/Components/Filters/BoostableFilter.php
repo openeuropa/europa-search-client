@@ -17,7 +17,7 @@ class BoostableFilter
      *
      * @var int
      */
-    private $boost;
+    protected $boost;
 
     /**
      * Gets the boost value.

@@ -18,7 +18,7 @@ class StringResponseMessage implements MessageInterface
      *
      * @var string
      */
-    private $returnedString;
+    protected $returnedString;
 
     /**
      * StringResponseMessage constructor.

@@ -27,14 +27,14 @@ class FilterQueryComponent implements NestedComponentInterface
      *
      * @var string
      */
-    private $aggregationLabel;
+    protected $aggregationLabel;
 
     /**
      * The list of aggregated filters.
      *
      * @var array
      */
-    private $filterList;
+    protected $filterList;
 
     /**
      * AggregatedFilters constructor.

@@ -1,6 +1,9 @@
 parameters:
  europaSearch.logger.class: Psr\Log\NullLogger
 services:
+  # Index item deletion service converter class.
+  europaSearch.messageProxy.indexing.delete.item:
+      class: EC\EuropaSearch\Proxies\Converters\Index\IndexedItemDeletionConverter
   # WebContent Indexing service converter classes.
   europaSearch.messageProxy.indexing.webContent:
       class: EC\EuropaSearch\Proxies\Converters\Index\WebContentConverter

@@ -26,7 +26,7 @@ abstract class AbstractEuropaSearchTest extends TestCase
     protected function getTestedIndexingServiceParams()
     {
         return [
-            'url_root' => 'https://intragate.acceptance.ec.europa.eu',
+            'url_root' => 'https://intragate.acceptance.ec.europa.eu/es/ingestion-api',
             'api_key' => 'a221108a-180d-HTTP-INDEXING-TEST',
             'database' => 'EC-EUROPA-DUMMY-INDEXING',
         ];
@@ -41,7 +41,7 @@ abstract class AbstractEuropaSearchTest extends TestCase
     protected function getTestedSearchServiceParams()
     {
         return [
-            'url_root' => 'https://intragate.acceptance.ec.europa.eu',
+            'url_root' => 'https://intragate.acceptance.ec.europa.eu/es/search-api',
             'api_key' => 'a221108a-180d-HTTP-SEARCH-TEST',
             'database' => 'EC-EUROPA-DUMMY-SEARCH',
         ];

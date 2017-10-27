@@ -266,25 +266,19 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
 
             return $convertedComponent;
         } catch (ServiceCircularReferenceException $scre) {
-            if ($this->logsManager->isExceptionToLog()) {
-                $this->logsManager->logException($scre);
-            }
+            $this->logsManager->logError('The instantiation of converter object fails: '.$scre->getMessage(), ['exception' => $scre]);
             throw new ClientInstantiationException(
                 'The conversion of the component failed because of client implementation problem!',
                 $scre
             );
         } catch (ServiceNotFoundException $snfe) {
-            if ($this->logsManager->isExceptionToLog()) {
-                $this->logsManager->logException($snfe);
-            }
+            $this->logsManager->logError('The converter object has not been found: '.$snfe->getMessage(), ['exception' => $snfe]);
             throw new ClientInstantiationException(
                 'The converter for the component has not been found!',
                 $snfe
             );
         } catch (\Exception $e) {
-            if ($this->logsManager->isExceptionToLog()) {
-                $this->logsManager->logException($e);
-            }
+            $this->logsManager->logError('The message treatment fails: '.$e->getMessage(), ['exception' => $e]);
             throw new ProxyException(
                 'The conversion process of the component failed!',
                 $e
