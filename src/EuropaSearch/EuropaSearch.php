@@ -73,8 +73,8 @@ class EuropaSearch
         $this->buildClientContainer($clientConfiguration[self::CONFIGURATION_CLIENT_SERVICE_PARAM_NAME]);
 
         if (!empty($clientConfiguration[self::CONFIGURATION_INDEXING_SERVICE_PARAM_NAME])) {
-            $config = new EuropaSearchConfig($clientConfiguration[self::CONFIGURATION_SEARCH_SERVICE_PARAM_NAME]);
-            $this->clientConfiguration[self::CONFIGURATION_SEARCH_SERVICE_PARAM_NAME] = $config;
+            $config = new EuropaSearchConfig($clientConfiguration[self::CONFIGURATION_INDEXING_SERVICE_PARAM_NAME]);
+            $this->clientConfiguration[self::CONFIGURATION_INDEXING_SERVICE_PARAM_NAME] = $config;
         }
 
         if (!empty($clientConfiguration[self::CONFIGURATION_SEARCH_SERVICE_PARAM_NAME])) {

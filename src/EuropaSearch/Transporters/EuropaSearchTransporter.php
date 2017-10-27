@@ -46,6 +46,13 @@ class EuropaSearchTransporter implements TransporterInterface
     protected $HTTPClient;
 
     /**
+     * The default uri ste for the transporter.
+     *
+     * @var string
+     */
+     protected $uri;
+
+    /**
      * The logs manager that will manage logs record.
      *
      * @var LogsManager
@@ -83,13 +90,46 @@ class EuropaSearchTransporter implements TransporterInterface
         $stack->push($history);
 
         $connectionConfig = $configuration->getConnectionConfigurations();
+
+        $urlItems = $this->parseUrl($connectionConfig['url_root']);
+
+        $this->uri = $urlItems['path'];
+
         $HTTPClientConfig = [
-            'base_uri' => $connectionConfig['url_root'],
+            'base_uri' => $urlItems['base_uri'],
             'handler' => $stack,
         ];
         $this->HTTPClient = new Client($HTTPClientConfig);
 
-        $this->logsManager->logInfo('Transporter is initialized.');
+        if ($this->logsManager->isInfo()) {
+          $this->logsManager->logInfo('Transporter is initialized.', array('transporter_settings' => $HTTPClientConfig));
+        }
+    }
+
+  /**
+   * Parse an URL.
+   *
+   * @param string $url
+   *   The URL to parse.
+   *
+   * @return array
+   *   Array containing:
+   *   - 'base_uri': The url root.
+   *   - 'path': the url path.
+   */
+    public function parseUrl($url)
+    {
+      $urlComponents = parse_url($url);
+
+      $base_uri = $urlComponents['scheme'].'://'.$urlComponents['host'];
+      if (!empty($urlComponents['port'])) {
+        $base_uri.=$urlComponents['port'];
+      }
+
+      return [
+        'base_uri' => $base_uri,
+        'path' => (!empty($urlComponents['path'])) ? $urlComponents['path'] : '',
+      ];
     }
 
     /**
@@ -109,22 +149,22 @@ class EuropaSearchTransporter implements TransporterInterface
     {
         $requestOptions = $request->getRequestOptions();
         $method = $request->getRequestMethod();
-        $uri = $request->getRequestURI();
+        $this->uri .= $request->getRequestURI();
 
         try {
             if ($this->logsManager->isInfo()) {
                 $this->logsManager->logInfo(
-                    $method.' request sent to '.$uri.'.',
+                    $method.' request sent to '.$this->uri.'.',
                     ['requestOptions' => $requestOptions]
                 );
             }
 
-            return $this->HTTPClient->request($method, $uri, $requestOptions);
+            return $this->HTTPClient->request($method, $this->uri, $requestOptions);
         } catch (ServerException $serverException) {
             $this->logsManager->logError('The Europa Search service returns an exception: '.$serverException->getMessage(), ['exception' => $serverException]);
             throw new ConnectionException('The connection to the service fails', $serverException);
         } catch (ClientException $clientException) {
-            $this->logsManager->logError('The Trasnporter object returns an exception: '.$clientException->getMessage(), ['exception' => $clientException]);
+            $this->logsManager->logError('The Transporter object returns an exception: '.$clientException->getMessage(), ['exception' => $clientException]);
             throw new WebServiceErrorException('The request sent to the service returned an error', $clientException);
         }
     }
