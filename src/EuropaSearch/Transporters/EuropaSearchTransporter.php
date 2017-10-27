@@ -50,7 +50,7 @@ class EuropaSearchTransporter implements TransporterInterface
      *
      * @var string
      */
-     protected $uri;
+    protected $uri;
 
     /**
      * The logs manager that will manage logs record.
@@ -102,7 +102,7 @@ class EuropaSearchTransporter implements TransporterInterface
         $this->HTTPClient = new Client($HTTPClientConfig);
 
         if ($this->logsManager->isInfo()) {
-          $this->logsManager->logInfo('Transporter is initialized.', array('transporter_settings' => $HTTPClientConfig));
+            $this->logsManager->logInfo('Transporter is initialized.', array('transporter_settings' => $HTTPClientConfig));
         }
     }
 
@@ -119,21 +119,21 @@ class EuropaSearchTransporter implements TransporterInterface
    */
     public function parseUrl($url)
     {
-      $urlComponents = parse_url($url);
+        $urlComponents = parse_url($url);
 
-      $base_uri = $urlComponents['scheme'].'://'.$urlComponents['host'];
-      if (!empty($urlComponents['port'])) {
-        $base_uri.=$urlComponents['port'];
-      }
+        $baseUri = $urlComponents['scheme'].'://'.$urlComponents['host'];
+        if (!empty($urlComponents['port'])) {
+            $baseUri .= $urlComponents['port'];
+        }
 
-      return [
-        'base_uri' => $base_uri,
+        return [
+        'base_uri' => $baseUri,
         'path' => (!empty($urlComponents['path'])) ? $urlComponents['path'] : '',
-      ];
+        ];
     }
 
     /**
-     * gets the hostory of the requests sent to web services.
+     * gets the history of the requests sent to web services.
      *
      * @return array
      */
