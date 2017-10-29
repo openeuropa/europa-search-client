@@ -2,6 +2,7 @@
 
 namespace EC\EuropaSearch\Messages\Search;
 
+use EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata;
 use EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery;
 use EC\EuropaSearch\Messages\ValidatableMessageInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -43,11 +44,11 @@ class SearchMessage implements ValidatableMessageInterface
     protected $searchQuery;
 
     /**
-     * Field name on which results will be sorted.
+     * Metadata on which results will be sorted.
      *
-     * @var string
+     * @var AbstractMetadata
      */
-    protected $sortField;
+    protected $sortMetadata;
 
     /**
      * Sort direction.
@@ -165,14 +166,14 @@ class SearchMessage implements ValidatableMessageInterface
     }
 
     /**
-     * Gets the raw name on which basing the sorting.
+     * Gets the metadata on which basing the sorting.
      *
-     * @return string
+     * @return AbstractMetadata
      *   The raw name on which basing the sorting.
      */
-    public function getSortField()
+    public function getSortMetadata()
     {
-        return $this->sortField;
+        return $this->sortMetadata;
     }
 
     /**
@@ -192,15 +193,17 @@ class SearchMessage implements ValidatableMessageInterface
      * If the search does not contain any sort criteria, search results will be
      * sorted by relevancy.
      *
-     * @param string $sortField
-     *   The raw name of the field on which basing the sorting.
-     * @param string $sortDirection
+     * @param AbstractMetadata $sortMetadata
+     *   The metadata object defining the raw name of the field on which
+     *   basing the sorting.
+     *   Only the name attribute of the object is mandatory.
+     * @param string           $sortDirection
      *   The sort direction to use.
      */
-    public function setSortCriteria($sortField, $sortDirection = self::SEARCH_SORT_ASC)
+    public function setSortCriteria(AbstractMetadata $sortMetadata, $sortDirection = self::SEARCH_SORT_ASC)
     {
 
-        $this->sortField = $sortField;
+        $this->sortMetadata = $sortMetadata;
         $this->sortDirection = $sortDirection;
     }
 
@@ -236,7 +239,6 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function setPagination($paginationSize, $paginationLocation)
     {
-
         $this->paginationSize = $paginationSize;
         $this->paginationLocation = $paginationLocation;
     }
@@ -273,7 +275,6 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function setHighLightParameters($highlightRegex, $highLightLimit)
     {
-
         $this->highlightRegex = $highlightRegex;
         $this->highLightLimit = $highLightLimit;
     }
@@ -334,6 +335,9 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function getComponents()
     {
-        return [$this->searchQuery];
+        return [
+            'sort_metadata' => $this->sortMetadata,
+            'search_query' => $this->searchQuery,
+        ];
     }
 }

@@ -134,6 +134,15 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
 
         try {
             foreach ($components as $key => $component) {
+                if (!is_array($component) && !($component instanceof ComponentInterface)) {
+                    continue;
+                }
+
+                if (is_array($component)) {
+                    $convertedComponents[$key] =  $this->convertComponents($component);
+                    continue;
+                }
+
                 $converterId = $component->getConverterIdentifier();
                 $converter = $this->container->get($converterId);
                 $convertedComponents[$key] = $this->convertComponent($converter, $component);

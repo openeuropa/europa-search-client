@@ -37,37 +37,37 @@ class SearchConverter extends AbstractMessageConverter
 
         $request = new SearchRequest();
 
-        $parameter = $message->getSearchedLanguages();
-        $request->setLanguages($parameter);
+        $conversionMapping = [
+            'getSearchedLanguages' => 'setLanguages',
+            'getHighLightLimit' => 'setHighlightLimit',
+            'getHighlightRegex' => 'setHighlightRegex',
+            'getPaginationLocation' => 'setPageNumber',
+            'getPaginationSize' => 'setPageSize',
+            'getSessionToken' => 'setSessionToken',
+            'getSearchedText' => 'setText',
+        ];
 
-        $parameter = $message->getHighLightLimit();
-        $request->setHighlightLimit($parameter);
-
-        $parameter = $message->getHighlightRegex();
-        $request->setHighlightRegex($parameter);
-
-        $parameter = $message->getPaginationLocation();
-        $request->setPageNumber($parameter);
-
-        $parameter = $message->getPaginationSize();
-        $request->setPageSize($parameter);
-
-        $parameter = $message->getSessionToken();
-        $request->setSessionToken($parameter);
-
-        // Build the final sort value to send to the service.
-        $sort = $message->getSortField();
-        if (!empty($sort)) {
-            $sortDirection = ($message->getSortDirection()) ?: SearchMessage::SEARCH_SORT_ASC;
-            $sort .= ':'.$sortDirection;
-            $request->setSort($sort);
+        foreach ($conversionMapping as $getMethod => $setMethod) {
+            $parameter = $message->$getMethod();
+            if (!empty($parameter)) {
+                $request->$setMethod($parameter);
+            }
         }
 
-        $request->setText($message->getSearchedText());
+        // Build the final sort value to send to the service.
+        if (!empty($convertedComponent['sort_metadata'])) {
+            $sort = array_keys($convertedComponent['sort_metadata']);
+            if (!empty($sort)) {
+                $sort = reset($sort);
+                $sortDirection = ($message->getSortDirection()) ?: SearchMessage::SEARCH_SORT_ASC;
+                $sort .= ':'.$sortDirection;
+                $request->setSort($sort);
+            }
+        }
 
-        if (!empty($convertedComponent)) {
-            $injectedComponent = reset($convertedComponent);
-            $request->addConvertedComponents($injectedComponent);
+        if (!empty($convertedComponent['search_query'])) {
+            $queryComponents = $convertedComponent['search_query'];
+            $request->addConvertedComponents($queryComponents);
         }
 
         // Data retrieved from the web services configuration.

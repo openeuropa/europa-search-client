@@ -2,6 +2,7 @@
 
 namespace EC\EuropaSearch\Tests\Proxies\Converters\Search;
 
+use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
 use EC\EuropaSearch\Messages\Search\SearchMessage;
 use EC\EuropaSearch\Transporters\Requests\Search\SearchRequest;
 use EC\EuropaSearch\Tests\Messages\Components\Filters\Queries\BooleanQueryDataProvider;
@@ -32,7 +33,8 @@ class SearchDataProvider
         $searchMessage->setHighLightParameters('<strong>{}</strong>', 250);
         $searchMessage->setPagination(20, 1);
         $searchMessage->setSearchedText('text to search');
-        $searchMessage->setSortCriteria('field', SearchMessage::SEARCH_SORT_DESC);
+        $metadata = new DateMetadata('field');
+        $searchMessage->setSortCriteria($metadata, SearchMessage::SEARCH_SORT_DESC);
         $searchMessage->setSessionToken('123456');
 
         $booleanProvider = new BooleanQueryDataProvider();
@@ -46,7 +48,7 @@ class SearchDataProvider
         $searchRequest->setPageSize(20);
         $searchRequest->setPageNumber(1);
         $searchRequest->setText('text to search');
-        $searchRequest->setSort('field:DESC');
+        $searchRequest->setSort('ESDA_field:DESC');
         $searchRequest->setSessionToken('123456');
         $searchRequest->setAPIKey('a221108a-180d-HTTP-SEARCH-TEST');
 
