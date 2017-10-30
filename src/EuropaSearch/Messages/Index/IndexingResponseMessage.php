@@ -1,6 +1,8 @@
 <?php
 
-namespace EC\EuropaSearch\Messages;
+namespace EC\EuropaSearch\Messages\Index;
+
+use EC\EuropaSearch\Messages\MessageInterface;
 
 /**
  * Class StringResponseMessage.
@@ -10,7 +12,7 @@ namespace EC\EuropaSearch\Messages;
  *
  * @package EC\EuropaSearch\Messages
  */
-class StringResponseMessage implements MessageInterface
+class IndexingResponseMessage implements MessageInterface
 {
 
     /**
@@ -21,14 +23,24 @@ class StringResponseMessage implements MessageInterface
     protected $returnedString;
 
     /**
+     * The trackingId conveyed by the message.
+     *
+     * @var string
+     */
+    protected $trackingId;
+
+    /**
      * StringResponseMessage constructor.
      *
      * @param string $returnedString
      *   The string returned as response.
+     * @param string $trackingId
+     *   The Europa Search tracking ids returned with response.
      */
-    public function __construct($returnedString)
+    public function __construct($returnedString, $trackingId = null)
     {
         $this->returnedString = $returnedString;
+        $this->trackingId = $trackingId;
     }
 
 
@@ -41,6 +53,17 @@ class StringResponseMessage implements MessageInterface
     public function getReturnedString()
     {
         return $this->returnedString;
+    }
+
+    /**
+     * Gets the tracking id value received with the response.
+     *
+     * @return string
+     *   The received tracking id.
+     */
+    public function getTrackingId()
+    {
+        return $this->trackingId;
     }
 
     /**

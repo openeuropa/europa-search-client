@@ -6,7 +6,7 @@ use EC\EuropaSearch\EuropaSearchConfig;
 use EC\EuropaSearch\Proxies\Converters\AbstractMessageConverter;
 use EC\EuropaSearch\Transporters\Requests\Index\WebContentRequest;
 use EC\EuropaSearch\Exceptions\ProxyException;
-use EC\EuropaSearch\Messages\StringResponseMessage;
+use EC\EuropaSearch\Messages\Index\IndexingResponseMessage;
 use EC\EuropaSearch\Messages\ValidatableMessageInterface;
 
 /**
@@ -62,7 +62,7 @@ class WebContentConverter extends AbstractMessageConverter
             throw new ProxyException("The reference is not returned by the service; which indicating a problem");
         }
 
-        return new StringResponseMessage($rawResult->reference);
+        return new IndexingResponseMessage($rawResult->reference, $rawResult->trackingId);
     }
 
     /**
