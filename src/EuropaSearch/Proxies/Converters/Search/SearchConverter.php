@@ -246,7 +246,20 @@ class SearchConverter extends AbstractMessageConverter
                 continue;
             }
 
-            list( , $systemName) = explode('_', $name, 2);
+            switch (strtoupper($name)) {
+                case 'ES_CONTENTTYPE':
+                    $systemName = strtoupper($name);
+                    break;
+
+                case 'ESST_FILENAME':
+                    $systemName = strtoupper($name);
+                    break;
+
+                default:
+                    list( , $systemName) = explode('_', $name, 2);
+                    break;
+            }
+
             $convertedResult->addResultMetadata($systemName, $value);
         }
     }

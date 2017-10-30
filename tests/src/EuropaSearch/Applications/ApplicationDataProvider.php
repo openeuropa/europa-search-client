@@ -174,8 +174,8 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     {
         $metadata = [
             'rank' => [$resultId],
-            'FILENAME' => ['file.txt'],
-            'ContentType' => ['text/plain'],
+            'ESST_FILENAME' => ['file.txt'],
+            'ES_CONTENTTYPE' => ['text/plain'],
             'uri' => [sprintf('http://www.europa%d.com', $resultId)],
             'title' => ['this the title '.$resultId],
             'publishing_date' => [sprintf('201%d-0%d-2%dT00:00:00+00:00', $resultId, $resultId, $resultId)],
