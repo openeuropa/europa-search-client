@@ -48,7 +48,7 @@ class SearchDataProvider
         $searchRequest->setPageSize(20);
         $searchRequest->setPageNumber(1);
         $searchRequest->setText('text to search');
-        $searchRequest->setSort('ESDA_field:DESC');
+        $searchRequest->setSort('esDA_field:DESC');
         $searchRequest->setSessionToken('123456');
         $searchRequest->setAPIKey('a221108a-180d-HTTP-SEARCH-TEST');
 

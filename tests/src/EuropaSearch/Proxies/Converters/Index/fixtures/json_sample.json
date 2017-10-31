@@ -1,20 +1,20 @@
 {
-  "ESIN_title": [
+  "esIN_title": [
     "this the title"
   ],
-  "ESST_tag": [
+  "esST_tag": [
     "taxonomy term"
   ],
-  "ESNU_rank": [
+  "esNU_rank": [
     1
   ],
-  "ESNU_percentage": [
+  "esNU_percentage": [
     0.1
   ],
-  "ESDA_publishing_date": [
+  "esDA_publishing_date": [
     "2018-12-11T00:00:00+00:00"
   ],
-  "ESST_uri": [
+  "esST_uri": [
     "http://www.europa.com"
   ]
 }

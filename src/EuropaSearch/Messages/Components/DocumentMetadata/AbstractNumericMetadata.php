@@ -12,7 +12,7 @@ namespace EC\EuropaSearch\Messages\Components\DocumentMetadata;
 abstract class AbstractNumericMetadata extends AbstractMetadata implements IndexableMetadataInterface
 {
 
-    const EUROPA_SEARCH_NAME_PREFIX = 'ESNU';
+    const EUROPA_SEARCH_NAME_PREFIX = 'esNU';
 
     /**
      * {@inheritdoc}

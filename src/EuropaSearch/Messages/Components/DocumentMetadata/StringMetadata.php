@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class StringMetadata extends AbstractMetadata implements IndexableMetadataInterface
 {
 
-    const EUROPA_SEARCH_NAME_PREFIX = 'ESST';
+    const EUROPA_SEARCH_NAME_PREFIX = 'esST';
 
     /**
      * StringMetadata constructor.
