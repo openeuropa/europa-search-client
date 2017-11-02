@@ -12,7 +12,7 @@ use EC\EuropaSearch\Messages\MessageInterface;
  *
  * @package EC\EuropaSearch\Messages
  */
-class IndexingResponseMessage implements MessageInterface
+class IndexingResponse implements MessageInterface
 {
 
     /**

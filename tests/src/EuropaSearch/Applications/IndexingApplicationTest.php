@@ -32,7 +32,7 @@ class IndexingApplicationTest extends AbstractEuropaSearchTest
         $response = $application->sendMessage($indexingMessage);
 
         $this->assertInstanceOf('EC\EuropaSearch\Applications\Application', $application, 'The returned application is not an Application object.');
-        $this->assertInstanceOf('EC\EuropaSearch\Messages\Index\IndexingResponseMessage', $response, 'The returned response is not an IndexingResponseMessage object.');
+        $this->assertInstanceOf('EC\EuropaSearch\Messages\Index\IndexingResponse', $response, 'The returned response is not an IndexingResponse object.');
         $this->assertEquals('web_content_client_1', $response->getReturnedString(), 'The returned response is not the expected one.');
     }
 
