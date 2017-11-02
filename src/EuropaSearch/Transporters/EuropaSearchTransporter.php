@@ -123,7 +123,7 @@ class EuropaSearchTransporter implements TransporterInterface
 
         $baseUri = $urlComponents['scheme'].'://'.$urlComponents['host'];
         if (!empty($urlComponents['port'])) {
-            $baseUri .= $urlComponents['port'];
+            $baseUri .= ':'.$urlComponents['port'];
         }
 
         return [
