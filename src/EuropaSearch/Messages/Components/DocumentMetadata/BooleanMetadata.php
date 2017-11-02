@@ -45,10 +45,7 @@ class BooleanMetadata extends AbstractMetadata implements IndexableMetadataInter
     }
 
     /**
-     * Gets the boolean format of metadata values.
-     *
-     * @param array $values
-     *   The raw date values to convert.
+     * {@inheritdoc}
      */
     public function setRawValues($values)
     {

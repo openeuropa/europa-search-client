@@ -29,6 +29,18 @@ class IntegerMetadata extends AbstractNumericMetadata
     /**
      * {@inheritdoc}
      */
+    public function setRawValues($values)
+    {
+        foreach ($values as &$value) {
+            $value = intval($value);
+        }
+
+        $this->setValues($values);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function getConstraints(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('values', new Assert\All(['constraints' => [new Assert\Type('integer')]]));

@@ -79,6 +79,17 @@ abstract class AbstractMetadata implements ComponentInterface
         $this->values = $values;
     }
 
+  /**
+   * Sets the metadata values by formatting them first.
+   *
+   * @param array $values
+   *   The raw values to format and to set.
+   */
+    public function setRawValues($values)
+    {
+        $this->setValues($values);
+    }
+
     /**
      * Gets the metadata values
      *

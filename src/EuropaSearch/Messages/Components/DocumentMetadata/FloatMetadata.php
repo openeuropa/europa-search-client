@@ -29,6 +29,18 @@ class FloatMetadata extends AbstractNumericMetadata
     /**
      * {@inheritdoc}
      */
+    public function setRawValues($values)
+    {
+        foreach ($values as &$value) {
+            $value = floatval($value);
+        }
+
+        $this->setValues($values);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function getConstraints(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('values', new Assert\All(['constraints' => [new Assert\Type('float')]]));
