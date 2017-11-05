@@ -12,10 +12,10 @@ Table of content:
 - [How to use the library](#library-use)
 - [Architectural overview](#architectural-overview)
 - [Quality control](#quality-control)
+- [API Documentation](#api-documentation)
 - [Testing](#testing)
 - [Dependencies](#dependencies)
 
-[Go to top](#table-of-content)
 
 ## Library use
 
@@ -30,7 +30,7 @@ In order to send a request to one of the REST services of Europa Search, 3 eleme
 
 It allows defining the library settings that will be used by the different layers.
  
-Its constructor requires an array with the following items:
+It requires the following items:
 - 'indexing_settings': lists the parameters required to connect to the Indexing REST services (Ingestion API).<br />
   These parameters are:
   - 'url_root': The root URL of the REST services; I.E. without the REST service path;
@@ -43,9 +43,9 @@ Its constructor requires an array with the following items:
 - 'services_settings': (optional) lists the parameters required by the library's components.<br />
   These parameters are:
   - 'logger': The logger object that must be used by the library to record the log messages.<br />
-    The chosen object must implement the PSR-3 Interface.
+    The chosen object must implement the PSR-3 Interface:`Psr\Log\LoggerInterface`.
   - 'log_level': The level of the log messages to record.<br />
-    The accepted values for this parameter is those defined by the `Psr\Log\LogLevel` class.
+    The accepted values for this parameter are those defined by the `Psr\Log\LogLevel` class.
     
 Example:
 
@@ -80,13 +80,160 @@ $clientConfiguration = [
 
 ### Message objects
 
+#### Messages for indexing
+
+So far, there are 2 types of messages for sending indexing requests.
+
+##### IndexingWebContent
+
+This message object allows defining the message representing an **indexing request for a web content**. To learn more about 
+its structure, please consult the [API documentation](#api-documentation).
+
+##### FileWebContent (Not completely implemented yet)
+
+This message object allows defining the message representing an **indexing request for a file**, when this part of the client will 
+be implemented.
+
+##### Component objects: the Metadata .
+
+Each document (web content or file) sent for indexing are characterized by metadata that form the components of the indexing messages.
+
+There are 7 types:
+- Boolean (`BooleanMetadata`): accepts boolean value(s) (true/false);
+- Date (`DateMetadata`): accepts date value(s);
+- Float (`FloatMetadata`): accepts float/double value(s);
+- Full text (`FullTextMetadata`): accepts string value(s) that will be screened by the full-text search;
+- Integer (`IntegerMetadata`): accepts integer value(s);
+- Not indexed (`NotIndexedMetadata`): accepts string value(s) that will be stored in the Europa Search system but not in the search index;
+- String (`StringMetadata`): accepts string value(s) that will be used as search filters;
+- URL (`URLMetadata`): accepts URL value(s);
+
+For more information about the related classes, read the [API documentation](#api-documentation).
+
+As the library supports the Dynamic schema of Europa Search, the metadata names can be those already used in the consumer system.<br />
+The client service via its proxy layer ensures that the names are formatted correctly before sending the request; I.E. 
+the names are prefixed with the sequence declaring its type.<br />
+For instance, a string metadata name in the system is `blabla`, it will become `esST_blabla` when it is sent.
+
+##### Example
+
+```php
+$webContentMessage = new IndexingWebContent();
+$indexedDocument->setDocumentURI('http://europa.test.com/content.html');
+$indexedDocument->setDocumentContent('<div id="lipsum">
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor mattis sem vitae egestas. Nulla sed mauris sed ante convallis scelerisque. Vestibulum urna nisl, aliquam non risus vel, varius commodo augue. Aliquam efficitur elementum dapibus. Aliquam erat volutpat. Nulla orci purus, ultricies non velit at, venenatis fringilla ipsum. Sed porta nunc sit amet felis semper, at tempor erat dapibus. Sed id ipsum enim. Mauris suscipit pharetra lacinia. In nisi sem, tincidunt ac vestibulum ut, ultrices sed nisi. Phasellus nec diam at libero suscipit consequat. Nunc dapibus, ante ac hendrerit varius, sapien ex consequat ante, non venenatis ipsum metus eu ligula. Phasellus mattis arcu ut erat vulputate, sit amet blandit magna egestas. Vivamus nisl ipsum, maximus non tempor nec, finibus eu nisl. Phasellus lacinia interdum iaculis.
+</p>\n
+<p>
+Duis pellentesque, risus id efficitur convallis, elit justo sollicitudin elit, in convallis urna est id nibh. Sed rhoncus est nec leo hendrerit, ut tempus urna feugiat. Ut sed tempor orci, eu euismod massa. Phasellus condimentum sollicitudin ante, vel pretium mauris auctor quis. Etiam sit amet consectetur lorem. Phasellus at massa ex. Fusce porta est sit amet arcu pretium, ut suscipit eros molestie. Fusce malesuada ornare cursus. Curabitur sit amet eros nibh. Sed imperdiet magna quis odio tempus vehicula. Praesent auctor porta dolor, eu lacinia ante venenatis vel.
+</p>\n
+<p>
+In diam tellus, sagittis sit amet finibus eget, ultrices sed turpis. Proin sodales dictum elit eget mollis. Aliquam nec laoreet purus. Pellentesque accumsan arcu vitae ipsum euismod, nec faucibus tellus rhoncus. Sed lacinia at augue vitae hendrerit. Aliquam egestas ante sit amet erat dignissim, non dictum ligula iaculis. Nulla tempor nec metus vitae pellentesque. Nulla porta sit amet lacus eu porttitor.
+</p>\n
+<p>
+Nam consectetur leo eu felis vehicula sollicitudin. Aliquam pharetra, nulla quis tempor malesuada, odio nunc accumsan dui, in feugiat turpis ipsum vel tortor. Praesent auctor at justo convallis convallis. Aenean fringilla magna leo, et dictum nisi molestie sed. Quisque non ornare sem. Duis quis felis erat. Praesent rutrum vehicula orci ac suscipit.
+</p>\n
+<p>
+Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio dapibus, mollis leo eget, interdum urna. Phasellus ac dui commodo, cursus lorem nec, condimentum erat. Pellentesque eget imperdiet nisl, at convallis enim. Sed feugiat fermentum leo ac auctor. Aliquam imperdiet enim ac pellentesque commodo. Mauris sed sapien eu nulla mattis hendrerit ac ac mauris. Donec gravida, nisi sit amet rhoncus volutpat, quam nisl ullamcorper nisl, in luctus sapien justo et ex. Fusce dignissim felis felis, tempus faucibus tellus pulvinar vitae. Proin gravida tempus eros sit amet viverra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum libero quis tellus commodo, non vestibulum lacus rutrum. Etiam euismod odio ipsum, nec pulvinar nisl ultrices sit amet. Nunc feugiat orci vel odio interdum, non dignissim erat hendrerit. Vestibulum gravida et elit nec placerat.
+</p></div>');
+$indexedDocument->setDocumentId('web_content_client_1');
+$indexedDocument->setDocumentLanguage('en');
+
+// Component definition for the message.
+
+$metadata = new FullTextMetadata('title');
+$metadata->setValues(['this the title']);
+$indexedDocument->addMetadata($metadata);
+
+$metadata = new StringMetadata('tag');
+$metadata->setValues(['taxonomy term']);
+$indexedDocument->addMetadata($metadata);
+
+$metadata = new IntegerMetadata('rank');
+$metadata->setValues([1]);
+$indexedDocument->addMetadata($metadata);
+
+$metadata = new FloatMetadata('percentage');
+$metadata->setValues([0.1]);
+$indexedDocument->addMetadata($metadata);
+$metadata = new DateMetadata('publishing_date');
+$metadata->setValues([date('F j, Y, g:i a', strtotime('11-12-2018'))]);
+$indexedDocument->addMetadata($metadata);
+
+$metadata = new URLMetadata('uri');
+$metadata->setValues(['http://www.europa.com']);
+$indexedDocument->addMetadata($metadata);
 ```
-TODO
+
+#### Messages for searching
+
+So far, there is 1 type of messages.
+
+##### SearchMessage
+
+This message object allows defining the message representing a **search request**. To learn more about 
+its structure, please consult the [API documentation](#api-documentation).
+
+##### Component objects: the filters and queries components.
+
+Each sent search request contains a query used for filtering the search results. This query is made of the different filter types 
+that form the components of the search messages.<br />
+Each available component represents a component of the Europa Search Search API syntax. 
+To know more about, please consult the _"Advanced Search Parameters"_ page of the official documentation of Europa Search API.
+
+There are 2 main types composed themselves of sub-types:
+- The simple filters (Clause) that defines basic filter criteria:
+   * exists (`FieldExists`): Defines a filter on the existence of a specific metadata set in a indexed document;
+   * range (`Range`): Defines a filter on a specific metadata based on a range of dates or numbers;
+   * term (`Term`): Defines a filter on a specific metadata based on a defined value;
+   * terms (`Terms`): Defines a filter on a specific metadata based on a list of values;
+- The combined filters (Query) that defines filter criteria based on a series of filters (clauses or queries) targeting different metadata:
+   * Bool (`BooleanQuery`): Defines a filter query based on 3 aggregated filter as foreseen by the Europa Search query API:
+     - 'must': Results MUST fulfill. it can be used to build "AND" equivalent where clause.
+     - 'must_not': Results MUST NOT fulfill. it can be used to build "NOT" equivalent where clause.
+     - 'should': Results SHOULD fulfill. it can be used to build "OR" equivalent where clause.
+   * Boosting (`BoostingQuery`): Defines a filter query based on 2 aggregated filter as foreseen by the Europa Search query API:
+     - 'positive': Items fulfilling query's criteria will be better placed in the result list.<br />
+       It can contain `StringMetadata`, `URLMetadata`, `IntegerMetadata` or `FloatMetadata` only.
+     - 'negative': Items fulfilling query's criteria will be less well placed in the result list.<br />
+       It can contain `StringMetadata`, `URLMetadata`, `IntegerMetadata` or `FloatMetadata` only.
+
+For more information about the related classes, read the [API documentation](#api-documentation).
+
+As the library supports the Dynamic schema of Europa Search, the metadata names implies in the queries can be those already used in 
+the consumer system.<br />
+The client service via its proxy layer ensures that the names are formatted correctly before sending the request; I.E. 
+the names are prefixed with the sequence declaring its type<br />
+For instance, a string metadata name in the system is `blabla`, it will become `esST_blabla` when it is sent.
+
+##### Example
+
+```php
+$searchMessage = new SearchMessage();
+$searchMessage->setSearchedLanguages(['fr']);
+$searchMessage->setHighLightParameters('<strong>{}</strong>', 250);
+$searchMessage->setPagination(20, 1);
+$searchMessage->setSearchedText('Lorem ipsum');
+
+// Query Component definition for the message.
+
+$booleanQuery = new BooleanQuery();
+$filter = new RangeClause(new IntegerMetadata('rank'));
+$filter->setLowerBoundaryIncluded(1);
+$filter->setUpperBoundaryIncluded(5);
+$booleanQuery->addMustFilterClause($filter);
+
+$filter = new TermClause(new FullTextMetadata('title'));
+$filter->setTestedValue('title');
+$booleanQuery->addMustFilterClause($filter);
+            
+$searchMessage->setQuery($searchQuery);
 ```
 
 ### `EuropaSearch` object
 
-As already said sooner, It is the entry point for the host applications like Drupal. From it, the ingestion and search services.
+As already said sooner, It is the entry point for the host applications like Drupal. 
+From it, the Europa search ingestion and search REST services are accessible.
 
 To call an ingestion or a search service, proceed as follow:
 1. Instantiate the object with the array of configuration parameters.<br />
@@ -128,7 +275,7 @@ To call an ingestion or a search service, proceed as follow:
 
 The library is organized into 3 layers with a specific scope:
 - **Applications layer**: it is called by 3rd party systems like Drupal.<br />  
-  It is in charge of 
+  It is in charge of:
   - Receiving the request messages to send the Europa Search REST services;
   - Validating the message content before continue the process.
 - **Proxies layer**: it is in charge of 
@@ -137,8 +284,18 @@ The library is organized into 3 layers with a specific scope:
   - Returning the REST services responses to the Applications layer.
 - **Transporters layer**: it is the layer that manages the requests to the REST services.
   
-To have more information about these layers, please consult the [package documentation](src/EuropaWS/docs/00-introduction.md).
+To have more information about these layers, please consult the [API documentation](#api-documentation).
 
+## API Documentation
+
+The Documentation is to be generated by your favorite phpDoc generator like [phpDocumentor](https://phpdoc.org).
+
+It is recommended to have and consult the one for these packages:
+- `EC\EuropaSearch\Messages`;
+- `EC\EuropaSearch\Applications`;
+
+And the one of the class `EC\EuropaSearch\EuropaSearch`.<br />
+They complete the information given in the [Library use](#library-use) section.
 
 
 ## Quality control
