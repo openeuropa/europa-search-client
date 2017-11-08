@@ -24,20 +24,11 @@ class WebContentConverter extends AbstractMessageConverter
      */
     public function convertMessage(ValidatableMessageInterface $message, EuropaSearchConfig $configuration)
     {
-        throw new ProxyException('The "convertMessage()" method is not supported.');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent, EuropaSearchConfig $configuration)
-    {
         $request = new WebContentRequest();
 
         $request->setDocumentId($message->getDocumentId());
         $request->setDocumentLanguage($message->getDocumentLanguage());
         $request->setDocumentURI($message->getDocumentURI());
-        $request->addConvertedComponents($convertedComponent);
 
         // Data retrieved from the web services configuration.
         $WSSettings = $configuration->getConnectionConfigurations();

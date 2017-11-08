@@ -26,25 +26,17 @@ class SearchConverter extends AbstractMessageConverter
      */
     public function convertMessage(ValidatableMessageInterface $message, EuropaSearchConfig $configuration)
     {
-        throw new ProxyException('The "convertMessage()" method is not supported.');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent, EuropaSearchConfig $configuration)
-    {
 
         $request = new SearchRequest();
 
         $conversionMapping = [
-            'getSearchedLanguages' => 'setLanguages',
-            'getHighLightLimit' => 'setHighlightLimit',
-            'getHighlightRegex' => 'setHighlightRegex',
-            'getPaginationLocation' => 'setPageNumber',
-            'getPaginationSize' => 'setPageSize',
-            'getSessionToken' => 'setSessionToken',
-            'getSearchedText' => 'setText',
+          'getSearchedLanguages' => 'setLanguages',
+          'getHighLightLimit' => 'setHighlightLimit',
+          'getHighlightRegex' => 'setHighlightRegex',
+          'getPaginationLocation' => 'setPageNumber',
+          'getPaginationSize' => 'setPageSize',
+          'getSessionToken' => 'setSessionToken',
+          'getSearchedText' => 'setText',
         ];
 
         foreach ($conversionMapping as $getMethod => $setMethod) {
@@ -53,6 +45,20 @@ class SearchConverter extends AbstractMessageConverter
                 $request->$setMethod($parameter);
             }
         }
+
+        // Data retrieved from the web services configuration.
+        $WSSettings = $configuration->getConnectionConfigurations();
+        $request->setAPIKey($WSSettings['api_key']);
+
+        return $request;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent, EuropaSearchConfig $configuration)
+    {
+        $request = $this->convertMessage($message, $configuration);
 
         // Build the final sort value to send to the service.
         if (!empty($convertedComponent['sort_metadata'])) {
@@ -69,10 +75,6 @@ class SearchConverter extends AbstractMessageConverter
             $queryComponents = $convertedComponent['search_query'];
             $request->addConvertedComponents($queryComponents);
         }
-
-        // Data retrieved from the web services configuration.
-        $WSSettings = $configuration->getConnectionConfigurations();
-        $request->setAPIKey($WSSettings['api_key']);
 
         return $request;
     }

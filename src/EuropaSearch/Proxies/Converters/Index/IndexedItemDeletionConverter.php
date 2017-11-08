@@ -33,12 +33,4 @@ class IndexedItemDeletionConverter extends AbstractMessageConverter
 
         return $request;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent, EuropaSearchConfig $configuration)
-    {
-        return $this->convertMessage($message);
-    }
 }

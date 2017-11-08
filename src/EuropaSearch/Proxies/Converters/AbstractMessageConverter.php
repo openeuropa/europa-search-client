@@ -3,6 +3,7 @@
 namespace EC\EuropaSearch\Proxies\Converters;
 
 use Composer\Semver\Semver;
+use EC\EuropaSearch\Messages\ValidatableMessageInterface;
 use EC\EuropaSearch\EuropaSearchConfig;
 use EC\EuropaSearch\Exceptions\ProxyException;
 
@@ -16,6 +17,20 @@ use EC\EuropaSearch\Exceptions\ProxyException;
  */
 abstract class AbstractMessageConverter implements MessageConverterInterface
 {
+
+    /**
+     * {@inheritDoc}
+     */
+    public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent, EuropaSearchConfig $configuration)
+    {
+        $request = $this->convertMessage($message, $configuration);
+
+        if (!empty($convertedComponent)) {
+            $request->addConvertedComponents($convertedComponent);
+        }
+
+        return $request;
+    }
 
     /**
      * {@inheritDoc}
