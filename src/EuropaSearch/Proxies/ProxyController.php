@@ -95,9 +95,7 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
         try {
             $convertedMessage = $converter->convertMessage($message, $this->WSConfiguration);
         } catch (Exception $e) {
-            if ($this->logsManager->isExceptionToLog()) {
-                $this->logsManager->logException($e);
-            }
+            $this->logsManager->logError('The convertMessage method returns an exception: '.$e->getMessage(), ['exception' => $e]);
             throw new ProxyException('The conversion process for the message failed!', $e);
         }
 
