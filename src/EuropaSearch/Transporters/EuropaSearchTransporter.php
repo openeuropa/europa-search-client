@@ -222,10 +222,10 @@ class EuropaSearchTransporter implements TransporterInterface
             return ['proxy' => $proxySettings['custom_address']];
         }
 
-        $parsedURL = parse_url($proxySettings['custom_address']);
-        $parsedURL['user'] = $proxySettings['user_name'];
-        $parsedURL['pass'] = $proxySettings['user_password'];
-        $proxyUrl = $this->buildUrl($parsedURL);
+        $parsedUrl = parse_url($proxySettings['custom_address']);
+        $parsedUrl['user'] = $proxySettings['user_name'];
+        $parsedUrl['pass'] = $proxySettings['user_password'];
+        $proxyUrl = $this->buildUrl($parsedUrl);
 
         return ['proxy' => $proxyUrl];
     }
@@ -237,15 +237,15 @@ class EuropaSearchTransporter implements TransporterInterface
      * focused on the class needs only.
      * See http://php.net/manual/fa/function.http-build-url.php.
      *
-     * @param array $parsedURL
+     * @param array $parsedUrl
      *   The part(s) an URL like parse_url() returns.
      *
      * @return string
      *   The URL as string.
      */
-    protected function buildUrl(array $parsedURL)
+    protected function buildUrl(array $parsedUrl)
     {
-        $proxyUrl = $parsedURL['scheme'].'://';
+        $proxyUrl = $parsedUrl['scheme'].'://';
 
         if (!empty($proxySettings['user_name'])) {
             $proxyUrl .= $proxySettings['user_name'];
@@ -257,13 +257,13 @@ class EuropaSearchTransporter implements TransporterInterface
             $proxyUrl .= '@';
         }
 
-        $proxyUrl .= $parsedURL['host'];
-        if (!empty($proxyUrl['port'])) {
-            $proxyUrl .= ':'.$proxyUrl['port'];
+        $proxyUrl .= $parsedUrl['host'];
+        if (!empty($parsedUrl['port'])) {
+            $proxyUrl .= ':'.$parsedUrl['port'];
         }
 
-        if (!empty($proxyUrl['path'])) {
-            $proxyUrl .= ':'.$proxyUrl['path'];
+        if (!empty($parsedUrl['path'])) {
+            $proxyUrl .= ':'.$parsedUrl['path'];
         }
 
         return $proxyUrl;
