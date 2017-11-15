@@ -5,22 +5,22 @@ namespace EC\EuropaSearch\Tests\Proxies\Converters\Index;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
- * Class IndexingWebContentConvertTest.
+ * Class DeleteIndexItemConverterTest.
  *
- * Test the conversion of a IndexingWebContent object.
+ * Test the conversion of a DeleteIndexItemMessage object.
  *
  * @package EC\EuropaSearch\Tests\Proxies\Converters\Index
  */
-class IndexingWebContentConvertTest extends AbstractEuropaSearchTest
+class DeleteIndexItemConverterTest extends AbstractEuropaSearchTest
 {
 
     /**
      * Test a conversion of an IndexedDocument object in a WebContentRequest one.
      */
-    public function testConvertIndexingWebContentSuccess()
+    public function testConvertIndexWebContentSuccess()
     {
         $provider = new WebContentDataProvider();
-        $data = $provider->indexedDocumentProvider();
+        $data = $provider->indexedItemDeletionProvider();
 
         $submitted = $data['submitted'];
         $expected = $data['expected'];
@@ -33,6 +33,6 @@ class IndexingWebContentConvertTest extends AbstractEuropaSearchTest
         $converter = $proxy->getConverterObject($converterId);
         $indexingRequest = $proxy->convertMessageWithComponents($converter, $submitted, $convertedComponents);
 
-        $this->assertEquals($expected, $indexingRequest, 'The conversion of the IndexingWebContent object has failed.');
+        $this->assertEquals($expected, $indexingRequest, 'The conversion of the IndexWebContentMessage object has failed.');
     }
 }

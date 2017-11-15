@@ -8,7 +8,8 @@ use EC\EuropaSearch\Messages\Components\DocumentMetadata\FullTextMetadata;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\URLMetadata;
-use EC\EuropaSearch\Messages\Index\IndexingWebContent;
+use EC\EuropaSearch\Messages\Index\DeleteIndexItemMessage;
+use EC\EuropaSearch\Messages\Index\IndexWebContentMessage;
 use EC\EuropaSearch\Messages\Components\Filters\Clauses\RangeClause;
 use EC\EuropaSearch\Messages\Components\Filters\Clauses\TermClause;
 use EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery;
@@ -28,9 +29,9 @@ class ApplicationDataProvider
 {
 
     /**
-     * Provides objects necessary for the test.
+     * Provides objects necessary for the index adding test.
      *
-     * @return IndexingWebContent
+     * @return IndexWebContent
      *   The objects for the test.
      */
     public function getWebContentMessageTestData()
@@ -40,7 +41,7 @@ class ApplicationDataProvider
         $documentLanguage = 'fr';
 
         // Submitted object.
-        $indexedDocument = new IndexingWebContent();
+        $indexedDocument = new IndexWebContentMessage();
         $indexedDocument->setDocumentURI($documentURI);
         $indexedDocument->setDocumentContent('<div id="lipsum">
 <p>
@@ -88,7 +89,21 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     }
 
     /**
-     * Provides objects necessary for the test.
+     * Provides objects necessary for a test of index item deletion.
+     *
+     * @return DeleteIndexItemMessage
+     *   The message object to use in the deletion test.
+     */
+    public function getDeleteIndexItemTestData()
+    {
+        $deletingMessage = new DeleteIndexItemMessage();
+        $deletingMessage->setDocumentId('web_content_delete_1');
+
+        return $deletingMessage;
+    }
+
+    /**
+     * Provides objects necessary for the test on Search message.
      *
      * @return array
      *   The objects for the test:

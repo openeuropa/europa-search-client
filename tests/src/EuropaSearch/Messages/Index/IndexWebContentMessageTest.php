@@ -5,26 +5,26 @@ namespace EC\EuropaSearch\Tests\Messages\Index;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
-use EC\EuropaSearch\Messages\Index\IndexingWebContent;
+use EC\EuropaSearch\Messages\Index\IndexWebContentMessage;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class IndexingWebContentTest.
+ * Class IndexWebContentMessageTest.
  *
- * Tests the validation process on IndexingWebContent.
+ * Tests the validation process on IndexWebContentMessage.
  *
  * @package EC\EuropaSearch\Tests\Messages\Index
  */
-class IndexingWebContentTest extends AbstractEuropaSearchTest
+class IndexWebContentApplicationTest extends AbstractEuropaSearchTest
 {
 
     /**
-     * Test the IndexedDocument validation for a web content (success case).
+     * Test the IndexWebContentMessage validation (success case).
      */
-    public function testWebContentValidationSuccess()
+    public function testIndexWebContentMessageValidationSuccess()
     {
-        $indexedDocument = new IndexingWebContent();
+        $indexedDocument = new IndexWebContentMessage();
         $indexedDocument->setDocumentId('reference_indexed_document');
         $indexedDocument->setDocumentLanguage('en');
         $indexedDocument->setDocumentURI('http://test/nid/211');
@@ -45,15 +45,15 @@ class IndexingWebContentTest extends AbstractEuropaSearchTest
         $validationErrors = $this->getDefaultValidator()->validate($indexedDocument);
         $violations = $this->getViolations($validationErrors);
 
-        $this->assertEmpty($violations, 'IndexedDocument validation constraints are not well defined.');
+        $this->assertEmpty($violations, 'IndexWebContentMessage validation constraints are not well defined.');
     }
 
     /**
-     * Test the IndexedDocument validation for a web content (failure case).
+     * Test the IndexWebContentMessage validation (failure case).
      */
-    public function testWebContentValidationFailure()
+    public function testIndexWebContentMessageValidationFailure()
     {
-        $indexedDocument = new IndexingWebContent();
+        $indexedDocument = new IndexWebContentMessage();
         $indexedDocument->setDocumentLanguage('en');
 
         $metadata = new StringMetadata('title');
@@ -72,10 +72,10 @@ class IndexingWebContentTest extends AbstractEuropaSearchTest
         $violations = $this->getViolations($validationErrors);
 
         $parsedData = Yaml::parse(file_get_contents(__DIR__.'/fixtures/index_violations.yml'));
-        $expected = $parsedData['expectedViolations']['IndexingWebContent'];
+        $expected = $parsedData['expectedViolations']['IndexWebContentMessage'];
 
         foreach ($violations as $name => $violation) {
-            $this->assertEquals($violation, $expected[$name], 'IndexedDocument validation constraints are not well defined for: '.$name);
+            $this->assertEquals($violation, $expected[$name], 'IndexWebContentMessage validation constraints are not well defined for: '.$name);
         }
     }
 }

@@ -6,13 +6,13 @@ use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Class IndexingApplicationTest.
+ * Class IndexWebContentApplicationTest.
  *
  * Tests the client layer related to the indexing process.
  *
  * @package EC\EuropaSearch\Tests\Applications
  */
-class IndexingApplicationTest extends AbstractEuropaSearchTest
+class IndexItemDeletionApplicationTest extends AbstractEuropaSearchTest
 {
 
     /**
@@ -24,7 +24,7 @@ class IndexingApplicationTest extends AbstractEuropaSearchTest
     public function testApplicationProcessSuccess()
     {
         $provider = new ApplicationDataProvider();
-        $indexingMessage = $provider->getWebContentMessageTestData();
+        $indexingMessage = $provider->getDeleteIndexItemTestData();
 
         $mockConfig = $this->getMockResponse();
         $factory = $this->getFactory($mockConfig);
@@ -33,26 +33,7 @@ class IndexingApplicationTest extends AbstractEuropaSearchTest
 
         $this->assertInstanceOf('EC\EuropaSearch\Applications\Application', $application, 'The returned application is not an Application object.');
         $this->assertInstanceOf('EC\EuropaSearch\Messages\Index\IndexingResponse', $response, 'The returned response is not an IndexingResponse object.');
-        $this->assertEquals('web_content_client_1', $response->getReturnedString(), 'The returned response is not the expected one.');
-    }
-
-    /**
-     * Test that the application uses the right configuration.
-     *
-     * This configuration comes from the container.
-     */
-    public function testApplicationConfiguration()
-    {
-        $mockConfig = $this->getMockResponse();
-        $factory = $this->getFactory($mockConfig);
-        $application = $factory->getIndexingApplication();
-        $applicationConfig = $application->getApplicationConfiguration();
-
-        $this->assertArraySubset(
-            $this->getTestedIndexingServiceParams(),
-            $applicationConfig->getConnectionConfigurations(),
-            'The returned indexing application does not have the expected configuration. '
-        );
+        $this->assertEquals('web_content_delete_1', $response->getReturnedString(), 'The returned response is not the expected one.');
     }
 
     /**
@@ -63,8 +44,7 @@ class IndexingApplicationTest extends AbstractEuropaSearchTest
      */
     private function getMockResponse()
     {
-        $body = json_decode(file_get_contents(__DIR__.'/fixtures/index_response_sample.json'));
-        $response = new Response(200, [], json_encode($body));
+        $response = new Response(200, [], 'true');
         $mockResponses = [$response];
 
         return $mockResponses;

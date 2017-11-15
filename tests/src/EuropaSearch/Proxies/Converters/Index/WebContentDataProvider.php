@@ -8,8 +8,10 @@ use EC\EuropaSearch\Messages\Components\DocumentMetadata\FullTextMetadata;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\URLMetadata;
-use EC\EuropaSearch\Messages\Index\IndexingWebContent;
-use EC\EuropaSearch\Transporters\Requests\Index\WebContentRequest;
+use EC\EuropaSearch\Messages\Index\DeleteIndexItemMessage;
+use EC\EuropaSearch\Messages\Index\IndexWebContentMessage;
+use EC\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemRequest;
+use EC\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest;
 
 /**
  * Class WebContentDataProvider.
@@ -37,7 +39,7 @@ class WebContentDataProvider
         $documentLanguage = 'fr';
 
         // Submitted object.
-        $indexedDocument = new IndexingWebContent();
+        $indexedDocument = new IndexWebContentMessage();
         $indexedDocument->setDocumentURI($documentURI);
         $indexedDocument->setDocumentContent('<div id="lipsum">
 <p>
@@ -82,7 +84,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         $indexedDocument->addMetadata($metadata);
 
         // Expected object.
-        $indexingRequest = new WebContentRequest();
+        $indexingRequest = new IndexWebContentRequest();
         $indexingRequest->setAPIKey('a221108a-180d-HTTP-INDEXING-TEST');
         $indexingRequest->setDatabase('EC-EUROPA-DUMMY-INDEXING');
         $indexingRequest->setDocumentId($documentId);
@@ -108,6 +110,36 @@ Nam consectetur leo eu felis vehicula sollicitudin. Aliquam pharetra, nulla quis
 
 Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio dapibus, mollis leo eget, interdum urna. Phasellus ac dui commodo, cursus lorem nec, condimentum erat. Pellentesque eget imperdiet nisl, at convallis enim. Sed feugiat fermentum leo ac auctor. Aliquam imperdiet enim ac pellentesque commodo. Mauris sed sapien eu nulla mattis hendrerit ac ac mauris. Donec gravida, nisi sit amet rhoncus volutpat, quam nisl ullamcorper nisl, in luctus sapien justo et ex. Fusce dignissim felis felis, tempus faucibus tellus pulvinar vitae. Proin gravida tempus eros sit amet viverra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum libero quis tellus commodo, non vestibulum lacus rutrum. Etiam euismod odio ipsum, nec pulvinar nisl ultrices sit amet. Nunc feugiat orci vel odio interdum, non dignissim erat hendrerit. Vestibulum gravida et elit nec placerat.
 ');
+
+        return [
+            'submitted' => $indexedDocument,
+            'expected' => $indexingRequest,
+        ];
+    }
+
+
+
+    /**
+     * Provides objects necessary for the test.
+     *
+     * @return array
+     *   The objects for the test:
+     *   - 'submitted': IndexedDocument to convert in the test;
+     *   - 'expected' : Excepted IndexingRequest at the end of the test;
+     */
+    public function indexedItemDeletionProvider()
+    {
+        $documentId = 'web_content_client_1';
+
+        // Submitted object.
+        $indexedDocument = new DeleteIndexItemMessage();
+        $indexedDocument->setDocumentId($documentId);
+
+        // Expected object.
+        $indexingRequest = new DeleteIndexItemRequest();
+        $indexingRequest->setAPIKey('a221108a-180d-HTTP-INDEXING-TEST');
+        $indexingRequest->setDatabase('EC-EUROPA-DUMMY-INDEXING');
+        $indexingRequest->setDocumentId($documentId);
 
         return [
             'submitted' => $indexedDocument,

@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class IndexingFile.
+ * Class IndexFileMessage.
  *
  * Represents a File (Binary) that must be indexed via the
  * Europa Search services.
@@ -16,8 +16,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package EC\EuropaSearch\Messages\Index
  */
-class IndexingFile extends AbstractIndexingMessage
+class IndexFileMessage extends AbstractIndexingMessage
 {
+    use IndexingMessageTrait;
+
     /**
      * {@inheritDoc}
      */

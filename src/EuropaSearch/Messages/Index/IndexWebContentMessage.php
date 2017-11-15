@@ -2,19 +2,21 @@
 
 namespace EC\EuropaSearch\Messages\Index;
 
+use EC\EuropaSearch\Messages\Index\Traits\IndexingMessageTrait;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class IndexingWebContent.
+ * Class IndexWebContentMessage.
  *
  * It defines a web content document that is sent for indexing to the Europa Search
  * services.
  *
  * @package EC\EuropaSearch\Messages\Index
  */
-class IndexingWebContent extends AbstractIndexingMessage
+class IndexWebContentMessage extends AbstractIndexingMessage
 {
+    use IndexingMessageTrait;
 
     /**
      * The content of the web content to send for indexing.

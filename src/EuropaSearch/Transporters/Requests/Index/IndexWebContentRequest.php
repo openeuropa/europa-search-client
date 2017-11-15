@@ -3,13 +3,13 @@
 namespace EC\EuropaSearch\Transporters\Requests\Index;
 
 /**
- * Class WebContentRequest.
+ * Class IndexWebContentRequest.
  *
  * It covers the web content indexing request.
  *
  * @package EC\EuropaSearch\Transporters\Requests\Index
  */
-class WebContentRequest extends AbstractIndexingRequest
+class IndexWebContentRequest extends AbstractIndexItemRequest
 {
 
     /**

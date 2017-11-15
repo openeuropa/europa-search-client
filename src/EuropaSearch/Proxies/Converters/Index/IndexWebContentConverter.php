@@ -4,19 +4,19 @@ namespace EC\EuropaSearch\Proxies\Converters\Index;
 
 use EC\EuropaSearch\EuropaSearchConfig;
 use EC\EuropaSearch\Proxies\Converters\AbstractMessageConverter;
-use EC\EuropaSearch\Transporters\Requests\Index\WebContentRequest;
+use EC\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest;
 use EC\EuropaSearch\Exceptions\ProxyException;
 use EC\EuropaSearch\Messages\Index\IndexingResponse;
 use EC\EuropaSearch\Messages\ValidatableMessageInterface;
 
 /**
- * Class WebContentConverter.
+ * Class IndexWebContentConverter.
  *
- * Converter for IndexingWebContent object.
+ * Converter for IndexWebContent object.
  *
  * @package EC\EuropaSearch\Proxies\Converters\Index
  */
-class WebContentConverter extends AbstractMessageConverter
+class IndexWebContentConverter extends AbstractMessageConverter
 {
 
     /**
@@ -24,7 +24,7 @@ class WebContentConverter extends AbstractMessageConverter
      */
     public function convertMessage(ValidatableMessageInterface $message, EuropaSearchConfig $configuration)
     {
-        $request = new WebContentRequest();
+        $request = new IndexWebContentRequest();
 
         $request->setDocumentId($message->getDocumentId());
         $request->setDocumentLanguage($message->getDocumentLanguage());

@@ -2,7 +2,8 @@
 
 namespace EC\EuropaSearch\Tests\Transporters;
 
-use EC\EuropaSearch\Transporters\Requests\Index\WebContentRequest;
+use EC\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemRequest;
+use EC\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest;
 use EC\EuropaSearch\Transporters\Requests\Search\SearchRequest;
 
 /**
@@ -45,7 +46,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
 ';
 
         // Submitted object.
-        $indexingRequest = new WebContentRequest();
+        $indexingRequest = new IndexWebContentRequest();
         $indexingRequest->setAPIKey('a221108a-180d-HTTP-INDEXING-TEST');
         $indexingRequest->setDatabase('EC-EUROPA-DUMMY-INDEXING');
         $indexingRequest->setDocumentId($documentId);
@@ -58,6 +59,22 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         $indexingRequest->setDocumentContent($documentContent);
 
         return $indexingRequest;
+    }
+
+    /**
+     * Provides objects necessary for a test of index item deletion.
+     *
+     * @return DeleteIndexItemMessage
+     *   The message object to use in the deletion test.
+     */
+    public function deleteIndexItemTestData()
+    {
+        $deletingMessage = new DeleteIndexItemRequest();
+        $deletingMessage->setDocumentId('web_content_delete_1');
+        $deletingMessage->setAPIKey('a221108a-180d-HTTP-INDEXING-TEST');
+        $deletingMessage->setDatabase('EC-EUROPA-DUMMY-INDEXING');
+
+        return $deletingMessage;
     }
 
     /**

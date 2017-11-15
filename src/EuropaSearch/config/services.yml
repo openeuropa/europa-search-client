@@ -3,10 +3,10 @@ parameters:
 services:
   # Index item deletion service converter class.
   europaSearch.messageProxy.indexing.delete.item:
-      class: EC\EuropaSearch\Proxies\Converters\Index\IndexedItemDeletionConverter
+      class: EC\EuropaSearch\Proxies\Converters\Index\DeleteIndexItemConverter
   # WebContent Indexing service converter classes.
   europaSearch.messageProxy.indexing.webContent:
-      class: EC\EuropaSearch\Proxies\Converters\Index\WebContentConverter
+      class: EC\EuropaSearch\Proxies\Converters\Index\IndexWebContentConverter
   europaSearch.componentProxy.metadata.boolean:
       class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
   europaSearch.componentProxy.metadata.date:

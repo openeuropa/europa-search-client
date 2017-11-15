@@ -6,19 +6,19 @@ use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Class IndexingTransporterTest
+ * Class IndexWebContentTransporterTest
  *
- * Test the transporter for the Indexing REST service (Ingestion API).
+ * Test the transporter for a IndexWebContentRequest.
  *
  * @package EC\EuropaSearch\Tests\Transporters
  */
-class IndexingTransporterTest extends AbstractEuropaSearchTest
+class IndexWebContentTransporterTest extends AbstractEuropaSearchTest
 {
 
     /**
-     * Test a sending of an IndexingRequest object.
+     * Test a sending of an IndexWebContentRequest object.
      */
-    public function testSendIndexingWebContentSuccess()
+    public function testSendIndexWebContentSuccess()
     {
         $provider = new WebContentDataProvider();
         $requestToSend = $provider->webContentIndexingRequestProvider();
