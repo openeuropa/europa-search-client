@@ -36,10 +36,48 @@ It requires the following items:
   - 'url_root': The root URL of the REST services; I.E. without the REST service path;
   - 'api_key': The Ingestion API key supplied by the Europa Search team;
   - 'database': The database value supplied by the Europa Search team.
+  - 'proxy': The proxy settings to use with the HTTP request. **If the host proxy settings allows using the client,
+    it can be skipped**; otherwise the following parameters can be set:
+    - 'proxy_configuration_type': string the proxy type
+      to use with application requests. The possible values are:
+      - 'default': The client must use the host proxy
+         settings to send requests;
+      - 'custom': The client must use a dedicated proxy
+         to send requests; Then the 'custom_proxy_address' is
+         mandatory.
+      - 'none': The client must bypass the proxy to send requests;
+      - 'user_name': string the proxy credentials username;<br />
+        It is only to be set if 'proxy_configuration_type' parameter value is 'custom' AND if the custom proxy requires
+        it.
+    - 'user_password': string the proxy credentials
+      password;<br />
+      It is only to be set if 'proxy_configuration_type' parameter value is 'custom' AND if the custom proxy requires 
+      it.
+    - 'custom_proxy_address': string the URL of the proxy to use;
+      It is only **MANDATORY if the 'proxy_configuration_type'** parameter value is 'custom';
 - 'search_settings': lists the parameters required to connect to the Search REST services (Search API).<br />
   These parameters are:
   - 'url_root': The root URL of the REST services; I.E. without the REST service path;
   - 'api_key': The Search API key supplied by the Europa Search team.
+  - 'proxy': The proxy settings to use with the HTTP request. **If the host proxy settings allows using the client,
+    it can be skipped**; otherwise the following parameters can be set:
+    - 'proxy_configuration_type': string the proxy type
+      to use with application requests. The possible values are:
+      - 'default': The client must use the host proxy
+         settings to send requests;
+      - 'custom': The client must use a dedicated proxy
+         to send requests; Then the 'custom_proxy_address' is
+         mandatory.
+      - 'none': The client must bypass the proxy to send requests;
+    - 'user_name': string the proxy credentials username;<br />
+      It is only to be set if 'proxy_configuration_type' parameter value is 'custom' AND if the custom proxy requires
+      it.
+    - 'user_password': string the proxy credentials
+       password;<br />
+       It is only to be set if 'proxy_configuration_type' parameter value is 'custom' AND if the custom proxy requires 
+       it.
+    - 'custom_proxy_address': string the URL of the proxy to use;
+       It is only **MANDATORY if the 'proxy_configuration_type'** parameter value is 'custom';
 - 'services_settings': (optional) lists the parameters required by the library's components.<br />
   These parameters are:
   - 'logger': The logger object that must be used by the library to record the log messages.<br />
@@ -84,7 +122,7 @@ $clientConfiguration = [
 
 So far, there are 2 types of messages for sending indexing requests.
 
-##### IndexingWebContent
+##### IndexWebContent
 
 This message object allows defining the message representing an **indexing request for a web content**. To learn more about 
 its structure, please consult the [API documentation](#api-documentation).
@@ -118,7 +156,7 @@ For instance, a string metadata name in the system is `blabla`, it will become `
 ##### Example
 
 ```php
-$webContentMessage = new IndexingWebContent();
+$webContentMessage = new IndexWebContent();
 $indexedDocument->setDocumentURI('http://europa.test.com/content.html');
 $indexedDocument->setDocumentContent('<div id="lipsum">
 <p>
@@ -251,7 +289,7 @@ To call an ingestion or a search service, proceed as follow:
      $searchApp = $factory->getSearchApplication();
      ```
 3. Send the proper message through the application instance:
-   - For an ingestion request, if we use the `EC\EuropaSearch\Messages\Index\IndexingWebContent` from the example of 
+   - For an ingestion request, if we use the `EC\EuropaSearch\Messages\Index\IndexWebContent` from the example of 
      the "[Message objects](#message-objects)" section:<br />
      ```php
      $response = $indexApp->sendMessage($webContentMessage);
