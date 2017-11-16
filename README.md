@@ -122,17 +122,29 @@ $clientConfiguration = [
 
 So far, there are 2 types of messages for sending indexing requests.
 
-##### IndexWebContent
+##### IndexWebContentMessage
 
-This message object allows defining the message representing an **indexing request for a web content**. To learn more about 
-its structure, please consult the [API documentation](#api-documentation).
+This message object allows defining the message representing an **indexing request for a web content**. 
+To learn more about its structure, please consult the [API documentation](#api-documentation).
 
-##### FileWebContent (Not completely implemented yet)
+##### IndexFileMessage (Not completely implemented yet)
 
 This message object allows defining the message representing an **indexing request for a file**, when this part of the client will 
 be implemented.
 
+##### DeleteIndexItemMessage
+
+This message object allows defining the message representing an **deletion request for an indexed item**. 
+
+In the current implementation, the object diverts from IndexWebContentMessage or IndexFileMessage on the mandatory properties. 
+Only the document id (setDocumentId) is mandatory; The other properties can be omitted.
+
+To learn more about its structure, please consult the [API documentation](#api-documentation).
+
 ##### Component objects: the Metadata .
+
+This section only concerns the adding of the updating of the Europa Search index with the `IndexWebContentMessage` and `IndexFileMessage`
+objects.
 
 Each document (web content or file) sent for indexing are characterized by metadata that form the components of the indexing messages.
 
@@ -156,7 +168,7 @@ For instance, a string metadata name in the system is `blabla`, it will become `
 ##### Example
 
 ```php
-$webContentMessage = new IndexWebContent();
+$webContentMessage = new IndexWebContentMessage();
 $indexedDocument->setDocumentURI('http://europa.test.com/content.html');
 $indexedDocument->setDocumentContent('<div id="lipsum">
 <p>
