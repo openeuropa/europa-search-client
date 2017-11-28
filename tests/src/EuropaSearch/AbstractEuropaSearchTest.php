@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Tests\AbstractEuropaSearchTest.
- */
-
 namespace EC\EuropaSearch\Tests;
 
 use EC\EuropaSearch\EuropaSearch;
@@ -25,22 +20,46 @@ abstract class AbstractEuropaSearchTest extends TestCase
     /**
      * Gets a dummy service configuration for test purpose.
      *
+     * @return array
+     *   The dummy service configuration.
+     */
+    protected function getTestedIndexingServiceParams()
+    {
+        return [
+            'url_root' => 'https://intragate.acceptance.ec.europa.eu/es/ingestion-api',
+            'api_key' => 'a221108a-180d-HTTP-INDEXING-TEST',
+            'database' => 'EC-EUROPA-DUMMY-INDEXING',
+        ];
+    }
+
+    /**
+     * Gets a dummy service configuration for test purpose.
+     *
+     * @return array
+     *   The dummy service configuration.
+     */
+    protected function getTestedSearchServiceParams()
+    {
+        return [
+            'url_root' => 'https://intragate.acceptance.ec.europa.eu/es/search-api',
+            'api_key' => 'a221108a-180d-HTTP-SEARCH-TEST',
+            'database' => 'EC-EUROPA-DUMMY-SEARCH',
+        ];
+    }
+
+    /**
+     * Gets a dummy indexing application configuration for test purpose.
+     *
      * @param array $mockResponses
      *   [optional] Array of Response objects used by the mock called during
      *   the test.
      *
-     * @return EuropaSearchConfig
-     *   The dummy service configuration.
+     * @return \EC\EuropaSearch\EuropaSearchConfig
+     *   The dummy application configuration.
      */
-    protected function getDummyConfig(array $mockResponses = [])
+    protected function getDummyIndexingAppConfig(array $mockResponses = [])
     {
-        $wsSettings = [
-            'URLRoot' => 'https://intragate.acceptance.ec.europa.eu',
-            'APIKey' => 'a221108a-180d-HTTP-CLIENT-LIBRARY-TEST',
-            'database' => 'EC-EUROPA-DUMMY',
-        ];
-
-        $config = new EuropaSearchConfig($wsSettings);
+        $config = new EuropaSearchConfig($this->getTestedIndexingServiceParams());
         $config->setUseMock(true);
         if ($mockResponses) {
             $config->setMockConfigurations($mockResponses);
@@ -48,6 +67,28 @@ abstract class AbstractEuropaSearchTest extends TestCase
 
         return $config;
     }
+
+    /**
+     * Gets a dummy search application configuration for test purpose.
+     *
+     * @param array $mockResponses
+     *   [optional] Array of Response objects used by the mock called during
+     *   the test.
+     *
+     * @return \EC\EuropaSearch\EuropaSearchConfig
+     *   The dummy application configuration.
+     */
+    protected function getDummySearchAppConfig(array $mockResponses = [])
+    {
+        $config = new EuropaSearchConfig($this->getTestedSearchServiceParams());
+        $config->setUseMock(true);
+        if ($mockResponses) {
+            $config->setMockConfigurations($mockResponses);
+        }
+
+        return $config;
+    }
+
     /**
      * Gets the client factory for tests.
      *
@@ -55,13 +96,17 @@ abstract class AbstractEuropaSearchTest extends TestCase
      *   [optional] Array of Response objects used by the mock called during
      *   the test.
      *
-     * @return EuropaSearch
+     * @return \EC\EuropaSearch\EuropaSearch
      *   The client factory.
      */
     protected function getFactory(array $mockResponses = [])
     {
-        $config = $this->getDummyConfig($mockResponses);
-        $container = new EuropaSearch($config);
+        $container = new EuropaSearch();
+
+        $config = $this->getDummyIndexingAppConfig($mockResponses);
+        $container->updateIndexingClientConfiguration($config);
+        $config = $this->getDummySearchAppConfig($mockResponses);
+        $container->updateSearchClientConfiguration($config);
 
         return $container;
     }

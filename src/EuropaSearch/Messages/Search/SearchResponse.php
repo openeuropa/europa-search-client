@@ -1,13 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaWS\Messages\MessageInterface\SearchResponse.
- */
-
 namespace EC\EuropaSearch\Messages\Search;
 
-use EC\EuropaWS\Messages\MessageInterface;
+use EC\EuropaSearch\Messages\MessageInterface;
 
 /**
  * Class SearchResponse.
@@ -26,56 +21,56 @@ class SearchResponse implements MessageInterface
      *
      * @var string
      */
-    private $searchedTerms;
+    protected $searchedTerms;
 
     /**
      * The total of found results.
      *
      * @var int
      */
-    private $totalResults;
+    protected $totalResults;
 
     /**
      * The number of results pages.
      *
      * @var int
      */
-    private $pageNumber;
+    protected $pageNumber;
 
     /**
      * The number of results per page.
      *
      * @var int
      */
-    private $pageSize;
+    protected $pageSize;
 
     /**
      * The sort criteria used in the search.
      *
      * @var string
      */
-    private $resultSorting;
+    protected $resultSorting;
 
     /**
      * The language used with the search.
      *
      * @var string
      */
-    private $language;
+    protected $language;
 
     /**
      * The validity probability of the detected search language.
      *
      * @var float
      */
-    private $languageProbability;
+    protected $languageProbability;
 
     /**
      * List of results.
      *
      * @var array
      */
-    private $results = [];
+    protected $results = [];
 
     /**
      * Gets the searched terms.

@@ -1,14 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Messages\Search\SearchMessageTest.
- */
-
 namespace EC\EuropaSearch\Messages\Search;
 
+use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
-use EC\EuropaSearch\Tests\Messages\Search\Filters\Queries\BooleanQueryDataProvider;
+use EC\EuropaSearch\Tests\Messages\Components\Filters\Queries\BooleanQueryDataProvider;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -30,7 +26,8 @@ class SearchMessageTest extends AbstractEuropaSearchTest
         $search->setHighLightParameters('<strong>{}</strong>', 250);
         $search->setPagination(1, 20);
         $search->setSearchedText('text to search');
-        $search->setSortCriteria('field', 'DESC');
+        $sortMetadata = new DateMetadata('field');
+        $search->setSortCriteria($sortMetadata, 'DESC');
         $search->setSessionToken('123456');
 
         $booleanProvider = new BooleanQueryDataProvider();
@@ -52,7 +49,8 @@ class SearchMessageTest extends AbstractEuropaSearchTest
         $search->setSearchedLanguages(['en', 'zorglub']);
         $search->setHighLightParameters(23, '250');
         $search->setPagination(1.9, '18');
-        $search->setSortCriteria('field', 'no rule');
+        $sortMetadata = new DateMetadata('field');
+        $search->setSortCriteria($sortMetadata, 'no rule');
         $search->setSessionToken(true);
 
         $booleanProvider = new BooleanQueryDataProvider();

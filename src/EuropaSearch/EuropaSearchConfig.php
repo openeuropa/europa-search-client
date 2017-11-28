@@ -1,26 +1,21 @@
 <?php
-/**
- * @file
- * Contains EC\EuropaSearch\EuropaSearchConfig.
- */
 
 namespace EC\EuropaSearch;
 
-use EC\EuropaWS\Common\WSConfigurationInterface;
 use GuzzleHttp\Handler\MockHandler;
 
 /**
  * Class EuropaSearchConfig.
  *
- * WSConfigurationInterface implementation specific to the Europa Search service.
+ * Contains to the Europa Search service settings.
  *
  * @package EC\EuropaSearch
  */
-class EuropaSearchConfig implements WSConfigurationInterface
+class EuropaSearchConfig
 {
 
     /**
-     * Web service configuration.
+     * Web service configuration for services to call.
      *
      * @var array
      */
@@ -65,11 +60,71 @@ class EuropaSearchConfig implements WSConfigurationInterface
      * EuropaSearchConfig constructor.
      *
      * @param array $connectionConfig
-     *   The connection configuration
+     *   The configuration to connect to targeted ES services.
+     *   The array must contains these keys for indexing services (Ingestion):
+     *   - 'url_root': [mandatory] URL root (without the last slash) where the
+     *     Europa Search REST services to use are host;
+     *     ex.: https://search.ec.europa.eu.
+     *   - 'api_key' : [mandatory] The API key to communicate with all
+     *     indexing requests.
+     *   - 'database': [mandatory] The database name to communicate with all
+     *      indexing requests.
+     *   - 'proxy': [optional] Array of Proxy settings to with indexing request.
+     *     If not set, The Transporters layer must use the host proxy
+     *     settings to send requests. That has the same effect as having the
+     *     child parameter 'configuration_type' equals to default;
+     *     - 'configuration_type': [optional] string the proxy type
+     *       to use with application requests. The possible values are:
+     *       - 'default': The Transporters layer must use the host proxy
+     *         settings to send requests;
+     *       - 'custom': The Transporters layer must use a dedicated proxy
+     *         to send requests; Then the 'custom_address' is
+     *         mandatory.
+     *       - 'none': The Transporters layer must bypass the proxy to send requests;
+     *     - 'user_name': string the proxy credentials username;
+     *       It is only to be set if 'configuration_type'
+     *       parameter value is 'custom' AND if the custom proxy requires
+     *       it.
+     *     - 'user_password': string the proxy credentials
+     *       password;
+     *       It is only to be set if configuration_type'
+     *       parameter value is 'custom' AND if the custom proxy requires
+     *       it.
+     *     - 'custom_address': string the URL of the proxy to use;
+     *       It is only MANDATORY if the 'configuration_type'
+     *       parameter value is 'custom';
+     *   The array must contains these keys for search services:
+     *   - 'url_root': [mandatory] URL root (without the last slash) where the
+     *     Europa Search REST services to use are host;
+     *     ex.: https://search.ec.europa.eu.
+     *   - 'api_key' : [mandatory] The API key to communicate with all search requests.
+     *   - 'proxy': [optional] Array of Proxy settings to with search request.
+     *     If not set, The Transporters layer must use the host proxy
+     *     settings to send requests. That has the same effect as having the
+     *     child parameter 'configuration_type' equals to default;
+     *     - 'configuration_type': [optional] string the proxy type
+     *       to use with application requests. The possible values are:
+     *       - 'default': The Transporters layer must use the host proxy
+     *         settings to send requests;
+     *       - 'custom': The Transporters layer must use a dedicated proxy
+     *         to send requests; Then the 'custom_address' is
+     *         mandatory.
+     *       - 'none': The Transporters layer must bypass the proxy to send requests;
+     *     - 'user_name': string the proxy credentials username;
+     *       It is only to be set if 'configuration_type'
+     *       parameter value is 'custom' AND if the custom proxy requires
+     *       it.
+     *     - 'user_password': string the proxy credentials
+     *       password;
+     *       It is only to be set if configuration_type'
+     *       parameter value is 'custom' AND if the custom proxy requires
+     *       it.
+     *     - 'custom_address': string the URL of the proxy to use;
+     *       It is only MANDATORY if the 'configuration_type'
+     *       parameter value is 'custom';
      */
     public function __construct(array $connectionConfig)
     {
-
         $this->connectionConfig = $connectionConfig;
         $this->useMock = false;
     }
@@ -82,7 +137,6 @@ class EuropaSearchConfig implements WSConfigurationInterface
      */
     public function getMockConfigurations()
     {
-
         $mock = new MockHandler($this->mock);
 
         return [$mock];
@@ -100,38 +154,14 @@ class EuropaSearchConfig implements WSConfigurationInterface
     }
 
     /**
-     * Gets the connection configuration.
-     *
-     * @return array
-     *   The connection configuration
-     */
-    public function getConnectionConfigurations()
-    {
-        return $this->connectionConfig;
-    }
-
-    /**
-     * Sets the connection configuration.
+     * Sets the connection configuration for the search services.
      *
      * @param array $connectionConfig
-     *   The connection configuration
+     *   The connection configuration.
      */
     public function setConnectionConfigurations(array $connectionConfig)
     {
         $this->connectionConfig = $connectionConfig;
-    }
-
-    /**
-     * Adds a specific settings parameter to the connection configuration.
-     *
-     * @param string $configKey
-     *   The setting parameter name.
-     * @param mixed  $configValue
-     *   The setting parameter value; it can be a scalar or a array.
-     */
-    public function addConnectionConfigurations($configKey, $configValue)
-    {
-        $this->connectionConfig[$configKey] = $configValue;
     }
 
     /**
@@ -179,9 +209,15 @@ class EuropaSearchConfig implements WSConfigurationInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the connection configuration for the Indexing and Search services.
+     *
+     * @return array
+     *   The configuration to connect to targeted ES services.
+     *   The array has the same structure as the one used as parameter in the
+     *   class constructor.
+     *
      */
-    public function getConnectionConfig()
+    public function getConnectionConfigurations()
     {
         return $this->connectionConfig;
     }
@@ -192,8 +228,8 @@ class EuropaSearchConfig implements WSConfigurationInterface
     public function getCredentials()
     {
         return [
-            'ws.credentials.name' => $this->userName,
-            'ws.credentials.password' => $this->userPassword,
+            'credentials_name' => $this->userName,
+            'credentials_password' => $this->userPassword,
         ];
     }
 

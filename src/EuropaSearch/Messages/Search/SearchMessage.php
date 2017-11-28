@@ -1,15 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Messages\Search\SearchMessage.
- */
-
 namespace EC\EuropaSearch\Messages\Search;
 
-use EC\EuropaSearch\Messages\Search\Filters\Queries\BooleanQuery;
-use EC\EuropaWS\Messages\ValidatableMessageInterface;
-use EC\EuropaWS\Proxies\BasicProxyController;
+use EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata;
+use EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery;
+use EC\EuropaSearch\Messages\ValidatableMessageInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -32,35 +27,35 @@ class SearchMessage implements ValidatableMessageInterface
      *
      * @var string
      */
-    private $searchedText;
+    protected $searchedText;
 
     /**
      * Languages used for filtering the search.
      *
      * @var array
      */
-    private $searchedLanguages;
+    protected $searchedLanguages;
 
     /**
      * Filter query applied to the search.
      *
      * @var BooleanQuery
      */
-    private $searchQuery;
+    protected $searchQuery;
 
     /**
-     * Field name on which results will be sorted.
+     * Metadata on which results will be sorted.
      *
-     * @var string
+     * @var AbstractMetadata
      */
-    private $sortField;
+    protected $sortMetadata;
 
     /**
      * Sort direction.
      *
      * @var string
      */
-    private $sortDirection;
+    protected $sortDirection;
 
     /**
      * Number of search results to send per request.
@@ -69,7 +64,7 @@ class SearchMessage implements ValidatableMessageInterface
      *
      * @var integer
      */
-    private $paginationSize;
+    protected $paginationSize;
 
     /**
      * The number of the page to retrieve with the request.
@@ -78,7 +73,7 @@ class SearchMessage implements ValidatableMessageInterface
      *
      * @var integer
      */
-    private $paginationLocation;
+    protected $paginationLocation;
 
     /**
      * Regex expression used to insert in the highlighting mechanism.
@@ -88,21 +83,21 @@ class SearchMessage implements ValidatableMessageInterface
      *
      * @var string
      */
-    private $highlightRegex;
+    protected $highlightRegex;
 
     /**
      * The maximum length of the text that can be highlighted.
      *
      * @var integer
      */
-    private $highLightLimit;
+    protected $highLightLimit;
 
     /**
      * The session token required only for secured index.
      *
      * @var
      */
-    private $sessionToken;
+    protected $sessionToken;
 
     /**
      * Gets the keywords to use for the full-text search.
@@ -171,14 +166,14 @@ class SearchMessage implements ValidatableMessageInterface
     }
 
     /**
-     * Gets the raw name on which basing the sorting.
+     * Gets the metadata on which basing the sorting.
      *
-     * @return string
+     * @return AbstractMetadata
      *   The raw name on which basing the sorting.
      */
-    public function getSortField()
+    public function getSortMetadata()
     {
-        return $this->sortField;
+        return $this->sortMetadata;
     }
 
     /**
@@ -198,15 +193,17 @@ class SearchMessage implements ValidatableMessageInterface
      * If the search does not contain any sort criteria, search results will be
      * sorted by relevancy.
      *
-     * @param string $sortField
-     *   The raw name of the field on which basing the sorting.
-     * @param string $sortDirection
+     * @param AbstractMetadata $sortMetadata
+     *   The metadata object defining the raw name of the field on which
+     *   basing the sorting.
+     *   Only the name attribute of the object is mandatory.
+     * @param string           $sortDirection
      *   The sort direction to use.
      */
-    public function setSortCriteria($sortField, $sortDirection = self::SEARCH_SORT_ASC)
+    public function setSortCriteria(AbstractMetadata $sortMetadata, $sortDirection = self::SEARCH_SORT_ASC)
     {
 
-        $this->sortField = $sortField;
+        $this->sortMetadata = $sortMetadata;
         $this->sortDirection = $sortDirection;
     }
 
@@ -242,7 +239,6 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function setPagination($paginationSize, $paginationLocation)
     {
-
         $this->paginationSize = $paginationSize;
         $this->paginationLocation = $paginationLocation;
     }
@@ -279,7 +275,6 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function setHighLightParameters($highlightRegex, $highLightLimit)
     {
-
         $this->highlightRegex = $highlightRegex;
         $this->highLightLimit = $highLightLimit;
     }
@@ -311,7 +306,7 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function getConverterIdentifier()
     {
-        return BasicProxyController::MESSAGE_ID_PREFIX.'searching.search';
+        return 'europaSearch.messageProxy.searching.search';
     }
 
     /**
@@ -340,6 +335,9 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function getComponents()
     {
-        return [$this->searchQuery];
+        return [
+            'sort_metadata' => $this->sortMetadata,
+            'search_query' => $this->searchQuery,
+        ];
     }
 }

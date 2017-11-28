@@ -1,17 +1,13 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Transporters\EuropaSearchTransporter.
- */
-
 namespace EC\EuropaSearch\Transporters;
 
-use EC\EuropaWS\Exceptions\ConnectionException;
-use EC\EuropaWS\Exceptions\WebServiceErrorException;
-use EC\EuropaWS\Messages\RequestInterface;
-use EC\EuropaWS\Transporters\TransporterInterface;
-use EC\EuropaWS\Common\WSConfigurationInterface;
+use EC\EuropaSearch\EuropaSearchConfig;
+use EC\EuropaSearch\Exceptions\ClientInstantiationException;
+use EC\EuropaSearch\Exceptions\ConnectionException;
+use EC\EuropaSearch\Exceptions\WebServiceErrorException;
+use EC\EuropaSearch\Services\LogsManager;
+use EC\EuropaSearch\Transporters\Requests\RequestInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
@@ -39,7 +35,7 @@ class EuropaSearchTransporter implements TransporterInterface
     /**
      * HTTP client configuration.
      *
-     * @var WSConfigurationInterface
+     * @var \EC\EuropaSearch\EuropaSearchConfig
      */
     protected $configuration;
 
@@ -51,9 +47,41 @@ class EuropaSearchTransporter implements TransporterInterface
     protected $HTTPClient;
 
     /**
+     * The default uri ste for the transporter.
+     *
+     * @var string
+     */
+    protected $uri;
+
+    /**
+     * The proxy settings set for the transporter.
+     *
+     * @var array
+     */
+    protected $proxySettings;
+
+    /**
+     * The logs manager that will manage logs record.
+     *
+     * @var \EC\EuropaSearch\Services\LogsManager
+     */
+    protected $logsManager;
+
+    /**
+     * EuropaSearchTransporter constructor.
+     *
+     * @param \EC\EuropaSearch\Services\LogsManager $logsManager
+     *   The logs manager that will manage logs record.
+     */
+    public function __construct(LogsManager $logsManager)
+    {
+        $this->logsManager = $logsManager;
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function initTransporter(WSConfigurationInterface $configuration)
+    public function initTransporter(EuropaSearchConfig $configuration)
     {
         $this->configuration = $configuration;
         $this->transactionHistory = [];
@@ -69,16 +97,54 @@ class EuropaSearchTransporter implements TransporterInterface
         $history = Middleware::history($this->transactionHistory);
         $stack->push($history);
 
-        $connectionConfig = $configuration->getConnectionConfig();
+        $connectionConfig = $configuration->getConnectionConfigurations();
+
+        $urlItems = $this->parseUrl($connectionConfig['url_root']);
+
+        $this->uri = $urlItems['path'];
+
+        // Proxy settings used with the request sending.
+        $this->proxySettings = $this->setProxy($connectionConfig);
+
         $HTTPClientConfig = [
-            'base_uri' => $connectionConfig['URLRoot'],
+            'base_uri' => $urlItems['base_uri'],
             'handler' => $stack,
         ];
         $this->HTTPClient = new Client($HTTPClientConfig);
+
+        if ($this->logsManager->isInfo()) {
+            $this->logsManager->logInfo('Transporter is initialized.', array('transporter_settings' => $HTTPClientConfig));
+        }
+    }
+
+  /**
+   * Parse an URL.
+   *
+   * @param string $url
+   *   The URL to parse.
+   *
+   * @return array
+   *   Array containing:
+   *   - 'base_uri': The url root.
+   *   - 'path': the url path.
+   */
+    public function parseUrl($url)
+    {
+        $urlComponents = parse_url($url);
+
+        $path = (!empty($urlComponents['path'])) ? $urlComponents['path'] : '';
+        unset($urlComponents['path']);
+
+        $baseUri = $this->buildUrl($urlComponents);
+
+        return [
+          'base_uri' => $baseUri,
+          'path' => $path,
+        ];
     }
 
     /**
-     * gets the hostory of the requests sent to web services.
+     * gets the history of the requests sent to web services.
      *
      * @return array
      */
@@ -94,14 +160,112 @@ class EuropaSearchTransporter implements TransporterInterface
     {
         $requestOptions = $request->getRequestOptions();
         $method = $request->getRequestMethod();
-        $uri = $request->getRequestURI();
+        $this->uri .= $request->getRequestURI();
 
         try {
-            return $this->HTTPClient->request($method, $uri, $requestOptions);
-        } catch (ServerException $requestException) {
-            throw new ConnectionException('The connection to the service fails', $requestException);
-        } catch (ClientException $requestException) {
-            throw new WebServiceErrorException('The request sent to the service returned an error', $requestException);
+            if (!empty($this->proxySettings)) {
+                $requestOptions += $this->proxySettings;
+            }
+
+            if ($this->logsManager->isInfo()) {
+                $this->logsManager->logInfo(
+                    $method.' request sent to '.$this->uri.'.',
+                    ['requestOptions' => $requestOptions]
+                );
+            }
+
+            return $this->HTTPClient->request($method, $this->uri, $requestOptions);
+        } catch (ServerException $serverException) {
+            $this->logsManager->logError('The Europa Search service returns an exception: '.$serverException->getMessage(), ['exception' => $serverException]);
+            throw new ConnectionException('The connection to the service fails', $serverException);
+        } catch (ClientException $clientException) {
+            $this->logsManager->logError('The Transporter object returns an exception: '.$clientException->getMessage(), ['exception' => $clientException]);
+            throw new WebServiceErrorException('The request sent to the service returned an error', $clientException);
         }
+    }
+
+    /**
+     * Sets the proxy settings the Transporter implementation must use.
+     *
+     * @param array $configuration
+     *   The web service connection configuration to use with
+     *   the Transporters implementation.
+     *
+     * @return array
+     *   The proxy settings to use for sending HTTP requests.
+     *
+     * @throws \EC\EuropaSearch\Exceptions\ClientInstantiationException
+     *   Raised if the proxy  type is custom while
+     *   the proxy "custom_address" is not set.
+     */
+    protected function setProxy(array $configuration)
+    {
+        if (empty($configuration['proxy'])) {
+            return array();
+        }
+
+        $proxySettings = $configuration['proxy'];
+
+        if (empty($proxySettings['configuration_type']) || ('default' == $proxySettings['configuration_type'])) {
+            return array();
+        }
+
+        if ('none' == $proxySettings['configuration_type']) {
+            return ['proxy' => ''];
+        }
+
+        if (empty($proxySettings['custom_address'])) {
+            throw new ClientInstantiationException('The request proxy configuration is incorrect; missing value for the "custom_address" parameter!');
+        }
+
+        if (empty($proxySettings['user_name']) && empty($proxySettings['user_password'])) {
+            return ['proxy' => $proxySettings['custom_address']];
+        }
+
+        $parsedUrl = parse_url($proxySettings['custom_address']);
+        $parsedUrl['user'] = $proxySettings['user_name'];
+        $parsedUrl['pass'] = $proxySettings['user_password'];
+        $proxyUrl = $this->buildUrl($parsedUrl);
+
+        return ['proxy' => $proxyUrl];
+    }
+
+    /**
+     * Build an url from the URL components.
+     *
+     * It is a simplified version of pcl_http/http_build_url function
+     * focused on the class needs only.
+     * See http://php.net/manual/fa/function.http-build-url.php.
+     *
+     * @param array $parsedUrl
+     *   The part(s) an URL like parse_url() returns.
+     *
+     * @return string
+     *   The URL as string.
+     */
+    protected function buildUrl(array $parsedUrl)
+    {
+        $proxyUrl = $parsedUrl['scheme'].'://';
+
+        if (!empty($proxySettings['user_name'])) {
+            $proxyUrl .= $proxySettings['user_name'];
+
+            if (!empty($proxySettings['user_password'])) {
+                $proxyUrl .= ':'.$proxySettings['user_password'];
+            }
+
+            $proxyUrl .= '@';
+        }
+
+        $proxyUrl .= $parsedUrl['host'];
+        if (!empty($parsedUrl['port'])) {
+            $proxyUrl .= ':'.$parsedUrl['port'];
+        }
+
+        if (!empty($parsedUrl['path'])) {
+            $proxyUrl .= ':'.$parsedUrl['path'];
+        }
+
+        return $proxyUrl;
     }
 }
