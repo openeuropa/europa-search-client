@@ -19,7 +19,7 @@ class BoostingQueryDataProvider
     /**
      * Gets valid BoostingQuery object for testing.
      *
-     * @return BoostingQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery
      *   The valid BoostingQuery objects.
      */
     public function getValidBoostingQuery()
@@ -48,7 +48,7 @@ class BoostingQueryDataProvider
     /**
      * Gets positive invalid BoostingQuery object for testing.
      *
-     * @return BoostingQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery
      *   The invalid BoostingQuery objects.
      */
     public function getPositiveInValidBoostingQuery()
@@ -85,7 +85,7 @@ class BoostingQueryDataProvider
     /**
      * Gets negative invalid BoostingQuery object for testing.
      *
-     * @return BoostingQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery
      *   The invalid BoostingQuery objects.
      */
     public function getNegativeInValidBoostingQuery()

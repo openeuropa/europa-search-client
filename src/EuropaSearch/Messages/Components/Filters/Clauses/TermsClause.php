@@ -34,7 +34,7 @@ class TermsClause extends AbstractClause
     /**
      * FieldExist constructor.
      *
-     * @param IndexableMetadataInterface $impliedMetadata
+     * @param \EC\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface $impliedMetadata
      *   The metadata pointed by the filters.
      */
     public function __construct(IndexableMetadataInterface $impliedMetadata)
@@ -75,7 +75,7 @@ class TermsClause extends AbstractClause
     /**
      * Loads constraints declarations for the validator process.
      *
-     * @param ClassMetadata $metadata
+     * @param \Symfony\Component\Validator\Mapping\ClassMetadata $metadata
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
@@ -87,8 +87,8 @@ class TermsClause extends AbstractClause
     /**
      * Special validator callback for valuesFilter.
      *
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     * @param mixed                                                          $payload
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {
@@ -120,8 +120,8 @@ class TermsClause extends AbstractClause
     /**
      * Special validator callback for valuesFilter related to a DateMetadata.
      *
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     * @param mixed                                                          $payload
      */
     protected function validateDateRelatedFilter(ExecutionContextInterface $context, $payload)
     {
@@ -138,8 +138,8 @@ class TermsClause extends AbstractClause
     /**
      * Special validator callback for valuesFilter related to a FloatMetadata.
      *
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     * @param mixed                                                          $payload
      */
     protected function validateFloatRelatedFilter(ExecutionContextInterface $context, $payload)
     {
@@ -156,8 +156,8 @@ class TermsClause extends AbstractClause
     /**
      * Special validator callback for valuesFilter related to a IntegerMetadata.
      *
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     * @param mixed                                                          $payload
      */
     protected function validateIntRelatedFilter(ExecutionContextInterface $context, $payload)
     {
@@ -174,8 +174,8 @@ class TermsClause extends AbstractClause
     /**
      * Special validator callback for valuesFilter related to a BooleanMetadata.
      *
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     * @param mixed                                                          $payload
      */
     protected function validateBooleanRelatedFilter(ExecutionContextInterface $context, $payload)
     {
@@ -192,8 +192,8 @@ class TermsClause extends AbstractClause
     /**
      * Special validator callback for valuesFilter related to a URLMetadata.
      *
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     * @param mixed                                                          $payload
      */
     protected function validateURLRelatedFilter(ExecutionContextInterface $context, $payload)
     {

@@ -54,7 +54,7 @@ abstract class AbstractEuropaSearchTest extends TestCase
      *   [optional] Array of Response objects used by the mock called during
      *   the test.
      *
-     * @return EuropaSearchConfig
+     * @return \EC\EuropaSearch\EuropaSearchConfig
      *   The dummy application configuration.
      */
     protected function getDummyIndexingAppConfig(array $mockResponses = [])
@@ -75,7 +75,7 @@ abstract class AbstractEuropaSearchTest extends TestCase
      *   [optional] Array of Response objects used by the mock called during
      *   the test.
      *
-     * @return EuropaSearchConfig
+     * @return \EC\EuropaSearch\EuropaSearchConfig
      *   The dummy application configuration.
      */
     protected function getDummySearchAppConfig(array $mockResponses = [])
@@ -96,7 +96,7 @@ abstract class AbstractEuropaSearchTest extends TestCase
      *   [optional] Array of Response objects used by the mock called during
      *   the test.
      *
-     * @return EuropaSearch
+     * @return \EC\EuropaSearch\EuropaSearch
      *   The client factory.
      */
     protected function getFactory(array $mockResponses = [])

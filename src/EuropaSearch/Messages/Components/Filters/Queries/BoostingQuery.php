@@ -140,8 +140,8 @@ class BoostingQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Special validator callback for BoostingQuery.
      *
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     * @param mixed                                                          $payload
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {
@@ -162,12 +162,12 @@ class BoostingQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Validates a filter list defined in the current BoostingQuery.
      *
-     * @param array                     $filterList
+     * @param array                                                          $filterList
      *   The filter list to validate.
-     * @param string                    $checkProperty
+     * @param string                                                         $checkProperty
      *   The checked property path
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     * @param mixed                                                          $payload
      */
     public function validateFilter(array $filterList, $checkProperty, ExecutionContextInterface $context, $payload)
     {

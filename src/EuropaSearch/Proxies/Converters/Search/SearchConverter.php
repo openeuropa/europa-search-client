@@ -8,7 +8,6 @@ use EC\EuropaSearch\Transporters\Requests\Search\SearchRequest;
 use EC\EuropaSearch\Messages\Search\SearchResponse;
 use EC\EuropaSearch\Messages\Search\SearchResult;
 use EC\EuropaSearch\Proxies\Converters\AbstractMessageConverter;
-use EC\EuropaSearch\Exceptions\ProxyException;
 use EC\EuropaSearch\Messages\ValidatableMessageInterface;
 
 /**
@@ -99,7 +98,7 @@ class SearchConverter extends AbstractMessageConverter
     /**
      * Sets a specific attribute of a SearchResponse object.
      *
-     * @param SearchResponse $convertedResponse
+     * @param \EC\EuropaSearch\Messages\Search\SearchResponse $convertedResponse
      *   The SearchResponse object to populate.
      * @param string         $attributeName
      *   The name of the attribute to populate.
@@ -138,7 +137,7 @@ class SearchConverter extends AbstractMessageConverter
     /**
      * Sets the language and its probability of a SearchResponse object.
      *
-     * @param SearchResponse $convertedResponse
+     * @param \EC\EuropaSearch\Messages\Search\SearchResponse $convertedResponse
      *   The object for which language data are to be set.
      * @param \stdClass      $queryLanguage
      *   The raw object containing values to set.
@@ -158,7 +157,7 @@ class SearchConverter extends AbstractMessageConverter
     /**
      * Sets the results list of a SearchResponse object.
      *
-     * @param SearchResponse $convertedResponse
+     * @param \EC\EuropaSearch\Messages\Search\SearchResponse $convertedResponse
      *   The object where results are to be set.
      * @param array          $rawResults
      *   Array containing the raw results as received from the service.
@@ -178,7 +177,7 @@ class SearchConverter extends AbstractMessageConverter
      * @param \stdClass $searchResult
      *   The raw result object to convert.
      *
-     * @return SearchResult
+     * @return \EC\EuropaSearch\Messages\Search\SearchResult
      *   The converted object.
      */
     private function convertSearchResult(\stdClass $searchResult)
@@ -195,7 +194,7 @@ class SearchConverter extends AbstractMessageConverter
     /**
      * Sets a specific attribute of a SearchResult object.
      *
-     * @param SearchResult $convertedResult
+     * @param \EC\EuropaSearch\Messages\Search\SearchResult $convertedResult
      *   The SearchResult object to populate.
      * @param string       $attributeName
      *   The name of the attribute to populate.
@@ -232,7 +231,7 @@ class SearchConverter extends AbstractMessageConverter
     /**
      * Sets the metadata of a SearchResult object.
      *
-     * @param SearchResult $convertedResult
+     * @param \EC\EuropaSearch\Messages\Search\SearchResult $convertedResult
      *   The SearchResult object to populate.
      * @param \stdClass    $metadataList
      *   Raw object containing the metadata list.

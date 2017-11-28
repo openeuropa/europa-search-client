@@ -3,9 +3,6 @@
 namespace EC\EuropaSearch\Proxies;
 
 use EC\EuropaSearch\EuropaSearchConfig;
-use EC\EuropaSearch\Exceptions\ClientInstantiationException;
-use EC\EuropaSearch\Exceptions\ConnectionException;
-use EC\EuropaSearch\Exceptions\ProxyException;
 use EC\EuropaSearch\Exceptions\WebServiceErrorException;
 use EC\EuropaSearch\Messages\Components\ComponentInterface;
 use EC\EuropaSearch\Messages\MessageInterface;
@@ -29,15 +26,15 @@ interface ProxyControllerInterface
     /**
      * Converts the message.
      *
-     * @param MessageConverterInterface   $converter
+     * @param \EC\EuropaSearch\Proxies\Converters\MessageConverterInterface $converter
      *   The converter to use.
-     * @param ValidatableMessageInterface $message
+     * @param \EC\EuropaSearch\Messages\ValidatableMessageInterface         $message
      *   The message to convert.
      *
      * @return mixed
      *   The converted message.
      *
-     * @throws ProxyException
+     * @throws \EC\EuropaSearch\Exceptions\ProxyException
      *   Raised if a problem occurred during the conversion process.
      */
     public function convertMessage(MessageConverterInterface $converter, ValidatableMessageInterface $message);
@@ -45,17 +42,17 @@ interface ProxyControllerInterface
     /**
      * Converts the message and integrate their converted components in it.
      *
-     * @param MessageConverterInterface   $converter
+     * @param \EC\EuropaSearch\Proxies\Converters\MessageConverterInterface $converter
      *   The converter to use.
-     * @param ValidatableMessageInterface $message
+     * @param \EC\EuropaSearch\Messages\ValidatableMessageInterface         $message
      *   The message to convert.
-     * @param array                       $convertedComponent
+     * @param array                                                         $convertedComponent
      *   The list of converted message components to integrate.
      *
      * @return mixed
      *   The converted message.
      *
-     * @throws ProxyException
+     * @throws \EC\EuropaSearch\Exceptions\ProxyException
      *   Raised if a problem occurred during the conversion process.
      */
     public function convertMessageWithComponents(MessageConverterInterface $converter, ValidatableMessageInterface $message, array $convertedComponent);
@@ -70,7 +67,7 @@ interface ProxyControllerInterface
      *   Array of the converted components or an empty one if the submitted
      *   list is empty.
      *
-     * @throws ProxyException
+     * @throws \EC\EuropaSearch\Exceptions\ProxyException
      *   Raised if a problem occurred during the conversion process.
      */
     public function convertComponents(array $components);
@@ -78,17 +75,17 @@ interface ProxyControllerInterface
     /**
      * Converts a component.
      *
-     * @param ComponentConverterInterface $converter
+     * @param \EC\EuropaSearch\Proxies\Converters\Components\ComponentConverterInterface $converter
      *   The converter to use.
-     * @param ComponentInterface          $component
+     * @param \EC\EuropaSearch\Messages\Components\ComponentInterface                    $component
      *   The component to convert.
      *
      * @return mixed
      *   The converted component.
      *
-     * @throws ClientInstantiationException
+     * @throws \EC\EuropaSearch\Exceptions\ClientInstantiationException
      *   Raised if the process failed because of the client instantiation problem.
-     * @throws ProxyException
+     * @throws \EC\EuropaSearch\Exceptions\ProxyException
      *   Raised if a problem occured during the conversion process.
      */
     public function convertComponent(ComponentConverterInterface $converter, ComponentInterface $component);
@@ -96,15 +93,15 @@ interface ProxyControllerInterface
     /**
      * Sends the request to the web service via the Transporter layer.
      *
-     * @param MessageInterface     $message
+     * @param \EC\EuropaSearch\Messages\MessageInterface $message
      *   The message to send.
-     * @param TransporterInterface $transporter
+     * @param TransporterInterface                       $transporter
      *   The transporter in charge of the actual sending.
      *
-     * @return MessageInterface
+     * @return \EC\EuropaSearch\Messages\MessageInterface
      *   The response from the service.
      *
-     * @throws ConnectionException
+     * @throws \EC\EuropaSearch\Exceptions\ConnectionException
      *   Raised if a connection problem occurred with the web service.
      * @throws WebServiceErrorException
      *   Raised if a problem occurred with the web service call. That can be an
@@ -115,12 +112,12 @@ interface ProxyControllerInterface
     /**
      * Converts a web service response.
      *
-     * @param MessageConverterInterface $converter
+     * @param \EC\EuropaSearch\Proxies\Converters\MessageConverterInterface $converter
      *   The converter to use for the conversion.
-     * @param mixed                     $response
+     * @param mixed                                                         $response
      *   The response received from the Transporters layer
      *
-     * @return MessageInterface
+     * @return \EC\EuropaSearch\Messages\MessageInterface
      *   The converted response usable by above layers.
      */
     public function convertResponse(MessageConverterInterface $converter, $response);
@@ -139,7 +136,7 @@ interface ProxyControllerInterface
     /**
      * Initializes the HTTP client configuration.
      *
-     * @param EuropaSearchConfig $configuration
+     * @param \EC\EuropaSearch\EuropaSearchConfig $configuration
      *   The web service client configuration for the initialization.
      */
     public function initProxy(EuropaSearchConfig $configuration);

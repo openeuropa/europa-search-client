@@ -19,7 +19,7 @@ class BooleanQueryDataProvider
     /**
      * Gets a valid BooleanQuery object with a nested BooleanQuery object.
      *
-     * @return BooleanQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery
      *  The valid BooleanQuery object.
      */
     public function getValidNestedBooleanQuery()
@@ -51,7 +51,7 @@ class BooleanQueryDataProvider
     /**
      * Gets a nested must invalid BooleanQuery object.
      *
-     * @return BooleanQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery
      *  The invalid BooleanQuery object.
      */
     public function getMustInvalidNestedBooleanQuery()
@@ -88,7 +88,7 @@ class BooleanQueryDataProvider
     /**
      * Gets a nested mustNot invalid BooleanQuery object.
      *
-     * @return BooleanQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery
      *  The invalid BooleanQuery object.
      */
     public function getMustNotInvalidNestedBooleanQuery()
@@ -125,7 +125,7 @@ class BooleanQueryDataProvider
     /**
      * Gets a nested should invalid BooleanQuery object.
      *
-     * @return BooleanQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery
      *  The invalid BooleanQuery object.
      */
     public function getShouldInvalidNestedBooleanQuery()
@@ -164,7 +164,7 @@ class BooleanQueryDataProvider
     /**
      * Gets a valid BooleanQuery object.
      *
-     * @return BooleanQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery
      *  The valid BooleanQuery object.
      */
     public function getValidSimpleBooleanQuery()
@@ -187,7 +187,7 @@ class BooleanQueryDataProvider
     /**
      * Gets a must invalid BooleanQuery object.
      *
-     * @return BooleanQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery
      *  The invalid BooleanQuery object.
      */
     public function getMustInvalidSimpleBooleanQuery()
@@ -215,7 +215,7 @@ class BooleanQueryDataProvider
     /**
      * Gets a mustNot invalid BooleanQuery object.
      *
-     * @return BooleanQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery
      *  The invalid BooleanQuery object.
      */
     public function getMustNotInvalidSimpleBooleanQuery()
@@ -243,7 +243,7 @@ class BooleanQueryDataProvider
     /**
      * Gets a should invalid BooleanQuery object.
      *
-     * @return BooleanQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery
      *  The invalid BooleanQuery object.
      */
     public function getShouldInvalidSimpleBooleanQuery()
@@ -271,7 +271,7 @@ class BooleanQueryDataProvider
     /**
      * Gets a should invalid BooleanQuery object.
      *
-     * @return BooleanQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery
      *  The invalid BooleanQuery object.
      */
     public function getTwoLevelBooleanQuery()

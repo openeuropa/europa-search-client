@@ -31,7 +31,7 @@ class ApplicationDataProvider
     /**
      * Provides objects necessary for the index adding test.
      *
-     * @return IndexWebContent
+     * @return \EC\EuropaSearch\Messages\Index\IndexWebContentMessage
      *   The objects for the test.
      */
     public function getWebContentMessageTestData()
@@ -91,7 +91,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Provides objects necessary for a test of index item deletion.
      *
-     * @return DeleteIndexItemMessage
+     * @return \EC\EuropaSearch\Messages\Index\DeleteIndexItemMessage
      *   The message object to use in the deletion test.
      */
     public function getDeleteIndexItemTestData()
@@ -107,8 +107,8 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
      *
      * @return array
      *   The objects for the test:
-     *   - 'submitted':  SearchMessage to send in the test;
-     *   - 'expected' :  Excepted SearchResponse at the end of the test.
+     *   - 'submitted':  \EC\EuropaSearch\Messages\Search\SearchMessage to send in the test;
+     *   - 'expected' :  Excepted \EC\EuropaSearch\Messages\Search\SearchResponse at the end of the test.
      */
     public function getSearchMessageTestData()
     {
@@ -143,7 +143,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Gets the web content references for the test SearchResponse object.
      *
-     * @param SearchResponse $searchResponse
+     * @param \EC\EuropaSearch\Messages\Search\SearchResponse $searchResponse
      *   The object in which inject the references.
      */
     private function setWebContentResultsTestData(SearchResponse $searchResponse)
@@ -180,9 +180,9 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Sets the metadata of a SearchResult object used for a client test.
      *
-     * @param SearchResult $result
+     * @param \EC\EuropaSearch\Messages\Search\SearchResult $result
      *   SearchResult object to populate.
-     * @param int          $resultId
+     * @param int                                           $resultId
      *   Id making metadata value unique in the test.
      */
     private function setResultMetadataTestData(SearchResult $result, $resultId)
@@ -204,7 +204,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Get a valid BooleanQuery for a client test.
      *
-     * @return BooleanQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery
      *   The valid BooleanQuery object to use in tests.
      */
     private function getBooleanQueryTestData()

@@ -56,8 +56,8 @@ class DateMetadata extends AbstractMetadata implements IndexableMetadataInterfac
     /**
      * Special validator callback for value.
      *
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     * @param mixed                                                          $payload
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {

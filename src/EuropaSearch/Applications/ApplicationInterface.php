@@ -3,16 +3,13 @@
 namespace EC\EuropaSearch\Applications;
 
 use EC\EuropaSearch\EuropaSearchConfig;
-use EC\EuropaSearch\Exceptions\ConnectionException;
-use EC\EuropaSearch\Exceptions\ProxyException;
-use EC\EuropaSearch\Exceptions\ValidationException;
 use EC\EuropaSearch\Messages\ValidatableMessageInterface;
 
 /**
  * Interface ApplicationInterface.
  *
- * Implementing this interface allows objects to be the entry point to a
- * entry point to a web service client.
+ * Implementing this interface allows objects to be the entry point of a web
+ * service client for the 3rd party system like Drupal.
  *
  * All requests from a system pass by it to be submitted to the web service.
  *
@@ -24,17 +21,17 @@ interface ApplicationInterface
     /**
      * Sends a message to the web service.
      *
-     * @param ValidatableMessageInterface $message
+     * @param \EC\EuropaSearch\Messages\ValidatableMessageInterface $message
      *   The message to send.
      *
-     * @return ValidatableMessageInterface $response
+     * @return \EC\EuropaSearch\Messages\ValidatableMessageInterface $response
      *   The web service response.
      *
-     * @throws ValidationException
+     * @throws \EC\EuropaSearch\Exceptions\ValidationException
      *   Raised if the message is invalid.
-     * @throws ProxyException
+     * @throws \EC\EuropaSearch\Exceptions\ProxyException
      *   Raised if the message processing in the proxy layer failed.
-     * @throws ConnectionException
+     * @throws \EC\EuropaSearch\Exceptions\ConnectionException
      *   Raised if the connection with web service failed.
      */
     public function sendMessage(ValidatableMessageInterface $message);
@@ -44,10 +41,10 @@ interface ApplicationInterface
      *
      * This method can be called in the sendMessage() method.
      *
-     * @param ValidatableMessageInterface $message
+     * @param \EC\EuropaSearch\Messages\ValidatableMessageInterface $message
      *   The message to validate.
      *
-     * @throws ValidationException
+     * @throws \EC\EuropaSearch\Exceptions\ValidationException
      *  Raised if the message is invalid. It returns all errors messages.
      */
     public function validateMessage(ValidatableMessageInterface $message);
@@ -55,7 +52,7 @@ interface ApplicationInterface
   /**
    * Sets the application specific configuration of the HTTP client.
    *
-   * @param EuropaSearchConfig $configuration
+   * @param \EC\EuropaSearch\EuropaSearchConfig $configuration
    *   The application specific configuration.
    */
     public function setApplicationConfiguration(EuropaSearchConfig $configuration);
@@ -63,7 +60,7 @@ interface ApplicationInterface
     /**
      * Gets the application specific configuration of the HTTP client.
      *
-     * @return  EuropaSearchConfig
+     * @return \EC\EuropaSearch\EuropaSearchConfig
      *   The application specific configuration.
      */
     public function getApplicationConfiguration();

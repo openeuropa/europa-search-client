@@ -20,7 +20,7 @@ class DefaultMetadataConverter implements ComponentConverterInterface
     /**
      * Converts a metadata in a JSON compatible format.
      *
-     * @param ComponentInterface $metadata
+     * @param \EC\EuropaSearch\Messages\Components\ComponentInterface $metadata
      *   AbstractMetadata to convert.
      * @return array
      *   The metadata in a JSON compatible format.

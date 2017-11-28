@@ -35,7 +35,7 @@ class EuropaSearchTransporter implements TransporterInterface
     /**
      * HTTP client configuration.
      *
-     * @var EuropaSearchConfig
+     * @var \EC\EuropaSearch\EuropaSearchConfig
      */
     protected $configuration;
 
@@ -63,14 +63,14 @@ class EuropaSearchTransporter implements TransporterInterface
     /**
      * The logs manager that will manage logs record.
      *
-     * @var LogsManager
+     * @var \EC\EuropaSearch\Services\LogsManager
      */
     protected $logsManager;
 
     /**
      * EuropaSearchTransporter constructor.
      *
-     * @param LogsManager $logsManager
+     * @param \EC\EuropaSearch\Services\LogsManager $logsManager
      *   The logs manager that will manage logs record.
      */
     public function __construct(LogsManager $logsManager)
@@ -194,7 +194,7 @@ class EuropaSearchTransporter implements TransporterInterface
      * @return array
      *   The proxy settings to use for sending HTTP requests.
      *
-     * @throws ClientInstantiationException
+     * @throws \EC\EuropaSearch\Exceptions\ClientInstantiationException
      *   Raised if the proxy  type is custom while
      *   the proxy "custom_address" is not set.
      */

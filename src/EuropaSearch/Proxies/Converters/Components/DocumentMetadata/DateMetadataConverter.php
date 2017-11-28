@@ -21,7 +21,7 @@ class DateMetadataConverter extends DateComponentConverter implements ComponentC
     /**
      * Converts a metadata in a JSON compatible format.
      *
-     * @param ComponentInterface $metadata
+     * @param \EC\EuropaSearch\Messages\Components\ComponentInterface $metadata
      *   DateMetadata to convert.
      * @return array
      *   The metadata in a JSON compatible format.

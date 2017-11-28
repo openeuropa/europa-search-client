@@ -74,7 +74,7 @@ class FilterQueryComponent implements NestedComponentInterface
     /**
      * Adds an AbstractClause to the aggregated filters;
      *
-     * @param AbstractClause $filterClause
+     * @param \EC\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause $filterClause
      *   The AbstractSimple $filter to add
      */
     public function addFilterClause(AbstractClause $filterClause)
@@ -85,7 +85,7 @@ class FilterQueryComponent implements NestedComponentInterface
     /**
      * Adds an FilterQueryInterface query to the aggregated filters;
      *
-     * @param NestedComponentInterface $filterQuery
+     * @param \EC\EuropaSearch\Messages\Components\NestedComponentInterface $filterQuery
      *   The CombinedQueryInterface query to add
      */
     public function addFilterQuery(NestedComponentInterface $filterQuery)

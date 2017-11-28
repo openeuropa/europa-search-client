@@ -8,7 +8,7 @@ use Psr\Log\LogLevel;
 /**
  * Class TestLogger.
  *
- * @package EC\Poetry\Tests
+ * @package EC\EuropaSearch\Tests\Helpers
  */
 class TestLogger extends AbstractLogger
 {

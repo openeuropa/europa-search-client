@@ -86,7 +86,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Add a filter clause to the filters that MUST fulfil the search items.
      *
-     * @param AbstractClause $filterClause
+     * @param \EC\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause $filterClause
      *   The filter to add
      */
     public function addMustFilterClause(AbstractClause $filterClause)
@@ -97,7 +97,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Add a filter clause to the filters that SHOULD fulfil the search items.
      *
-     * @param AbstractClause $filterClause
+     * @param \EC\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause $filterClause
      *   The filter to add
      */
     public function addShouldFilterClause(AbstractClause $filterClause)
@@ -108,7 +108,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Add a filter clause to the filters that MUST NOT fulfil the search items.
      *
-     * @param AbstractClause $filterClause
+     * @param \EC\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause $filterClause
      *   The filter to add
      */
     public function addMustNotFilterClause(AbstractClause $filterClause)
@@ -119,7 +119,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Add a simple filter to the filters that MUST fulfil the search items.
      *
-     * @param NestedComponentInterface $filterQuery
+     * @param \EC\EuropaSearch\Messages\Components\NestedComponentInterface $filterQuery
      *   The filter to add
      */
     public function addMustFilterQuery(NestedComponentInterface $filterQuery)
@@ -130,7 +130,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Add a simple filter to the filters that SHOULD fulfil the search items.
      *
-     * @param NestedComponentInterface $filterQuery
+     * @param \EC\EuropaSearch\Messages\Components\NestedComponentInterface $filterQuery
      *   The filter to add
      */
     public function addShouldFilterQuery(NestedComponentInterface $filterQuery)
@@ -141,7 +141,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Add a simple filter to the filters that MUST NOT fulfil the search items.
      *
-     * @param NestedComponentInterface $filterQuery
+     * @param \EC\EuropaSearch\Messages\Components\NestedComponentInterface $filterQuery
      *   The filter to add
      */
     public function addMustNotFilterQuery(NestedComponentInterface $filterQuery)
@@ -171,8 +171,8 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Special validator callback for BooleanQuery.
      *
-     * @param ExecutionContextInterface $context
-     * @param int                       $payload
+     * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     * @param int                                                            $payload
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {

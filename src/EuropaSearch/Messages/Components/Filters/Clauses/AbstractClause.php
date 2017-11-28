@@ -61,7 +61,7 @@ abstract class AbstractClause extends BoostableFilter implements ComponentInterf
     /**
      * Loads constraints declarations for the validator process.
      *
-     * @param ClassMetadata $metadata
+     * @param \Symfony\Component\Validator\Mapping\ClassMetadata $metadata
      */
     public static function getConstraints(ClassMetadata $metadata)
     {

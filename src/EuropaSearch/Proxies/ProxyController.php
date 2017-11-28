@@ -45,21 +45,21 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
     /**
      * Web service configuration.
      *
-     * @var EuropaSearchConfig
+     * @var \EC\EuropaSearch\EuropaSearchConfig
      */
     protected $WSConfiguration;
 
     /**
      * The logs manager that will manage logs record.
      *
-     * @var LogsManager
+     * @var \EC\EuropaSearch\Services\LogsManager
      */
     protected $logsManager;
 
     /**
      * ProxyController constructor.
      *
-     * @param LogsManager $logsManager
+     * @param \EC\EuropaSearch\Services\LogsManager $logsManager
      *   The logs manager that will manage logs record.
      */
     public function __construct(LogsManager $logsManager)
@@ -238,17 +238,17 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
     /**
      * Converts a NestedComponentInterface component with its child components.
      *
-     * @param FilterQueryConverterInterface $converter
+     * @param \EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\FilterQueryConverterInterface $converter
      *   The converter to use.
-     * @param NestedComponentInterface      $nestedComponent
+     * @param \EC\EuropaSearch\Messages\Components\NestedComponentInterface                                $nestedComponent
      *   The component to convert.
      *
      * @return mixed
      *   The converted component.
      *
-     * @throws ClientInstantiationException
+     * @throws \EC\EuropaSearch\Exceptions\ClientInstantiationException
      *   Raised if the process failed because of the client instantiation problem.
-     * @throws ProxyException
+     * @throws \EC\EuropaSearch\Exceptions\ProxyException
      *   Raised if a problem occurred during the conversion process.
      */
     public function convertNestedComponentWithChildren(FilterQueryConverterInterface $converter, NestedComponentInterface $nestedComponent)

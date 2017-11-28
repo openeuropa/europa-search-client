@@ -20,7 +20,7 @@ class FieldExistsClause extends AbstractClause
     /**
      * FieldExist constructor.
      *
-     * @param IndexableMetadataInterface $impliedMetadata
+     * @param \EC\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface $impliedMetadata
      *   The metadata pointed by the filters.
      */
     public function __construct(IndexableMetadataInterface $impliedMetadata)

@@ -213,67 +213,9 @@ class EuropaSearchConfig
      *
      * @return array
      *   The configuration to connect to targeted ES services.
-     *   The array contains these keys for indexing services (Ingestion):
-     *   - 'url_root': [mandatory] URL root (without the last slash) where the
-     *     Europa Search REST services to use are host;
-     *     ex.: https://search.ec.europa.eu.
-     *   - 'api_key' : [mandatory] The API key to communicate with all
-     *     indexing requests.
-     *   - 'database': [mandatory] The database name to communicate with all
-     *      indexing requests.
-     *   - 'proxy': [optional] Array of Proxy settings to with indexing request.
-     *     If not set, The Transporters layer must use the host proxy
-     *     settings to send requests. That has the same effect as having the
-     *     child parameter 'configuration_type' equals to default;
-     *     - 'configuration_type': [optional] string the proxy type
-     *       to use with application requests. The possible values are:
-     *       - 'default': The Transporters layer must use the host proxy
-     *         settings to send requests;
-     *       - 'custom': The Transporters layer must use a dedicated proxy
-     *         to send requests; Then the 'custom_address' is
-     *         mandatory.
-     *       - 'none': The Transporters layer must bypass the proxy to send requests;
-     *     - 'user_name': string the proxy credentials username;
-     *       It is only to be set if 'configuration_type'
-     *       parameter value is 'custom' AND if the custom proxy requires
-     *       it.
-     *     - 'user_password': string the proxy credentials
-     *       password;
-     *       It is only to be set if configuration_type'
-     *       parameter value is 'custom' AND if the custom proxy requires
-     *       it.
-     *     - 'custom_address': string the URL of the proxy to use;
-     *       It is only MANDATORY if the 'configuration_type'
-     *       parameter value is 'custom';
-     *   The array contains these keys for search services:
-     *   - 'url_root': [mandatory] URL root (without the last slash) where the
-     *     Europa Search REST services to use are host;
-     *     ex.: https://search.ec.europa.eu.
-     *   - 'api_key' : [mandatory] The API key to communicate with all search requests.
-     *   - 'proxy': [optional] Array of Proxy settings to with search request.
-     *     If not set, The Transporters layer must use the host proxy
-     *     settings to send requests. That has the same effect as having the
-     *     child parameter 'configuration_type' equals to default;
-     *     - 'configuration_type': [optional] string the proxy type
-     *       to use with application requests. The possible values are:
-     *       - 'default': The Transporters layer must use the host proxy
-     *         settings to send requests;
-     *       - 'custom': The Transporters layer must use a dedicated proxy
-     *         to send requests; Then the 'custom_address' is
-     *         mandatory.
-     *       - 'none': The Transporters layer must bypass the proxy to send requests;
-     *     - 'user_name': string the proxy credentials username;
-     *       It is only to be set if 'configuration_type'
-     *       parameter value is 'custom' AND if the custom proxy requires
-     *       it.
-     *     - 'user_password': string the proxy credentials
-     *       password;
-     *       It is only to be set if configuration_type'
-     *       parameter value is 'custom' AND if the custom proxy requires
-     *       it.
-     *     - 'custom_address': string the URL of the proxy to use;
-     *       It is only MANDATORY if the 'configuration_type'
-     *       parameter value is 'custom';
+     *   The array has the same structure as the one used as parameter in the
+     *   class constructor.
+     *
      */
     public function getConnectionConfigurations()
     {

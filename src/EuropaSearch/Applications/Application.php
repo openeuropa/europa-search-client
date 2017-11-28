@@ -13,7 +13,7 @@ use Symfony\Component\Validator\ValidatorBuilder;
 /**
  * Class Application.
  *
- * Default implementation of the ClientInterface.
+ * Default implementation of the ApplicationInterface.
  *
  * @package EC\EuropaSearch\Applications
  */
@@ -46,7 +46,7 @@ class Application implements ApplicationInterface
      *
      * @var \EC\EuropaSearch\EuropaSearchConfig
      */
-    protected $WSConfiguration;
+    protected $webServiceSettings;
 
     /**
      * The logs manager that will manage logs record.
@@ -76,7 +76,7 @@ class Application implements ApplicationInterface
      */
     public function setApplicationConfiguration(EuropaSearchConfig $configuration)
     {
-        $this->WSConfiguration = $configuration;
+        $this->webServiceSettings = $configuration;
         $this->proxy->initProxy($configuration);
         $this->transporter->initTransporter($configuration);
     }
@@ -86,7 +86,7 @@ class Application implements ApplicationInterface
      */
     public function getApplicationConfiguration()
     {
-        return $this->WSConfiguration;
+        return $this->webServiceSettings;
     }
 
     /**

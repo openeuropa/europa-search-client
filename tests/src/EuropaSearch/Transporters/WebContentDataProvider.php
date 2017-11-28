@@ -20,7 +20,7 @@ class WebContentDataProvider
     /**
      * Provides objects necessary for the test.
      *
-     * @return WebContentRequest
+     * @return \EC\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest
      *   The objects for the test.
      */
     public function webContentIndexingRequestProvider()
@@ -64,7 +64,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Provides objects necessary for a test of index item deletion.
      *
-     * @return DeleteIndexItemMessage
+     * @return \EC\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemMessage
      *   The message object to use in the deletion test.
      */
     public function deleteIndexItemTestData()
@@ -80,7 +80,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Provides objects necessary for the test.
      *
-     * @return SearchRequest
+     * @return \EC\EuropaSearch\Transporters\Requests\Search\SearchRequest
      *   The objects for the test.
      */
     public function searchRequestProvider()

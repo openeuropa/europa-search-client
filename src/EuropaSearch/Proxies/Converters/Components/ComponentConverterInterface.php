@@ -18,7 +18,7 @@ interface ComponentConverterInterface
     /**
      * Converts a message component.
      *
-     * @param ComponentInterface $component
+     * @param \EC\EuropaSearch\Messages\Components\ComponentInterface $component
      *   The component to convert.
      *
      * @return array

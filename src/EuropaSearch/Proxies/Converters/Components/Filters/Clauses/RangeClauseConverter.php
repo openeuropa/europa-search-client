@@ -4,7 +4,6 @@ namespace EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses;
 
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface;
 use EC\EuropaSearch\Messages\Components\ComponentInterface;
 
 /**
@@ -61,7 +60,7 @@ class RangeClauseConverter extends AbstractClauseConverter
      *
      * @param mixed                      $rawValue
      *   The raw boundary value.
-     * @param IndexableMetadataInterface $metadata
+     * @param \EC\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface $metadata
      *   The metadata implied in the filter.
      *
      * @return mixed

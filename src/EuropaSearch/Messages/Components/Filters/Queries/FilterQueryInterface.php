@@ -1,13 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains EC\EuropaSearch\Messages\Search\Filters\Queries\FilterQueryInterface.
- */
-
 namespace EC\EuropaSearch\Messages\Search\Filters\Queries;
 
-use EC\EuropaWS\Messages\Components\ComponentInterface;
+use EC\EuropaSearch\Messages\Components\ComponentInterface;
 
 /**
  * Interface FilterQueryInterface.

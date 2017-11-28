@@ -19,9 +19,9 @@ interface FilterQueryConverterInterface extends ComponentConverterInterface
     /**
      * Converts a CombinedQueryInterface component.
      *
-     * @param NestedComponentInterface $query
+     * @param \EC\EuropaSearch\Messages\Components\NestedComponentInterface $query
      *   The component to convert.
-     * @param array                    $convertedComponents
+     * @param array                                                         $convertedComponents
      *   The list of child components that are ready to be used in the
      *   component final conversion.
      *

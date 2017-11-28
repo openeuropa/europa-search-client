@@ -29,7 +29,7 @@ class FullTextMetadata extends AbstractMetadata implements IndexableMetadataInte
     /**
      * Loads constraints declarations for the validator process.
      *
-     * @param ClassMetadata $metadata
+     * @param \Symfony\Component\Validator\Mapping\ClassMetadata $metadata
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
