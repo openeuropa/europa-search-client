@@ -5,22 +5,22 @@ namespace EC\EuropaSearch\Tests\Proxies\Converters\Index;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
- * Class IndexWebContentConvertTest.
+ * Class IndexFileConvertTest.
  *
  * Test the conversion of a IndexWebContentMessage object.
  *
  * @package EC\EuropaSearch\Tests\Proxies\Converters\Index
  */
-class IndexWebContentConvertTest extends AbstractEuropaSearchTest
+class IndexFileConvertTest extends AbstractEuropaSearchTest
 {
 
     /**
      * Test a conversion of an IndexedDocument object in a WebContentRequest one.
      */
-    public function testConvertIndexWebContentSuccess()
+    public function testConvertIndexFileSuccess()
     {
         $provider = new ConverterDataProvider();
-        $data = $provider->indexedDocumentProvider();
+        $data = $provider->indexedFileProvider();
 
         $submitted = $data['submitted'];
         $expected = $data['expected'];
@@ -33,6 +33,6 @@ class IndexWebContentConvertTest extends AbstractEuropaSearchTest
         $converter = $proxy->getConverterObject($converterId);
         $indexingRequest = $proxy->convertMessageWithComponents($converter, $submitted, $convertedComponents);
 
-        $this->assertEquals($expected, $indexingRequest, 'The conversion of the IndexWebContent object has failed.');
+        $this->assertEquals($expected, $indexingRequest, 'The conversion of the IndexFileMessage object has failed.');
     }
 }

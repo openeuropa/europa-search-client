@@ -7,6 +7,8 @@ services:
   # WebContent Indexing service converter classes.
   europaSearch.messageProxy.indexing.webContent:
       class: EC\EuropaSearch\Proxies\Converters\Index\IndexWebContentConverter
+  europaSearch.messageProxy.indexing.file:
+      class: EC\EuropaSearch\Proxies\Converters\Index\IndexFileConverter
   europaSearch.componentProxy.metadata.boolean:
       class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
   europaSearch.componentProxy.metadata.date:

@@ -4,19 +4,19 @@ namespace EC\EuropaSearch\Proxies\Converters\Index;
 
 use EC\EuropaSearch\EuropaSearchConfig;
 use EC\EuropaSearch\Proxies\Converters\AbstractMessageConverter;
-use EC\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest;
+use EC\EuropaSearch\Transporters\Requests\Index\IndexFileRequest;
 use EC\EuropaSearch\Exceptions\ProxyException;
 use EC\EuropaSearch\Messages\Index\IndexingResponse;
 use EC\EuropaSearch\Messages\ValidatableMessageInterface;
 
 /**
- * Class IndexWebContentConverter.
+ * Class IndexFileConverter.
  *
- * Converter for IndexWebContent object.
+ * Converter for IndexFile object.
  *
  * @package EC\EuropaSearch\Proxies\Converters\Index
  */
-class IndexWebContentConverter extends AbstractMessageConverter
+class IndexFileConverter extends AbstractMessageConverter
 {
 
     /**
@@ -24,7 +24,7 @@ class IndexWebContentConverter extends AbstractMessageConverter
      */
     public function convertMessage(ValidatableMessageInterface $message, EuropaSearchConfig $configuration)
     {
-        $request = new IndexWebContentRequest();
+        $request = new IndexFileRequest();
 
         $request->setDocumentId($message->getDocumentId());
         $request->setDocumentLanguage($message->getDocumentLanguage());
@@ -36,8 +36,8 @@ class IndexWebContentConverter extends AbstractMessageConverter
         $request->setDatabase($WSSettings['database']);
 
         // Clean the document content of its HTML.
-        $cleanedContent = $this->formatDocumentContent($message->getDocumentContent());
-        $request->setDocumentContent($cleanedContent);
+        $cleanedContent = $message->getDocumentFile();
+        $request->setDocumentFile($cleanedContent);
 
         return $request;
     }
@@ -54,19 +54,5 @@ class IndexWebContentConverter extends AbstractMessageConverter
         }
 
         return new IndexingResponse($rawResult->reference, $rawResult->trackingId);
-    }
-
-    /**
-     * Formats the web content before sending the request.
-     *
-     * @param string $documentContent
-     *   The content to clean.
-     *
-     * @return string
-     *  The cleaned content.
-     */
-    private function formatDocumentContent($documentContent)
-    {
-        return strip_tags($documentContent);
     }
 }

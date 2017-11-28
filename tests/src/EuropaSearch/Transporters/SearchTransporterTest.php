@@ -20,7 +20,7 @@ class SearchTransporterTest extends AbstractEuropaSearchTest
      */
     public function testSendSearchSuccess()
     {
-        $provider = new WebContentDataProvider();
+        $provider = new TransporterDataProvider();
         $requestToSend = $provider->searchRequestProvider();
 
         $transporter = $this->getContainer()->get('europaSearch.transporter.default');
