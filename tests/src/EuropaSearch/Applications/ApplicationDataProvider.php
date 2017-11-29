@@ -9,6 +9,7 @@ use EC\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\URLMetadata;
 use EC\EuropaSearch\Messages\Index\DeleteIndexItemMessage;
+use EC\EuropaSearch\Messages\Index\IndexFileMessage;
 use EC\EuropaSearch\Messages\Index\IndexWebContentMessage;
 use EC\EuropaSearch\Messages\Components\Filters\Clauses\RangeClause;
 use EC\EuropaSearch\Messages\Components\Filters\Clauses\TermClause;
@@ -86,6 +87,51 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         $indexedDocument->addMetadata($metadata);
 
         return $indexedDocument;
+    }
+
+    /**
+     * Provides objects necessary for the file index adding test.
+     *
+     * @return \EC\EuropaSearch\Messages\Index\IndexWebContentMessage
+     *   The objects for the test.
+     */
+    public function getFileMessageTestData()
+    {
+        $documentId = 'web_content_client_1';
+        $documentURI = 'http://europa.test.com/content.html';
+        $documentLanguage = 'fr';
+
+        // Submitted object.
+        $indexedFile = new IndexFileMessage();
+        $indexedFile->setDocumentURI($documentURI);
+        $indexedFile->setDocumentFile(__DIR__.'/fixtures/file.pdf');
+        $indexedFile->setDocumentId($documentId);
+        $indexedFile->setDocumentLanguage($documentLanguage);
+
+        $metadata = new FullTextMetadata('title');
+        $metadata->setValues(['this the title']);
+        $indexedFile->addMetadata($metadata);
+
+        $metadata = new StringMetadata('tag');
+        $metadata->setValues(['taxonomy term']);
+        $indexedFile->addMetadata($metadata);
+
+        $metadata = new IntegerMetadata('rank');
+        $metadata->setValues([1]);
+        $indexedFile->addMetadata($metadata);
+
+        $metadata = new FloatMetadata('percentage');
+        $metadata->setValues([0.1]);
+        $indexedFile->addMetadata($metadata);
+        $metadata = new DateMetadata('publishing_date');
+        $metadata->setValues([date('F j, Y, g:i a', strtotime('11-12-2018'))]);
+        $indexedFile->addMetadata($metadata);
+
+        $metadata = new URLMetadata('uri');
+        $metadata->setValues(['http://www.europa.com']);
+        $indexedFile->addMetadata($metadata);
+
+        return $indexedFile;
     }
 
     /**
