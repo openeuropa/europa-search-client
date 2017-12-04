@@ -17,12 +17,12 @@ class IndexFileRequest extends AbstractIndexItemRequest
     /**
      * Gets the content of the indexed document.
      *
-     * @return string
+     * @return resource
      *    The content of the indexed document.
      */
     public function getDocumentFile()
     {
-        return $this->body['text']['file'];
+        return $this->body['file']['contents'];
     }
 
     /**
@@ -33,8 +33,15 @@ class IndexFileRequest extends AbstractIndexItemRequest
      */
     public function setDocumentFile($documentFile)
     {
+        if (empty($documentFile)) {
+            $this->body['file'] = null;
+
+            return;
+        }
+
         $mimeType = mime_content_type($documentFile);
         $stream = Psr7\stream_for(fopen($documentFile, 'r'));
+
         $this->body['file'] = [
             'name' => 'file',
             'contents' => $stream,
