@@ -35,9 +35,8 @@ class IndexFileConverter extends AbstractMessageConverter
         $request->setAPIKey($WSSettings['api_key']);
         $request->setDatabase($WSSettings['database']);
 
-        // Clean the document content of its HTML.
-        $cleanedContent = $message->getDocumentFile();
-        $request->setDocumentFile($cleanedContent);
+        $filePath = $message->getDocumentFile();
+        $request->setDocumentFile($filePath);
 
         return $request;
     }

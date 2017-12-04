@@ -164,7 +164,6 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         $metadata = new URLMetadata('uri');
         $metadata->setValues(['http://www.europa.com']);
         $indexedFile->addMetadata($metadata);
-
         // Expected object.
         $indexingRequest = new IndexFileRequest();
         $indexingRequest->setAPIKey('a221108a-180d-HTTP-INDEXING-TEST');

@@ -97,8 +97,8 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
      */
     public function getFileMessageTestData()
     {
-        $documentId = 'web_content_client_1';
-        $documentURI = 'http://europa.test.com/content.html';
+        $documentId = 'file_client_1';
+        $documentURI = 'http://europa.test.com/file/file.pdf';
         $documentLanguage = 'fr';
 
         // Submitted object.
@@ -109,7 +109,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         $indexedFile->setDocumentLanguage($documentLanguage);
 
         $metadata = new FullTextMetadata('title');
-        $metadata->setValues(['this the title']);
+        $metadata->setValues(['this the file title']);
         $indexedFile->addMetadata($metadata);
 
         $metadata = new StringMetadata('tag');

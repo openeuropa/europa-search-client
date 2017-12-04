@@ -2,6 +2,8 @@
 
 namespace EC\EuropaSearch\Transporters\Requests\Index;
 
+use GuzzleHttp\Psr7;
+
 /**
  * Class IndexFileRequest.
  *
@@ -31,12 +33,12 @@ class IndexFileRequest extends AbstractIndexItemRequest
      */
     public function setDocumentFile($documentFile)
     {
+        $mimeType = mime_content_type($documentFile);
+        $stream = Psr7\stream_for(fopen($documentFile, 'r'));
         $this->body['file'] = [
             'name' => 'file',
-            // TODO: To check appropiate Guzzle structure.
-            'contents' => '@.'.$documentFile,
-            // 'contents' => fopen($documentFile, 'r'),
-            //'headers' => ['content-type' => 'application/octet-stream'],
+            'contents' => $stream,
+            'headers' => ['content-type' => $mimeType],
         ];
     }
 

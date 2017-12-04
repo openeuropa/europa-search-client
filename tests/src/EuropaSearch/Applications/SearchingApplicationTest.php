@@ -37,25 +37,6 @@ class SearchingApplicationTest extends AbstractEuropaSearchTest
     }
 
     /**
-     * Test that the application uses the right configuration.
-     *
-     * This configuration comes from the container.
-     */
-    public function testApplicationConfiguration()
-    {
-        $mockConfig = $this->getMockResponse();
-        $factory = $this->getFactory($mockConfig);
-        $application = $factory->getSearchApplication();
-        $applicationConfig = $application->getApplicationConfiguration();
-
-        $this->assertArraySubset(
-            $this->getTestedSearchServiceParams(),
-            $applicationConfig->getConnectionConfigurations(),
-            'The returned search application does not have the expected configuration.'
-        );
-    }
-
-    /**
      * Gets the web service mock responses for tests.
      *
      * @return array
