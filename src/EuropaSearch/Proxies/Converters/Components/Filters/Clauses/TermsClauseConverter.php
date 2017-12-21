@@ -17,13 +17,11 @@ use EC\EuropaSearch\Messages\Components\ComponentInterface;
  */
 class TermsClauseConverter extends AbstractClauseConverter
 {
-
     /**
      * {@inheritDoc}
      */
     public function convertComponent(ComponentInterface $component)
     {
-
         $metadata = $component->getImpliedMetadata();
         $name = $metadata->getEuropaSearchName();
 
@@ -55,7 +53,6 @@ class TermsClauseConverter extends AbstractClauseConverter
      */
     private function getConvertedDateValues($values)
     {
-
         $finalValues = [];
         foreach ($values as $item) {
             $finalValues[] = $this->getConvertedDateValue($item);
@@ -74,7 +71,6 @@ class TermsClauseConverter extends AbstractClauseConverter
      */
     private function getBooleanMetadataValues($values)
     {
-
         $finalValue = [];
         foreach ($values as $item) {
             $finalValue[] = boolval($item);

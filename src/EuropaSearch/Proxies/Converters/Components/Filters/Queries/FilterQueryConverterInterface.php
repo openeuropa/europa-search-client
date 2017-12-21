@@ -15,7 +15,6 @@ use EC\EuropaSearch\Proxies\Converters\Components\ComponentConverterInterface;
  */
 interface FilterQueryConverterInterface extends ComponentConverterInterface
 {
-
     /**
      * Converts a CombinedQueryInterface component.
      *

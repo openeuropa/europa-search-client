@@ -3,18 +3,19 @@
 namespace EC\EuropaSearch\Tests\Transporters;
 
 use EC\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemRequest;
+use EC\EuropaSearch\Transporters\Requests\Index\IndexFileRequest;
 use EC\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest;
 use EC\EuropaSearch\Transporters\Requests\Search\SearchRequest;
 
 /**
- * Class WebContentDataProvider.
+ * Class TransporterDataProvider.
  *
  * Provides data for the transporter layer used for web content indexing
  * related tests.
  *
  * @package EC\EuropaSearch\Tests\Transporters
  */
-class WebContentDataProvider
+class TransporterDataProvider
 {
 
     /**
@@ -62,9 +63,38 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     }
 
     /**
+     * Provides objects necessary for the test.
+     *
+     * @return \EC\EuropaSearch\Transporters\Requests\Index\IndexFileRequest
+     *   The objects for the test.
+     */
+    public function fileIndexingRequestProvider()
+    {
+        $documentId = 'web_content_1';
+        $documentURI = 'http://europa.test.com/file.pdf';
+        $documentLanguage = 'fr';
+        $fileContent = __DIR__.'/fixtures/file.pdf';
+
+        // Submitted object.
+        $indexingRequest = new IndexFileRequest();
+        $indexingRequest->setAPIKey('a221108a-180d-HTTP-INDEXING-TEST');
+        $indexingRequest->setDatabase('EC-EUROPA-DUMMY-INDEXING');
+        $indexingRequest->setDocumentId($documentId);
+        $indexingRequest->setDocumentURI($documentURI);
+        $indexingRequest->setDocumentLanguage($documentLanguage);
+
+        $fileMetadata = file_get_contents(__DIR__.'/fixtures/indexing_json_sample.json');
+        $indexingRequest->setMetadataJSON($fileMetadata);
+
+        $indexingRequest->setDocumentFile($fileContent);
+
+        return $indexingRequest;
+    }
+
+    /**
      * Provides objects necessary for a test of index item deletion.
      *
-     * @return \EC\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemMessage
+     * @return \EC\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemRequest
      *   The message object to use in the deletion test.
      */
     public function deleteIndexItemTestData()

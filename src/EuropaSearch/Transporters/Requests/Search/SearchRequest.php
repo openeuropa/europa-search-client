@@ -14,7 +14,6 @@ use EC\EuropaSearch\Transporters\Requests\AbstractRequest;
  */
 class SearchRequest extends AbstractRequest
 {
-
     /**
      * Gets the search query in a JSON format.
      *
@@ -233,7 +232,6 @@ class SearchRequest extends AbstractRequest
      */
     public function addConvertedComponents(array $components)
     {
-
         $json = json_encode($components);
         $this->setQueryJSON($json);
     }

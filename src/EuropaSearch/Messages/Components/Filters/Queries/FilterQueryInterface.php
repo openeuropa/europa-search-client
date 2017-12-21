@@ -14,7 +14,6 @@ use EC\EuropaSearch\Messages\Components\ComponentInterface;
  */
 interface FilterQueryInterface extends ComponentInterface
 {
-
     /**
      * Gets component children.
      *

@@ -19,13 +19,11 @@ use EC\EuropaSearch\Messages\ValidatableMessageInterface;
  */
 class SearchConverter extends AbstractMessageConverter
 {
-
     /**
      * {@inheritDoc}
      */
     public function convertMessage(ValidatableMessageInterface $message, EuropaSearchConfig $configuration)
     {
-
         $request = new SearchRequest();
 
         $conversionMapping = [
@@ -83,7 +81,6 @@ class SearchConverter extends AbstractMessageConverter
      */
     public function convertMessageResponse($response, EuropaSearchConfig $configuration)
     {
-
         $rawResult = parent::convertMessageResponse($response, $configuration);
 
         $searchResponse = new SearchResponse();
@@ -107,7 +104,6 @@ class SearchConverter extends AbstractMessageConverter
      */
     private function setSearchResponseAttribute(SearchResponse $convertedResponse, $attributeName, $attributeValue)
     {
-
         if ('queryLanguage' == $attributeName) {
             $this->setSearchResponseLanguageData($convertedResponse, $attributeValue);
 
@@ -144,7 +140,6 @@ class SearchConverter extends AbstractMessageConverter
      */
     private function setSearchResponseLanguageData(SearchResponse $convertedResponse, \stdClass $queryLanguage)
     {
-
         if (isset($queryLanguage->language)) {
             $convertedResponse->setLanguage($queryLanguage->language);
         }
@@ -164,7 +159,6 @@ class SearchConverter extends AbstractMessageConverter
      */
     private function setSearchResponseResults(SearchResponse $convertedResponse, array $rawResults)
     {
-
         foreach ($rawResults as $result) {
             $convertedResult = $this->convertSearchResult($result);
             $convertedResponse->addResult($convertedResult);
@@ -182,7 +176,6 @@ class SearchConverter extends AbstractMessageConverter
      */
     private function convertSearchResult(\stdClass $searchResult)
     {
-
         $result = new SearchResult();
         foreach ($searchResult as $attributeName => $attributeValue) {
             $this->setSearchResultAttribute($result, $attributeName, $attributeValue);
@@ -203,7 +196,6 @@ class SearchConverter extends AbstractMessageConverter
      */
     private function setSearchResultAttribute(SearchResult $convertedResult, $attributeName, $attributeValue)
     {
-
         if ('metadata' == $attributeName) {
             $this->setSearchResultMetadata($convertedResult, $attributeValue);
 
@@ -238,7 +230,6 @@ class SearchConverter extends AbstractMessageConverter
      */
     private function setSearchResultMetadata(SearchResult $convertedResult, \stdClass $metadataList)
     {
-
         foreach ($metadataList as $name => $value) {
             if ('esST_URL' == $name) {
                 // The actual content url is stored in metadata.

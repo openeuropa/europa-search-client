@@ -17,7 +17,6 @@ use EC\EuropaSearch\Messages\Components\ComponentInterface;
  */
 class RangeClauseConverter extends AbstractClauseConverter
 {
-
     /**
      * {@inheritDoc}
      */

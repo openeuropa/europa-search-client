@@ -14,7 +14,6 @@ use EC\EuropaSearch\Messages\Components\ComponentInterface;
  */
 interface ComponentConverterInterface
 {
-
     /**
      * Converts a message component.
      *

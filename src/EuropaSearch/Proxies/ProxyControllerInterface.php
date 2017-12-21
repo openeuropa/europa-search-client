@@ -22,7 +22,6 @@ use EC\EuropaSearch\Transporters\TransporterInterface;
  */
 interface ProxyControllerInterface
 {
-
     /**
      * Converts the message.
      *

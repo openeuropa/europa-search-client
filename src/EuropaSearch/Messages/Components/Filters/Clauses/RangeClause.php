@@ -21,7 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class RangeClause extends AbstractClause
 {
-
     /**
      * The lower boundary to use in the filter definition.
      *
@@ -86,7 +85,6 @@ class RangeClause extends AbstractClause
      */
     public function setLowerBoundaryExcluded($lowerBoundary)
     {
-
         $this->lowerBoundary = $lowerBoundary;
         $this->isLowerIncluded = false;
     }
@@ -99,7 +97,6 @@ class RangeClause extends AbstractClause
      */
     public function setLowerBoundaryIncluded($lowerBoundary)
     {
-
         $this->lowerBoundary = $lowerBoundary;
         $this->isLowerIncluded = true;
     }
@@ -124,7 +121,6 @@ class RangeClause extends AbstractClause
      */
     public function setUpperBoundaryExcluded($upperBoundary)
     {
-
         $this->upperBoundary = $upperBoundary;
         $this->isUpperIncluded = false;
     }
@@ -138,7 +134,6 @@ class RangeClause extends AbstractClause
      */
     public function setUpperBoundaryIncluded($upperBoundary)
     {
-
         $this->upperBoundary = $upperBoundary;
         $this->isUpperIncluded = true;
     }
@@ -181,7 +176,6 @@ class RangeClause extends AbstractClause
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-
         $metadata->addPropertyConstraint('isLowerIncluded', new Assert\Type('bool'));
         $metadata->addPropertyConstraint('isUpperIncluded', new Assert\Type('bool'));
         $metadata->addConstraint(new Assert\Callback('validate'));
@@ -195,7 +189,6 @@ class RangeClause extends AbstractClause
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {
-
         if (!isset($this->lowerBoundary) && !isset($this->upperBoundary)) {
             $context->buildViolation('At least a boundary must be set.')
                 ->addViolation();
@@ -231,7 +224,6 @@ class RangeClause extends AbstractClause
      */
     protected function validateDateRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         if (isset($this->lowerBoundary) && !date_create($this->lowerBoundary)) {
             $context->buildViolation('The lower boundary is not a valid date.')
                 ->atPath('lowerBoundary')
@@ -252,7 +244,6 @@ class RangeClause extends AbstractClause
      */
     protected function validateFloatRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         if (isset($this->lowerBoundary) && !(is_int($this->lowerBoundary) || is_float($this->lowerBoundary))) {
             $context->buildViolation('The lower boundary is not a valid numeric (int or float).')
                 ->atPath('lowerBoundary')
@@ -273,7 +264,6 @@ class RangeClause extends AbstractClause
      */
     protected function validateIntRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         if (isset($this->lowerBoundary) && !is_int($this->lowerBoundary)) {
             $context->buildViolation('The lower boundary is not a valid integer.')
                 ->atPath('lowerBoundary')

@@ -19,7 +19,7 @@ class IndexWebContentConvertTest extends AbstractEuropaSearchTest
      */
     public function testConvertIndexWebContentSuccess()
     {
-        $provider = new WebContentDataProvider();
+        $provider = new ConverterDataProvider();
         $data = $provider->indexedDocumentProvider();
 
         $submitted = $data['submitted'];

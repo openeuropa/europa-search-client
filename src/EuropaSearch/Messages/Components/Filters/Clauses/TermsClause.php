@@ -23,7 +23,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class TermsClause extends AbstractClause
 {
-
     /**
      * The values to use in the filter definition.
      *
@@ -79,7 +78,6 @@ class TermsClause extends AbstractClause
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-
         $metadata->addPropertyConstraint('testedValues', new Assert\NotBlank());
         $metadata->addConstraint(new Assert\Callback('validate'));
     }
@@ -92,7 +90,6 @@ class TermsClause extends AbstractClause
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {
-
         $metadata = $this->getImpliedMetadata();
         switch (true) {
             case ($metadata instanceof DateMetadata):
@@ -125,7 +122,6 @@ class TermsClause extends AbstractClause
      */
     protected function validateDateRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         foreach ($this->testedValues as $key => $testedValue) {
             if (!date_create($testedValue)) {
                 $context->buildViolation('The tested value is not a valid date.')
@@ -143,7 +139,6 @@ class TermsClause extends AbstractClause
      */
     protected function validateFloatRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         foreach ($this->testedValues as $key => $testedValue) {
             if (!is_float($testedValue)) {
                 $context->buildViolation('The tested value is not a valid float.')
@@ -161,7 +156,6 @@ class TermsClause extends AbstractClause
      */
     protected function validateIntRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         foreach ($this->testedValues as $key => $testedValue) {
             if (!is_int($testedValue)) {
                 $context->buildViolation('The tested value is not a valid integer.')
@@ -179,7 +173,6 @@ class TermsClause extends AbstractClause
      */
     protected function validateBooleanRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         foreach ($this->testedValues as $key => $testedValue) {
             if (!is_bool($testedValue)) {
                 $context->buildViolation('The tested value is not a valid boolean.')
@@ -197,7 +190,6 @@ class TermsClause extends AbstractClause
      */
     protected function validateURLRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         foreach ($this->testedValues as $key => $testedValue) {
             $validator = new Assert\UrlValidator();
             $validator->initialize($context);

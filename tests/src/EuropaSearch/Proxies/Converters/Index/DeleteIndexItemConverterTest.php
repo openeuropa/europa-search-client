@@ -19,7 +19,7 @@ class DeleteIndexItemConverterTest extends AbstractEuropaSearchTest
      */
     public function testConvertIndexWebContentSuccess()
     {
-        $provider = new WebContentDataProvider();
+        $provider = new ConverterDataProvider();
         $data = $provider->indexedItemDeletionProvider();
 
         $submitted = $data['submitted'];
@@ -33,6 +33,6 @@ class DeleteIndexItemConverterTest extends AbstractEuropaSearchTest
         $converter = $proxy->getConverterObject($converterId);
         $indexingRequest = $proxy->convertMessageWithComponents($converter, $submitted, $convertedComponents);
 
-        $this->assertEquals($expected, $indexingRequest, 'The conversion of the IndexWebContentMessage object has failed.');
+        $this->assertEquals($expected, $indexingRequest, 'The conversion of the DeleteIndexItemMessage object has failed.');
     }
 }

@@ -14,7 +14,6 @@ use EC\EuropaSearch\Messages\Components\NestedComponentInterface;
  */
 class BooleanQueryConverter implements FilterQueryConverterInterface
 {
-
     /**
      * {@inheritDoc}
      */
@@ -28,7 +27,6 @@ class BooleanQueryConverter implements FilterQueryConverterInterface
      */
     public function convertComponentWithChildren(NestedComponentInterface $query, array $convertedComponents)
     {
-
         $convertedComponent = ['bool' => []];
 
         // Add only the filled components.

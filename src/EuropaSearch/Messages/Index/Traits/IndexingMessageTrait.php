@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 trait IndexingMessageTrait
 {
-
     /**
      * {@inheritdoc}
      */

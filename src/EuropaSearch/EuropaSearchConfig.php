@@ -13,7 +13,6 @@ use GuzzleHttp\Handler\MockHandler;
  */
 class EuropaSearchConfig
 {
-
     /**
      * Web service configuration for services to call.
      *

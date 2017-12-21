@@ -19,7 +19,6 @@ use Symfony\Component\Validator\ValidatorBuilder;
  */
 class Application implements ApplicationInterface
 {
-
     /**
      * The validator to use with messages
      *

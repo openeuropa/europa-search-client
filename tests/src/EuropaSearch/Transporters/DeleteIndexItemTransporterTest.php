@@ -20,7 +20,7 @@ class DeleteIndexItemTransporterTest extends AbstractEuropaSearchTest
      */
     public function testSendIndexItemDeletionSuccess()
     {
-        $provider = new WebContentDataProvider();
+        $provider = new TransporterDataProvider();
         $requestToSend = $provider->deleteIndexItemTestData();
 
         $transporter = $this->getContainer()->get('europaSearch.transporter.default');

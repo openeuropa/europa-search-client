@@ -14,7 +14,6 @@ use EC\EuropaSearch\Messages\MessageInterface;
  */
 class IndexingResponse implements MessageInterface
 {
-
     /**
      * The string conveyed by the message.
      *

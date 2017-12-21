@@ -16,7 +16,6 @@ use EC\EuropaSearch\ValidatableInterface;
  */
 interface ValidatableMessageInterface extends MessageInterface, ValidatableInterface, ConvertibleInterface
 {
-
     /**
      * Get message components.
      *

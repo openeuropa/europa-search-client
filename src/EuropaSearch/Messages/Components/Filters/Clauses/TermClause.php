@@ -23,7 +23,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class TermClause extends AbstractClause
 {
-
     /**
      * The value to use in the filter definition.
      *
@@ -79,7 +78,6 @@ class TermClause extends AbstractClause
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-
         $metadata->addPropertyConstraints('testedValue', [
             new Assert\NotBlank(),
             new Assert\Type('scalar'),
@@ -95,7 +93,6 @@ class TermClause extends AbstractClause
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {
-
         $metadata = $this->getImpliedMetadata();
         switch (true) {
             case ($metadata instanceof DateMetadata):
@@ -128,7 +125,6 @@ class TermClause extends AbstractClause
      */
     protected function validateDateRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         if (!date_create($this->testedValue)) {
             $context->buildViolation('The tested value is not a valid date.')
                 ->atPath('testedValue')
@@ -144,7 +140,6 @@ class TermClause extends AbstractClause
      */
     protected function validateFloatRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         if (!is_float($this->testedValue)) {
             $context->buildViolation('The tested value is not a valid float.')
                 ->atPath('testedValue')
@@ -160,7 +155,6 @@ class TermClause extends AbstractClause
      */
     protected function validateIntRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         if (!is_int($this->testedValue)) {
             $context->buildViolation('The tested value is not a valid integer.')
                 ->atPath('testedValue')
@@ -176,7 +170,6 @@ class TermClause extends AbstractClause
      */
     protected function validateBooleanRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         if (!is_bool($this->testedValue)) {
             $context->buildViolation('The tested value is not a valid boolean.')
                 ->atPath('testedValue')
@@ -192,7 +185,6 @@ class TermClause extends AbstractClause
      */
     protected function validateURLRelatedFilter(ExecutionContextInterface $context, $payload)
     {
-
         $validator = new Assert\UrlValidator();
         $validator->initialize($context);
         // Re-inject the validator in the context in order to point on

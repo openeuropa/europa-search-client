@@ -17,7 +17,6 @@ use EC\EuropaSearch\Proxies\Converters\Components\ComponentConverterInterface;
  */
 class DateMetadataConverter extends DateComponentConverter implements ComponentConverterInterface
 {
-
     /**
      * Converts a metadata in a JSON compatible format.
      *

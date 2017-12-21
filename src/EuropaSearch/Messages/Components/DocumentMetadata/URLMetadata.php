@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class URLMetadata extends StringMetadata implements IndexableMetadataInterface
 {
-
     /**
      * {@inheritdoc}
      */

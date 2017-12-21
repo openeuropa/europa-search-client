@@ -2,18 +2,17 @@
 
 namespace EC\EuropaSearch\Tests\Applications;
 
-use EC\EuropaSearch\Tests\EuropaSearchDummy;
 use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Class SearchingApplicationTest.
+ * Class IndexFileApplicationTest.
  *
- * Tests the Application layer related to the searching/indexing process.
+ * Tests the client layer related to the file indexing process.
  *
  * @package EC\EuropaSearch\Tests\Applications
  */
-class SearchingApplicationTest extends AbstractEuropaSearchTest
+class IndexFileApplicationTest extends AbstractEuropaSearchTest
 {
 
     /**
@@ -25,15 +24,16 @@ class SearchingApplicationTest extends AbstractEuropaSearchTest
     public function testApplicationProcessSuccess()
     {
         $provider = new ApplicationDataProvider();
-        $data = $provider->getSearchMessageTestData();
+        $indexingFile = $provider->getFileMessageTestData();
 
         $mockConfig = $this->getMockResponse();
         $factory = $this->getFactory($mockConfig);
-        $application = $factory->getSearchApplication();
-        $response = $application->sendMessage($data['submitted']);
+        $application = $factory->getIndexingApplication();
+        $response = $application->sendMessage($indexingFile);
 
         $this->assertInstanceOf('EC\EuropaSearch\Applications\Application', $application, 'The returned application is not an Application object.');
-        $this->assertEquals($data['expected'], $response, 'The returned response is not the expected one.');
+        $this->assertInstanceOf('EC\EuropaSearch\Messages\Index\IndexingResponse', $response, 'The returned response is not an IndexingResponse object.');
+        $this->assertEquals('file_client_1', $response->getReturnedString(), 'The returned response is not the expected one.');
     }
 
     /**
@@ -44,8 +44,8 @@ class SearchingApplicationTest extends AbstractEuropaSearchTest
      */
     private function getMockResponse()
     {
-        $body = json_decode(file_get_contents(__DIR__.'/fixtures/search_response_sample.json'));
-        $response = new Response(200, [], json_encode($body));
+        $body = json_decode(file_get_contents(__DIR__.'/fixtures/index_response_sample.json'));
+        $response = new Response(200, [], json_encode($body->fileScenario));
         $mockResponses = [$response];
 
         return $mockResponses;

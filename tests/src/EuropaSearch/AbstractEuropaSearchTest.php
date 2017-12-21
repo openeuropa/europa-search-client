@@ -101,6 +101,8 @@ abstract class AbstractEuropaSearchTest extends TestCase
      */
     protected function getFactory(array $mockResponses = [])
     {
+
+
         $container = new EuropaSearch();
 
         $config = $this->getDummyIndexingAppConfig($mockResponses);

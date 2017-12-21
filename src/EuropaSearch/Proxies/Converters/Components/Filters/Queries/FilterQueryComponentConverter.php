@@ -14,7 +14,6 @@ use EC\EuropaSearch\Messages\Components\ComponentInterface;
  */
 class FilterQueryComponentConverter implements FilterQueryConverterInterface
 {
-
     /**
      * {@inheritDoc}
      */
@@ -28,7 +27,6 @@ class FilterQueryComponentConverter implements FilterQueryConverterInterface
      */
     public function convertComponentWithChildren(NestedComponentInterface $query, array $convertedComponents)
     {
-
         if (empty($convertedComponents)) {
             return;
         }

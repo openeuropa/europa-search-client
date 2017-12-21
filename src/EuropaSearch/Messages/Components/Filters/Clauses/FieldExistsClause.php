@@ -16,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class FieldExistsClause extends AbstractClause
 {
-
     /**
      * FieldExist constructor.
      *

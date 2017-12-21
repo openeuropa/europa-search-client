@@ -17,7 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SearchMessage implements ValidatableMessageInterface
 {
-
     const SEARCH_SORT_ASC = 'ASC';
 
     const SEARCH_SORT_DESC = 'DESC';
@@ -146,7 +145,7 @@ class SearchMessage implements ValidatableMessageInterface
     /**
      * Gets the filter query to apply on the search.
      *
-     * @return BooleanQuery $searchQuery
+     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery $searchQuery
      * The object defining the query.
      */
     public function getQuery()
@@ -157,7 +156,7 @@ class SearchMessage implements ValidatableMessageInterface
     /**
      * Sets the filter query to apply on the search.
      *
-     * @param BooleanQuery $searchQuery
+     * @param \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery $searchQuery
      * The object defining the query.
      */
     public function setQuery(BooleanQuery $searchQuery)
@@ -168,7 +167,7 @@ class SearchMessage implements ValidatableMessageInterface
     /**
      * Gets the metadata on which basing the sorting.
      *
-     * @return AbstractMetadata
+     * @return \EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata
      *   The raw name on which basing the sorting.
      */
     public function getSortMetadata()
@@ -193,16 +192,15 @@ class SearchMessage implements ValidatableMessageInterface
      * If the search does not contain any sort criteria, search results will be
      * sorted by relevancy.
      *
-     * @param AbstractMetadata $sortMetadata
+     * @param \EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata $sortMetadata
      *   The metadata object defining the raw name of the field on which
      *   basing the sorting.
      *   Only the name attribute of the object is mandatory.
-     * @param string           $sortDirection
+     * @param string                                                                 $sortDirection
      *   The sort direction to use.
      */
     public function setSortCriteria(AbstractMetadata $sortMetadata, $sortDirection = self::SEARCH_SORT_ASC)
     {
-
         $this->sortMetadata = $sortMetadata;
         $this->sortDirection = $sortDirection;
     }
@@ -314,7 +312,6 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-
         $metadata->addPropertyConstraint('searchedText', new Assert\NotBlank());
         $metadata->addPropertyConstraint('searchedLanguages', new Assert\All(['constraints' => [new Assert\Language()]]));
         $metadata->addPropertyConstraint('searchQuery', new Assert\Valid(['traverse' => true]));

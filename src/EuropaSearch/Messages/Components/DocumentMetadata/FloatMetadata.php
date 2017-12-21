@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class FloatMetadata extends AbstractNumericMetadata
 {
-
     /**
      * DateMetadata constructor.
      *

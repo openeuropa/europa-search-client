@@ -15,7 +15,6 @@ use EC\EuropaSearch\Messages\Components\ComponentInterface;
  */
 class FieldExistsClauseConverter extends AbstractClauseConverter
 {
-
     /**
      * {@inheritDoc}
      */

@@ -2,38 +2,49 @@
 
 namespace EC\EuropaSearch\Transporters\Requests\Index;
 
+use GuzzleHttp\Psr7;
+
 /**
- * Class IndexWebContentRequest.
+ * Class IndexFileRequest.
  *
- * It covers the web content indexing request.
+ * It covers the file indexing request.
  *
  * @package EC\EuropaSearch\Transporters\Requests\Index
  */
-class IndexWebContentRequest extends AbstractIndexItemRequest
+class IndexFileRequest extends AbstractIndexItemRequest
 {
     /**
      * Gets the content of the indexed document.
      *
-     * @return string
+     * @return resource
      *    The content of the indexed document.
      */
-    public function getDocumentContent()
+    public function getDocumentFile()
     {
-        return $this->body['text']['contents'];
+        return $this->body['file']['contents'];
     }
 
     /**
      * Sets the content of the indexed document.
      *
-     * @param string $documentContent
+     * @param string $documentFile
      *    The document content to index.
      */
-    public function setDocumentContent($documentContent)
+    public function setDocumentFile($documentFile)
     {
-        $this->body['text'] = [
-            'name' => 'text',
-            'contents' => $documentContent,
-            'headers' => ['content-type' => 'application/json'],
+        if (empty($documentFile)) {
+            $this->body['file'] = null;
+
+            return;
+        }
+
+        $mimeType = mime_content_type($documentFile);
+        $stream = Psr7\stream_for(fopen($documentFile, 'r'));
+
+        $this->body['file'] = [
+            'name' => 'file',
+            'contents' => $stream,
+            'headers' => ['content-type' => $mimeType],
         ];
     }
 
@@ -50,7 +61,7 @@ class IndexWebContentRequest extends AbstractIndexItemRequest
      */
     public function getRequestURI()
     {
-        return '/rest/ingestion/text';
+        return '/rest/ingestion';
     }
 
     /**

@@ -16,7 +16,6 @@ use EC\EuropaSearch\Messages\ValidatableMessageInterface;
  */
 interface MessageConverterInterface
 {
-
     /**
      * Converts a message.
      *

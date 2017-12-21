@@ -15,7 +15,6 @@ use EC\EuropaSearch\Transporters\Requests\RequestInterface;
  */
 interface TransporterInterface
 {
-
     /**
      * Sends a request to the web service.
      *

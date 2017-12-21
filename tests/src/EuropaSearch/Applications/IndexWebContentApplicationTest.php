@@ -37,25 +37,6 @@ class IndexWebContentApplicationTest extends AbstractEuropaSearchTest
     }
 
     /**
-     * Test that the application uses the right configuration.
-     *
-     * This configuration comes from the container.
-     */
-    public function testApplicationConfiguration()
-    {
-        $mockConfig = $this->getMockResponse();
-        $factory = $this->getFactory($mockConfig);
-        $application = $factory->getIndexingApplication();
-        $applicationConfig = $application->getApplicationConfiguration();
-
-        $this->assertArraySubset(
-            $this->getTestedIndexingServiceParams(),
-            $applicationConfig->getConnectionConfigurations(),
-            'The returned indexing application does not have the expected configuration. '
-        );
-    }
-
-    /**
      * Gets the web service mock responses for tests.
      *
      * @return array
@@ -64,7 +45,7 @@ class IndexWebContentApplicationTest extends AbstractEuropaSearchTest
     private function getMockResponse()
     {
         $body = json_decode(file_get_contents(__DIR__.'/fixtures/index_response_sample.json'));
-        $response = new Response(200, [], json_encode($body));
+        $response = new Response(200, [], json_encode($body->contentScenario));
         $mockResponses = [$response];
 
         return $mockResponses;

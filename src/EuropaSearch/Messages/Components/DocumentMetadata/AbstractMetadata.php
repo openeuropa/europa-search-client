@@ -17,7 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class AbstractMetadata implements ComponentInterface
 {
-
     /**
      * Prefix applicable to all Metadata.
      *

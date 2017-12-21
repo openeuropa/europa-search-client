@@ -1,5 +1,12 @@
 {
-  "apiVersion" : "2.1",
-  "trackingId" : "9e30f972-54f0-4e7d-8f94-8dd214d2fea5",
-  "reference" : "web_content_client_1"
+  "contentScenario": {
+    "apiVersion": "2.1",
+    "trackingId": "9e30f972-54f0-4e7d-8f94-8dd214d2fea5",
+    "reference": "web_content_client_1"
+  },
+  "fileScenario": {
+    "apiVersion": "2.1",
+    "trackingId": "9e30f972-54f0-4e7d-8f94-8dd214d2gfb6",
+    "reference": "file_client_1"
+  }
 }

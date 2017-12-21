@@ -15,7 +15,6 @@ use \Exception;
  */
 class ClientInstantiationException extends Exception
 {
-
     /**
      * ClientInstantiationException constructor.
      *

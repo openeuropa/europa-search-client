@@ -14,7 +14,6 @@ use EC\EuropaSearch\Messages\Components\ComponentInterface;
  */
 class BoostingQueryConverter implements FilterQueryConverterInterface
 {
-
     /**
      * {@inheritDoc}
      */
@@ -28,7 +27,6 @@ class BoostingQueryConverter implements FilterQueryConverterInterface
      */
     public function convertComponentWithChildren(NestedComponentInterface $query, array $convertedComponents)
     {
-
         $convertedComponent = ['boosting' => []];
 
         // Add only the filled components.

@@ -10,18 +10,20 @@ use EC\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
 use EC\EuropaSearch\Messages\Components\DocumentMetadata\URLMetadata;
 use EC\EuropaSearch\Messages\Index\DeleteIndexItemMessage;
 use EC\EuropaSearch\Messages\Index\IndexWebContentMessage;
+use EC\EuropaSearch\Messages\Index\IndexFileMessage;
 use EC\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemRequest;
 use EC\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest;
+use EC\EuropaSearch\Transporters\Requests\Index\IndexFileRequest;
 
 /**
- * Class WebContentDataProvider.
+ * Class ConverterDataProvider.
  *
  * Provides data for the proxy layer used for web content indexing
  * related tests.
  *
  * @package EC\EuropaSearch\Tests\Proxies\Converters\Index
  */
-class WebContentDataProvider
+class ConverterDataProvider
 {
 
     /**
@@ -118,6 +120,68 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     }
 
 
+
+    /**
+     * Provides objects necessary for the test.
+     *
+     * @return array
+     *   The objects for the test:
+     *   - 'submitted': IndexedDocument to convert in the test;
+     *   - 'expected' : Excepted IndexingRequest at the end of the test;
+     */
+    public function indexedFileProvider()
+    {
+        $fileId = 'web_content_client_1';
+        $fileURI = 'http://europa.test.com/file.pdf';
+        $fileLanguage = 'fr';
+
+        // Submitted object.
+        $indexedFile = new IndexFileMessage();
+        $indexedFile->setDocumentURI($fileURI);
+        $indexedFile->setDocumentFile(__DIR__.'/fixtures/file.pdf');
+        $indexedFile->setDocumentId($fileId);
+        $indexedFile->setDocumentLanguage($fileLanguage);
+
+        $metadata = new FullTextMetadata('title');
+        $metadata->setValues(['this the title']);
+        $indexedFile->addMetadata($metadata);
+
+        $metadata = new StringMetadata('tag');
+        $metadata->setValues(['taxonomy term']);
+        $indexedFile->addMetadata($metadata);
+
+        $metadata = new IntegerMetadata('rank');
+        $metadata->setValues([1]);
+        $indexedFile->addMetadata($metadata);
+
+        $metadata = new FloatMetadata('percentage');
+        $metadata->setValues([0.1]);
+        $indexedFile->addMetadata($metadata);
+        $metadata = new DateMetadata('publishing_date');
+        $metadata->setValues([date('F j, Y, g:i a', strtotime('11-12-2018'))]);
+        $indexedFile->addMetadata($metadata);
+
+        $metadata = new URLMetadata('uri');
+        $metadata->setValues(['http://www.europa.com']);
+        $indexedFile->addMetadata($metadata);
+        // Expected object.
+        $indexingRequest = new IndexFileRequest();
+        $indexingRequest->setAPIKey('a221108a-180d-HTTP-INDEXING-TEST');
+        $indexingRequest->setDatabase('EC-EUROPA-DUMMY-INDEXING');
+        $indexingRequest->setDocumentId($fileId);
+        $indexingRequest->setDocumentURI($fileURI);
+        $indexingRequest->setDocumentLanguage($fileLanguage);
+
+        $fileContent = json_decode(file_get_contents(__DIR__.'/fixtures/json_sample.json'));
+        $indexingRequest->setMetadataJSON(json_encode($fileContent));
+
+        $indexingRequest->setDocumentFile(__DIR__.'/fixtures/file.pdf');
+
+        return [
+          'submitted' => $indexedFile,
+          'expected' => $indexingRequest,
+        ];
+    }
 
     /**
      * Provides objects necessary for the test.

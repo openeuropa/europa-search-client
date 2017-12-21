@@ -21,7 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class FilterQueryComponent implements NestedComponentInterface
 {
-
     /**
      * Label to identify the aggregation.
      *
