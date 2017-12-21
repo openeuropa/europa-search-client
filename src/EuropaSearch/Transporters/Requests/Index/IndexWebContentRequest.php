@@ -11,7 +11,6 @@ namespace EC\EuropaSearch\Transporters\Requests\Index;
  */
 class IndexWebContentRequest extends AbstractIndexItemRequest
 {
-
     /**
      * Gets the content of the indexed document.
      *

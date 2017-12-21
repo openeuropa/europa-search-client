@@ -18,7 +18,6 @@ use EC\EuropaSearch\Messages\ValidatableMessageInterface;
  */
 class IndexWebContentConverter extends AbstractMessageConverter
 {
-
     /**
      * {@inheritDoc}
      */
@@ -50,7 +49,7 @@ class IndexWebContentConverter extends AbstractMessageConverter
         $rawResult = parent::convertMessageResponse($response, $configuration);
 
         if (empty($rawResult->reference)) {
-            throw new ProxyException("The reference is not returned by the service; which indicates a problem");
+            throw new ProxyException("The reference is not returned by the service.");
         }
 
         return new IndexingResponse($rawResult->reference, $rawResult->trackingId);

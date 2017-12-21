@@ -17,7 +17,6 @@ use EC\EuropaSearch\Messages\Components\ComponentInterface;
  */
 class TermClauseConverter extends AbstractClauseConverter
 {
-
     /**
      * {@inheritDoc}
      */

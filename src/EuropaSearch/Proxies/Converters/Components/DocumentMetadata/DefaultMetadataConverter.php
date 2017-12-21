@@ -16,7 +16,6 @@ use EC\EuropaSearch\Proxies\Converters\Components\ComponentConverterInterface;
  */
 class DefaultMetadataConverter implements ComponentConverterInterface
 {
-
     /**
      * Converts a metadata in a JSON compatible format.
      *

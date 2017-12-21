@@ -11,7 +11,6 @@ namespace EC\EuropaSearch\Messages\Components\Filters;
  */
 class BoostableFilter
 {
-
     /**
      * Boost value.
      *

@@ -17,7 +17,6 @@ use EC\EuropaSearch\Messages\ValidatableMessageInterface;
  */
 interface ApplicationInterface
 {
-
     /**
      * Sends a message to the web service.
      *

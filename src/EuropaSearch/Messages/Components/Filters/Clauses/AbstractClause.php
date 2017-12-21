@@ -21,7 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class AbstractClause extends BoostableFilter implements ComponentInterface
 {
-
     /**
      * Prefix applicable to all converter id of classes extending this class.
      *

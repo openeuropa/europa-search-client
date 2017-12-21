@@ -11,7 +11,6 @@ namespace EC\EuropaSearch\Transporters\Requests\Index;
  */
 class DeleteIndexItemRequest extends AbstractIndexingRequest
 {
-
     /**
      * {@inheritDoc}
      */

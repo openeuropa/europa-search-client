@@ -13,7 +13,6 @@ use GuzzleHttp\Psr7;
  */
 class IndexFileRequest extends AbstractIndexItemRequest
 {
-
     /**
      * Gets the content of the indexed document.
      *

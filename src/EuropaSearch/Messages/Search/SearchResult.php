@@ -11,7 +11,6 @@ namespace EC\EuropaSearch\Messages\Search;
  */
 class SearchResult
 {
-
     /**
      * The result id.
      *

@@ -11,7 +11,6 @@ namespace EC\EuropaSearch\Transporters\Requests;
  */
 interface RequestInterface
 {
-
     /**
      * Add to the Request object the converted message components.
      *

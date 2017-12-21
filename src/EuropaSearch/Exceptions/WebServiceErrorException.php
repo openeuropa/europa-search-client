@@ -14,7 +14,6 @@ use \Exception;
  */
 class WebServiceErrorException extends Exception
 {
-
     /**
      * WebServiceErrorException constructor.
      *

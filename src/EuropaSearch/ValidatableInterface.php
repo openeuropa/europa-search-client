@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  */
 interface ValidatableInterface
 {
-
     /**
      * Gets definition of the validation constraints existing on the object.
      *

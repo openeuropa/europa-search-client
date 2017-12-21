@@ -17,7 +17,6 @@ use EC\EuropaSearch\Exceptions\ProxyException;
  */
 abstract class AbstractMessageConverter implements MessageConverterInterface
 {
-
     /**
      * {@inheritDoc}
      */

@@ -15,7 +15,6 @@ use \Exception;
  */
 class ProxyException extends Exception
 {
-
     /**
      * ProxyException constructor.
      *

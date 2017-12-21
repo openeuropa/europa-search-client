@@ -17,7 +17,6 @@ use Symfony\Component\Validator\ValidatorBuilder;
  */
 class DefaultValidatorBuilder extends ValidatorBuilder
 {
-
     /**
      * ValidatorProvider constructor.
      */

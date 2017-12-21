@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class BooleanMetadata extends AbstractMetadata implements IndexableMetadataInterface
 {
-
     const EUROPA_SEARCH_NAME_PREFIX = 'esBO';
 
     /**

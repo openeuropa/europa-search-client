@@ -17,7 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SearchMessage implements ValidatableMessageInterface
 {
-
     const SEARCH_SORT_ASC = 'ASC';
 
     const SEARCH_SORT_DESC = 'DESC';
@@ -202,7 +201,6 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public function setSortCriteria(AbstractMetadata $sortMetadata, $sortDirection = self::SEARCH_SORT_ASC)
     {
-
         $this->sortMetadata = $sortMetadata;
         $this->sortDirection = $sortDirection;
     }
@@ -314,7 +312,6 @@ class SearchMessage implements ValidatableMessageInterface
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-
         $metadata->addPropertyConstraint('searchedText', new Assert\NotBlank());
         $metadata->addPropertyConstraint('searchedLanguages', new Assert\All(['constraints' => [new Assert\Language()]]));
         $metadata->addPropertyConstraint('searchQuery', new Assert\Valid(['traverse' => true]));

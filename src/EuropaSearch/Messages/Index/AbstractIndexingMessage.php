@@ -19,7 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class AbstractIndexingMessage implements IdentifiableMessageInterface
 {
-
     /**
      * Prefix applicable to all converter id of classes extending this class.
      *

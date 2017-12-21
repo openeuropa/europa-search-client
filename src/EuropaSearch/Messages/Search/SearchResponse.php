@@ -13,7 +13,6 @@ use EC\EuropaSearch\Messages\MessageInterface;
  */
 class SearchResponse implements MessageInterface
 {
-
     const SORT_CRITERIA_RELEVANCE = 'relevance';
 
     /**

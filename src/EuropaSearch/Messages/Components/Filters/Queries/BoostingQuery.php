@@ -28,7 +28,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class BoostingQuery extends BoostableFilter implements NestedComponentInterface
 {
-
     /**
      * List of filters contributing to bias fields positively.
      *
@@ -131,7 +130,6 @@ class BoostingQuery extends BoostableFilter implements NestedComponentInterface
      */
     public static function getConstraints(ClassMetadata $metadata)
     {
-
         $metadata->addPropertyConstraint('negativeFilters', new Assert\Valid());
         $metadata->addPropertyConstraint('positiveFilters', new Assert\Valid());
         $metadata->addConstraint(new Assert\Callback('validate'));

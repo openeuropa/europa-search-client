@@ -11,7 +11,6 @@ namespace EC\EuropaSearch\Messages\Index;
  */
 class DeleteIndexItemMessage extends AbstractIndexingMessage
 {
-
     /**
      * {@inheritdoc}
      */

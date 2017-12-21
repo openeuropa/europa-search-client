@@ -11,7 +11,6 @@ namespace EC\EuropaSearch\Transporters\Requests\Index;
  */
 abstract class AbstractIndexItemRequest extends AbstractIndexingRequest
 {
-
     /**
      * Gets the document language to send.
      *

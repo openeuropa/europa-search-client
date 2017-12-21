@@ -14,7 +14,6 @@ use EC\EuropaSearch\Transporters\Requests\AbstractRequest;
  */
 abstract class AbstractIndexingRequest extends AbstractRequest
 {
-
     /**
      * Gets the database to send.
      *

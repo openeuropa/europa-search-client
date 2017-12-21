@@ -12,7 +12,6 @@ namespace EC\EuropaSearch\Messages;
  */
 interface IdentifiableMessageInterface extends ValidatableMessageInterface
 {
-
     /**
      * Gets the identifier that is used between the
      * @return mixed

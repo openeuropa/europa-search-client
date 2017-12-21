@@ -24,7 +24,6 @@ use GuzzleHttp\Exception\ServerException;
  */
 class EuropaSearchTransporter implements TransporterInterface
 {
-
     /**
      * History of all requests sent to web services.
      *

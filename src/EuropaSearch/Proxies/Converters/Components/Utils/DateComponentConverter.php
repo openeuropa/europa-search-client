@@ -11,7 +11,6 @@ namespace EC\EuropaSearch\Proxies\Converters\Components\Utils;
  */
 class DateComponentConverter
 {
-
     /**
      *  Gets the date value consumable by Europa Search service.
      *
@@ -22,7 +21,6 @@ class DateComponentConverter
      */
     protected function getConvertedDateValue($value)
     {
-
         $dateTime = new \DateTime($value);
 
         return $dateTime->format('Y-m-d\TH:i:sP');

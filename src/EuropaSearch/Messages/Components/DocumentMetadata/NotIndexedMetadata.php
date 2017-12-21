@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class NotIndexedMetadata extends AbstractMetadata
 {
-
     const EUROPA_SEARCH_NAME_PREFIX = 'esNI';
 
     /**
