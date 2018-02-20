@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Tests;
+namespace OpenEuropa\EuropaSearch\Tests;
 
-use EC\EuropaSearch\EuropaSearch;
-use EC\EuropaSearch\EuropaSearchConfig;
+use OpenEuropa\EuropaSearch\EuropaSearch;
+use OpenEuropa\EuropaSearch\EuropaSearchConfig;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  *
  * Centralizes all methods shared between test cases.
  *
- * @package EC\EuropaWS\Tests
+ * @package OpenEuropa\EuropaWS\Tests
  */
 abstract class AbstractEuropaSearchTest extends TestCase
 {
@@ -54,7 +54,7 @@ abstract class AbstractEuropaSearchTest extends TestCase
      *   [optional] Array of Response objects used by the mock called during
      *   the test.
      *
-     * @return \EC\EuropaSearch\EuropaSearchConfig
+     * @return \OpenEuropa\EuropaSearch\EuropaSearchConfig
      *   The dummy application configuration.
      */
     protected function getDummyIndexingAppConfig(array $mockResponses = [])
@@ -75,7 +75,7 @@ abstract class AbstractEuropaSearchTest extends TestCase
      *   [optional] Array of Response objects used by the mock called during
      *   the test.
      *
-     * @return \EC\EuropaSearch\EuropaSearchConfig
+     * @return \OpenEuropa\EuropaSearch\EuropaSearchConfig
      *   The dummy application configuration.
      */
     protected function getDummySearchAppConfig(array $mockResponses = [])
@@ -96,7 +96,7 @@ abstract class AbstractEuropaSearchTest extends TestCase
      *   [optional] Array of Response objects used by the mock called during
      *   the test.
      *
-     * @return \EC\EuropaSearch\EuropaSearch
+     * @return \OpenEuropa\EuropaSearch\EuropaSearch
      *   The client factory.
      */
     protected function getFactory(array $mockResponses = [])

@@ -1,14 +1,14 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Messages\Components\Filters\Clauses;
+namespace OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Clauses;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\FloatMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
-use EC\EuropaSearch\Messages\Components\Filters\Clauses\FieldExistsClause;
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\FloatMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\FieldExistsClause;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -16,7 +16,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * Tests the validation process on FieldExist.
  *
- * @package EC\EuropaSearch\Tests\Messages\Components\Filters\Clauses
+ * @package OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Clauses
  */
 class FieldExistClauseTest extends AbstractEuropaSearchTest
 {

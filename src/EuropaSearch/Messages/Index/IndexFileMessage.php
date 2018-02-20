@@ -1,8 +1,8 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Index;
+namespace OpenEuropa\EuropaSearch\Messages\Index;
 
-use EC\EuropaSearch\Messages\Index\Traits\IndexingMessageTrait;
+use OpenEuropa\EuropaSearch\Messages\Index\Traits\IndexingMessageTrait;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @todo Defining completely when files will be supported by the client
  * (treated in another comming issue).
  *
- * @package EC\EuropaSearch\Messages\Index
+ * @package OpenEuropa\EuropaSearch\Messages\Index
  */
 class IndexFileMessage extends AbstractIndexingMessage
 {

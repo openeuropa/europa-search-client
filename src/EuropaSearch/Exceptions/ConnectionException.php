@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Exceptions;
+namespace OpenEuropa\EuropaSearch\Exceptions;
 
 use \Exception;
 
@@ -11,7 +11,7 @@ use \Exception;
  * able to connect with the web service.
  * The exception returns 289 as code.
  *
- * @package EC\EuropaSearch\Exceptions
+ * @package OpenEuropa\EuropaSearch\Exceptions
  */
 class ConnectionException extends Exception
 {

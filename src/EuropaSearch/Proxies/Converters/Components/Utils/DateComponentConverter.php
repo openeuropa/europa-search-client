@@ -1,13 +1,13 @@
 <?php
 
-namespace EC\EuropaSearch\Proxies\Converters\Components\Utils;
+namespace OpenEuropa\EuropaSearch\Proxies\Converters\Components\Utils;
 
 /**
  * Class DateComponentConverter.
  *
  * Utils class for converting date component values.
  *
- * @package EC\EuropaSearch\Proxies\Converters\Components\Utils
+ * @package OpenEuropa\EuropaSearch\Proxies\Converters\Components\Utils
  */
 class DateComponentConverter
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace EC\EuropaSearch\Transporters\Requests\Index;
+namespace OpenEuropa\EuropaSearch\Transporters\Requests\Index;
 
 /**
  * Class IndexWebContentRequest.
  *
  * It covers the web content indexing request.
  *
- * @package EC\EuropaSearch\Transporters\Requests\Index
+ * @package OpenEuropa\EuropaSearch\Transporters\Requests\Index
  */
 class IndexWebContentRequest extends AbstractIndexItemRequest
 {

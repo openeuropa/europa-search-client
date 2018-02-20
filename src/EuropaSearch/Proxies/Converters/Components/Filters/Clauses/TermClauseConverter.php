@@ -1,10 +1,10 @@
 <?php
 
-namespace EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses;
+namespace OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Clauses;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Messages\Components\ComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\ComponentInterface;
 
 /**
  * Class TermClauseConverter.
@@ -13,7 +13,7 @@ use EC\EuropaSearch\Messages\Components\ComponentInterface;
  * is JSON convertible.
  * It works with the Dynamic schema of the Europa Search services.
  *
- * @package EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses
+ * @package OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Clauses
  */
 class TermClauseConverter extends AbstractClauseConverter
 {

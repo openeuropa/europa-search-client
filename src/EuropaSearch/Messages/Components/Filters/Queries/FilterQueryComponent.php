@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components\Filters\Queries;
+namespace OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries;
 
-use EC\EuropaSearch\Messages\Components\NestedComponentInterface;
-use EC\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause;
+use OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -13,11 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Object representing a aggregation of filters.
  *
  * It can be made of objects of:
- * - The EC\EuropaSearch\Messages\Components\Filters\Clauses package;
- * - The EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery type;
- * - The EC\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery type;
+ * - The OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses package;
+ * - The OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery type;
+ * - The OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery type;
  *
- * @package EC\EuropaSearch\Messages\Components\Filters\Queries
+ * @package OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries
  */
 class FilterQueryComponent implements NestedComponentInterface
 {
@@ -73,7 +73,7 @@ class FilterQueryComponent implements NestedComponentInterface
     /**
      * Adds an AbstractClause to the aggregated filters;
      *
-     * @param \EC\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause $filterClause
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause $filterClause
      *   The AbstractSimple $filter to add
      */
     public function addFilterClause(AbstractClause $filterClause)
@@ -84,7 +84,7 @@ class FilterQueryComponent implements NestedComponentInterface
     /**
      * Adds an FilterQueryInterface query to the aggregated filters;
      *
-     * @param \EC\EuropaSearch\Messages\Components\NestedComponentInterface $filterQuery
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface $filterQuery
      *   The CombinedQueryInterface query to add
      */
     public function addFilterQuery(NestedComponentInterface $filterQuery)

@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch;
+namespace OpenEuropa\EuropaSearch;
 
 /**
  * Interface ConvertibleInterface.
@@ -9,7 +9,7 @@ namespace EC\EuropaSearch;
  * library mechanism into a format that can be sent to the targeted web
  * service.
  *
- * @package EC\EuropaSearch
+ * @package OpenEuropa\EuropaSearch
  */
 interface ConvertibleInterface
 {

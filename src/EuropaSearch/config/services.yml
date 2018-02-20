@@ -3,59 +3,59 @@ parameters:
 services:
   # Index item deletion service converter class.
   europaSearch.messageProxy.indexing.delete.item:
-      class: EC\EuropaSearch\Proxies\Converters\Index\DeleteIndexItemConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Index\DeleteIndexItemConverter
   # WebContent Indexing service converter classes.
   europaSearch.messageProxy.indexing.webContent:
-      class: EC\EuropaSearch\Proxies\Converters\Index\IndexWebContentConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Index\IndexWebContentConverter
   europaSearch.messageProxy.indexing.file:
-      class: EC\EuropaSearch\Proxies\Converters\Index\IndexFileConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Index\IndexFileConverter
   europaSearch.componentProxy.metadata.boolean:
-      class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
   europaSearch.componentProxy.metadata.date:
-      class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DateMetadataConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DateMetadataConverter
   europaSearch.componentProxy.metadata.numeric:
-      class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
   europaSearch.componentProxy.metadata.notIndexed:
-      class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
   europaSearch.componentProxy.metadata.string:
-      class: EC\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Components\DocumentMetadata\DefaultMetadataConverter
 
   # Search Service converter classes.
   europaSearch.messageProxy.searching.search:
-      class: EC\EuropaSearch\Proxies\Converters\Search\SearchConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Search\SearchConverter
   europaSearch.componentProxy.searching.filters.clauses.fieldExists:
-      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\FieldExistsClauseConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\FieldExistsClauseConverter
   europaSearch.componentProxy.searching.filters.clauses.range:
-      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\RangeClauseConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\RangeClauseConverter
   europaSearch.componentProxy.searching.filters.clauses.term:
-      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\TermClauseConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\TermClauseConverter
   europaSearch.componentProxy.searching.filters.clauses.terms:
-      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\TermsClauseConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Clauses\TermsClauseConverter
   europaSearch.componentProxy.searching.filters.queries.aggregate:
-      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\FilterQueryComponentConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Queries\FilterQueryComponentConverter
   europaSearch.componentProxy.searching.filters.queries.booleanQuery:
-      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\BooleanQueryConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Queries\BooleanQueryConverter
   europaSearch.componentProxy.searching.filters.queries.boostingQuery:
-      class: EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\BoostingQueryConverter
+      class: OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Queries\BoostingQueryConverter
 
   # Default Layer classes.
   europaSearch.validator.default:
-      class: EC\EuropaSearch\Messages\DefaultValidatorBuilder
+      class: OpenEuropa\EuropaSearch\Messages\DefaultValidatorBuilder
   europaSearch.logger:
       class: %europaSearch.logger.class%
   europasearch.loggerManager:
-      class: EC\EuropaSearch\Services\LogsManager
+      class: OpenEuropa\EuropaSearch\Services\LogsManager
       arguments: ['@europaSearch.logger', 'error']
       tags:
         - { name: europasearch.client_logger }
   europaSearch.transporter.default:
-      class: EC\EuropaSearch\Transporters\EuropaSearchTransporter
+      class: OpenEuropa\EuropaSearch\Transporters\EuropaSearchTransporter
       arguments: ['@europaSearch.loggerManager']
   europaSearch.proxyController.default:
-      class:  EC\EuropaSearch\Proxies\ProxyController
+      class:  OpenEuropa\EuropaSearch\Proxies\ProxyController
       arguments: ['@europaSearch.loggerManager']
       calls:
           - [setContainer, ['@service_container']]
   europaSearch.application.default:
-      class: EC\EuropaSearch\Applications\Application
+      class: OpenEuropa\EuropaSearch\Applications\Application
       arguments: ['@europaSearch.validator.default', '@europaSearch.proxyController.default', '@europaSearch.transporter.default', '@europaSearch.loggerManager']

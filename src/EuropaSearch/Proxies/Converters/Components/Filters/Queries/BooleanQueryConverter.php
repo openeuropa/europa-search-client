@@ -1,16 +1,16 @@
 <?php
 
-namespace EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries;
+namespace OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Queries;
 
-use EC\EuropaSearch\Messages\Components\ComponentInterface;
-use EC\EuropaSearch\Messages\Components\NestedComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\ComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface;
 
 /**
  * Class BooleanQueryConverter.
  *
  * Converter for BooleanQuery object.
  *
- * @package EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries
+ * @package OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Queries
  */
 class BooleanQueryConverter implements FilterQueryConverterInterface
 {

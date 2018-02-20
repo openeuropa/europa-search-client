@@ -1,13 +1,13 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Search;
+namespace OpenEuropa\EuropaSearch\Messages\Search;
 
 /**
  * Class SearchResult.
  *
  * It represents a result of an Europa Search search.
  *
- * @package EC\EuropaSearch\Messages\Search
+ * @package OpenEuropa\EuropaSearch\Messages\Search
  */
 class SearchResult
 {

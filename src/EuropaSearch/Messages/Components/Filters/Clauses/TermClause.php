@@ -1,13 +1,13 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components\Filters\Clauses;
+namespace OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\FloatMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\URLMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\FloatMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\URLMetadata;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * It does not support "NotIndexedMetadata" metadata type.
  *
- * @package EC\EuropaSearch\Messages\Components\Filters\Clauses
+ * @package OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses
  */
 class TermClause extends AbstractClause
 {
@@ -33,7 +33,7 @@ class TermClause extends AbstractClause
     /**
      * Value constructor.
      *
-     * @param \EC\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface $impliedMetadata
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface $impliedMetadata
      *   The metadata pointed by the filters.
      */
     public function __construct(IndexableMetadataInterface $impliedMetadata)

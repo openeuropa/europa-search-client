@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Index\Traits;
+namespace OpenEuropa\EuropaSearch\Messages\Index\Traits;
 
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Trait IndexingMessageTrait.
  *
- * @package EC\EuropaSearch\Messages\Index\Traits
+ * @package OpenEuropa\EuropaSearch\Messages\Index\Traits
  */
 trait IndexingMessageTrait
 {

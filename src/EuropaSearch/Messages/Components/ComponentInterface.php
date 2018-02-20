@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components;
+namespace OpenEuropa\EuropaSearch\Messages\Components;
 
-use EC\EuropaSearch\ConvertibleInterface;
-use EC\EuropaSearch\ValidatableInterface;
+use OpenEuropa\EuropaSearch\ConvertibleInterface;
+use OpenEuropa\EuropaSearch\ValidatableInterface;
 
 /**
  * Interface ComponentInterface.
@@ -11,7 +11,7 @@ use EC\EuropaSearch\ValidatableInterface;
  * Implementing this interface allows object representing a message component.
  * Like messages themselves, they can be validated and transformed.
  *
- * @package EC\EuropaWS\Messages\Components
+ * @package OpenEuropa\EuropaWS\Messages\Components
  */
 interface ComponentInterface extends ValidatableInterface, ConvertibleInterface
 {

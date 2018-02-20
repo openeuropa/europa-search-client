@@ -21,12 +21,12 @@
   },
   "autoload": {
     "psr-4": {
-      "EC\\EuropaSearch\\": "./src/EuropaSearch"
+      "OpenEuropa\\EuropaSearch\\": "./src/EuropaSearch"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "EC\\EuropaSearch\\Tests\\": "./tests/src/EuropaSearch"
+      "OpenEuropa\\EuropaSearch\\Tests\\": "./tests/src/EuropaSearch"
     }
   }
 }

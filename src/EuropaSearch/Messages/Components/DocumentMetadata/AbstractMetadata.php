@@ -1,8 +1,8 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components\DocumentMetadata;
+namespace OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata;
 
-use EC\EuropaSearch\Messages\Components\ComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\ComponentInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * It represents a generic document metadata.
  *
- * @package EC\EuropaSearch\Messages\Components\DocumentMetadata
+ * @package OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata
  *
  * {@internal It only exists for only declaring methods common to sub-classes.}
  */

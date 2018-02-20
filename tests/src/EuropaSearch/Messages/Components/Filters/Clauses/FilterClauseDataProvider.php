@@ -1,17 +1,17 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Messages\Components\Filters\Clauses;
+namespace OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Clauses;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\FloatMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\URLMetadata;
-use EC\EuropaSearch\Messages\Components\Filters\Clauses\FieldExistsClause;
-use EC\EuropaSearch\Messages\Components\Filters\Clauses\RangeClause;
-use EC\EuropaSearch\Messages\Components\Filters\Clauses\TermClause;
-use EC\EuropaSearch\Messages\Components\Filters\Clauses\TermsClause;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\FloatMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\URLMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\FieldExistsClause;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\RangeClause;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\TermClause;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\TermsClause;
 
 /**
  * Class FilterClauseDataProvider.
@@ -19,7 +19,7 @@ use EC\EuropaSearch\Messages\Components\Filters\Clauses\TermsClause;
  * Supplies a set of dataProvider containing simple filters for
  * CombinedQuery tests.
  *
- * @package EC\EuropaSearch\Tests\Messages\Components\Filters\Clauses
+ * @package OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Clauses
  */
 class FilterClauseDataProvider
 {

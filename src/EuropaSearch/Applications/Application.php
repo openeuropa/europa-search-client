@@ -1,13 +1,13 @@
 <?php
 
-namespace EC\EuropaSearch\Applications;
+namespace OpenEuropa\EuropaSearch\Applications;
 
-use EC\EuropaSearch\EuropaSearchConfig;
-use EC\EuropaSearch\Exceptions\ValidationException;
-use EC\EuropaSearch\Messages\ValidatableMessageInterface;
-use EC\EuropaSearch\Proxies\ProxyControllerInterface;
-use EC\EuropaSearch\Services\LogsManager;
-use EC\EuropaSearch\Transporters\TransporterInterface;
+use OpenEuropa\EuropaSearch\EuropaSearchConfig;
+use OpenEuropa\EuropaSearch\Exceptions\ValidationException;
+use OpenEuropa\EuropaSearch\Messages\ValidatableMessageInterface;
+use OpenEuropa\EuropaSearch\Proxies\ProxyControllerInterface;
+use OpenEuropa\EuropaSearch\Services\LogsManager;
+use OpenEuropa\EuropaSearch\Transporters\TransporterInterface;
 use Symfony\Component\Validator\ValidatorBuilder;
 
 /**
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\ValidatorBuilder;
  *
  * Default implementation of the ApplicationInterface.
  *
- * @package EC\EuropaSearch\Applications
+ * @package OpenEuropa\EuropaSearch\Applications
  */
 class Application implements ApplicationInterface
 {
@@ -29,28 +29,28 @@ class Application implements ApplicationInterface
     /**
      * The proxy to use for convert the sent message.
      *
-     * @var \EC\EuropaSearch\Proxies\ProxyControllerInterface
+     * @var \OpenEuropa\EuropaSearch\Proxies\ProxyControllerInterface
      */
     protected $proxy;
 
     /**
      * The transporter to eventually send the request with the message.
      *
-     * @var \EC\EuropaSearch\Transporters\TransporterInterface
+     * @var \OpenEuropa\EuropaSearch\Transporters\TransporterInterface
      */
     protected $transporter;
 
     /**
      * The web service configuration.
      *
-     * @var \EC\EuropaSearch\EuropaSearchConfig
+     * @var \OpenEuropa\EuropaSearch\EuropaSearchConfig
      */
     protected $webServiceSettings;
 
     /**
      * The logs manager that will manage logs record.
      *
-     * @var \EC\EuropaSearch\Services\LogsManager
+     * @var \OpenEuropa\EuropaSearch\Services\LogsManager
      */
     protected $logsManager;
 
@@ -58,9 +58,9 @@ class Application implements ApplicationInterface
      * DefaultClient constructor.
      *
      * @param \Symfony\Component\Validator\ValidatorBuilder      $validator
-     * @param \EC\EuropaSearch\Proxies\ProxyControllerInterface  $proxy
-     * @param \EC\EuropaSearch\Transporters\TransporterInterface $transporter
-     * @param \EC\EuropaSearch\Services\LogsManager              $logsManager
+     * @param \OpenEuropa\EuropaSearch\Proxies\ProxyControllerInterface  $proxy
+     * @param \OpenEuropa\EuropaSearch\Transporters\TransporterInterface $transporter
+     * @param \OpenEuropa\EuropaSearch\Services\LogsManager              $logsManager
      */
     public function __construct(ValidatorBuilder $validator, ProxyControllerInterface $proxy, TransporterInterface $transporter, LogsManager $logsManager)
     {

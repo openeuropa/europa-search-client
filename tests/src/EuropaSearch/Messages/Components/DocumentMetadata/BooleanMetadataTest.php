@@ -1,16 +1,16 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Messages\Components\DocumentMetadata;
+namespace OpenEuropa\EuropaSearch\Tests\Messages\Components\DocumentMetadata;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class BooleanMetadataTest.
  *
  * Tests the validation process on BooleanMetadata.
  *
- * @package EC\EuropaSearch\Tests\Messages\Components\DocumentMetadata
+ * @package OpenEuropa\EuropaSearch\Tests\Messages\Components\DocumentMetadata
  */
 class BooleanMetadataTest extends AbstractEuropaSearchTest
 {

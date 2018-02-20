@@ -1,10 +1,10 @@
 <?php
 
-namespace EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses;
+namespace OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Clauses;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Messages\Components\ComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\BooleanMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\ComponentInterface;
 
 /**
  * Class RangeClauseConverter.
@@ -13,7 +13,7 @@ use EC\EuropaSearch\Messages\Components\ComponentInterface;
  * is JSON convertible.
  * It works with the Dynamic schema of the Europa Search services.
  *
- * @package EC\EuropaSearch\Proxies\Converters\Components\Filters\Clauses
+ * @package OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Clauses
  */
 class RangeClauseConverter extends AbstractClauseConverter
 {
@@ -59,7 +59,7 @@ class RangeClauseConverter extends AbstractClauseConverter
      *
      * @param mixed                      $rawValue
      *   The raw boundary value.
-     * @param \EC\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface $metadata
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface $metadata
      *   The metadata implied in the filter.
      *
      * @return mixed

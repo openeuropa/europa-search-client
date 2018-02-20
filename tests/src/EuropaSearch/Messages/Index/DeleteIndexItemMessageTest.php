@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Messages\Index;
+namespace OpenEuropa\EuropaSearch\Tests\Messages\Index;
 
-use EC\EuropaSearch\Messages\Index\DeleteIndexItemMessage;
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Messages\Index\DeleteIndexItemMessage;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -11,7 +11,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * Tests the validation process on DeleteIndexItemMessage.
  *
- * @package EC\EuropaSearch\Tests\Messages\Index
+ * @package OpenEuropa\EuropaSearch\Tests\Messages\Index
  */
 class DeleteIndexItemMessageTest extends AbstractEuropaSearchTest
 {

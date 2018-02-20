@@ -1,10 +1,10 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Messages\Components\Filters\Queries;
+namespace OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Queries;
 
-use EC\EuropaSearch\Messages\Components\Filters\Queries\FilterQueryComponent;
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
-use EC\EuropaSearch\Tests\Messages\Components\Filters\Clauses\FilterClauseDataProvider;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\FilterQueryComponent;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Clauses\FilterClauseDataProvider;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -12,7 +12,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * Tests the validation process on FilterQueryComponent.
  *
- * @package EC\EuropaSearch\Tests\Messages\Components\Filters\Queries
+ * @package OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Queries
  */
 class FilterQueryComponentTest extends AbstractEuropaSearchTest
 {

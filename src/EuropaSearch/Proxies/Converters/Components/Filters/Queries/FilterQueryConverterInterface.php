@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries;
+namespace OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Queries;
 
-use EC\EuropaSearch\Messages\Components\NestedComponentInterface;
-use EC\EuropaSearch\Proxies\Converters\Components\ComponentConverterInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface;
+use OpenEuropa\EuropaSearch\Proxies\Converters\Components\ComponentConverterInterface;
 
 /**
  * Interface FilterQueryConverterInterface.
@@ -11,14 +11,14 @@ use EC\EuropaSearch\Proxies\Converters\Components\ComponentConverterInterface;
  * Implementing this interface allows object to convert
  * "CombinedQueryInterface" components in a format used by the transportation layer.
  *
- * @package EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries
+ * @package OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Queries
  */
 interface FilterQueryConverterInterface extends ComponentConverterInterface
 {
     /**
      * Converts a CombinedQueryInterface component.
      *
-     * @param \EC\EuropaSearch\Messages\Components\NestedComponentInterface $query
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface $query
      *   The component to convert.
      * @param array                                                         $convertedComponents
      *   The list of child components that are ready to be used in the

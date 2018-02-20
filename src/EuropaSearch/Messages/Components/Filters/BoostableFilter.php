@@ -1,13 +1,13 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components\Filters;
+namespace OpenEuropa\EuropaSearch\Messages\Components\Filters;
 
 /**
  * Class BoostableFilter.
  *
  * Exteending this class allows Filter object to include the boost parameter.
  *
- * @package EC\EuropaSearch\Messages\Components\Filters
+ * @package OpenEuropa\EuropaSearch\Messages\Components\Filters
  */
 class BoostableFilter
 {

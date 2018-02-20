@@ -1,12 +1,12 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Messages\Index;
+namespace OpenEuropa\EuropaSearch\Tests\Messages\Index;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
-use EC\EuropaSearch\Messages\Index\IndexWebContentMessage;
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
+use OpenEuropa\EuropaSearch\Messages\Index\IndexWebContentMessage;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -14,7 +14,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * Tests the validation process on IndexWebContentMessage.
  *
- * @package EC\EuropaSearch\Tests\Messages\Index
+ * @package OpenEuropa\EuropaSearch\Tests\Messages\Index
  */
 class IndexWebContentMessageTest extends AbstractEuropaSearchTest
 {

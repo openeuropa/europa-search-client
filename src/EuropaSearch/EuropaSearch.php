@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch;
+namespace OpenEuropa\EuropaSearch;
 
-use EC\EuropaSearch\Applications\ApplicationInterface;
-use EC\EuropaSearch\Exceptions\ClientInstantiationException;
+use OpenEuropa\EuropaSearch\Applications\ApplicationInterface;
+use OpenEuropa\EuropaSearch\Exceptions\ClientInstantiationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  *
  * It is the client container factory of Europa Search.
  *
- * @package EC\EuropaSearch
+ * @package OpenEuropa\EuropaSearch
  */
 class EuropaSearch
 {
@@ -142,7 +142,7 @@ class EuropaSearch
      * @return \Symfony\Component\Validator\Validator\RecursiveValidator
      *   The default validator object.
      *
-     * @throws \EC\EuropaSearch\Exceptions\ClientInstantiationException
+     * @throws \OpenEuropa\EuropaSearch\Exceptions\ClientInstantiationException
      *   Raised if a problem occurred while retrieving the client.
      */
     public function getDefaultValidator()
@@ -161,13 +161,13 @@ class EuropaSearch
      *
      * @param string                              $applicationId
      *   The application implementation id.
-     * @param \EC\EuropaSearch\EuropaSearchConfig $configuration
+     * @param \OpenEuropa\EuropaSearch\EuropaSearchConfig $configuration
      *   The configuration required by the called application.
      *
-     * @return \EC\EuropaSearch\Applications\Application
+     * @return \OpenEuropa\EuropaSearch\Applications\Application
      *   The client related application.
      *
-     * @throws \EC\EuropaSearch\Exceptions\ClientInstantiationException
+     * @throws \OpenEuropa\EuropaSearch\Exceptions\ClientInstantiationException
      *   Raised if a problem occurred while retrieving the client.
      */
     public function getApplication($applicationId, EuropaSearchConfig $configuration)
@@ -185,10 +185,10 @@ class EuropaSearch
     /**
      * Gets the indexing application.
      *
-     * @return \EC\EuropaSearch\Applications\Application
+     * @return \OpenEuropa\EuropaSearch\Applications\Application
      *   The indexing application.
      *
-     * @throws \EC\EuropaSearch\Exceptions\ClientInstantiationException
+     * @throws \OpenEuropa\EuropaSearch\Exceptions\ClientInstantiationException
      *   Raised if a problem occurred while retrieving the application.
      */
     public function getIndexingApplication()
@@ -201,10 +201,10 @@ class EuropaSearch
     /**
      * Gets the search application.
      *
-     * @return \EC\EuropaSearch\Applications\Application
+     * @return \OpenEuropa\EuropaSearch\Applications\Application
      *   The search application.
      *
-     * @throws \EC\EuropaSearch\Exceptions\ClientInstantiationException
+     * @throws \OpenEuropa\EuropaSearch\Exceptions\ClientInstantiationException
      *   Raised if a problem occurred while retrieving the application.
      */
     public function getSearchApplication()
@@ -217,9 +217,9 @@ class EuropaSearch
     /**
      * Updates the search application configuration.
      *
-     * @param \EC\EuropaSearch\EuropaSearchConfig                     $searchConfig
+     * @param \OpenEuropa\EuropaSearch\EuropaSearchConfig                     $searchConfig
      *    Object with the new configuration definition.
-     * @param \EC\EuropaSearch\Applications\ApplicationInterface|null $searchApplication
+     * @param \OpenEuropa\EuropaSearch\Applications\ApplicationInterface|null $searchApplication
      *    [optional] The search application already instantiated and must take
      *    into account of the new configuration.
      *
@@ -236,9 +236,9 @@ class EuropaSearch
     /**
      * Updates the indexing application configuration.
      *
-     * @param \EC\EuropaSearch\EuropaSearchConfig                     $indexingConfig
+     * @param \OpenEuropa\EuropaSearch\EuropaSearchConfig                     $indexingConfig
      *    Object with the new configuration definition.
-     * @param \EC\EuropaSearch\Applications\ApplicationInterface|null $indexingApplication
+     * @param \OpenEuropa\EuropaSearch\Applications\ApplicationInterface|null $indexingApplication
      *    [Optional] The indexing application already instantiated and must
      *    take into account of the new configuration.
      *
@@ -274,7 +274,7 @@ class EuropaSearch
      * @param array $servicesSettings
      *   Custom settings for the services container.
      *
-     * @throws \EC\EuropaSearch\Exceptions\ClientInstantiationException
+     * @throws \OpenEuropa\EuropaSearch\Exceptions\ClientInstantiationException
      *   It is catch when the YML file are not found or malformed.
      */
     protected function buildClientContainer(array $servicesSettings)

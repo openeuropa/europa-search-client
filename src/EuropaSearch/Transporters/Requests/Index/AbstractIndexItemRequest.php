@@ -1,13 +1,13 @@
 <?php
 
-namespace EC\EuropaSearch\Transporters\Requests\Index;
+namespace OpenEuropa\EuropaSearch\Transporters\Requests\Index;
 
 /**
  * Class AbstractIndexItemRequest.
  *
  * It defines attributes, methods specific to the item indexing.
  *
- * @package EC\EuropaSearch\Transporters\Requests\Index
+ * @package OpenEuropa\EuropaSearch\Transporters\Requests\Index
  */
 abstract class AbstractIndexItemRequest extends AbstractIndexingRequest
 {

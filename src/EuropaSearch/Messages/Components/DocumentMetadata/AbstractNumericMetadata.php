@@ -1,13 +1,13 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components\DocumentMetadata;
+namespace OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata;
 
 /**
  * Class AbstractNumericMetadata.
  *
  * Abstract class for all numeric metadata of an indexed document.
  *
- * @package EC\EuropaSearch\Messages\Components\DocumentMetadata
+ * @package OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata
  */
 abstract class AbstractNumericMetadata extends AbstractMetadata implements IndexableMetadataInterface
 {

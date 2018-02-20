@@ -1,8 +1,8 @@
 <?php
 
-namespace EC\EuropaSearch\Transporters\Requests\Index;
+namespace OpenEuropa\EuropaSearch\Transporters\Requests\Index;
 
-use EC\EuropaSearch\Transporters\Requests\AbstractRequest;
+use OpenEuropa\EuropaSearch\Transporters\Requests\AbstractRequest;
 
 /**
  * Class AbstractIndexingRequest.
@@ -10,7 +10,7 @@ use EC\EuropaSearch\Transporters\Requests\AbstractRequest;
  * It represent a generic indexing request content sent to the
  * Index Europa Search service.
  *
- * @package EC\EuropaSearch\Transporters\Requests\Index
+ * @package OpenEuropa\EuropaSearch\Transporters\Requests\Index
  */
 abstract class AbstractIndexingRequest extends AbstractRequest
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Search;
+namespace OpenEuropa\EuropaSearch\Messages\Search;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
-use EC\EuropaSearch\Tests\Messages\Components\Filters\Queries\BooleanQueryDataProvider;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Queries\BooleanQueryDataProvider;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -12,7 +12,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * Tests the validation process on SearchMessage.
  *
- * @package EC\EuropaSearch\Messages\Search
+ * @package OpenEuropa\EuropaSearch\Messages\Search
  */
 class SearchMessageTest extends AbstractEuropaSearchTest
 {

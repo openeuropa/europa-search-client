@@ -1,8 +1,8 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Index;
+namespace OpenEuropa\EuropaSearch\Messages\Index;
 
-use EC\EuropaSearch\Messages\Index\Traits\IndexingMessageTrait;
+use OpenEuropa\EuropaSearch\Messages\Index\Traits\IndexingMessageTrait;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * It defines a web content document that is sent for indexing to the Europa Search
  * services.
  *
- * @package EC\EuropaSearch\Messages\Index
+ * @package OpenEuropa\EuropaSearch\Messages\Index
  */
 class IndexWebContentMessage extends AbstractIndexingMessage
 {

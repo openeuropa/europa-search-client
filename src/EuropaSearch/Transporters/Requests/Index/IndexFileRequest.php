@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Transporters\Requests\Index;
+namespace OpenEuropa\EuropaSearch\Transporters\Requests\Index;
 
 use GuzzleHttp\Psr7;
 
@@ -9,7 +9,7 @@ use GuzzleHttp\Psr7;
  *
  * It covers the file indexing request.
  *
- * @package EC\EuropaSearch\Transporters\Requests\Index
+ * @package OpenEuropa\EuropaSearch\Transporters\Requests\Index
  */
 class IndexFileRequest extends AbstractIndexItemRequest
 {

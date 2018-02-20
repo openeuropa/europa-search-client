@@ -1,10 +1,10 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components\Filters\Queries;
+namespace OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries;
 
-use EC\EuropaSearch\Messages\Components\Filters\BoostableFilter;
-use EC\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause;
-use EC\EuropaSearch\Messages\Components\NestedComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\BoostableFilter;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause;
+use OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Represents a Boolean query compound of Europa Search; I.E:
  * "An object allowing combining multiple filter type and other compounds."
  *
- * @package EC\EuropaSearch\Messages\Components\Filters\Combined
+ * @package OpenEuropa\EuropaSearch\Messages\Components\Filters\Combined
  */
 class BooleanQuery extends BoostableFilter implements NestedComponentInterface
 {
@@ -86,7 +86,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Add a filter clause to the filters that MUST fulfil the search items.
      *
-     * @param \EC\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause $filterClause
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause $filterClause
      *   The filter to add
      */
     public function addMustFilterClause(AbstractClause $filterClause)
@@ -97,7 +97,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Add a filter clause to the filters that SHOULD fulfil the search items.
      *
-     * @param \EC\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause $filterClause
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause $filterClause
      *   The filter to add
      */
     public function addShouldFilterClause(AbstractClause $filterClause)
@@ -108,7 +108,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Add a filter clause to the filters that MUST NOT fulfil the search items.
      *
-     * @param \EC\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause $filterClause
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\AbstractClause $filterClause
      *   The filter to add
      */
     public function addMustNotFilterClause(AbstractClause $filterClause)
@@ -119,7 +119,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Add a simple filter to the filters that MUST fulfil the search items.
      *
-     * @param \EC\EuropaSearch\Messages\Components\NestedComponentInterface $filterQuery
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface $filterQuery
      *   The filter to add
      */
     public function addMustFilterQuery(NestedComponentInterface $filterQuery)
@@ -130,7 +130,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Add a simple filter to the filters that SHOULD fulfil the search items.
      *
-     * @param \EC\EuropaSearch\Messages\Components\NestedComponentInterface $filterQuery
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface $filterQuery
      *   The filter to add
      */
     public function addShouldFilterQuery(NestedComponentInterface $filterQuery)
@@ -141,7 +141,7 @@ class BooleanQuery extends BoostableFilter implements NestedComponentInterface
     /**
      * Add a simple filter to the filters that MUST NOT fulfil the search items.
      *
-     * @param \EC\EuropaSearch\Messages\Components\NestedComponentInterface $filterQuery
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface $filterQuery
      *   The filter to add
      */
     public function addMustNotFilterQuery(NestedComponentInterface $filterQuery)

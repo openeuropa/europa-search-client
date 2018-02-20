@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Exceptions;
+namespace OpenEuropa\EuropaSearch\Exceptions;
 
 use \Exception;
 
@@ -11,7 +11,7 @@ use \Exception;
  * the proxy layer.
  * The exception returns 283 as code.
  *
- * @package EC\EuropaSearch\Exceptions
+ * @package OpenEuropa\EuropaSearch\Exceptions
  */
 class ProxyException extends Exception
 {

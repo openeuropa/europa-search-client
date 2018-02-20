@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Exceptions;
+namespace OpenEuropa\EuropaSearch\Exceptions;
 
 use \Exception;
 
@@ -11,7 +11,7 @@ use \Exception;
  * configuration is not valid.
  * The exception returns 282 as code.
  *
- * @package EC\EuropaSearch\Exceptions
+ * @package OpenEuropa\EuropaSearch\Exceptions
  */
 class ValidationException extends Exception
 {

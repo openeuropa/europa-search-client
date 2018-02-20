@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components\DocumentMetadata;
+namespace OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata;
 
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * Object for a string metadata of an indexed document.
  *
- * @package EC\EuropaSearch\Messages\Components\DocumentMetadata
+ * @package OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata
  */
 class StringMetadata extends AbstractMetadata implements IndexableMetadataInterface
 {

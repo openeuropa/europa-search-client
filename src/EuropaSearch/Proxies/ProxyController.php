@@ -1,21 +1,21 @@
 <?php
 
-namespace EC\EuropaSearch\Proxies;
+namespace OpenEuropa\EuropaSearch\Proxies;
 
-use EC\EuropaSearch\EuropaSearchConfig;
-use EC\EuropaSearch\Messages\Components\NestedComponentInterface;
-use EC\EuropaSearch\Exceptions\ClientInstantiationException;
-use EC\EuropaSearch\Exceptions\ConnectionException;
-use EC\EuropaSearch\Exceptions\ProxyException;
-use EC\EuropaSearch\Exceptions\WebServiceErrorException;
-use EC\EuropaSearch\Messages\Components\ComponentInterface;
-use EC\EuropaSearch\Messages\MessageInterface;
-use EC\EuropaSearch\Messages\ValidatableMessageInterface;
-use EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\FilterQueryConverterInterface;
-use EC\EuropaSearch\Proxies\Converters\Components\ComponentConverterInterface;
-use EC\EuropaSearch\Proxies\Converters\MessageConverterInterface;
-use EC\EuropaSearch\Services\LogsManager;
-use EC\EuropaSearch\Transporters\TransporterInterface;
+use OpenEuropa\EuropaSearch\EuropaSearchConfig;
+use OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface;
+use OpenEuropa\EuropaSearch\Exceptions\ClientInstantiationException;
+use OpenEuropa\EuropaSearch\Exceptions\ConnectionException;
+use OpenEuropa\EuropaSearch\Exceptions\ProxyException;
+use OpenEuropa\EuropaSearch\Exceptions\WebServiceErrorException;
+use OpenEuropa\EuropaSearch\Messages\Components\ComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\MessageInterface;
+use OpenEuropa\EuropaSearch\Messages\ValidatableMessageInterface;
+use OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Queries\FilterQueryConverterInterface;
+use OpenEuropa\EuropaSearch\Proxies\Converters\Components\ComponentConverterInterface;
+use OpenEuropa\EuropaSearch\Proxies\Converters\MessageConverterInterface;
+use OpenEuropa\EuropaSearch\Services\LogsManager;
+use OpenEuropa\EuropaSearch\Transporters\TransporterInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -27,7 +27,7 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
  *
  * ProxyController implementation to manage the message dispatching.
  *
- * @package EC\EuropaSearch\Proxies
+ * @package OpenEuropa\EuropaSearch\Proxies
  */
 class ProxyController implements ProxyControllerInterface, ContainerAwareInterface
 {
@@ -45,21 +45,21 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
     /**
      * Web service configuration.
      *
-     * @var \EC\EuropaSearch\EuropaSearchConfig
+     * @var \OpenEuropa\EuropaSearch\EuropaSearchConfig
      */
     protected $WSConfiguration;
 
     /**
      * The logs manager that will manage logs record.
      *
-     * @var \EC\EuropaSearch\Services\LogsManager
+     * @var \OpenEuropa\EuropaSearch\Services\LogsManager
      */
     protected $logsManager;
 
     /**
      * ProxyController constructor.
      *
-     * @param \EC\EuropaSearch\Services\LogsManager $logsManager
+     * @param \OpenEuropa\EuropaSearch\Services\LogsManager $logsManager
      *   The logs manager that will manage logs record.
      */
     public function __construct(LogsManager $logsManager)
@@ -238,17 +238,17 @@ class ProxyController implements ProxyControllerInterface, ContainerAwareInterfa
     /**
      * Converts a NestedComponentInterface component with its child components.
      *
-     * @param \EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries\FilterQueryConverterInterface $converter
+     * @param \OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Queries\FilterQueryConverterInterface $converter
      *   The converter to use.
-     * @param \EC\EuropaSearch\Messages\Components\NestedComponentInterface                                $nestedComponent
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface                                $nestedComponent
      *   The component to convert.
      *
      * @return mixed
      *   The converted component.
      *
-     * @throws \EC\EuropaSearch\Exceptions\ClientInstantiationException
+     * @throws \OpenEuropa\EuropaSearch\Exceptions\ClientInstantiationException
      *   Raised if the process failed because of the client instantiation problem.
-     * @throws \EC\EuropaSearch\Exceptions\ProxyException
+     * @throws \OpenEuropa\EuropaSearch\Exceptions\ProxyException
      *   Raised if a problem occurred during the conversion process.
      */
     public function convertNestedComponentWithChildren(FilterQueryConverterInterface $converter, NestedComponentInterface $nestedComponent)

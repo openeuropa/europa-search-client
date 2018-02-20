@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Proxies\Converters\Index;
+namespace OpenEuropa\EuropaSearch\Tests\Proxies\Converters\Index;
 
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
-use EC\EuropaSearch\Transporters\Requests\Index\IndexFileRequest;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Transporters\Requests\Index\IndexFileRequest;
 use GuzzleHttp\Psr7;
 
 /**
@@ -11,7 +11,7 @@ use GuzzleHttp\Psr7;
  *
  * Test the conversion of a IndexWebContentMessage object.
  *
- * @package EC\EuropaSearch\Tests\Proxies\Converters\Index
+ * @package OpenEuropa\EuropaSearch\Tests\Proxies\Converters\Index
  */
 class IndexFileConvertTest extends AbstractEuropaSearchTest
 {

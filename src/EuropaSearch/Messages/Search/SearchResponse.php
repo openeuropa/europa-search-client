@@ -1,15 +1,15 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Search;
+namespace OpenEuropa\EuropaSearch\Messages\Search;
 
-use EC\EuropaSearch\Messages\MessageInterface;
+use OpenEuropa\EuropaSearch\Messages\MessageInterface;
 
 /**
  * Class SearchResponse.
  *
  * It represents a response coming from the search web service.
  *
- * @package EC\EuropaSearch\Messages\Search
+ * @package OpenEuropa\EuropaSearch\Messages\Search
  */
 class SearchResponse implements MessageInterface
 {

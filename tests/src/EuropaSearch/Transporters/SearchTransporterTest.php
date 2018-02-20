@@ -1,8 +1,8 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Transporters;
+namespace OpenEuropa\EuropaSearch\Tests\Transporters;
 
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -10,7 +10,7 @@ use GuzzleHttp\Psr7\Response;
  *
  * Test the transporter for the Search REST service (Search API).
  *
- * @package EC\EuropaSearch\Tests\Transporters
+ * @package OpenEuropa\EuropaSearch\Tests\Transporters
  */
 class SearchTransporterTest extends AbstractEuropaSearchTest
 {
@@ -45,7 +45,7 @@ class SearchTransporterTest extends AbstractEuropaSearchTest
     /**
      * Gets the web service mock configuration for tests.
      *
-     * @return \EC\EuropaSearch\EuropaSearchConfig
+     * @return \OpenEuropa\EuropaSearch\EuropaSearchConfig
      *   The web service mock configuration.
      */
     private function getMockConfiguration()

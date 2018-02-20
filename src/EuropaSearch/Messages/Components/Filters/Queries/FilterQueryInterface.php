@@ -1,8 +1,8 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Search\Filters\Queries;
+namespace OpenEuropa\EuropaSearch\Messages\Search\Filters\Queries;
 
-use EC\EuropaSearch\Messages\Components\ComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\ComponentInterface;
 
 /**
  * Interface FilterQueryInterface.
@@ -10,7 +10,7 @@ use EC\EuropaSearch\Messages\Components\ComponentInterface;
  * Implementing this interface allows object to be recognized to be part of a
  * Search query.
  *
- * @package EC\EuropaSearch\Messages\Search\Filters\Queries
+ * @package OpenEuropa\EuropaSearch\Messages\Search\Filters\Queries
  */
 interface FilterQueryInterface extends ComponentInterface
 {

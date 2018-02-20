@@ -1,22 +1,22 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Applications;
+namespace OpenEuropa\EuropaSearch\Tests\Applications;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\FloatMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\FullTextMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\URLMetadata;
-use EC\EuropaSearch\Messages\Index\DeleteIndexItemMessage;
-use EC\EuropaSearch\Messages\Index\IndexFileMessage;
-use EC\EuropaSearch\Messages\Index\IndexWebContentMessage;
-use EC\EuropaSearch\Messages\Components\Filters\Clauses\RangeClause;
-use EC\EuropaSearch\Messages\Components\Filters\Clauses\TermClause;
-use EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery;
-use EC\EuropaSearch\Messages\Search\SearchMessage;
-use EC\EuropaSearch\Messages\Search\SearchResponse;
-use EC\EuropaSearch\Messages\Search\SearchResult;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\FloatMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\FullTextMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\URLMetadata;
+use OpenEuropa\EuropaSearch\Messages\Index\DeleteIndexItemMessage;
+use OpenEuropa\EuropaSearch\Messages\Index\IndexFileMessage;
+use OpenEuropa\EuropaSearch\Messages\Index\IndexWebContentMessage;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\RangeClause;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\TermClause;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery;
+use OpenEuropa\EuropaSearch\Messages\Search\SearchMessage;
+use OpenEuropa\EuropaSearch\Messages\Search\SearchResponse;
+use OpenEuropa\EuropaSearch\Messages\Search\SearchResult;
 
 /**
  * Class ApplicationDataProvider.
@@ -24,7 +24,7 @@ use EC\EuropaSearch\Messages\Search\SearchResult;
  * Provides data for the Application layer used for indexing and searching related
  * tests.
  *
- * @package EC\EuropaSearch\Tests\Applications
+ * @package OpenEuropa\EuropaSearch\Tests\Applications
  */
 class ApplicationDataProvider
 {
@@ -32,7 +32,7 @@ class ApplicationDataProvider
     /**
      * Provides objects necessary for the index adding test.
      *
-     * @return \EC\EuropaSearch\Messages\Index\IndexWebContentMessage
+     * @return \OpenEuropa\EuropaSearch\Messages\Index\IndexWebContentMessage
      *   The objects for the test.
      */
     public function getWebContentMessageTestData()
@@ -92,7 +92,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Provides objects necessary for the file index adding test.
      *
-     * @return \EC\EuropaSearch\Messages\Index\IndexWebContentMessage
+     * @return \OpenEuropa\EuropaSearch\Messages\Index\IndexWebContentMessage
      *   The objects for the test.
      */
     public function getFileMessageTestData()
@@ -137,7 +137,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Provides objects necessary for a test of index item deletion.
      *
-     * @return \EC\EuropaSearch\Messages\Index\DeleteIndexItemMessage
+     * @return \OpenEuropa\EuropaSearch\Messages\Index\DeleteIndexItemMessage
      *   The message object to use in the deletion test.
      */
     public function getDeleteIndexItemTestData()
@@ -153,8 +153,8 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
      *
      * @return array
      *   The objects for the test:
-     *   - 'submitted':  \EC\EuropaSearch\Messages\Search\SearchMessage to send in the test;
-     *   - 'expected' :  Excepted \EC\EuropaSearch\Messages\Search\SearchResponse at the end of the test.
+     *   - 'submitted':  \OpenEuropa\EuropaSearch\Messages\Search\SearchMessage to send in the test;
+     *   - 'expected' :  Excepted \OpenEuropa\EuropaSearch\Messages\Search\SearchResponse at the end of the test.
      */
     public function getSearchMessageTestData()
     {
@@ -189,7 +189,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Gets the web content references for the test SearchResponse object.
      *
-     * @param \EC\EuropaSearch\Messages\Search\SearchResponse $searchResponse
+     * @param \OpenEuropa\EuropaSearch\Messages\Search\SearchResponse $searchResponse
      *   The object in which inject the references.
      */
     private function setWebContentResultsTestData(SearchResponse $searchResponse)
@@ -226,7 +226,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Sets the metadata of a SearchResult object used for a client test.
      *
-     * @param \EC\EuropaSearch\Messages\Search\SearchResult $result
+     * @param \OpenEuropa\EuropaSearch\Messages\Search\SearchResult $result
      *   SearchResult object to populate.
      * @param int                                           $resultId
      *   Id making metadata value unique in the test.
@@ -250,7 +250,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Get a valid BooleanQuery for a client test.
      *
-     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery
+     * @return \OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery
      *   The valid BooleanQuery object to use in tests.
      */
     private function getBooleanQueryTestData()

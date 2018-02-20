@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Messages;
+namespace OpenEuropa\EuropaSearch\Messages;
 
 use Symfony\Component\Validator\ValidatorBuilder;
 
@@ -13,7 +13,7 @@ use Symfony\Component\Validator\ValidatorBuilder;
  * validate from the "getConstraints()" method declared in the object to
  * validate.
  *
- * @package EC\EuropaSearch\Messages
+ * @package OpenEuropa\EuropaSearch\Messages
  */
 class DefaultValidatorBuilder extends ValidatorBuilder
 {

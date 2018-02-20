@@ -1,13 +1,13 @@
 <?php
 
-namespace EC\EuropaSearch\Transporters\Requests;
+namespace OpenEuropa\EuropaSearch\Transporters\Requests;
 
 /**
  * Class RequestInterface.
  *
  * Implementing it allows objects to instantiated web service request content.
  *
- * @package EC\EuropaSearch\Transporters\Requests
+ * @package OpenEuropa\EuropaSearch\Transporters\Requests
  */
 interface RequestInterface
 {

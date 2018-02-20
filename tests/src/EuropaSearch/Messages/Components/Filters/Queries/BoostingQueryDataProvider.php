@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Messages\Components\Filters\Queries;
+namespace OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Queries;
 
-use EC\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery;
-use EC\EuropaSearch\Tests\Messages\Components\Filters\Clauses\FilterClauseDataProvider;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery;
+use OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Clauses\FilterClauseDataProvider;
 
 /**
  * Class BoostingQueryDataProvider.
@@ -11,7 +11,7 @@ use EC\EuropaSearch\Tests\Messages\Components\Filters\Clauses\FilterClauseDataPr
  * Supplies a set of dataProvider containing BoostingQuery for
  * CombinedQuery tests.
  *
- * @package EC\EuropaSearch\Tests\Messages\Components\Filters\Queries
+ * @package OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Queries
  */
 class BoostingQueryDataProvider
 {
@@ -19,7 +19,7 @@ class BoostingQueryDataProvider
     /**
      * Gets valid BoostingQuery object for testing.
      *
-     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery
+     * @return \OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery
      *   The valid BoostingQuery objects.
      */
     public function getValidBoostingQuery()
@@ -48,7 +48,7 @@ class BoostingQueryDataProvider
     /**
      * Gets positive invalid BoostingQuery object for testing.
      *
-     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery
+     * @return \OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery
      *   The invalid BoostingQuery objects.
      */
     public function getPositiveInValidBoostingQuery()
@@ -85,7 +85,7 @@ class BoostingQueryDataProvider
     /**
      * Gets negative invalid BoostingQuery object for testing.
      *
-     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery
+     * @return \OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\BoostingQuery
      *   The invalid BoostingQuery objects.
      */
     public function getNegativeInValidBoostingQuery()

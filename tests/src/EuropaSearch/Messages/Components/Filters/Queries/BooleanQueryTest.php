@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Messages\Components\Filters\Queries;
+namespace OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Queries;
 
-use EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery;
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -11,7 +11,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * Tests the validation process on BooleanQuery.
  *
- * @package EC\EuropaSearch\Tests\Messages\Components\Filters\Queries
+ * @package OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Queries
  */
 class BooleanQueryTest extends AbstractEuropaSearchTest
 {

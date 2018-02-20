@@ -1,8 +1,8 @@
 <?php
 
-namespace EC\EuropaSearch\Transporters\Requests\Search;
+namespace OpenEuropa\EuropaSearch\Transporters\Requests\Search;
 
-use EC\EuropaSearch\Transporters\Requests\AbstractRequest;
+use OpenEuropa\EuropaSearch\Transporters\Requests\AbstractRequest;
 
 /**
  * Class SearchRequest.
@@ -10,7 +10,7 @@ use EC\EuropaSearch\Transporters\Requests\AbstractRequest;
  * It defines a search request that is sent for indexing to the Europa Search
  * services.
  *
- * @package EC\EuropaSearch\Transporters\Requests\Search
+ * @package OpenEuropa\EuropaSearch\Transporters\Requests\Search
  */
 class SearchRequest extends AbstractRequest
 {

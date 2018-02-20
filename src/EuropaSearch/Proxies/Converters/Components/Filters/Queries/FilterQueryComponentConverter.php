@@ -1,16 +1,16 @@
 <?php
 
-namespace EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries;
+namespace OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Queries;
 
-use EC\EuropaSearch\Messages\Components\NestedComponentInterface;
-use EC\EuropaSearch\Messages\Components\ComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\ComponentInterface;
 
 /**
  * Class FilterQueryComponentConverter.
  *
  * Converter for AggregatedFilters object.
  *
- * @package EC\EuropaSearch\Proxies\Converters\Components\Filters\Queries
+ * @package OpenEuropa\EuropaSearch\Proxies\Converters\Components\Filters\Queries
  */
 class FilterQueryComponentConverter implements FilterQueryConverterInterface
 {

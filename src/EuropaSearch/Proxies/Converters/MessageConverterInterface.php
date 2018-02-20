@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Proxies\Converters;
+namespace OpenEuropa\EuropaSearch\Proxies\Converters;
 
-use EC\EuropaSearch\EuropaSearchConfig;
-use EC\EuropaSearch\Messages\ValidatableMessageInterface;
+use OpenEuropa\EuropaSearch\EuropaSearchConfig;
+use OpenEuropa\EuropaSearch\Messages\ValidatableMessageInterface;
 
 /**
  * Interface MessageConverterInterface.
@@ -12,19 +12,19 @@ use EC\EuropaSearch\Messages\ValidatableMessageInterface;
  * the web service into a format usable by it and call the transporter
  * implementation for sending the result.
  *
- * @package EC\EuropaSearch\Proxies\Converters
+ * @package OpenEuropa\EuropaSearch\Proxies\Converters
  */
 interface MessageConverterInterface
 {
     /**
      * Converts a message.
      *
-     * @param \EC\EuropaSearch\Messages\ValidatableMessageInterface $message
+     * @param \OpenEuropa\EuropaSearch\Messages\ValidatableMessageInterface $message
      *   The message to convert.
-     * @param \EC\EuropaSearch\EuropaSearchConfig                   $configuration
+     * @param \OpenEuropa\EuropaSearch\EuropaSearchConfig                   $configuration
      *   The Web service configuration.
      *
-     * @return \EC\EuropaSearch\Transporters\Requests\RequestInterface
+     * @return \OpenEuropa\EuropaSearch\Transporters\Requests\RequestInterface
      *   The converted message ready to be sent.
      */
     public function convertMessage(ValidatableMessageInterface $message, EuropaSearchConfig $configuration);
@@ -32,15 +32,15 @@ interface MessageConverterInterface
     /**
      * Converts a message and integrated the converted components in it.
      *
-     * @param \EC\EuropaSearch\Messages\ValidatableMessageInterface $message
+     * @param \OpenEuropa\EuropaSearch\Messages\ValidatableMessageInterface $message
      *   The message to convert.
      * @param array                                                 $convertedComponent
      *   Array of components that have already been converted in a
      *   previous process.
-     * @param \EC\EuropaSearch\EuropaSearchConfig                   $configuration
+     * @param \OpenEuropa\EuropaSearch\EuropaSearchConfig                   $configuration
      *   The Web service configuration.
      *
-     * @return \EC\EuropaSearch\Transporters\Requests\RequestInterface
+     * @return \OpenEuropa\EuropaSearch\Transporters\Requests\RequestInterface
      *   The converted message (components included) ready to be sent.
      */
     public function convertMessageWithComponents(ValidatableMessageInterface $message, array $convertedComponent, EuropaSearchConfig $configuration);
@@ -50,10 +50,10 @@ interface MessageConverterInterface
      *
      * @param mixed                               $response
      *   The response received from the Transporter layer.
-     * @param \EC\EuropaSearch\EuropaSearchConfig $configuration
+     * @param \OpenEuropa\EuropaSearch\EuropaSearchConfig $configuration
      *   The Web service configuration.
      *
-     * @return \EC\EuropaSearch\Messages\MessageInterface
+     * @return \OpenEuropa\EuropaSearch\Messages\MessageInterface
      *   The obtained Message object.
      */
     public function convertMessageResponse($response, EuropaSearchConfig $configuration);

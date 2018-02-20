@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components;
+namespace OpenEuropa\EuropaSearch\Messages\Components;
 
 /**
  * Interface FilterQueryInterface.
@@ -8,7 +8,7 @@ namespace EC\EuropaSearch\Messages\Components;
  * Implementing this interface allows object to be recognized as
  * component containing itself other components
  *
- * @package EC\EuropaSearch\Messages\Components
+ * @package OpenEuropa\EuropaSearch\Messages\Components
  */
 interface NestedComponentInterface extends ComponentInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Messages;
+namespace OpenEuropa\EuropaSearch\Messages;
 
 /**
  * Interface IdentifiableMessageInterface.
@@ -8,7 +8,7 @@ namespace EC\EuropaSearch\Messages;
  * It extends ValidatableMessageInterface to allow objects to convey an identifier
  * used by the system and the targeted web service.
  *
- * @package EC\EuropaSearch\Messages
+ * @package OpenEuropa\EuropaSearch\Messages
  */
 interface IdentifiableMessageInterface extends ValidatableMessageInterface
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace EC\EuropaSearch\Tests;
+namespace OpenEuropa\EuropaSearch\Tests;
 
-use EC\EuropaSearch\EuropaSearch;
-use EC\EuropaSearch\Tests\Helpers\Logger\TestLogger;
+use OpenEuropa\EuropaSearch\EuropaSearch;
+use OpenEuropa\EuropaSearch\Tests\Helpers\Logger\TestLogger;
 use Psr\Log\LogLevel;
 
 /**
  * Class EuropaSearchContainerTest
  *
- * @package EC\EuropaSearch\Tests
+ * @package OpenEuropa\EuropaSearch\Tests
  */
 class EuropaSearchContainerTest extends AbstractEuropaSearchTest
 {

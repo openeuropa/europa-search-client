@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Exceptions;
+namespace OpenEuropa\EuropaSearch\Exceptions;
 
 use \Exception;
 
@@ -10,7 +10,7 @@ use \Exception;
  * This type of exceptions is catch when the web service call returns an error.
  * The exception returns 288 as code.
  *
- * @package EC\EuropaSearch\Exceptions
+ * @package OpenEuropa\EuropaSearch\Exceptions
  */
 class WebServiceErrorException extends Exception
 {

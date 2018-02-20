@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Applications;
+namespace OpenEuropa\EuropaSearch\Tests\Applications;
 
-use EC\EuropaSearch\Tests\EuropaSearchDummy;
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Tests\EuropaSearchDummy;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -11,7 +11,7 @@ use GuzzleHttp\Psr7\Response;
  *
  * Tests the Application layer related to the searching/indexing process.
  *
- * @package EC\EuropaSearch\Tests\Applications
+ * @package OpenEuropa\EuropaSearch\Tests\Applications
  */
 class SearchingApplicationTest extends AbstractEuropaSearchTest
 {
@@ -32,7 +32,7 @@ class SearchingApplicationTest extends AbstractEuropaSearchTest
         $application = $factory->getSearchApplication();
         $response = $application->sendMessage($data['submitted']);
 
-        $this->assertInstanceOf('EC\EuropaSearch\Applications\Application', $application, 'The returned application is not an Application object.');
+        $this->assertInstanceOf('OpenEuropa\EuropaSearch\Applications\Application', $application, 'The returned application is not an Application object.');
         $this->assertEquals($data['expected'], $response, 'The returned response is not the expected one.');
     }
 

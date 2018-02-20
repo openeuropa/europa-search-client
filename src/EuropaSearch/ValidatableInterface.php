@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch;
+namespace OpenEuropa\EuropaSearch;
 
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  *
  * Implementing this interface allows an object to be validated by library mechanism.
  *
- * @package EC\EuropaSearch
+ * @package OpenEuropa\EuropaSearch
  */
 interface ValidatableInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Applications;
+namespace OpenEuropa\EuropaSearch\Tests\Applications;
 
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -10,7 +10,7 @@ use GuzzleHttp\Psr7\Response;
  *
  * Tests the client layer related to the indexing process.
  *
- * @package EC\EuropaSearch\Tests\Applications
+ * @package OpenEuropa\EuropaSearch\Tests\Applications
  */
 class IndexItemDeletionApplicationTest extends AbstractEuropaSearchTest
 {
@@ -31,8 +31,8 @@ class IndexItemDeletionApplicationTest extends AbstractEuropaSearchTest
         $application = $factory->getIndexingApplication();
         $response = $application->sendMessage($indexingMessage);
 
-        $this->assertInstanceOf('EC\EuropaSearch\Applications\Application', $application, 'The returned application is not an Application object.');
-        $this->assertInstanceOf('EC\EuropaSearch\Messages\Index\IndexingResponse', $response, 'The returned response is not an IndexingResponse object.');
+        $this->assertInstanceOf('OpenEuropa\EuropaSearch\Applications\Application', $application, 'The returned application is not an Application object.');
+        $this->assertInstanceOf('OpenEuropa\EuropaSearch\Messages\Index\IndexingResponse', $response, 'The returned response is not an IndexingResponse object.');
         $this->assertEquals('web_content_delete_1', $response->getReturnedString(), 'The returned response is not the expected one.');
     }
 

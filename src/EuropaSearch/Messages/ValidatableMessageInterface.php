@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Messages;
+namespace OpenEuropa\EuropaSearch\Messages;
 
-use EC\EuropaSearch\ConvertibleInterface;
-use EC\EuropaSearch\ValidatableInterface;
+use OpenEuropa\EuropaSearch\ConvertibleInterface;
+use OpenEuropa\EuropaSearch\ValidatableInterface;
 
 /**
  * Interface ValidatableMessageInterface.
@@ -12,7 +12,7 @@ use EC\EuropaSearch\ValidatableInterface;
  * Implementing this interface allows object to be validated and transformed by
  * the dedicated library mechanism.
  *
- * @package EC\EuropaSearch\Messages
+ * @package OpenEuropa\EuropaSearch\Messages
  */
 interface ValidatableMessageInterface extends MessageInterface, ValidatableInterface, ConvertibleInterface
 {

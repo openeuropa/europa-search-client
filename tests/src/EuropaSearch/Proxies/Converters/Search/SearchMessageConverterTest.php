@@ -1,15 +1,15 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Proxies\Converters\Search;
+namespace OpenEuropa\EuropaSearch\Tests\Proxies\Converters\Search;
 
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class SearchMessageConverterTest.
  *
  * Test the conversion of a SearchMessage object.
  *
- * @package EC\EuropaSearch\Tests\Proxies\Converters\Search
+ * @package OpenEuropa\EuropaSearch\Tests\Proxies\Converters\Search
  */
 class SearchMessageConverterTest extends AbstractEuropaSearchTest
 {

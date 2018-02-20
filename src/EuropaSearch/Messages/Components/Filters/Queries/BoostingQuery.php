@@ -1,13 +1,13 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components\Filters\Queries;
+namespace OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractNumericMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
-use EC\EuropaSearch\Messages\Components\Filters\BoostableFilter;
-use EC\EuropaSearch\Messages\Components\Filters\Clauses\TermClause;
-use EC\EuropaSearch\Messages\Components\Filters\Clauses\TermsClause;
-use EC\EuropaSearch\Messages\Components\NestedComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\AbstractNumericMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\BoostableFilter;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\TermClause;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses\TermsClause;
+use OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * It only supports "Value" and "Values" objects that involve
  * "StringMetadata" or "NumericMetadata".
  *
- * @package EC\EuropaSearch\Messages\Components\Filters\Combined
+ * @package OpenEuropa\EuropaSearch\Messages\Components\Filters\Combined
  */
 class BoostingQuery extends BoostableFilter implements NestedComponentInterface
 {

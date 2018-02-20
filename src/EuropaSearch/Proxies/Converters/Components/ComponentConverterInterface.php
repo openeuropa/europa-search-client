@@ -1,8 +1,8 @@
 <?php
 
-namespace EC\EuropaSearch\Proxies\Converters\Components;
+namespace OpenEuropa\EuropaSearch\Proxies\Converters\Components;
 
-use EC\EuropaSearch\Messages\Components\ComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\ComponentInterface;
 
 /**
  * Interface ComponentConverterInterface.
@@ -10,14 +10,14 @@ use EC\EuropaSearch\Messages\Components\ComponentInterface;
  * Implementing this interface allows object to convert message components
  * in a format used by the transportation layer.
  *
- * @package EC\EuropaSearch\Proxies\Converters\Components
+ * @package OpenEuropa\EuropaSearch\Proxies\Converters\Components
  */
 interface ComponentConverterInterface
 {
     /**
      * Converts a message component.
      *
-     * @param \EC\EuropaSearch\Messages\Components\ComponentInterface $component
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\ComponentInterface $component
      *   The component to convert.
      *
      * @return array

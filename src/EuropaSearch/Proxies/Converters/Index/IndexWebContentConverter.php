@@ -1,20 +1,20 @@
 <?php
 
-namespace EC\EuropaSearch\Proxies\Converters\Index;
+namespace OpenEuropa\EuropaSearch\Proxies\Converters\Index;
 
-use EC\EuropaSearch\EuropaSearchConfig;
-use EC\EuropaSearch\Proxies\Converters\AbstractMessageConverter;
-use EC\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest;
-use EC\EuropaSearch\Exceptions\ProxyException;
-use EC\EuropaSearch\Messages\Index\IndexingResponse;
-use EC\EuropaSearch\Messages\ValidatableMessageInterface;
+use OpenEuropa\EuropaSearch\EuropaSearchConfig;
+use OpenEuropa\EuropaSearch\Proxies\Converters\AbstractMessageConverter;
+use OpenEuropa\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest;
+use OpenEuropa\EuropaSearch\Exceptions\ProxyException;
+use OpenEuropa\EuropaSearch\Messages\Index\IndexingResponse;
+use OpenEuropa\EuropaSearch\Messages\ValidatableMessageInterface;
 
 /**
  * Class IndexWebContentConverter.
  *
  * Converter for IndexWebContent object.
  *
- * @package EC\EuropaSearch\Proxies\Converters\Index
+ * @package OpenEuropa\EuropaSearch\Proxies\Converters\Index
  */
 class IndexWebContentConverter extends AbstractMessageConverter
 {

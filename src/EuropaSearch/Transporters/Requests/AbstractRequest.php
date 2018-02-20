@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Transporters\Requests;
+namespace OpenEuropa\EuropaSearch\Transporters\Requests;
 
 /**
  * Class AbstractRequest.
@@ -8,7 +8,7 @@ namespace EC\EuropaSearch\Transporters\Requests;
  * It represent a generic request content sent to the
  * Index Europa Search service.
  *
- * @package EC\EuropaSearch\Transporters\Requests
+ * @package OpenEuropa\EuropaSearch\Transporters\Requests
  */
 abstract class AbstractRequest implements RequestInterface
 {

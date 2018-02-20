@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Services;
+namespace OpenEuropa\EuropaSearch\Services;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -11,7 +11,7 @@ use Psr\Log\LogLevel;
  * It encapsulates the PSR3 logger in order to add to him some
  * additional features whatever its implementation.
  *
- * @package EC\EuropaSearch\Services
+ * @package OpenEuropa\EuropaSearch\Services
  *
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */

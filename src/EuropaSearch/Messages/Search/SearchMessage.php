@@ -1,10 +1,10 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Search;
+namespace OpenEuropa\EuropaSearch\Messages\Search;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata;
-use EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery;
-use EC\EuropaSearch\Messages\ValidatableMessageInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery;
+use OpenEuropa\EuropaSearch\Messages\ValidatableMessageInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * It defines a search query that is sent to the Europa Search services.
  *
- * @package EC\EuropaSearch\Messages\Search
+ * @package OpenEuropa\EuropaSearch\Messages\Search
  */
 class SearchMessage implements ValidatableMessageInterface
 {
@@ -145,7 +145,7 @@ class SearchMessage implements ValidatableMessageInterface
     /**
      * Gets the filter query to apply on the search.
      *
-     * @return \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery $searchQuery
+     * @return \OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery $searchQuery
      * The object defining the query.
      */
     public function getQuery()
@@ -156,7 +156,7 @@ class SearchMessage implements ValidatableMessageInterface
     /**
      * Sets the filter query to apply on the search.
      *
-     * @param \EC\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery $searchQuery
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\Filters\Queries\BooleanQuery $searchQuery
      * The object defining the query.
      */
     public function setQuery(BooleanQuery $searchQuery)
@@ -167,7 +167,7 @@ class SearchMessage implements ValidatableMessageInterface
     /**
      * Gets the metadata on which basing the sorting.
      *
-     * @return \EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata
+     * @return \OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata
      *   The raw name on which basing the sorting.
      */
     public function getSortMetadata()
@@ -192,7 +192,7 @@ class SearchMessage implements ValidatableMessageInterface
      * If the search does not contain any sort criteria, search results will be
      * sorted by relevancy.
      *
-     * @param \EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata $sortMetadata
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata $sortMetadata
      *   The metadata object defining the raw name of the field on which
      *   basing the sorting.
      *   Only the name attribute of the object is mandatory.

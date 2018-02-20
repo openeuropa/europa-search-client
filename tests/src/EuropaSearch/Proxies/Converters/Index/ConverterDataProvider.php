@@ -1,19 +1,19 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Proxies\Converters\Index;
+namespace OpenEuropa\EuropaSearch\Tests\Proxies\Converters\Index;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\FloatMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\FullTextMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\URLMetadata;
-use EC\EuropaSearch\Messages\Index\DeleteIndexItemMessage;
-use EC\EuropaSearch\Messages\Index\IndexWebContentMessage;
-use EC\EuropaSearch\Messages\Index\IndexFileMessage;
-use EC\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemRequest;
-use EC\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest;
-use EC\EuropaSearch\Transporters\Requests\Index\IndexFileRequest;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\FloatMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\FullTextMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IntegerMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\StringMetadata;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\URLMetadata;
+use OpenEuropa\EuropaSearch\Messages\Index\DeleteIndexItemMessage;
+use OpenEuropa\EuropaSearch\Messages\Index\IndexWebContentMessage;
+use OpenEuropa\EuropaSearch\Messages\Index\IndexFileMessage;
+use OpenEuropa\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemRequest;
+use OpenEuropa\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest;
+use OpenEuropa\EuropaSearch\Transporters\Requests\Index\IndexFileRequest;
 
 /**
  * Class ConverterDataProvider.
@@ -21,7 +21,7 @@ use EC\EuropaSearch\Transporters\Requests\Index\IndexFileRequest;
  * Provides data for the proxy layer used for web content indexing
  * related tests.
  *
- * @package EC\EuropaSearch\Tests\Proxies\Converters\Index
+ * @package OpenEuropa\EuropaSearch\Tests\Proxies\Converters\Index
  */
 class ConverterDataProvider
 {

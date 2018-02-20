@@ -1,18 +1,18 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Proxies\Converters\Search;
+namespace OpenEuropa\EuropaSearch\Tests\Proxies\Converters\Search;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
-use EC\EuropaSearch\Messages\Search\SearchMessage;
-use EC\EuropaSearch\Transporters\Requests\Search\SearchRequest;
-use EC\EuropaSearch\Tests\Messages\Components\Filters\Queries\BooleanQueryDataProvider;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\DateMetadata;
+use OpenEuropa\EuropaSearch\Messages\Search\SearchMessage;
+use OpenEuropa\EuropaSearch\Transporters\Requests\Search\SearchRequest;
+use OpenEuropa\EuropaSearch\Tests\Messages\Components\Filters\Queries\BooleanQueryDataProvider;
 
 /**
  * Class SearchDataProvider.
  *
  * Provides data for content searching related tests.
  *
- * @package EC\EuropaSearch\Tests\Proxies\Converters\Search
+ * @package OpenEuropa\EuropaSearch\Tests\Proxies\Converters\Search
  */
 class SearchDataProvider
 {

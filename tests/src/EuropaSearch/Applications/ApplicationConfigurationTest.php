@@ -2,7 +2,7 @@
 
 namespace src\EuropaSearch\Applications;
 
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class ApplicationConfigurationTest.

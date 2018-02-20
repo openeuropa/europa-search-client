@@ -1,13 +1,13 @@
 <?php
 
-namespace EC\EuropaSearch\Transporters;
+namespace OpenEuropa\EuropaSearch\Transporters;
 
-use EC\EuropaSearch\EuropaSearchConfig;
-use EC\EuropaSearch\Exceptions\ClientInstantiationException;
-use EC\EuropaSearch\Exceptions\ConnectionException;
-use EC\EuropaSearch\Exceptions\WebServiceErrorException;
-use EC\EuropaSearch\Services\LogsManager;
-use EC\EuropaSearch\Transporters\Requests\RequestInterface;
+use OpenEuropa\EuropaSearch\EuropaSearchConfig;
+use OpenEuropa\EuropaSearch\Exceptions\ClientInstantiationException;
+use OpenEuropa\EuropaSearch\Exceptions\ConnectionException;
+use OpenEuropa\EuropaSearch\Exceptions\WebServiceErrorException;
+use OpenEuropa\EuropaSearch\Services\LogsManager;
+use OpenEuropa\EuropaSearch\Transporters\Requests\RequestInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
@@ -20,7 +20,7 @@ use GuzzleHttp\Exception\ServerException;
  * n charge to send the requests to the REST services of
  * Europa Search (Ingestion API and Search API).
  *
- * @package EC\EuropaSearch\Transporters
+ * @package OpenEuropa\EuropaSearch\Transporters
  */
 class EuropaSearchTransporter implements TransporterInterface
 {
@@ -34,7 +34,7 @@ class EuropaSearchTransporter implements TransporterInterface
     /**
      * HTTP client configuration.
      *
-     * @var \EC\EuropaSearch\EuropaSearchConfig
+     * @var \OpenEuropa\EuropaSearch\EuropaSearchConfig
      */
     protected $configuration;
 
@@ -62,14 +62,14 @@ class EuropaSearchTransporter implements TransporterInterface
     /**
      * The logs manager that will manage logs record.
      *
-     * @var \EC\EuropaSearch\Services\LogsManager
+     * @var \OpenEuropa\EuropaSearch\Services\LogsManager
      */
     protected $logsManager;
 
     /**
      * EuropaSearchTransporter constructor.
      *
-     * @param \EC\EuropaSearch\Services\LogsManager $logsManager
+     * @param \OpenEuropa\EuropaSearch\Services\LogsManager $logsManager
      *   The logs manager that will manage logs record.
      */
     public function __construct(LogsManager $logsManager)
@@ -193,7 +193,7 @@ class EuropaSearchTransporter implements TransporterInterface
      * @return array
      *   The proxy settings to use for sending HTTP requests.
      *
-     * @throws \EC\EuropaSearch\Exceptions\ClientInstantiationException
+     * @throws \OpenEuropa\EuropaSearch\Exceptions\ClientInstantiationException
      *   Raised if the proxy  type is custom while
      *   the proxy "custom_address" is not set.
      */

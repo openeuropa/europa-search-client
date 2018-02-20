@@ -1,8 +1,8 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components\Filters\Clauses;
+namespace OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -12,14 +12,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * It does not support "NotIndexedMetadata" type.
  *
- * @package EC\EuropaSearch\Messages\Components
+ * @package OpenEuropa\EuropaSearch\Messages\Components
  */
 class FieldExistsClause extends AbstractClause
 {
     /**
      * FieldExist constructor.
      *
-     * @param \EC\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface $impliedMetadata
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface $impliedMetadata
      *   The metadata pointed by the filters.
      */
     public function __construct(IndexableMetadataInterface $impliedMetadata)

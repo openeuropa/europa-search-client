@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch;
+namespace OpenEuropa\EuropaSearch;
 
 use GuzzleHttp\Handler\MockHandler;
 
@@ -9,7 +9,7 @@ use GuzzleHttp\Handler\MockHandler;
  *
  * Contains to the Europa Search service settings.
  *
- * @package EC\EuropaSearch
+ * @package OpenEuropa\EuropaSearch
  */
 class EuropaSearchConfig
 {

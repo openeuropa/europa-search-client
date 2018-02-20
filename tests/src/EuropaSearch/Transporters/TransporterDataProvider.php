@@ -1,11 +1,11 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Transporters;
+namespace OpenEuropa\EuropaSearch\Tests\Transporters;
 
-use EC\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemRequest;
-use EC\EuropaSearch\Transporters\Requests\Index\IndexFileRequest;
-use EC\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest;
-use EC\EuropaSearch\Transporters\Requests\Search\SearchRequest;
+use OpenEuropa\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemRequest;
+use OpenEuropa\EuropaSearch\Transporters\Requests\Index\IndexFileRequest;
+use OpenEuropa\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest;
+use OpenEuropa\EuropaSearch\Transporters\Requests\Search\SearchRequest;
 
 /**
  * Class TransporterDataProvider.
@@ -13,7 +13,7 @@ use EC\EuropaSearch\Transporters\Requests\Search\SearchRequest;
  * Provides data for the transporter layer used for web content indexing
  * related tests.
  *
- * @package EC\EuropaSearch\Tests\Transporters
+ * @package OpenEuropa\EuropaSearch\Tests\Transporters
  */
 class TransporterDataProvider
 {
@@ -21,7 +21,7 @@ class TransporterDataProvider
     /**
      * Provides objects necessary for the test.
      *
-     * @return \EC\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest
+     * @return \OpenEuropa\EuropaSearch\Transporters\Requests\Index\IndexWebContentRequest
      *   The objects for the test.
      */
     public function webContentIndexingRequestProvider()
@@ -65,7 +65,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Provides objects necessary for the test.
      *
-     * @return \EC\EuropaSearch\Transporters\Requests\Index\IndexFileRequest
+     * @return \OpenEuropa\EuropaSearch\Transporters\Requests\Index\IndexFileRequest
      *   The objects for the test.
      */
     public function fileIndexingRequestProvider()
@@ -94,7 +94,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Provides objects necessary for a test of index item deletion.
      *
-     * @return \EC\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemRequest
+     * @return \OpenEuropa\EuropaSearch\Transporters\Requests\Index\DeleteIndexItemRequest
      *   The message object to use in the deletion test.
      */
     public function deleteIndexItemTestData()
@@ -110,7 +110,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
     /**
      * Provides objects necessary for the test.
      *
-     * @return \EC\EuropaSearch\Transporters\Requests\Search\SearchRequest
+     * @return \OpenEuropa\EuropaSearch\Transporters\Requests\Search\SearchRequest
      *   The objects for the test.
      */
     public function searchRequestProvider()

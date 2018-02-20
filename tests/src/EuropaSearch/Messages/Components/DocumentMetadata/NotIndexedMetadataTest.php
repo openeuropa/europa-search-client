@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Messages\Components\DocumentMetadata;
+namespace OpenEuropa\EuropaSearch\Tests\Messages\Components\DocumentMetadata;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\NotIndexedMetadata;
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\NotIndexedMetadata;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -11,7 +11,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * Tests the validation process on NotIndexedMetadata.
  *
- * @package EC\EuropaSearch\Tests\Messages\Components\DocumentMetadata
+ * @package OpenEuropa\EuropaSearch\Tests\Messages\Components\DocumentMetadata
  */
 class NotIndexedMetadataTest extends AbstractEuropaSearchTest
 {

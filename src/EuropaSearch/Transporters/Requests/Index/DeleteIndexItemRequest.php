@@ -1,13 +1,13 @@
 <?php
 
-namespace EC\EuropaSearch\Transporters\Requests\Index;
+namespace OpenEuropa\EuropaSearch\Transporters\Requests\Index;
 
 /**
  * Class DeleteIndexItemRequest.
  *
  * It covers the indexing item deletion request.
  *
- * @package EC\EuropaSearch\Transporters\Requests\Index
+ * @package OpenEuropa\EuropaSearch\Transporters\Requests\Index
  */
 class DeleteIndexItemRequest extends AbstractIndexingRequest
 {

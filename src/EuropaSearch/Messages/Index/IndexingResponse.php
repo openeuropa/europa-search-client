@@ -1,8 +1,8 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Index;
+namespace OpenEuropa\EuropaSearch\Messages\Index;
 
-use EC\EuropaSearch\Messages\MessageInterface;
+use OpenEuropa\EuropaSearch\Messages\MessageInterface;
 
 /**
  * Class StringResponseMessage.
@@ -10,7 +10,7 @@ use EC\EuropaSearch\Messages\MessageInterface;
  * It represents a response coming from the web service under the
  * format of string.
  *
- * @package EC\EuropaSearch\Messages
+ * @package OpenEuropa\EuropaSearch\Messages
  */
 class IndexingResponse implements MessageInterface
 {

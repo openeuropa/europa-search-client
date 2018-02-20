@@ -1,10 +1,10 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components\Filters\Clauses;
+namespace OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface;
-use EC\EuropaSearch\Messages\Components\Filters\BoostableFilter;
-use EC\EuropaSearch\Messages\Components\ComponentInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\Filters\BoostableFilter;
+use OpenEuropa\EuropaSearch\Messages\Components\ComponentInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * The actual filter implementation are in its extension.
  *
- * @package EC\EuropaSearch\Messages\Components\Filters\Clauses
+ * @package OpenEuropa\EuropaSearch\Messages\Components\Filters\Clauses
  *
  * {@internal It only exists for only declaring methods common to sub-classes.}
  */
@@ -31,14 +31,14 @@ abstract class AbstractClause extends BoostableFilter implements ComponentInterf
     /**
      * The metadata implied in the criteria definition.
      *
-     * @var \EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata
+     * @var \OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata
      */
     protected $impliedMetadata;
 
     /**
      * Gets the metadata implied in the criteria definition.
      *
-     * @return \EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata $impliedMetadata
+     * @return \OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata $impliedMetadata
      *   The name of the implied metadata.
      */
     public function getImpliedMetadata()
@@ -49,7 +49,7 @@ abstract class AbstractClause extends BoostableFilter implements ComponentInterf
     /**
      * Sets the name of the metadata implied in the criteria definition.
      *
-     * @param \EC\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface $impliedMetadata
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\IndexableMetadataInterface $impliedMetadata
      *   The implied metadata.
      */
     public function setImpliedMetadata(IndexableMetadataInterface $impliedMetadata)

@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Helpers\Logger;
+namespace OpenEuropa\EuropaSearch\Tests\Helpers\Logger;
 
 use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
@@ -8,7 +8,7 @@ use Psr\Log\LogLevel;
 /**
  * Class TestLogger.
  *
- * @package EC\EuropaSearch\Tests\Helpers
+ * @package OpenEuropa\EuropaSearch\Tests\Helpers
  */
 class TestLogger extends AbstractLogger
 {

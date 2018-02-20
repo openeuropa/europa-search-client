@@ -1,15 +1,15 @@
 <?php
 
-namespace EC\EuropaSearch\Tests\Proxies\Converters\Index;
+namespace OpenEuropa\EuropaSearch\Tests\Proxies\Converters\Index;
 
-use EC\EuropaSearch\Tests\AbstractEuropaSearchTest;
+use OpenEuropa\EuropaSearch\Tests\AbstractEuropaSearchTest;
 
 /**
  * Class DeleteIndexItemConverterTest.
  *
  * Test the conversion of a DeleteIndexItemMessage object.
  *
- * @package EC\EuropaSearch\Tests\Proxies\Converters\Index
+ * @package OpenEuropa\EuropaSearch\Tests\Proxies\Converters\Index
  */
 class DeleteIndexItemConverterTest extends AbstractEuropaSearchTest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Components\DocumentMetadata;
+namespace OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata;
 
 /**
  * Interface IndexableMetadataInterface.
@@ -8,7 +8,7 @@ namespace EC\EuropaSearch\Messages\Components\DocumentMetadata;
  * Implementing this interface allows object to be identifiable as being
  * indexed in Europa Search.
  *
- * @package EC\EuropaSearch\Messages\Components\DocumentMetadata
+ * @package OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata
  */
 interface IndexableMetadataInterface
 {

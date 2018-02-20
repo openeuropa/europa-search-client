@@ -1,11 +1,11 @@
 <?php
 
-namespace EC\EuropaSearch\Proxies\Converters;
+namespace OpenEuropa\EuropaSearch\Proxies\Converters;
 
 use Composer\Semver\Semver;
-use EC\EuropaSearch\Messages\ValidatableMessageInterface;
-use EC\EuropaSearch\EuropaSearchConfig;
-use EC\EuropaSearch\Exceptions\ProxyException;
+use OpenEuropa\EuropaSearch\Messages\ValidatableMessageInterface;
+use OpenEuropa\EuropaSearch\EuropaSearchConfig;
+use OpenEuropa\EuropaSearch\Exceptions\ProxyException;
 
 /**
  * Class AbstractMessageConverter.
@@ -13,7 +13,7 @@ use EC\EuropaSearch\Exceptions\ProxyException;
  * Extending this class allows objects to share the message converter methods
  * that are common to all message conversions.
  *
- * @package EC\EuropaSearch\Proxies\Converters
+ * @package OpenEuropa\EuropaSearch\Proxies\Converters
  */
 abstract class AbstractMessageConverter implements MessageConverterInterface
 {

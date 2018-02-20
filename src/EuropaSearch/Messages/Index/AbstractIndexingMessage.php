@@ -1,9 +1,9 @@
 <?php
 
-namespace EC\EuropaSearch\Messages\Index;
+namespace OpenEuropa\EuropaSearch\Messages\Index;
 
-use EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata;
-use EC\EuropaSearch\Messages\IdentifiableMessageInterface;
+use OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata;
+use OpenEuropa\EuropaSearch\Messages\IdentifiableMessageInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Extending this class allows objects to share the indexing message properties
  * that are common to all indexing request.
  *
- * @package EC\EuropaSearch\Messages\Index
+ * @package OpenEuropa\EuropaSearch\Messages\Index
  *
  * {@internal It only exists for only declaring methods common to sub-classes.}
  */
@@ -143,7 +143,7 @@ abstract class AbstractIndexingMessage implements IdentifiableMessageInterface
     /**
      * Adds a metadata of the indexed document.
      *
-     * @param \EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata $metadata
+     * @param \OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata $metadata
      *   The metadata to add to the document.
      */
     public function addMetadata(AbstractMetadata $metadata)
@@ -189,7 +189,7 @@ abstract class AbstractIndexingMessage implements IdentifiableMessageInterface
         $metadata->addPropertyConstraint('documentId', new Assert\NotBlank());
         $metadata->addPropertyConstraint('documentLanguage', new Assert\Language());
         $metadata->addPropertyConstraints('metadata', [
-            new Assert\All(['constraints' => [new Assert\Type('\EC\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata')]]),
+            new Assert\All(['constraints' => [new Assert\Type('\OpenEuropa\EuropaSearch\Messages\Components\DocumentMetadata\AbstractMetadata')]]),
             new Assert\Valid(['traverse' => true]),
         ]);
     }
