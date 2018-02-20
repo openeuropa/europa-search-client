@@ -20,7 +20,7 @@ interface FilterQueryConverterInterface extends ComponentConverterInterface
      *
      * @param \OpenEuropa\EuropaSearch\Messages\Components\NestedComponentInterface $query
      *   The component to convert.
-     * @param array                                                         $convertedComponents
+     * @param array                                                                 $convertedComponents
      *   The list of child components that are ready to be used in the
      *   component final conversion.
      *

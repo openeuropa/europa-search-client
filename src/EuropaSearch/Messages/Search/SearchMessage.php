@@ -196,7 +196,7 @@ class SearchMessage implements ValidatableMessageInterface
      *   The metadata object defining the raw name of the field on which
      *   basing the sorting.
      *   Only the name attribute of the object is mandatory.
-     * @param string                                                                 $sortDirection
+     * @param string                                                                         $sortDirection
      *   The sort direction to use.
      */
     public function setSortCriteria(AbstractMetadata $sortMetadata, $sortDirection = self::SEARCH_SORT_ASC)

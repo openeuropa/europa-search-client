@@ -45,7 +45,7 @@ interface ProxyControllerInterface
      *   The converter to use.
      * @param \OpenEuropa\EuropaSearch\Messages\ValidatableMessageInterface         $message
      *   The message to convert.
-     * @param array                                                         $convertedComponent
+     * @param array                                                                 $convertedComponent
      *   The list of converted message components to integrate.
      *
      * @return mixed
@@ -94,7 +94,7 @@ interface ProxyControllerInterface
      *
      * @param \OpenEuropa\EuropaSearch\Messages\MessageInterface $message
      *   The message to send.
-     * @param TransporterInterface                       $transporter
+     * @param TransporterInterface                               $transporter
      *   The transporter in charge of the actual sending.
      *
      * @return \OpenEuropa\EuropaSearch\Messages\MessageInterface
@@ -113,7 +113,7 @@ interface ProxyControllerInterface
      *
      * @param \OpenEuropa\EuropaSearch\Proxies\Converters\MessageConverterInterface $converter
      *   The converter to use for the conversion.
-     * @param mixed                                                         $response
+     * @param mixed                                                                 $response
      *   The response received from the Transporters layer
      *
      * @return \OpenEuropa\EuropaSearch\Messages\MessageInterface

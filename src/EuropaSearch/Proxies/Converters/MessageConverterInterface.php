@@ -34,7 +34,7 @@ interface MessageConverterInterface
      *
      * @param \OpenEuropa\EuropaSearch\Messages\ValidatableMessageInterface $message
      *   The message to convert.
-     * @param array                                                 $convertedComponent
+     * @param array                                                         $convertedComponent
      *   Array of components that have already been converted in a
      *   previous process.
      * @param \OpenEuropa\EuropaSearch\EuropaSearchConfig                   $configuration
@@ -48,7 +48,7 @@ interface MessageConverterInterface
     /**
      * Converts a response received from the Transporter layer into a Message object.
      *
-     * @param mixed                               $response
+     * @param mixed                                       $response
      *   The response received from the Transporter layer.
      * @param \OpenEuropa\EuropaSearch\EuropaSearchConfig $configuration
      *   The Web service configuration.

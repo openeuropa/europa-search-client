@@ -159,7 +159,7 @@ class EuropaSearch
     /**
      * Gets a ClientInterface implementation from its id.
      *
-     * @param string                              $applicationId
+     * @param string                                      $applicationId
      *   The application implementation id.
      * @param \OpenEuropa\EuropaSearch\EuropaSearchConfig $configuration
      *   The configuration required by the called application.

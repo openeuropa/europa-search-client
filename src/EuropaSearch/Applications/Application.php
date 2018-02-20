@@ -57,7 +57,7 @@ class Application implements ApplicationInterface
     /**
      * DefaultClient constructor.
      *
-     * @param \Symfony\Component\Validator\ValidatorBuilder      $validator
+     * @param \Symfony\Component\Validator\ValidatorBuilder              $validator
      * @param \OpenEuropa\EuropaSearch\Proxies\ProxyControllerInterface  $proxy
      * @param \OpenEuropa\EuropaSearch\Transporters\TransporterInterface $transporter
      * @param \OpenEuropa\EuropaSearch\Services\LogsManager              $logsManager
