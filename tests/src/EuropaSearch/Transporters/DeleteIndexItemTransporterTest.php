@@ -35,7 +35,7 @@ class DeleteIndexItemTransporterTest extends AbstractEuropaSearchTest
 
         $this->assertEquals('DELETE', $sentRequest->getMethod(), 'The indexing request does not use the right HTTP method.');
 
-        $expectedTarget = '/es/ingestion-api/rest/ingestion?reference=web_content_delete_1&apiKey=a221108a-180d-HTTP-INDEXING-TEST&database=EC-EUROPA-DUMMY-INDEXING';
+        $expectedTarget = '/es/ingestion-api/rest/ingestion?reference=web_content_delete_1&apiKey=a221108a-180d-HTTP-INDEXING-TEST&database=OPENEUROPA-DUMMY-INDEXING';
         $this->assertEquals($expectedTarget, $sentRequest->getRequestTarget(), 'The index item deletion request does not use the right url.');
     }
 

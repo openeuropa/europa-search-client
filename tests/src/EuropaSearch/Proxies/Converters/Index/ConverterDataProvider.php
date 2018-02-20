@@ -88,7 +88,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         // Expected object.
         $indexingRequest = new IndexWebContentRequest();
         $indexingRequest->setAPIKey('a221108a-180d-HTTP-INDEXING-TEST');
-        $indexingRequest->setDatabase('EC-EUROPA-DUMMY-INDEXING');
+        $indexingRequest->setDatabase('OPENEUROPA-DUMMY-INDEXING');
         $indexingRequest->setDocumentId($documentId);
         $indexingRequest->setDocumentURI($documentURI);
         $indexingRequest->setDocumentLanguage($documentLanguage);
@@ -167,7 +167,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         // Expected object.
         $indexingRequest = new IndexFileRequest();
         $indexingRequest->setAPIKey('a221108a-180d-HTTP-INDEXING-TEST');
-        $indexingRequest->setDatabase('EC-EUROPA-DUMMY-INDEXING');
+        $indexingRequest->setDatabase('OPENEUROPA-DUMMY-INDEXING');
         $indexingRequest->setDocumentId($fileId);
         $indexingRequest->setDocumentURI($fileURI);
         $indexingRequest->setDocumentLanguage($fileLanguage);
@@ -202,7 +202,7 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
         // Expected object.
         $indexingRequest = new DeleteIndexItemRequest();
         $indexingRequest->setAPIKey('a221108a-180d-HTTP-INDEXING-TEST');
-        $indexingRequest->setDatabase('EC-EUROPA-DUMMY-INDEXING');
+        $indexingRequest->setDatabase('OPENEUROPA-DUMMY-INDEXING');
         $indexingRequest->setDocumentId($documentId);
 
         return [

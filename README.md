@@ -1,7 +1,7 @@
 # Europa Search Client Library
 
-[![Build Status](https://travis-ci.org/ec-europa/oe-europa-search-client.svg?branch=master)](https://travis-ci.org/ec-europa/oe-europa-search-client)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ec-europa/oe-europa-search-client/badges/quality-score.png?b=issue-12-nept-1461)](https://scrutinizer-ci.com/g/ec-europa/oe-europa-search-client/?branch=issue-12-nept-1461)
+[![Build Status](https://travis-ci.org/openeuropa/europa-search-client.svg?branch=master)](https://travis-ci.org/openeuropa/europa-search-client)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/openeuropa/europa-search-client/badges/quality-score.png?b=issue-12-nept-1461)](https://scrutinizer-ci.com/g/openeuropa/europa-search-client/?branch=issue-12-nept-1461)
 
 The Europa Search Client Library aims to hide Europa Search services complexity behind a 
 easy-to-use client library so that users don't have to worry about building their own 
@@ -350,11 +350,11 @@ They complete the information given in the [Library use](#library-use) section.
 
 ## Quality control
 
-The automatic quality control is managed by the ["OpenEuropa code review"](https://github.com/ec-europa/oe-code-review) component.
+The automatic quality control is managed by the ["OpenEuropa code review"](https://github.com/openeuropa/code-review) component.
  
 The component depends on [GrumPHP](https://github.com/phpro/grumphp) and based its controls on the Drupal coding convention.
 
-Check the ["OpenEuropa code review" documentation](https://github.com/ec-europa/oe-code-review/blob/master/README.md) for more.
+Check the ["OpenEuropa code review" documentation](https://github.com/openeuropa/code-review/blob/master/README.md) for more.
 
 ### Component's Usage
 

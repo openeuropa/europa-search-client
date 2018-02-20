@@ -205,8 +205,8 @@ Sed nec eros sit amet lorem convallis accumsan sed nec tellus. Maecenas eu odio 
 
             $result->setContentType('text/plain');
 
-            $result->setDatabase('EC-EUROPA-DUMMY-SEARCH');
-            $result->setDatabaseLabel('EC-EUROPA-DUMMY-SEARCH');
+            $result->setDatabase('OPENEUROPA-DUMMY-SEARCH');
+            $result->setDatabaseLabel('OPENEUROPA-DUMMY-SEARCH');
 
             $content = $resultId.': Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempor mattis sem vitae egestas. Nulla sed mauris sed ante convallis scelerisque. Vestibulum urna nisl, aliquam non risus vel, varius commodo augue. Aliquam efficitur elementum dapibus. Aliquam erat volutpat. Nulla orci purus, ultricies non velit at, venenatis fringilla ipsum. Sed porta nunc sit amet felis semper, at tempor erat dapibus. Sed id ipsum enim. Mauris suscipit pharetra lacinia. In nisi sem, tincidunt ac vestibulum ut, ultrices sed nisi. Phasellus nec diam at libero suscipit consequat. Nunc dapibus, ante ac hendrerit varius, sapien ex consequat ante, non venenatis ipsum metus eu ligula. Phasellus mattis arcu ut erat vulputate, sit amet blandit magna egestas. Vivamus nisl ipsum, maximus non tempor nec, finibus eu nisl. Phasellus lacinia interdum iaculis.';
             $summary = $content.' summary.';
