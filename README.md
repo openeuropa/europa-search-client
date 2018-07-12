@@ -1,7 +1,5 @@
 # Europa Search Client Library
-
 [![Build Status](https://drone.fpfis.eu/api/badges/openeuropa/europa-search-client/status.svg)](https://drone.fpfis.eu/openeuropa/europa-search-client/)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/openeuropa/europa-search-client/badges/quality-score.png?b=issue-12-nept-1461)](https://scrutinizer-ci.com/g/openeuropa/europa-search-client/?branch=issue-12-nept-1461)
 
 The Europa Search Client Library aims to hide Europa Search services complexity behind a 
 easy-to-use client library so that users don't have to worry about building their own 
