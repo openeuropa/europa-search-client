@@ -1,0 +1,40 @@
+{
+    "name": "openeuropa/europa-search-client",
+    "description": "A PHP client library for communicating with the Europa Search service.",
+    "type": "library",
+    "license": "EUPL-1.2",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.1",
+        "guzzlehttp/psr7": "^1.6",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.0",
+        "psr/http-message": "^1.0",
+        "symfony/options-resolver": "^4.3",
+        "symfony/property-info": "^4.3",
+        "symfony/serializer": "^3.4"
+    },
+    "require-dev": {
+        "openeuropa/code-review": "~1.0.0-alpha4"
+    },
+    "suggest": {
+        "http-interop/http-factory-guzzle": "PSR-17 HTTP Factories implementation for Guzzle",
+        "php-http/guzzle6-adapter": "PSR-18 HTTP Client implementation for Guzzle"
+    },
+    "autoload": {
+        "psr-4": {
+            "OpenEuropa\\EuropaSearchClient\\": "./src/"
+        }
+    },
+    "extra": {
+        "composer-exit-on-patch-failure": true,
+        "enable-patching": true
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.1.9"
+        }
+    }
+}
