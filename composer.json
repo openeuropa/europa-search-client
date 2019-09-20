@@ -16,7 +16,7 @@
         "symfony/serializer": "^3.4"
     },
     "require-dev": {
-        "openeuropa/code-review": "~1.0.0-alpha4",
+        "openeuropa/code-review": "~1.0.0-beta4",
         "phpunit/phpunit": "^7.5"
     },
     "suggest": {
