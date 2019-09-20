@@ -1,0 +1,53 @@
+workspace:
+  base: /test
+  path: europa-search-client
+
+services:
+  web:
+    image: ${IMAGE_PHP}
+    environment:
+      - DOCUMENT_ROOT=/test/europa-search-client
+
+pipeline:
+  composer-install-lowest:
+    group: prepare
+    image: ${IMAGE_PHP}
+    volumes:
+      - /cache:/cache
+    commands:
+      - composer install --ansi --no-suggest --no-progress
+      - composer update --prefer-lowest --prefer-stable --ansi --no-suggest --no-progress
+    when:
+      matrix:
+        COMPOSER_BOUNDARY: lowest
+
+  composer-install-highest:
+    group: prepare
+    image: ${IMAGE_PHP}
+    volumes:
+      - /cache:/cache
+    commands:
+      - composer install --ansi --no-suggest --no-progress
+    when:
+      matrix:
+        COMPOSER_BOUNDARY: highest
+
+  grumphp:
+    group: test
+    image: ${IMAGE_PHP}
+    commands:
+      - ./vendor/bin/grumphp run
+
+  phpunit:
+    group: test
+    image: ${IMAGE_PHP}
+    commands:
+      - ./vendor/bin/phpunit
+
+matrix:
+  IMAGE_PHP:
+    - fpfis/httpd-php-ci:7.1
+    - fpfis/httpd-php-ci:7.2
+  COMPOSER_BOUNDARY:
+    - lowest
+    - highest
