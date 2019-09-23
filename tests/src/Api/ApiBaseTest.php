@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
+use GuzzleHttp\Psr7\MultipartStream;
 use OpenEuropa\EuropaSearchClient\Api\ApiBase;
 use OpenEuropa\EuropaSearchClient\ClientInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -30,10 +32,7 @@ class ApiBaseTest extends TestCase
      */
     public function testAddQueryParameters(string $uri, array $queryParameters, string $expected): void
     {
-        $client = $this->getMockBuilder(ClientInterface::class)->getMock();
-        $api = $this->getMockBuilder(ApiBase::class)
-            ->setConstructorArgs([$client])
-            ->getMockForAbstractClass();
+        $api = $this->getApiBaseMock();
         $reflection = new \ReflectionClass($api);
         $method = $reflection->getMethod('addQueryParameters');
         $method->setAccessible(true);
@@ -84,5 +83,53 @@ class ApiBaseTest extends TestCase
                 'http://www.example.org?a=lorem%26ipsum',
             ]
         ];
+    }
+
+    /**
+     * Tests the getMultipartStream() method.
+     */
+    public function testGetMultipartStream(): void
+    {
+        $api = $this->getApiBaseMock();
+        $reflection = new \ReflectionClass($api);
+        $method = $reflection->getMethod('getMultipartStream');
+        $method->setAccessible(true);
+
+        $stream = $method->invokeArgs($api, [
+            [
+                'payload1' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida orci ut magna ornare interdum.',
+                'payload2' => 'Pellentesque hendrerit nibh placerat, posuere ipsum nec, feugiat turpis.',
+            ]
+        ]);
+
+        $this->assertInstanceOf(MultipartStream::class, $stream);
+        $boundary = $stream->getBoundary();
+        $expected = "--$boundary\r\n"
+        . "Content-Type: application/json\r\n"
+        . "Content-Disposition: form-data; name=\"payload1\"; filename=\"blob\"\r\n"
+        . "Content-Length: 99\r\n\r\n"
+        . "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida orci ut magna ornare interdum.\r\n"
+        . "--$boundary\r\n"
+        . "Content-Type: application/json\r\n"
+        . "Content-Disposition: form-data; name=\"payload2\"; filename=\"blob\"\r\n"
+        . "Content-Length: 72\r\n\r\n"
+        . "Pellentesque hendrerit nibh placerat, posuere ipsum nec, feugiat turpis.\r\n"
+        . "--$boundary--\r\n";
+        $this->assertEquals($expected, $stream->getContents());
+    }
+
+    /**
+     * Creates a mocked version of the ApiBase class.
+     *
+     * @return \PHPUnit\Framework\MockObject\MockObject
+     *   The mocked class.
+     */
+    protected function getApiBaseMock(): MockObject
+    {
+        $client = $this->getMockBuilder(ClientInterface::class)->getMock();
+        $api = $this->getMockBuilder(ApiBase::class)
+            ->setConstructorArgs([$client])
+            ->getMockForAbstractClass();
+        return $api;
     }
 }
