@@ -18,6 +18,7 @@ class SearchApi extends ApiBase
      *
      * @param array $parameters
      *   The request parameters:
+     *     - apiKey: The unique key.
      *     - text: The text to match in documents. Required.
      *
      * @return \OpenEuropa\EuropaSearchClient\Model\Search

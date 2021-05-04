@@ -23,7 +23,7 @@
     },
     "suggest": {
         "http-interop/http-factory-guzzle": "PSR-17 HTTP Factories implementation for Guzzle",
-        "php-http/guzzle6-adapter": "PSR-18 HTTP Client implementation for Guzzle"
+        "php-http/guzzle7-adapter": "PSR-18 HTTP Client implementation for Guzzle"
     },
     "autoload": {
         "psr-4": {
