@@ -16,8 +16,10 @@
         "symfony/serializer": "^3.4"
     },
     "require-dev": {
+        "http-interop/http-factory-guzzle": "^1.0",
         "openeuropa/code-review": "~1.0.0-beta4",
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^7.5",
+        "php-http/guzzle7-adapter": "^1.0"
     },
     "suggest": {
         "http-interop/http-factory-guzzle": "PSR-17 HTTP Factories implementation for Guzzle",
