@@ -7,6 +7,7 @@ namespace OpenEuropa\EuropaSearchClient\Api;
 use GuzzleHttp\Psr7\MultipartStream;
 use OpenEuropa\EuropaSearchClient\ClientInterface;
 use Psr\Http\Message\StreamInterface;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -20,22 +21,12 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 abstract class ApiBase
 {
-
     /**
      * The API client.
      *
      * @var \OpenEuropa\EuropaSearchClient\ClientInterface
      */
     protected $client;
-
-    /**
-     * The API base parameters.
-     *
-     * @todo possibly remove, not used.
-     *
-     * @var array
-     */
-    protected $parameters;
 
     /**
      * The serializer.
@@ -45,17 +36,21 @@ abstract class ApiBase
     protected $serializer;
 
     /**
+     * The additional request headers.
+     *
+     * @var array
+     */
+    protected $request_headers;
+
+    /**
      * ApiBase constructor.
      *
      * @param \OpenEuropa\EuropaSearchClient\ClientInterface $client
      *   The API client.
-     * @param array $parameters
-     *   The base parameters common to all API requests. Defaults to empty.
      */
     public function __construct(ClientInterface $client, array $parameters = [])
     {
         $this->client = $client;
-        $this->parameters = $parameters;
     }
 
     /**
@@ -77,12 +72,29 @@ abstract class ApiBase
     /**
      * Returns the option resolver configured with the API rules.
      *
-     * @return \Symfony\Component\OptionsResolver\OptionsResolver $resolver
+     * @return \Symfony\Component\OptionsResolver\Options $resolver
      *   The options resolver.
      */
-    protected function getOptionResolver(): OptionsResolver
+    protected function getOptionResolver(): Options
     {
         return new OptionsResolver();
+    }
+
+    /**
+     * Set additional request headers.
+     *
+     * @param $header
+     *   The request header name.
+     * @param $value
+     *   The value.
+     *
+     * @return $this
+     */
+    protected function setRequestHeader($header, $value): ApiBase
+    {
+        $this->request_headers[$header] = $value;
+
+        return $this;
     }
 
     /**
@@ -125,9 +137,13 @@ abstract class ApiBase
             $request = $request->withBody($stream);
         }
 
-        $response = $this->client->getHttpClient()->sendRequest($request);
+        if (!empty($this->request_headers)) {
+            foreach ($this->request_headers as $header => $value) {
+                $request->withHeader($header, $value);
+            }
+        }
 
-        return $response;
+        return $this->client->getHttpClient()->sendRequest($request);
     }
 
     /**
