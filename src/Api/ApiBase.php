@@ -43,6 +43,13 @@ abstract class ApiBase
     protected $request_headers;
 
     /**
+     * The http response.
+     *
+     * @var \Psr\Http\Message\ResponseInterface
+     */
+    protected $response;
+
+    /**
      * ApiBase constructor.
      *
      * @param \OpenEuropa\EuropaSearchClient\ClientInterface $client
