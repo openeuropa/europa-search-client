@@ -16,12 +16,14 @@
         "symfony/serializer": "^3.4"
     },
     "require-dev": {
+        "gskema/elasticsearch-query-dsl-php": "dev-OEL-96",
         "http-interop/http-factory-guzzle": "^1.0",
         "openeuropa/code-review": "~1.0.0-beta4",
         "phpunit/phpunit": "^7.5",
         "php-http/guzzle7-adapter": "^1.0"
     },
     "suggest": {
+        "skema/elasticsearch-query-dsl-php": "ElasticSearch query DSL builder for PHP",
         "http-interop/http-factory-guzzle": "PSR-17 HTTP Factories implementation for Guzzle",
         "php-http/guzzle7-adapter": "PSR-18 HTTP Client implementation for Guzzle"
     },
@@ -30,6 +32,12 @@
             "OpenEuropa\\EuropaSearchClient\\": "./src/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/drishu/elasticsearch-query-dsl-php"
+        }
+    ],
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true

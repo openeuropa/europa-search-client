@@ -46,6 +46,12 @@ class SearchApiTest extends ApiTest
      */
     public function provideTestSearchScenarios(): array
     {
+        $query_class = $this->getMockBuilder(\JsonSerializable::class)->getMock();
+        $query_class->method('jsonSerialize')
+            ->willReturn($this->returnValue([
+                'term' => ['Value1']
+            ]));
+
         $expected = [
             'simple text search' => [
                 'apiVersion' => '2.69',
@@ -64,6 +70,23 @@ class SearchApiTest extends ApiTest
                     ]
                 ],
             ],
+            'advanced query search' => [
+                'apiVersion' => '2.69',
+                'terms' => 'test2',
+                'responseTime' => 2,
+                'totalResults' => 1,
+                'pageNumber' => 1,
+                'pageSize' => 10,
+                'results' => [
+                    [
+                        'apiVersion' => '2.69',
+                        'reference' => 'ref2',
+                        'url' => 'https://example2.com',
+                        'contentType' => 'contentType',
+                        'content' => 'this is advanced test',
+                    ]
+                ],
+            ],
         ];
         return [
             'simple text search' => [
@@ -73,6 +96,15 @@ class SearchApiTest extends ApiTest
                 ],
                 $expected['simple text search'],
                 new Response(200, [], json_encode($expected['simple text search'])),
+            ],
+            'advanced query search' => [
+                [
+                    'apiKey' => 'test_api_key',
+                    'text' => 'test2',
+                    'query' => $query_class,
+                ],
+                $expected['advanced query search'],
+                new Response(200, [], json_encode($expected['advanced query search'])),
             ],
         ];
     }
