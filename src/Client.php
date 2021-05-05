@@ -125,6 +125,7 @@ class Client implements ClientInterface, RequestFactoryInterface, StreamFactoryI
             'database',
             'ingestion_api_endpoint',
             'search_api_endpoint',
+            'token_api_endpoint',
         ];
         foreach ($options as $option) {
             $resolver->setRequired($option)->setAllowedTypes($option, 'string');
