@@ -4,9 +4,8 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use OpenEuropa\EuropaSearchClient\Model\Search;
 use OpenEuropa\EuropaSearchClient\Model\Token;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\Options;
 
 /**
  * Class representing the Token API endpoint.
@@ -15,19 +14,23 @@ class TokenApi extends ApiBase
 {
 
     /**
-     * @var string Token endpoint grant type
+     * Token endpoint grant type
+     *
+     * @var string
      */
     private static $grantType = 'client_credentials';
 
     /**
-     * Executes a search.
+     * Requests a access token.
      *
      * @param array $parameters
      *   The request parameters:
-     *     - text: The text to match in documents. Required.
+     *     - grant_type: The text to match in documents. Required.
+     *     - consumerKey: The consumer key.
+     *     - consumerSecret: The consumer secret.
      *
-     * @return \OpenEuropa\EuropaSearchClient\Model\Search
-     *   The search model.
+     * @return \OpenEuropa\EuropaSearchClient\Model\Token
+     *   The token model.
      *
      * @throws \Psr\Http\Client\ClientExceptionInterface
      *   Thrown if an error happened while processing the request.
@@ -36,12 +39,15 @@ class TokenApi extends ApiBase
     {
         $resolver = $this->getOptionResolver();
         $parameters = $resolver->resolve($parameters);
-        $queryParameters = ["grant_type" => $parameters['grant_type']];
-        $authorizationCredentials = $parameters['consumerKey'] . ':' . $parameters['consumerSecret'];
 
-        $response = $this->send('POST', 'token', $queryParameters, [], true, $authorizationCredentials);
+        $queryParameters = ['grant_type' => $parameters['grant_type']];
 
-        /** @var Search $token */
+        $base64_credentials = base64_encode($parameters['consumerKey'] . ':' . $parameters['consumerSecret']);
+        $this->setRequestHeader('Authorization', "Basic $base64_credentials");
+
+        $response = $this->send('POST', 'token', $queryParameters, [], true);
+
+        /** @var Token $token */
         $token = $this->getSerializer()->deserialize((string)$response->getBody(), Token::class, 'json');
 
         return $token;
@@ -50,7 +56,7 @@ class TokenApi extends ApiBase
     /**
      * @inheritDoc
      */
-    protected function getOptionResolver(): OptionsResolver
+    protected function getOptionResolver(): Options
     {
         $resolver = parent::getOptionResolver();
 
@@ -59,12 +65,10 @@ class TokenApi extends ApiBase
             ->setDefault('grant_type', self::$grantType);
 
         $resolver->setRequired('consumerKey')
-            ->setAllowedTypes('consumerKey', 'string')
-            ->setDefault('consumerKey', self::$grantType);
+            ->setAllowedTypes('consumerKey', 'string');
 
         $resolver->setRequired('consumerSecret')
-            ->setAllowedTypes('consumerSecret', 'string')
-            ->setDefault('consumerSecret', self::$grantType);
+            ->setAllowedTypes('consumerSecret', 'string');
 
         return $resolver;
     }

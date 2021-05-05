@@ -10,11 +10,10 @@ use PHPUnit\Framework\TestCase;
 /**
  * Tests the Token model class.
  *
- * @covers \OpenEuropa\EuropaSearchClient\Model\Search
+ * @covers \OpenEuropa\EuropaSearchClient\Model\Token
  */
 class TokenTest extends TestCase
 {
-
     /**
      * Tests the setters and getters.
      */

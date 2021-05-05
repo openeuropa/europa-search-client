@@ -9,7 +9,6 @@ namespace OpenEuropa\EuropaSearchClient\Model;
  */
 class Token
 {
-
     /**
      * JWT Access token
      *
@@ -39,6 +38,8 @@ class Token
     protected $expiresIn;
 
     /**
+     * Get the access token.
+     *
      * @return string
      */
     public function getAccessToken(): string
@@ -47,14 +48,22 @@ class Token
     }
 
     /**
+     * Set the access token.
+     *
      * @param string $accessToken
+     *
+     * @return $this
      */
-    public function setAccessToken(string $accessToken): void
+    public function setAccessToken(string $accessToken): Token
     {
         $this->accessToken = $accessToken;
+
+        return $this;
     }
 
     /**
+     * Get the scope.
+     *
      * @return mixed
      */
     public function getScope(): string
@@ -63,15 +72,22 @@ class Token
     }
 
     /**
+     * Set the scope.
+     *
      * @param string $scope
-     * @return void
+     *
+     * @return $this
      */
-    public function setScope(string $scope): void
+    public function setScope(string $scope): Token
     {
         $this->scope = $scope;
+
+        return $this;
     }
 
     /**
+     * Get the token type.
+     *
      * @return string
      */
     public function getTokenType(): string
@@ -80,14 +96,22 @@ class Token
     }
 
     /**
+     * Set the token type.
+     *
      * @param string $tokenType
+     *
+     * @return $this
      */
-    public function setTokenType(string $tokenType): void
+    public function setTokenType(string $tokenType): Token
     {
         $this->tokenType = $tokenType;
+
+        return $this;
     }
 
     /**
+     * Return the expiration period.
+     *
      * @return int
      */
     public function getExpiresIn(): int
@@ -96,10 +120,16 @@ class Token
     }
 
     /**
+     * Sets the expiration.
+     *
      * @param int $expiresIn
+     *
+     * @return $this
      */
-    public function setExpiresIn(int $expiresIn): void
+    public function setExpiresIn(int $expiresIn): Token
     {
         $this->expiresIn = $expiresIn;
+
+        return $this;
     }
 }
