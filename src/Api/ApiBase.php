@@ -43,11 +43,11 @@ abstract class ApiBase
     protected $request_headers;
 
     /**
-     * The http response.
+     * The additional request headers.
      *
-     * @var \Psr\Http\Message\ResponseInterface
+     * @var array
      */
-    protected $response;
+    protected $request_headers;
 
     /**
      * ApiBase constructor.
