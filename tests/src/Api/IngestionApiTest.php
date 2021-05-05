@@ -18,6 +18,23 @@ use Psr\Http\Message\ResponseInterface;
  */
 class IngestionApiTest extends ApiTest
 {
+    public function testSetToken()
+    {
+        $client = $this->getMockBuilder(ClientInterface::class)->getMock();
+        $ingestionApi = new IngestionApi($client);
+        $ingestionApi->setToken('test_jwt');
+        $reflection = new \ReflectionClass($ingestionApi);
+        $property = $reflection->getProperty('request_headers');
+        $property->setAccessible(true);
+
+        $expected = [
+            'Authorization' => 'Bearer test_jwt',
+            'Authorization-propagation' => 'test_jwt',
+        ];
+
+        $this->assertEquals($expected, $property->getValue($ingestionApi));
+    }
+
     /**
      * Test the setToken method.
      */
