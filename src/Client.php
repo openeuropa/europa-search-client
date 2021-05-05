@@ -6,16 +6,17 @@ namespace OpenEuropa\EuropaSearchClient;
 
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\StreamInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * The client to interface with the Europa Search API calls.
  *
- * @todo Add methods to allow fluent calls: $client->ingestion()->ingestText(...)
  * @todo Rename "_endpoint" options as they represent servers.
  */
-class Client implements ClientInterface
+class Client implements ClientInterface, RequestFactoryInterface, StreamFactoryInterface
 {
 
     /**
@@ -129,5 +130,37 @@ class Client implements ClientInterface
         }
 
         return $resolver;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createRequest(string $method, $uri): RequestInterface
+    {
+        return $this->requestFactory->createRequest($method, $uri);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createStream(string $content = ''): StreamInterface
+    {
+        return $this->streamFactory->createStream($content);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createStreamFromFile(string $filename, string $mode = 'r'): StreamInterface
+    {
+        return $this->streamFactory->createStreamFromFile($filename, $mode);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createStreamFromResource($resource): StreamInterface
+    {
+        return $this->streamFactory->createStreamFromResource($resource);
     }
 }

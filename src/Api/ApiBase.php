@@ -48,7 +48,7 @@ abstract class ApiBase
      * @param \OpenEuropa\EuropaSearchClient\ClientInterface $client
      *   The API client.
      */
-    public function __construct(ClientInterface $client, array $parameters = [])
+    public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
@@ -126,13 +126,13 @@ abstract class ApiBase
     ) {
         $uri = $this->prepareUri($path, $queryParameters);
 
-        $request = $this->client->getRequestFactory()->createRequest($method, $uri);
+        $request = $this->client->createRequest($method, $uri);
 
         if (!empty($formParameters)) {
             if ($multipart) {
                 $stream = $this->getMultipartStream($formParameters);
             } else {
-                $stream = $this->client->getStreamFactory()->createStream(http_build_query($formParameters));
+                $stream = $this->client->createStream(http_build_query($formParameters));
             }
             $request = $request->withBody($stream);
         }
