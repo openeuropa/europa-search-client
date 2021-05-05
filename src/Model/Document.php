@@ -137,10 +137,14 @@ class Document
      *
      * @param bool $accessRestriction
      *   A boolean value.
+     *
+     * @return $this
      */
-    public function setAccessRestriction(bool $accessRestriction): void
+    public function setAccessRestriction(bool $accessRestriction): Document
     {
         $this->accessRestriction = $accessRestriction;
+
+        return $this;
     }
 
     /**
@@ -159,10 +163,14 @@ class Document
      *
      * @param string $apiVersion
      *   The API version.
+     *
+     * @return $this
      */
-    public function setApiVersion(string $apiVersion): void
+    public function setApiVersion(string $apiVersion): Document
     {
         $this->apiVersion = $apiVersion;
+
+        return $this;
     }
 
     /**
@@ -181,10 +189,14 @@ class Document
      *
      * @param \OpenEuropa\EuropaSearchClient\Model\Document[] $children
      *   The children documents.
+     *
+     * @return $this
      */
-    public function setChildren(array $children): void
+    public function setChildren(array $children): Document
     {
         $this->children = $children;
+
+        return $this;
     }
 
     /**
@@ -203,10 +215,14 @@ class Document
      *
      * @param string $content
      *   The document content.
+     *
+     * @return $this
      */
-    public function setContent(string $content): void
+    public function setContent(string $content): Document
     {
         $this->content = $content;
+
+        return $this;
     }
 
     /**
@@ -225,10 +241,14 @@ class Document
      *
      * @param string $contentType
      *   The document content type.
+     *
+     * @return $this
      */
-    public function setContentType(string $contentType): void
+    public function setContentType(string $contentType): Document
     {
         $this->contentType = $contentType;
+
+        return $this;
     }
 
     /**
@@ -241,10 +261,14 @@ class Document
 
     /**
      * @param string|null $database
+     *
+     * @return $this
      */
-    public function setDatabase(?string $database): void
+    public function setDatabase(?string $database): Document
     {
         $this->database = $database;
+
+        return $this;
     }
 
     /**
@@ -257,10 +281,14 @@ class Document
 
     /**
      * @param string|null $databaseLabel
+     *
+     * @return $this
      */
-    public function setDatabaseLabel(?string $databaseLabel): void
+    public function setDatabaseLabel(?string $databaseLabel): Document
     {
         $this->databaseLabel = $databaseLabel;
+
+        return $this;
     }
 
     /**
@@ -273,10 +301,14 @@ class Document
 
     /**
      * @param string|null $groupById
+     *
+     * @return $this
      */
-    public function setGroupById(?string $groupById): void
+    public function setGroupById(?string $groupById): Document
     {
         $this->groupById = $groupById;
+
+        return $this;
     }
 
     /**
@@ -295,10 +327,14 @@ class Document
      *
      * @param string $language
      *   The document language.
+     *
+     * @return $this
      */
-    public function setLanguage(string $language): void
+    public function setLanguage(string $language): Document
     {
         $this->language = $language;
+
+        return $this;
     }
 
     /**
@@ -317,10 +353,14 @@ class Document
      *
      * @param array $metadata
      *   A nested array of field names and values.
+     *
+     * @return $this
      */
-    public function setMetadata(array $metadata): void
+    public function setMetadata(array $metadata): Document
     {
         $this->metadata = $metadata;
+
+        return $this;
     }
 
     /**
@@ -339,10 +379,14 @@ class Document
      *
      * @param int|null $pages
      *   The number of pages in the document.
+     *
+     * @return $this
      */
-    public function setPages(?int $pages): void
+    public function setPages(?int $pages): Document
     {
         $this->pages = $pages;
+
+        return $this;
     }
 
     /**
@@ -361,10 +405,14 @@ class Document
      *
      * @param string $reference
      *   The document unique reference.
+     *
+     * @return $this
      */
-    public function setReference(string $reference): void
+    public function setReference(string $reference): Document
     {
         $this->reference = $reference;
+
+        return $this;
     }
 
     /**
@@ -383,10 +431,14 @@ class Document
      *
      * @param string|null $summary
      *   The document summary.
+     *
+     * @return $this
      */
-    public function setSummary(?string $summary): void
+    public function setSummary(?string $summary): Document
     {
         $this->summary = $summary;
+
+        return $this;
     }
 
     /**
@@ -405,10 +457,14 @@ class Document
      *
      * @param string|null $title
      *   The document title.
+     *
+     * @return $this
      */
-    public function setTitle(?string $title): void
+    public function setTitle(?string $title): Document
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
@@ -427,10 +483,14 @@ class Document
      *
      * @param string $url
      *   The document url.
+     *
+     * @return $this
      */
-    public function setUrl(string $url): void
+    public function setUrl(string $url): Document
     {
         $this->url = $url;
+
+        return $this;
     }
 
     /**
@@ -449,9 +509,13 @@ class Document
      *
      * @param float $weight
      *   The document weight.
+     *
+     * @return $this
      */
-    public function setWeight(float $weight): void
+    public function setWeight(float $weight): Document
     {
         $this->weight = $weight;
+
+        return $this;
     }
 }
