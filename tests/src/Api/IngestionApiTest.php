@@ -6,6 +6,7 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Api\IngestionApi;
+use OpenEuropa\EuropaSearchClient\ClientInterface;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use Psr\Http\Message\ResponseInterface;
 
@@ -17,6 +18,26 @@ use Psr\Http\Message\ResponseInterface;
  */
 class IngestionApiTest extends ApiTest
 {
+    /**
+     * Test the setToken method.
+     */
+    public function testSetToken()
+    {
+        $client = $this->getMockBuilder(ClientInterface::class)->getMock();
+        $ingestionApi = new IngestionApi($client);
+        $ingestionApi->setToken('test_jwt');
+        $reflection = new \ReflectionClass($ingestionApi);
+        $property = $reflection->getProperty('request_headers');
+        $property->setAccessible(true);
+
+        $expected = [
+            'Authorization' => 'Bearer test_jwt',
+            'Authorization-propagation' => 'test_jwt',
+        ];
+
+        $this->assertEquals($expected, $property->getValue($ingestionApi));
+    }
+
     /**
      * Tests the ingestText() method.
      *

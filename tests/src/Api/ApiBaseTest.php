@@ -19,6 +19,23 @@ class ApiBaseTest extends TestCase
 {
 
     /**
+     * Tests the setRequestHeader() method.
+     */
+    public function testSetRequestHeader(): void
+    {
+        $api = $this->getApiBaseMock();
+        $reflection = new \ReflectionClass($api);
+        $method = $reflection->getMethod('setRequestHeader');
+        $method->setAccessible(true);
+        $property = $reflection->getProperty('request_headers');
+        $property->setAccessible(true);
+
+        $method->invokeArgs($api, ['header_name', 'value']);
+
+        $this->assertEquals(['header_name' => 'value'], $property->getValue($api));
+    }
+
+    /**
      * Tests the addQueryParameters() method.
      *
      * @dataProvider addQueryParametersProvider
@@ -37,7 +54,7 @@ class ApiBaseTest extends TestCase
         $method = $reflection->getMethod('addQueryParameters');
         $method->setAccessible(true);
 
-        $uri = $method->invokeArgs($api, [ $uri, $queryParameters]);
+        $uri = $method->invokeArgs($api, [$uri, $queryParameters]);
         $this->assertEquals($expected, $uri);
     }
 

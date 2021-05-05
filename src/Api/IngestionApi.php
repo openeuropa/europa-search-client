@@ -206,9 +206,25 @@ class IngestionApi extends ApiBase
 
         $parameters = $resolver->resolve($parameters);
 
-        $this->send('DELETE', '/rest/document', $parameters);
+        $response = $this->send('DELETE', '/rest/document', $parameters);
 
-        return $this->response->getStatusCode() === 200;
+        return $response->getStatusCode() === 200;
+    }
+
+    /**
+     * Set the authorization token for ingestion.
+     *
+     * @param string $token
+     *   The authorization token.
+     *
+     * @return $this
+     */
+    public function setToken(string $token): IngestionApi
+    {
+        $this->setRequestHeader('Authorization', "Bearer $token");
+        $this->setRequestHeader('Authorization-propagation', "$token");
+
+        return $this;
     }
 
     /**
