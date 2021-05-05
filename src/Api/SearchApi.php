@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Model\Search;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -59,7 +60,7 @@ class SearchApi extends ApiBase
     /**
      * @inheritDoc
      */
-    protected function getOptionResolver(): OptionsResolver
+    protected function getOptionResolver(): Options
     {
         $resolver = parent::getOptionResolver();
 
