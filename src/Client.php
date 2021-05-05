@@ -123,6 +123,7 @@ class Client implements ClientInterface
             'database',
             'ingestion_api_endpoint',
             'search_api_endpoint',
+            'token_api_endpoint',
         ];
         foreach ($options as $option) {
             $resolver->setRequired($option)->setAllowedTypes($option, 'string');
