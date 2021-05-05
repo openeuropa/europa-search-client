@@ -4,14 +4,11 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use Http\Factory\Guzzle\UriFactory;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\Options;
 
 /**
  * Class representing the Ingestion API endpoints.
- *
- * @todo Enforce required parameters in the method signature.
  */
 class IngestionApi extends ApiBase
 {
@@ -19,15 +16,20 @@ class IngestionApi extends ApiBase
     /**
      * Ingest the provided text content.
      *
+     * @param string $uri
+     *   Link associated with document.
      * @param array $parameters
      *   The request parameters:
-     *   - uri: Link associated with document. Required.
-     *   - text: Content to ingest.
+     *   - text: Text content to ingest.
      *   - language: Array of languages in ISO 639-1 format. Defaults to all
      *   languages.
      *   - metadata: Extra fields to index.
      *   - reference: The reference of the document. If left empty a random one
      *   will be generated.
+     *   - aclUsers: List of authorized ECAS users in json format.
+     *   - aclNoUsers: List of prohibited  ECAS users in json format.
+     *   - aclGroups: List of authorized groups in json format.
+     *   - aclNoGroups: List of prohibited groups in json format.
      *
      * @return \OpenEuropa\EuropaSearchClient\Model\Ingestion
      *   The ingestion model.
@@ -35,39 +37,138 @@ class IngestionApi extends ApiBase
      * @throws \Psr\Http\Client\ClientExceptionInterface
      *   Thrown if an error happened while processing the request.
      */
-    public function ingestText(array $parameters): Ingestion
+    public function ingestText(string $uri, array $parameters): Ingestion
     {
+        $parameters['uri'] = $uri;
         $resolver = $this->getOptionResolver();
 
+        $resolver->setDefined('text')
+            ->setAllowedTypes('text', 'string');
+
+        return $this->ingest('/rest/ingestion/text', $parameters, $resolver);
+    }
+
+    /**
+     * Ingest the provided text content.
+     *
+     * @param string $uri
+     *   Link associated with document.
+     * @param array $parameters
+     *   The request parameters:
+     *   - file: Binary of new or updated document.
+     *   - language: Array of languages in ISO 639-1 format. Defaults to all
+     *   languages.
+     *   - metadata: Extra fields to index.
+     *   - reference: The reference of the document. If left empty a random one
+     *   will be generated.
+     *   - aclUsers: List of authorized ECAS users in json format.
+     *   - aclNoUsers: List of prohibited  ECAS users in json format.
+     *   - aclGroups: List of authorized groups in json format.
+     *   - aclNoGroups: List of prohibited groups in json format.
+     *
+     * @return \OpenEuropa\EuropaSearchClient\Model\Ingestion
+     *   The ingestion model.
+     *
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *   Thrown if an error happened while processing the request.
+     */
+    public function ingestFile(string $uri, array $parameters): Ingestion
+    {
+        $parameters['uri'] = $uri;
+        $resolver = $this->getOptionResolver();
+
+        $resolver->setDefined('file')
+            ->setAllowedTypes('file', 'string');
+
+        return $this->ingest('/rest/ingestion', $parameters, $resolver);
+    }
+
+    /**
+     * Ingest the provided content.
+     *
+     * @param string $uri
+     *   The REST uri.
+     * @param array $parameters
+     *   The request parameters:
+     *   - file: Binary of new or updated document.
+     *   - language: Array of languages in ISO 639-1 format. Defaults to all
+     *   languages.
+     *   - metadata: Extra fields to index.
+     *   - reference: The reference of the document. If left empty a random one
+     *   will be generated.
+     *   - aclUsers: List of authorized ECAS users in json format.
+     *   - aclNoUsers: List of prohibited  ECAS users in json format.
+     *   - aclGroups: List of authorized groups in json format.
+     *   - aclNoGroups: List of prohibited groups in json format.
+     * @param \Symfony\Component\OptionsResolver\Options $resolver
+     *   The options resolver.
+     *
+     * @return \OpenEuropa\EuropaSearchClient\Model\Ingestion
+     *   The ingestion model.
+     *
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *   Thrown if an error happened while processing the request.
+     */
+    protected function ingest(string $uri, array $parameters, Options $resolver): Ingestion
+    {
         $resolver->setRequired('uri')
             ->setAllowedTypes('uri', 'string')
             ->setAllowedValues('uri', function ($value) {
                 return filter_var($value, FILTER_VALIDATE_URL);
             });
 
-        $resolver->setDefined('text')
-            ->setAllowedTypes('text', 'string');
-
         $resolver->setDefined('language')
             ->setAllowedTypes('language', 'string[]');
         // @todo Validate languages with ISO 639-1 language codes.
-        // $resolver->setAllowedValues('languages', []);
-
-        $resolver->setDefined('metadata');
-        // @todo Metadata is a complex structure and it requires its own type.
-        // $resolver->setAllowedTypes('metadata', 'array');
-        // $resolver->setAllowedValues('metadata', '');
+        // Multiple languages possible in valid json format : [\"en\",\"fr\",\"de\",\"nl\"].
+        // $resolver->setAllowedValues('language', []);
 
         $resolver->setDefined('reference')
             ->setAllowedTypes('reference', 'string');
 
+        $resolver->setDefined('metadata');
+        // @todo: once we have a MetadataCollection class we will map to that.
+        $resolver->setAllowedTypes('metadata', 'array');
+
+        $resolver->setDefined('aclUsers');
+        $resolver->setAllowedTypes('aclUsers', 'array');
+
+        $resolver->setDefined('aclNoUsers');
+        $resolver->setAllowedTypes('aclNoUsers', 'array');
+
+        $resolver->setDefined('aclGroups');
+        $resolver->setAllowedTypes('aclGroups', 'array');
+
+        $resolver->setDefined('aclNoGroups');
+        $resolver->setAllowedTypes('aclNoGroups', 'array');
+
         $parameters = $resolver->resolve($parameters);
+
+        // Process values.
+        if (isset($parameters['metadata'])) {
+            $parameters['metadata'] = json_encode($parameters['metadata']);
+        }
+
+        if (isset($parameters['aclUsers'])) {
+            $parameters['aclUsers'] = json_encode($parameters['aclUsers']);
+        }
+
+        if (isset($parameters['aclNoUsers'])) {
+            $parameters['aclNoUsers'] = json_encode($parameters['aclNoUsers']);
+        }
+        if (isset($parameters['aclGroups'])) {
+            $parameters['aclGroups'] = json_encode($parameters['aclGroups']);
+        }
+
+        if (isset($parameters['aclNoGroups'])) {
+            $parameters['aclNoGroups'] = json_encode($parameters['aclNoGroups']);
+        }
 
         // Build the request.
         $queryKeys = array_flip(['apiKey', 'database', 'uri', 'reference']);
         $queryParameters = array_intersect_key($parameters, $queryKeys);
         $bodyParameters = array_diff_key($parameters, $queryKeys);
-        $response = $this->send('POST', 'rest/ingestion/text', $queryParameters, $bodyParameters, true);
+        $response = $this->send('POST', $uri, $queryParameters, $bodyParameters, true);
 
         /** @var Ingestion $ingestion */
         $ingestion = $this->getSerializer()->deserialize((string)$response->getBody(), Ingestion::class, 'json');
@@ -87,21 +188,33 @@ class IngestionApi extends ApiBase
      * @throws \Psr\Http\Client\ClientExceptionInterface
      *   Thrown if an error happened while processing the request.
      */
-    public function deleteDocument(string $reference)
+    public function deleteDocument(string $reference): bool
     {
+        $parameters = [
+            'reference' => $reference,
+        ];
+
         $resolver = $this->getOptionResolver();
-        $parameters = $resolver->resolve([]);
-        $parameters['reference'] = $reference;
 
-        $response = $this->send('DELETE', 'rest/ingestion', $parameters);
+        $resolver->setRequired('reference')
+            ->setAllowedTypes('reference', 'string')
+            ->setAllowedValues('reference', function ($value) {
+                if (!empty($value)) {
+                    return true;
+                }
+            });
 
-        return $response->getStatusCode() === 200;
+        $parameters = $resolver->resolve($parameters);
+
+        $this->send('DELETE', '/rest/document', $parameters);
+
+        return $this->response->getStatusCode() === 200;
     }
 
     /**
      * @inheritDoc
      */
-    protected function getOptionResolver(): OptionsResolver
+    protected function getOptionResolver(): Options
     {
         $resolver = parent::getOptionResolver();
 
