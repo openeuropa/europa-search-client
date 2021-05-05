@@ -44,7 +44,7 @@ interface ClientInterface
      * @param string|null $name
      *   The configuration name. Returns all the configuration if empty.
      *
-     * @return mixed|array
+     * @return mixed
      *   The client configuration.
      */
     public function getConfiguration(string $name = null);

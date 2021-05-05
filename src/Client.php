@@ -9,6 +9,7 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -111,10 +112,10 @@ class Client implements ClientInterface, RequestFactoryInterface, StreamFactoryI
     /**
      * Returns a configured option resolver.
      *
-     * @return \Symfony\Component\OptionsResolver\OptionsResolver
+     * @return \Symfony\Component\OptionsResolver\Options
      *   The option resolver.
      */
-    protected function getOptionResolver(): OptionsResolver
+    protected function getOptionResolver(): Options
     {
         $resolver = new OptionsResolver();
 
