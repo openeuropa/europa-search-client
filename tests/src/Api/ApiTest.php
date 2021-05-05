@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 /**
  * Base class for testing api classes.
  */
-class ApiTest extends TestCase
+abstract class ApiTest extends TestCase
 {
     /**
      * The serializer.
