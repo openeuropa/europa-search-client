@@ -127,8 +127,7 @@ class IngestionApi extends ApiBase
             ->setAllowedTypes('reference', 'string');
 
         $resolver->setDefined('metadata');
-        // @todo: once we have a MetadataCollection class we will map to that.
-        $resolver->setAllowedTypes('metadata', 'array');
+        $resolver->setAllowedTypes('metadata', 'OpenEuropa\EuropaSearchClient\Model\MetadataCollection');
 
         $resolver->setDefined('aclUsers');
         $resolver->setAllowedTypes('aclUsers', 'array');
