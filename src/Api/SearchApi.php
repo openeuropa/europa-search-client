@@ -36,7 +36,15 @@ class SearchApi extends ApiBase
             ->setAllowedTypes('text', 'string')
             ->setDefault('text', '***');
 
+        $resolver->setDefined('query')
+            ->setAllowedTypes('query', 'JsonSerializable');
+
         $parameters = $resolver->resolve($parameters);
+
+        // Process parameters.
+        if (isset($parameters['query'])) {
+            $parameters['query'] = json_encode($parameters['query']);
+        }
 
         $queryKeys = array_flip(['apiKey', 'text']);
         $queryParameters = array_intersect_key($parameters, $queryKeys);
