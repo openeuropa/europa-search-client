@@ -43,13 +43,6 @@ abstract class ApiBase
     protected $request_headers;
 
     /**
-     * The additional request headers.
-     *
-     * @var array
-     */
-    protected $request_headers;
-
-    /**
      * ApiBase constructor.
      *
      * @param \OpenEuropa\EuropaSearchClient\ClientInterface $client

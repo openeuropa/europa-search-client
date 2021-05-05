@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Api\IngestionApi;
 use OpenEuropa\EuropaSearchClient\ClientInterface;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
+use OpenEuropa\EuropaSearchClient\Model\MetadataCollection;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -18,23 +19,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 class IngestionApiTest extends ApiTest
 {
-    public function testSetToken()
-    {
-        $client = $this->getMockBuilder(ClientInterface::class)->getMock();
-        $ingestionApi = new IngestionApi($client);
-        $ingestionApi->setToken('test_jwt');
-        $reflection = new \ReflectionClass($ingestionApi);
-        $property = $reflection->getProperty('request_headers');
-        $property->setAccessible(true);
-
-        $expected = [
-            'Authorization' => 'Bearer test_jwt',
-            'Authorization-propagation' => 'test_jwt',
-        ];
-
-        $this->assertEquals($expected, $property->getValue($ingestionApi));
-    }
-
     /**
      * Test the setToken method.
      */
@@ -95,9 +79,7 @@ class IngestionApiTest extends ApiTest
         return [
             'Ingest a web page' => [
                 'http://example.com',
-                [
-                    'metadata' => ['field1' => 'value1'],
-                ],
+                [],
                 $expected['Ingest a web page'],
                 new Response(200, [], json_encode($expected['Ingest a web page'])),
             ],
@@ -145,7 +127,7 @@ class IngestionApiTest extends ApiTest
             'Ingest a file from uri' => [
                 'http://example.com',
                 [
-                    'metadata' => ['field1' => 'value1'],
+                    'metadata' => (new MetadataCollection())->addMetadata('Field1', ['Value1']),
                 ],
                 $expected['Ingest a file from uri'],
                 new Response(200, [], json_encode($expected['Ingest a file from uri'])),
