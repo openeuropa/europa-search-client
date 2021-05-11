@@ -121,7 +121,7 @@ class IngestionApi extends ApiBase
      */
     protected function prepareUri(string $path, array $queryParameters = []): string
     {
-        $base_path = $this->client->getConfiguration('ingestion_api_endpoint');
+        $base_path = $this->client->getConfiguration('ingestionApiEndpoint');
         $uri = rtrim($base_path, '/') . '/' . ltrim($path, '/');
 
         return $this->addQueryParameters($uri, $queryParameters);

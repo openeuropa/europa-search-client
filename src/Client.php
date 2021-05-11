@@ -4,6 +4,9 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient;
 
+use GuzzleHttp\Exception\ClientException;
+use OpenEuropa\EuropaSearchClient\Api\IngestionApi;
+use OpenEuropa\EuropaSearchClient\Api\SearchApi;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
@@ -123,8 +126,8 @@ class Client implements ClientInterface, RequestFactoryInterface, StreamFactoryI
         $options = [
             'apiKey',
             'database',
-            'ingestion_api_endpoint',
-            'search_api_endpoint',
+            'ingestionApiEndpoint',
+            'searchApiEndpoint',
         ];
         foreach ($options as $option) {
             $resolver->setRequired($option)->setAllowedTypes($option, 'string');
@@ -163,5 +166,43 @@ class Client implements ClientInterface, RequestFactoryInterface, StreamFactoryI
     public function createStreamFromResource($resource): StreamInterface
     {
         return $this->streamFactory->createStreamFromResource($resource);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createIngestion(): IngestionApi
+    {
+        return new IngestionApi($this);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createSearch($resource): SearchApi
+    {
+        return new SearchApi($this);
+    }
+
+    /**
+     * Pings the search api endpoint
+     *
+     * @return bool
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function ping()
+    {
+        $request = $this->createRequest('GET', 'https://api.tech.ec.europa.eu/search-api/acc/info');
+
+        try {
+            $response = $this->getHttpClient()->sendRequest($request);
+            return $response->getStatusCode() == 200;
+        }
+        catch (ClientException $e) {
+
+        }
+
+        return false;
+
     }
 }
