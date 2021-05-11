@@ -126,8 +126,8 @@ class Client implements ClientInterface, RequestFactoryInterface, StreamFactoryI
         $options = [
             'apiKey',
             'database',
-            'ingestionApiEndpoint',
-            'searchApiEndpoint',
+            'ingestionApiServer',
+            'searchApiServer',
         ];
         foreach ($options as $option) {
             $resolver->setRequired($option)->setAllowedTypes($option, 'string');
@@ -179,27 +179,16 @@ class Client implements ClientInterface, RequestFactoryInterface, StreamFactoryI
     /**
      * @inheritDoc
      */
-    public function createSearch($resource): SearchApi
+    public function createSearch(): SearchApi
     {
         return new SearchApi($this);
     }
 
     /**
-     * Pings the search api endpoint
-     *
-     * @return bool
-     * @throws \Psr\Http\Client\ClientExceptionInterface
+     * @inheritDoc
      */
-    public function ping()
+    public function createToken(): TokenApi
     {
-        $request = $this->createRequest('GET', 'https://api.tech.ec.europa.eu/search-api/acc/info');
-
-        try {
-            $response = $this->getHttpClient()->sendRequest($request);
-            return $response->getStatusCode() == 200;
-        }
-        catch (ClientException $e) {
-            return false;
-        }
+        return new TokenApi($this);
     }
 }

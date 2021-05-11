@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
+use OpenEuropa\EuropaSearchClient\Api\IngestionApi;
+use OpenEuropa\EuropaSearchClient\Api\SearchApi;
 use OpenEuropa\EuropaSearchClient\Client;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
@@ -85,6 +87,21 @@ class ClientTest extends TestCase
         $result = $method->invokeArgs($client, ['resource']);
 
         $this->assertTrue($result instanceof StreamInterface);
+
+        $method = $reflection->getMethod('createIngestion');
+        $result = $method->invokeArgs($client, []);
+
+        $this->assertTrue($result instanceof IngestionApi);
+
+        $method = $reflection->getMethod('createSearch');
+        $result = $method->invokeArgs($client, []);
+
+        $this->assertTrue($result instanceof SearchApi);
+
+        $method = $reflection->getMethod('createToken');
+        $result = $method->invokeArgs($client, []);
+
+        $this->assertTrue($result instanceof TokenApi);
     }
 
     /**
@@ -102,8 +119,8 @@ class ClientTest extends TestCase
         return new Client($http_client, $request_factory, $stream_factory, [
             'apiKey' => 'apiKey',
             'database' => 'database',
-            'ingestion_api_endpoint' => 'ingestion_api_endpoint',
-            'search_api_endpoint' => 'search_api_endpoint',
+            'ingestionApiServer' => IngestionApi::SERVER_URL,
+            'searchApiServer' => SearchApi::SERVER_URL
         ]);
     }
 }

@@ -16,6 +16,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class IngestionApi extends ApiBase
 {
 
+    const SERVER_URL = "ingestionApiServer";
+
     /**
      * Ingest the provided text content.
      *
@@ -121,7 +123,7 @@ class IngestionApi extends ApiBase
      */
     protected function prepareUri(string $path, array $queryParameters = []): string
     {
-        $base_path = $this->client->getConfiguration('ingestionApiEndpoint');
+        $base_path = $this->client->getConfiguration(self::SERVER_URL);
         $uri = rtrim($base_path, '/') . '/' . ltrim($path, '/');
 
         return $this->addQueryParameters($uri, $queryParameters);

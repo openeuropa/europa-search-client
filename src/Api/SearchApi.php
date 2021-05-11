@@ -13,6 +13,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class SearchApi extends ApiBase
 {
 
+    const SERVER_URL = "searchApiServer";
+
     /**
      * Executes a search.
      *
@@ -66,7 +68,7 @@ class SearchApi extends ApiBase
      */
     protected function prepareUri(string $path, array $queryParameters = []): string
     {
-        $base_path = $this->client->getConfiguration('searchApiEndpoint');
+        $base_path = $this->client->getConfiguration(self::SERVER_URL);
         $uri = rtrim($base_path, '/') . '/' . ltrim($path, '/');
 
         return $this->addQueryParameters($uri, $queryParameters);
