@@ -199,10 +199,7 @@ class Client implements ClientInterface, RequestFactoryInterface, StreamFactoryI
             return $response->getStatusCode() == 200;
         }
         catch (ClientException $e) {
-
+            return false;
         }
-
-        return false;
-
     }
 }
