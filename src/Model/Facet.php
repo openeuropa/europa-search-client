@@ -147,5 +147,4 @@ class Facet
     {
         $this->values = $values;
     }
-
 }

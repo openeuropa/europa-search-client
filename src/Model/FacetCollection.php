@@ -11,6 +11,7 @@ class FacetCollection implements \JsonSerializable
 {
     /**
      * The list of facet.
+     *
      * @var array
      */
     protected $collection = [];
@@ -20,7 +21,7 @@ class FacetCollection implements \JsonSerializable
      *
      * @param string $apiVersion
      *   Usually a api version.
-     * @param array $facets
+     * @param array  $facets
      *   The facets value.
      * @param string $terms
      *   Usually a term name.

@@ -40,11 +40,11 @@ class FacetCollectionTest extends TestCase
         $this->assertEquals($expected, $model->jsonSerialize());
         $facets = [
             [
-            'database' => 'database1',
-            'count' => 0,
-            'name' => 'name1',
-            'rawName' => 'rawname1',
-            'values' => []
+                'database' => 'database1',
+                'count' => 0,
+                'name' => 'name1',
+                'rawName' => 'rawname1',
+                'values' => []
             ],
             [
                 'database' => 'database2',
