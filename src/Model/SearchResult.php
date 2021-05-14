@@ -7,9 +7,8 @@ namespace OpenEuropa\EuropaSearchClient\Model;
 /**
  * A class that represents a search data transfer object.
  */
-class Search
+class SearchResult
 {
-
     /**
      * The API version.
      *

@@ -1,194 +1,135 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient;
 
-use GuzzleHttp\Exception\ClientException;
-use OpenEuropa\EuropaSearchClient\Api\IngestionApi;
-use OpenEuropa\EuropaSearchClient\Api\SearchApi;
+use Http\Message\MultipartStream\MultipartStreamBuilder;
+use League\Container\Argument\RawArgument;
+use League\Container\Container;
+use League\Container\ContainerAwareInterface;
+use League\Container\ContainerAwareTrait;
+use OpenEuropa\EuropaSearchClient\Api\Ingestion;
+use OpenEuropa\EuropaSearchClient\Api\Search;
+use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
+use OpenEuropa\EuropaSearchClient\Model\SearchResult;
+use OpenEuropa\EuropaSearchClient\Traits\ServicesTrait;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use Psr\Http\Message\StreamInterface;
-use Symfony\Component\OptionsResolver\Options;
+use Psr\Http\Message\UriFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * The client to interface with the Europa Search API calls.
  *
- * @todo Rename "_endpoint" options as they represent servers.
+ * This class acts like a proxy for the underlying APIs, such as search,
+ * ingestion, token, facets, etc. The caller should instantiate this class as
+ * the only entry-point.
  */
-class Client implements ClientInterface, RequestFactoryInterface, StreamFactoryInterface
+class Client implements ClientInterface
 {
+    use ContainerAwareTrait;
+    use ServicesTrait;
 
     /**
-     * Extra client configuration.
-     *
-     * @var array
-     */
-    protected $configuration;
-
-    /**
-     * The client to send HTTP requests.
-     *
-     * @var \Psr\Http\Client\ClientInterface
-     */
-    protected $httpClient;
-
-    /**
-     * The request factory.
-     *
-     * @var \Psr\Http\Message\RequestFactoryInterface
-     */
-    protected $requestFactory;
-
-    /**
-     * The stream factory.
-     *
-     * @var \Psr\Http\Message\StreamFactoryInterface
-     */
-    protected $streamFactory;
-
-    /**
-     * Client constructor.
-     *
-     * @param \Psr\Http\Client\ClientInterface $httpClient
-     *   The client to send HTTP requests.
-     * @param \Psr\Http\Message\RequestFactoryInterface $requestFactory
-     *   The request factory.
-     * @param \Psr\Http\Message\StreamFactoryInterface $streamFactory
-     *   The stream factory.
-     * @param array $configuration
-     *   The client configuration.
+     * @param HttpClientInterface     $httpClient
+     * @param RequestFactoryInterface $requestFactory
+     * @param StreamFactoryInterface  $streamFactory
+     * @param UriFactoryInterface     $uriFactory
+     * @param array                   $configuration
      */
     public function __construct(
         HttpClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
         StreamFactoryInterface $streamFactory,
-        array $configuration = []
+        UriFactoryInterface $uriFactory,
+        array $configuration
     ) {
-        $this->httpClient = $httpClient;
-        $this->requestFactory = $requestFactory;
-        $this->streamFactory = $streamFactory;
-
-        $this->configuration = $this->getOptionResolver()->resolve($configuration);
+        $this->createContainer(
+            $httpClient,
+            $requestFactory,
+            $streamFactory,
+            $uriFactory,
+            $configuration
+        );
     }
 
     /**
      * @inheritDoc
      */
-    public function getHttpClient(): HttpClientInterface
-    {
-        return $this->httpClient;
+    public function search(
+        ?string $text = null,
+        ?array $languages = null,
+        ?array $query = null,
+        ?array $sort = null,
+        ?int $pageNumber = null,
+        ?int $pageSize = null,
+        ?string $highlightRegex = null,
+        ?int $highlightLimit = null,
+        ?string $sessionToken = null
+    ): SearchResult {
+        return $this->getSearch()
+            ->setText($text)
+            ->setLanguages($languages)
+            ->setQuery($query)
+            ->setSort($sort)
+            ->setPageNumber($pageNumber)
+            ->setPageSize($pageSize)
+            ->setHighlightRegex($highlightRegex)
+            ->setHighlightLimit($highlightLimit)
+            ->setSessionToken($sessionToken)
+            ->search();
     }
 
     /**
-     * @inheritDoc
+     * @param HttpClientInterface     $httpClient
+     * @param RequestFactoryInterface $requestFactory
+     * @param StreamFactoryInterface  $streamFactory
+     * @param UriFactoryInterface     $uriFactory,
+     * @param array                   $configuration
      */
-    public function getRequestFactory(): RequestFactoryInterface
-    {
-        return $this->requestFactory;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getStreamFactory(): StreamFactoryInterface
-    {
-        return $this->streamFactory;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getConfiguration(string $name = null)
-    {
-        if ($name !== null) {
-            return $this->configuration[$name] ?? null;
-        }
-
-        return $this->configuration;
-    }
-
-    /**
-     * Returns a configured option resolver.
-     *
-     * @return \Symfony\Component\OptionsResolver\Options
-     *   The option resolver.
-     */
-    protected function getOptionResolver(): Options
-    {
-        $resolver = new OptionsResolver();
-
-        // All options are strings and required.
-        $options = [
-            'apiKey',
-            'database',
-            'ingestionApiServer',
-            'searchApiServer',
-        ];
-        foreach ($options as $option) {
-            $resolver->setRequired($option)->setAllowedTypes($option, 'string');
-        }
-
-        return $resolver;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function createRequest(string $method, $uri): RequestInterface
-    {
-        return $this->requestFactory->createRequest($method, $uri);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function createStream(string $content = ''): StreamInterface
-    {
-        return $this->streamFactory->createStream($content);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function createStreamFromFile(string $filename, string $mode = 'r'): StreamInterface
-    {
-        return $this->streamFactory->createStreamFromFile($filename, $mode);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function createStreamFromResource($resource): StreamInterface
-    {
-        return $this->streamFactory->createStreamFromResource($resource);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function createIngestion(): IngestionApi
-    {
-        return new IngestionApi($this);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function createSearch(): SearchApi
-    {
-        return new SearchApi($this);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function createToken(): TokenApi
-    {
-        return new TokenApi($this);
+    private function createContainer(
+        HttpClientInterface $httpClient,
+        RequestFactoryInterface $requestFactory,
+        StreamFactoryInterface $streamFactory,
+        UriFactoryInterface $uriFactory,
+        array $configuration
+    ): void {
+        $container = new Container();
+        $container->share('httpClient', $httpClient);
+        $container->share('requestFactory', $requestFactory);
+        $container->share('streamFactory', $streamFactory);
+        $container->share('uriFactory', $uriFactory);
+        $container->share('multipartStreamBuilder', MultipartStreamBuilder::class)
+            ->addArgument($streamFactory);
+        $container->share('reflectionExtractor', ReflectionExtractor::class);
+        $container->share('getSetMethodNormalizer', GetSetMethodNormalizer::class)
+            ->addArguments([null, null, 'reflectionExtractor']);
+        $container->share('jsonEncoder', JsonEncoder::class);
+        $container->share('serializer', Serializer::class)
+            ->addArguments([
+                new RawArgument([
+                    $container->get('getSetMethodNormalizer'),
+                ]),
+                new RawArgument([
+                    $container->get('jsonEncoder'),
+                ])
+            ]);
+        $container->share('optionResolver', OptionsResolver::class);
+        $container->share('searchApi', Search::class);
+        $container->share('ingestionApi', Ingestion::class);
+        $container->share('config', $configuration);
+        $container->inflector(ApiInterface::class)
+            ->invokeMethods([
+                'setContainer' => [$container],
+                'buildConfigurationSchema' => [],
+            ]);
+        $this->setContainer($container);
     }
 }

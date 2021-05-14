@@ -1,19 +1,18 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use Http\Factory\Guzzle\UriFactory;
-use OpenEuropa\EuropaSearchClient\Model\Ingestion;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use OpenEuropa\EuropaSearchClient\Contract\IngestionInterface;
+use OpenEuropa\EuropaSearchClient\Model\IngestionResult;
 
 /**
  * Class representing the Ingestion API endpoints.
  *
  * @todo Enforce required parameters in the method signature.
  */
-class IngestionApi extends ApiBase
+class Ingestion extends ApiBase implements IngestionInterface
 {
 
     const SERVER_URL = "ingestionApiServer";
@@ -31,21 +30,24 @@ class IngestionApi extends ApiBase
      *   - reference: The reference of the document. If left empty a random one
      *   will be generated.
      *
-     * @return \OpenEuropa\EuropaSearchClient\Model\Ingestion
+     * @return \OpenEuropa\EuropaSearchClient\Model\IngestionResult
      *   The ingestion model.
      *
      * @throws \Psr\Http\Client\ClientExceptionInterface
      *   Thrown if an error happened while processing the request.
      */
-    public function ingestText(array $parameters): Ingestion
+    public function ingestText(array $parameters): IngestionResult
     {
         $resolver = $this->getOptionResolver();
 
         $resolver->setRequired('uri')
             ->setAllowedTypes('uri', 'string')
-            ->setAllowedValues('uri', function ($value) {
-                return filter_var($value, FILTER_VALIDATE_URL);
-            });
+            ->setAllowedValues(
+                'uri',
+                function ($value) {
+                    return filter_var($value, FILTER_VALIDATE_URL);
+                }
+            );
 
         $resolver->setDefined('text')
             ->setAllowedTypes('text', 'string');
@@ -69,10 +71,20 @@ class IngestionApi extends ApiBase
         $queryKeys = array_flip(['apiKey', 'database', 'uri', 'reference']);
         $queryParameters = array_intersect_key($parameters, $queryKeys);
         $bodyParameters = array_diff_key($parameters, $queryKeys);
-        $response = $this->send('POST', 'rest/ingestion/text', $queryParameters, $bodyParameters, true);
+        $response = $this->send(
+            'POST',
+            'rest/ingestion/text',
+            $queryParameters,
+            $bodyParameters,
+            true
+        );
 
-        /** @var Ingestion $ingestion */
-        $ingestion = $this->getSerializer()->deserialize((string)$response->getBody(), Ingestion::class, 'json');
+        /** @var IngestionResult $ingestion */
+        $ingestion = $this->getSerializer()->deserialize(
+            (string)$response->getBody(),
+            IngestionResult::class,
+            'json'
+        );
 
         return $ingestion;
     }
@@ -97,35 +109,23 @@ class IngestionApi extends ApiBase
 
         $response = $this->send('DELETE', 'rest/ingestion', $parameters);
 
-        return $response->getStatusCode() === 200;
+        return $response->getStatusCode()===200;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    protected function getRequestUri(): string
+    {
+        // TODO: Implement getUri() method.
     }
 
     /**
      * @inheritDoc
      */
-    protected function getOptionResolver(): OptionsResolver
+    protected function getEndpointUri(): string
     {
-        $resolver = parent::getOptionResolver();
-
-        $resolver->setRequired('apiKey')
-            ->setAllowedTypes('apiKey', 'string')
-            ->setDefault('apiKey', $this->client->getConfiguration('apiKey'));
-
-        $resolver->setRequired('database')
-            ->setAllowedTypes('database', 'string')
-            ->setDefault('database', $this->client->getConfiguration('database'));
-
-        return $resolver;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function prepareUri(string $path, array $queryParameters = []): string
-    {
-        $base_path = $this->client->getConfiguration(self::SERVER_URL);
-        $uri = rtrim($base_path, '/') . '/' . ltrim($path, '/');
-
-        return $this->addQueryParameters($uri, $queryParameters);
+        // TODO: Implement getEndpointUri() method.
     }
 }
