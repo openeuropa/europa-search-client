@@ -72,7 +72,7 @@ abstract class ApiBase implements ApiInterface
      */
     public function setConfiguration(array $configuration): ApiInterface
     {
-        $validSchemaKeys = ['type', 'required', 'default'];
+        $validSchemaKeys = ['type', 'required', 'default', 'value'];
         $configSchema = $this->getConfigSchema();
 
         // Keep only configurations defined in schema.
@@ -92,6 +92,9 @@ abstract class ApiBase implements ApiInterface
                 ->addAllowedTypes($configKey, $schema['type']);
             if (isset($schema['default'])) {
                 $this->optionResolver->setDefault($configKey, $schema['default']);
+            }
+            if (isset($schema['value'])) {
+                $this->optionResolver->setAllowedValues($configKey, $schema['value']);
             }
         }
 

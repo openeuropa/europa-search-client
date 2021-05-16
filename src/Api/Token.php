@@ -35,6 +35,9 @@ class Token extends ApiBase implements TokenInterface
             'tokenApiEndpoint' => [
                 'type' => 'string',
                 'required' => true,
+                'value' => function (string $value) {
+                    return filter_var($value, FILTER_VALIDATE_URL);
+                },
             ],
             'consumerKey' => [
                 'type' => 'string',

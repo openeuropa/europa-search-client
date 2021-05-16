@@ -9,6 +9,7 @@ use OpenEuropa\EuropaSearchClient\Api\ApiBase;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 
@@ -56,6 +57,19 @@ class ApiBaseTest extends TestCase
         $method->setAccessible(true);
         $this->expectExceptionObject(new MissingOptionsException('The required options "apiKey", "searchApiEndpoint" are missing.'));
         $this->assertSame([], $method->invokeArgs($client, []));
+    }
+
+    /**
+     * @covers ::setConfiguration
+     */
+    public function testInvalidEndpoint(): void
+    {
+        $client = $this->getTestingClient([
+            'apiKey' => 'foo',
+            'searchApiEndpoint' => 'INVALID_URL',
+        ]);
+        $this->expectExceptionObject(new InvalidOptionsException('The option "searchApiEndpoint" with value "INVALID_URL" is invalid.'));
+        $client->getContainer()->get('search');
     }
 
     //    /**

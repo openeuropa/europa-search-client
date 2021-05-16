@@ -19,12 +19,13 @@ interface ApiInterface
      * @return array[]
      *   Associative array describing the configuration schema of a particular
      *   API service. The keys are configuration names, each value is an
-     *   associative array having three keys:
+     *   associative array having the following keys:
      *   - type: String or array of strings with the type/types of this config,
      *     according to \Symfony\Component\OptionsResolver\OptionsResolver.
      *   - required: (optional) Boolean indicating that this configuration is
      *     mandatory. If missed, the configuration is optional.
      *   - default: (optional) Default value when the configuration is missing.
+     *   - value: (optional) List of allowed values or a callable.
      *   Example:
      *   @code
      *   [
