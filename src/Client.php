@@ -127,9 +127,12 @@ class Client implements ClientInterface
                     $container->get('jsonEncoder'),
                 ])
             ]);
-        $container->share('search', Search::class);
-        $container->share('token', Token::class);
-        $container->share('ingestion', Ingestion::class)
+
+        // API services are not shared, meaning that a new instance is created
+        // every time the service is requested from the container.
+        $container->add('search', Search::class);
+        $container->add('token', Token::class);
+        $container->add('ingestion', Ingestion::class)
             ->addMethodCall('setTokenService', ['token']);
 
         // Inject the services into APIs.
