@@ -26,43 +26,6 @@ class Ingestion extends ApiBase implements IngestionInterface
         $this->token = $token;
         return $this;
     }
-    //    /**
-    //     * @param array                   $configuration
-    //     * @param OptionsResolver         $optionsResolver
-    //     * @param ClientInterface         $httpClient
-    //     * @param RequestFactoryInterface $requestFactory
-    //     * @param StreamFactoryInterface  $streamFactory
-    //     * @param UriFactoryInterface     $uriFactory
-    //     * @param MultipartStreamBuilder  $multipartStreamBuilder
-    //     * @param SerializerInterface     $serializer
-    //     * @param EncoderInterface        $jsonEncoder
-    //     * @param TokenInterface          $token
-    //     */
-    //    public function __construct(
-    //        array $configuration,
-    //        OptionsResolver $optionsResolver,
-    //        ClientInterface $httpClient,
-    //        RequestFactoryInterface $requestFactory,
-    //        StreamFactoryInterface $streamFactory,
-    //        UriFactoryInterface $uriFactory,
-    //        MultipartStreamBuilder $multipartStreamBuilder,
-    //        SerializerInterface $serializer,
-    //        EncoderInterface $jsonEncoder,
-    //        TokenInterface $token
-    //    ) {
-    //        parent::__construct(
-    //            $configuration,
-    //            $optionsResolver,
-    //            $httpClient,
-    //            $requestFactory,
-    //            $streamFactory,
-    //            $uriFactory,
-    //            $multipartStreamBuilder,
-    //            $serializer,
-    //            $jsonEncoder
-    //        );
-    //        $this->token = $token;
-    //    }
 
     /**
      * Ingest the provided text content.
