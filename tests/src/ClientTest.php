@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\EuropaSearchClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
-use OpenEuropa\EuropaSearchClient\Contract\IngestionInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Contract\SearchInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenInterface;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
@@ -39,8 +39,8 @@ class ClientTest extends TestCase
             'consumerKey' => 'bar',
             'consumerSecret' => 'baz',
             'database' => 'qux',
-            'fileIngestionApiEndpoint' => 'http://example.com/ingest/file',
             'textIngestionApiEndpoint' => 'http://example.com/ingest/text',
+            'deleteApiEndpoint'  => 'http://example.com/ingest/delete',
         ]);
         $container = $client->getContainer();
 
@@ -57,6 +57,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(SerializerInterface::class, $container->get('serializer'));
         $this->assertInstanceOf(SearchInterface::class, $container->get('search'));
         $this->assertInstanceOf(TokenInterface::class, $container->get('token'));
-        $this->assertInstanceOf(IngestionInterface::class, $container->get('ingestion'));
+        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('textIngestion'));
+        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('delete'));
     }
 }

@@ -1,17 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
-use GuzzleHttp\Psr7\MultipartStream;
-use OpenEuropa\EuropaSearchClient\Api\ApiBase;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
-use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 
 /**
  * Tests the API base class.

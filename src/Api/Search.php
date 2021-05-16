@@ -82,13 +82,7 @@ class Search extends ApiBase implements SearchInterface
                 'type' => 'string',
                 'required' => true,
             ],
-            'searchApiEndpoint' => [
-                'type' => 'string',
-                'required' => true,
-                'value' => function (string $value) {
-                    return filter_var($value, FILTER_VALIDATE_URL);
-                },
-            ]
+            'searchApiEndpoint' => $this->getEndpointSchema(),
         ];
     }
 

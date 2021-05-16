@@ -8,12 +8,17 @@ use Http\Message\MultipartStream\MultipartStreamBuilder;
 use League\Container\Argument\RawArgument;
 use League\Container\Container;
 use League\Container\ContainerAwareTrait;
-use OpenEuropa\EuropaSearchClient\Api\Ingestion;
+use OpenEuropa\EuropaSearchClient\Api\Delete;
+use OpenEuropa\EuropaSearchClient\Api\TextIngestion;
 use OpenEuropa\EuropaSearchClient\Api\Search;
 use OpenEuropa\EuropaSearchClient\Api\Token;
 use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
+use OpenEuropa\EuropaSearchClient\Contract\DeleteInterface;
 use OpenEuropa\EuropaSearchClient\Contract\SearchInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TextIngestionInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
+use OpenEuropa\EuropaSearchClient\Model\IngestionResult;
 use OpenEuropa\EuropaSearchClient\Model\SearchResult;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -87,6 +92,36 @@ class Client implements ClientInterface
             ->search();
     }
 
+
+    /**
+     * @inheritDoc
+     */
+    public function ingestText(
+        string $uri,
+        ?string $text,
+        ?array $languages = null,
+        ?array $metadata = null,
+        ?string $reference = null
+    ): IngestionResult {
+        return $this->getTextIngestionService()
+            ->setUri($uri)
+            ->setText($text)
+            ->setLanguages($languages)
+            ->setMetadata($metadata)
+            ->setReference($reference)
+            ->ingest();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(string $reference): bool
+    {
+        return $this->getDeleteService()
+            ->setReference($reference)
+            ->delete();
+    }
+
     /**
      * @param HttpClientInterface     $httpClient
      * @param RequestFactoryInterface $requestFactory
@@ -132,8 +167,12 @@ class Client implements ClientInterface
         // every time the service is requested from the container.
         $container->add('search', Search::class);
         $container->add('token', Token::class);
-        $container->add('ingestion', Ingestion::class)
-            ->addMethodCall('setTokenService', ['token']);
+        $container->add('textIngestion', TextIngestion::class);
+        $container->add('delete', Delete::class);
+
+        // Inject the token service for APIs that are requesting it.
+        $container->inflector(TokenAwareInterface::class)
+            ->invokeMethod('setTokenService', ['token']);
 
         // Inject the services into APIs.
         $container->inflector(ApiInterface::class)
@@ -154,10 +193,26 @@ class Client implements ClientInterface
     }
 
     /**
-     * @return \OpenEuropa\EuropaSearchClient\Contract\SearchInterface
+     * @return SearchInterface
      */
     protected function getSearchService(): SearchInterface
     {
         return $this->getContainer()->get('search');
+    }
+
+    /**
+     * @return TextIngestionInterface
+     */
+    protected function getTextIngestionService(): TextIngestionInterface
+    {
+        return $this->getContainer()->get('textIngestion');
+    }
+
+    /**
+     * @return TextIngestionInterface
+     */
+    protected function getDeleteService(): DeleteInterface
+    {
+        return $this->getContainer()->get('delete');
     }
 }

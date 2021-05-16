@@ -303,4 +303,19 @@ abstract class ApiBase implements ApiInterface
     {
         return [];
     }
+
+    /**
+     * @return array
+     * @see ApiInterface::getConfigSchema()
+     */
+    protected function getEndpointSchema(): array
+    {
+        return [
+            'type' => 'string',
+            'required' => true,
+            'value' => function (string $value) {
+                return filter_var($value, FILTER_VALIDATE_URL);
+            },
+        ];
+    }
 }
