@@ -179,7 +179,7 @@ class Ingestion extends ApiBase implements IngestionInterface
     /**
      * @inheritDoc
      */
-    protected function getConfigSchema(): array
+    public function getConfigSchema(): array
     {
         return [];
     }

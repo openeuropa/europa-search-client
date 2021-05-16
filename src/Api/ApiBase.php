@@ -300,33 +300,4 @@ abstract class ApiBase implements ApiInterface
     {
         return [];
     }
-
-    /**
-     * @return array[]
-     *   Associative array describing the configuration schema of a particular
-     *   API service. The keys are configuration names, each value is an
-     *   associative array having three keys:
-     *   - type: String or array of strings with the type/types of this config,
-     *     according to \Symfony\Component\OptionsResolver\OptionsResolver.
-     *   - required: (optional) Boolean indicating that this configuration is
-     *     mandatory. If missed, the configuration is optional.
-     *   - default: (optional) Default value when the configuration is missing.
-     *   For instance:
-     *   @code
-     *   [
-     *       'apiKey' => [
-     *           'type' => 'string',
-     *           'required' => true,
-     *       ],
-     *       'otherConfig => [
-     *           'type' => ['integer', 'string'],
-     *           'required' => false,
-     *           'default' => 0,
-     *       ],
-     *   ]
-     *   @endcode
-     *
-     * @see \Symfony\Component\OptionsResolver\OptionsResolver
-     */
-    abstract protected function getConfigSchema(): array;
 }

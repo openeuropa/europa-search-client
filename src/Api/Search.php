@@ -75,7 +75,7 @@ class Search extends ApiBase implements SearchInterface
     /**
      * @inheritDoc
      */
-    protected function getConfigSchema(): array
+    public function getConfigSchema(): array
     {
         return [
             'apiKey' => [

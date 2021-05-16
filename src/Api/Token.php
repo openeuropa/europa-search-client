@@ -29,6 +29,27 @@ class Token extends ApiBase implements TokenInterface
     /**
      * @inheritDoc
      */
+    public function getConfigSchema(): array
+    {
+        return [
+            'tokenApiEndpoint' => [
+                'type' => 'string',
+                'required' => true,
+            ],
+            'consumerKey' => [
+                'type' => 'string',
+                'required' => true,
+            ],
+            'consumerSecret' => [
+                'type' => 'string',
+                'required' => true,
+            ],
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
     protected function getEndpointUri(): string
     {
         return $this->getConfigValue('tokenApiEndpoint');
@@ -62,13 +83,5 @@ class Token extends ApiBase implements TokenInterface
         $consumerKey = $this->getConfigValue('consumerKey');
         $consumerSecret = $this->getConfigValue('consumerSecret');
         return base64_encode("{$consumerKey};{$consumerSecret}");
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getConfigSchema(): array
-    {
-        return [];
     }
 }
