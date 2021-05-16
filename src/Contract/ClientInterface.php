@@ -16,10 +16,10 @@ interface ClientInterface extends ContainerAwareInterface
      * @param array|null $languages
      * @param array|null $query
      * @param array|null $sort
-     * @param int $pageNumber
-     * @param int $pageSize
-     * @param string $highlightRegex
-     * @param int $highlightLimit
+     * @param int|null $pageNumber
+     * @param int|null $pageSize
+     * @param string|null $highlightRegex
+     * @param int|null $highlightLimit
      * @param string|null $sessionToken
      *
      * @return \OpenEuropa\EuropaSearchClient\Model\SearchResult
