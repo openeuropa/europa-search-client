@@ -5,17 +5,64 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\IngestionInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TokenInterface;
 use OpenEuropa\EuropaSearchClient\Model\IngestionResult;
 
 /**
- * Class representing the Ingestion API endpoints.
- *
- * @todo Enforce required parameters in the method signature.
+ * Ingestion API.
  */
 class Ingestion extends ApiBase implements IngestionInterface
 {
+    /**
+     * @var TokenInterface
+     */
+    protected $token;
 
-    const SERVER_URL = "ingestionApiServer";
+    /**
+     * @inheritDoc
+     */
+    public function setToken(TokenInterface $token): IngestionInterface
+    {
+        $this->token = $token;
+        return $this;
+    }
+    //    /**
+    //     * @param array                   $configuration
+    //     * @param OptionsResolver         $optionsResolver
+    //     * @param ClientInterface         $httpClient
+    //     * @param RequestFactoryInterface $requestFactory
+    //     * @param StreamFactoryInterface  $streamFactory
+    //     * @param UriFactoryInterface     $uriFactory
+    //     * @param MultipartStreamBuilder  $multipartStreamBuilder
+    //     * @param SerializerInterface     $serializer
+    //     * @param EncoderInterface        $jsonEncoder
+    //     * @param TokenInterface          $token
+    //     */
+    //    public function __construct(
+    //        array $configuration,
+    //        OptionsResolver $optionsResolver,
+    //        ClientInterface $httpClient,
+    //        RequestFactoryInterface $requestFactory,
+    //        StreamFactoryInterface $streamFactory,
+    //        UriFactoryInterface $uriFactory,
+    //        MultipartStreamBuilder $multipartStreamBuilder,
+    //        SerializerInterface $serializer,
+    //        EncoderInterface $jsonEncoder,
+    //        TokenInterface $token
+    //    ) {
+    //        parent::__construct(
+    //            $configuration,
+    //            $optionsResolver,
+    //            $httpClient,
+    //            $requestFactory,
+    //            $streamFactory,
+    //            $uriFactory,
+    //            $multipartStreamBuilder,
+    //            $serializer,
+    //            $jsonEncoder
+    //        );
+    //        $this->token = $token;
+    //    }
 
     /**
      * Ingest the provided text content.
@@ -38,7 +85,7 @@ class Ingestion extends ApiBase implements IngestionInterface
      */
     public function ingestText(array $parameters): IngestionResult
     {
-        $resolver = $this->getOptionResolver();
+        $resolver = $this->optionResolver;
 
         $resolver->setRequired('uri')
             ->setAllowedTypes('uri', 'string')
@@ -80,7 +127,7 @@ class Ingestion extends ApiBase implements IngestionInterface
         );
 
         /** @var IngestionResult $ingestion */
-        $ingestion = $this->getSerializer()->deserialize(
+        $ingestion = $this->serializer->deserialize(
             (string)$response->getBody(),
             IngestionResult::class,
             'json'
@@ -103,7 +150,7 @@ class Ingestion extends ApiBase implements IngestionInterface
      */
     public function deleteDocument(string $reference)
     {
-        $resolver = $this->getOptionResolver();
+        $resolver = $this->optionResolver;
         $parameters = $resolver->resolve([]);
         $parameters['reference'] = $reference;
 
@@ -127,5 +174,13 @@ class Ingestion extends ApiBase implements IngestionInterface
     protected function getEndpointUri(): string
     {
         // TODO: Implement getEndpointUri() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getConfigSchema(): array
+    {
+        return [];
     }
 }

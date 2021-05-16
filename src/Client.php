@@ -7,14 +7,14 @@ namespace OpenEuropa\EuropaSearchClient;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use League\Container\Argument\RawArgument;
 use League\Container\Container;
-use League\Container\ContainerAwareInterface;
 use League\Container\ContainerAwareTrait;
 use OpenEuropa\EuropaSearchClient\Api\Ingestion;
 use OpenEuropa\EuropaSearchClient\Api\Search;
+use OpenEuropa\EuropaSearchClient\Api\Token;
 use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
+use OpenEuropa\EuropaSearchClient\Contract\SearchInterface;
 use OpenEuropa\EuropaSearchClient\Model\SearchResult;
-use OpenEuropa\EuropaSearchClient\Traits\ServicesTrait;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -22,6 +22,7 @@ use Psr\Http\Message\UriFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -35,7 +36,6 @@ use Symfony\Component\Serializer\Serializer;
 class Client implements ClientInterface
 {
     use ContainerAwareTrait;
-    use ServicesTrait;
 
     /**
      * @param HttpClientInterface     $httpClient
@@ -102,6 +102,7 @@ class Client implements ClientInterface
         array $configuration
     ): void {
         $container = new Container();
+        $container->share('optionResolver', OptionsResolver::class);
         $container->share('httpClient', $httpClient);
         $container->share('requestFactory', $requestFactory);
         $container->share('streamFactory', $streamFactory);
@@ -109,8 +110,13 @@ class Client implements ClientInterface
         $container->share('multipartStreamBuilder', MultipartStreamBuilder::class)
             ->addArgument($streamFactory);
         $container->share('reflectionExtractor', ReflectionExtractor::class);
+        $container->share('camelCaseToSnakeCaseNameConverter', CamelCaseToSnakeCaseNameConverter::class);
         $container->share('getSetMethodNormalizer', GetSetMethodNormalizer::class)
-            ->addArguments([null, null, 'reflectionExtractor']);
+            ->addArguments([
+                null,
+                'camelCaseToSnakeCaseNameConverter',
+                'reflectionExtractor',
+            ]);
         $container->share('jsonEncoder', JsonEncoder::class);
         $container->share('serializer', Serializer::class)
             ->addArguments([
@@ -121,15 +127,34 @@ class Client implements ClientInterface
                     $container->get('jsonEncoder'),
                 ])
             ]);
-        $container->share('optionResolver', OptionsResolver::class);
-        $container->share('searchApi', Search::class);
-        $container->share('ingestionApi', Ingestion::class);
-        $container->share('config', $configuration);
+        $container->share('search', Search::class);
+        $container->share('token', Token::class);
+        $container->share('ingestion', Ingestion::class)
+            ->addMethodCall('setToken', ['token']);
+
+        // Inject the services into APIs.
         $container->inflector(ApiInterface::class)
             ->invokeMethods([
-                'setContainer' => [$container],
-                'buildConfigurationSchema' => [],
+                'setOptionsResolver' => ['optionResolver'],
+                'setConfiguration' => [$configuration],
+                'setHttpClient' => ['httpClient'],
+                'setRequestFactory' => ['requestFactory'],
+                'setStreamFactory' => ['streamFactory'],
+                'setUriFactory' => ['uriFactory'],
+                'setMultipartStreamBuilder' => ['multipartStreamBuilder'],
+                'setSerializer' => ['serializer'],
+                'setJsonEncoder' => ['jsonEncoder'],
             ]);
+
+        // Keep a reference to the container.
         $this->setContainer($container);
+    }
+
+    /**
+     * @return \OpenEuropa\EuropaSearchClient\Contract\SearchInterface
+     */
+    protected function getSearch(): SearchInterface
+    {
+        return $this->getContainer()->get('search');
     }
 }

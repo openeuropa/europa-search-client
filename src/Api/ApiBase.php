@@ -4,25 +4,186 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use League\Container\ContainerAwareTrait;
+use Http\Message\MultipartStream\MultipartStreamBuilder;
 use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
-use OpenEuropa\EuropaSearchClient\Traits\ServicesTrait;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Serializer\Encoder\EncoderInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Base class for Europa Search API requests.
+ * Base class for Europa Search APIs.
  */
 abstract class ApiBase implements ApiInterface
 {
-    use ContainerAwareTrait;
-    use ServicesTrait;
-
     /**
      * @var array
      */
     protected $configuration;
+
+    /**
+     * @var OptionsResolver
+     */
+    protected $optionResolver;
+
+    /**
+     * @var ClientInterface
+     */
+    protected $httpClient;
+
+    /**
+     * @var RequestFactoryInterface
+     */
+    protected $requestFactory;
+
+    /**
+     * @var StreamFactoryInterface
+     */
+    protected $streamFactory;
+
+    /**
+     * @var UriFactoryInterface
+     */
+    protected $uriFactory;
+
+    /**
+     * @var MultipartStreamBuilder
+     */
+    protected $multipartStreamBuilder;
+
+    /**
+     * @var SerializerInterface
+     */
+    protected $serializer;
+
+    /**
+     * @var EncoderInterface
+     */
+    protected $jsonEncoder;
+
+    /**
+     * @inheritDoc
+     */
+    public function setConfiguration(array $configuration): ApiInterface
+    {
+        $validSchemaKeys = ['type', 'required', 'default'];
+        $configSchema = $this->getConfigSchema();
+
+        // Keep only configurations defined in schema.
+        $configuration = array_intersect_key($configuration, $configSchema);
+
+        // Start on a fresh resolver. If this is API called after different API,
+        // in the same request, the option resolver has already definitions.
+        $this->optionResolver->clear();
+
+        foreach ($configSchema as $configKey => $schema) {
+            if ($invalidSchemaKeys = array_diff_key($schema, array_flip($validSchemaKeys))) {
+                throw new \InvalidArgumentException("The configuration schema of '" . __CLASS__ . "' API contains invalid keys: '" . implode(', ', array_keys($invalidSchemaKeys)) . "'.");
+            }
+            $method = empty($schema['required']) ? 'setDefined' : 'setRequired';
+            $this->optionResolver
+                ->{$method}($configKey)
+                ->addAllowedTypes($configKey, $schema['type']);
+            if (isset($schema['default'])) {
+                $this->optionResolver->setDefault($configKey, $schema['default']);
+            }
+        }
+
+        $this->configuration = $this->optionResolver->resolve($configuration);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setOptionsResolver(OptionsResolver $optionsResolver): ApiInterface
+    {
+        $this->optionResolver = $optionsResolver;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setHttpClient(ClientInterface $httpClient): ApiInterface
+    {
+        $this->httpClient = $httpClient;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setRequestFactory(RequestFactoryInterface $requestFactory): ApiInterface
+    {
+        $this->requestFactory = $requestFactory;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setStreamFactory(StreamFactoryInterface $streamFactory): ApiInterface
+    {
+        $this->streamFactory = $streamFactory;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setUriFactory(UriFactoryInterface $uriFactory): ApiInterface
+    {
+        $this->uriFactory = $uriFactory;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setMultipartStreamBuilder(
+        MultipartStreamBuilder $multipartStreamBuilder
+    ): ApiInterface {
+        $this->multipartStreamBuilder = $multipartStreamBuilder;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setSerializer(SerializerInterface $serializer): ApiInterface
+    {
+        $this->serializer = $serializer;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setJsonEncoder(EncoderInterface $jsonEncoder): ApiInterface
+    {
+        $this->jsonEncoder = $jsonEncoder;
+        return $this;
+    }
+
+    /**
+     * @param string $configKey
+     * @return mixed
+     */
+    protected function getConfigValue(string $configKey)
+    {
+        if (!isset($this->configuration[$configKey])) {
+            throw new \InvalidArgumentException("Invalid config key: '{$configKey}'. Valid keys: '" . implode(', ', array_keys($this->configuration)) . "'.");
+        }
+        return $this->configuration[$configKey];
+    }
 
     /**
      * Sends a request and return its response.
@@ -39,7 +200,7 @@ abstract class ApiBase implements ApiInterface
     protected function send(string $method): ResponseInterface
     {
         $method = strtoupper($method);
-        $request = $this->getRequestFactory()->createRequest(
+        $request = $this->requestFactory->createRequest(
             $method,
             $this->getRequestUri()
         );
@@ -55,17 +216,7 @@ abstract class ApiBase implements ApiInterface
             $request = $request->withBody($body);
         }
 
-        return $this->getHttpClient()->sendRequest($request);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function buildConfigurationSchema(): void
-    {
-        $this->getOptionResolver()
-            ->setRequired(['apiKey'])
-            ->setAllowedTypes('apiKey', 'string');
+        return $this->httpClient->sendRequest($request);
     }
 
     /**
@@ -79,7 +230,7 @@ abstract class ApiBase implements ApiInterface
      */
     protected function getRequestUri(): string
     {
-        $uri = $this->getUriFactory()->createUri($this->getEndpointUri());
+        $uri = $this->uriFactory->createUri($this->getEndpointUri());
         $query = $this->getRequestUriQuery($uri);
         return $uri->withQuery(http_build_query($query))->__toString();
     }
@@ -112,22 +263,25 @@ abstract class ApiBase implements ApiInterface
      */
     protected function getRequestBody(): ?StreamInterface
     {
-        // Multipart stream has precedence.
+        // Multipart stream has precedence, if it has been defined.
         if ($parts = $this->getRequestMultipartStreamElements()) {
-            $builder = $this->getMultipartStreamBuilder();
             foreach ($parts as $name => $contents) {
-                $builder->addResource($name, $contents, [
+                $this->multipartStreamBuilder->addResource($name, $contents, [
                     'headers' => [
                         'Content-Type' => 'application/json',
                     ],
                     'filename' => 'blob',
                 ]);
             }
-            return $builder->build();
+            return $this->multipartStreamBuilder->build();
         }
+
+        // Simple form elements.
         if ($parts = $this->getRequestFormElements()) {
-            return $this->getStreamFactory()->createStream(http_build_query($parts));
+            return $this->streamFactory->createStream(http_build_query($parts));
         }
+
+        // This API didn't define a request body.
         return null;
     }
 
@@ -146,4 +300,33 @@ abstract class ApiBase implements ApiInterface
     {
         return [];
     }
+
+    /**
+     * @return array[]
+     *   Associative array describing the configuration schema of a particular
+     *   API service. The keys are configuration names, each value is an
+     *   associative array having three keys:
+     *   - type: String or array of strings with the type/types of this config,
+     *     according to \Symfony\Component\OptionsResolver\OptionsResolver.
+     *   - required: (optional) Boolean indicating that this configuration is
+     *     mandatory. If missed, the configuration is optional.
+     *   - default: (optional) Default value when the configuration is missing.
+     *   For instance:
+     *   @code
+     *   [
+     *       'apiKey' => [
+     *           'type' => 'string',
+     *           'required' => true,
+     *       ],
+     *       'otherConfig => [
+     *           'type' => ['integer', 'string'],
+     *           'required' => false,
+     *           'default' => 0,
+     *       ],
+     *   ]
+     *   @endcode
+     *
+     * @see \Symfony\Component\OptionsResolver\OptionsResolver
+     */
+    abstract protected function getConfigSchema(): array;
 }
