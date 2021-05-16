@@ -28,6 +28,24 @@ class Ingestion extends ApiBase implements IngestionInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getConfigSchema(): array
+    {
+        $endpoint = [
+            'type' => 'string',
+            'required' => true,
+            'value' => function (string $value) {
+                return filter_var($value, FILTER_VALIDATE_URL);
+            },
+        ];
+        return [
+            'textIngestionApiEndpoint' => $endpoint,
+            'fileIngestionApiEndpoint' => $endpoint,
+        ];
+    }
+
+    /**
      * Ingest the provided text content.
      *
      * @param array $parameters
