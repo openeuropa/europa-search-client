@@ -38,6 +38,7 @@ class ClientTest extends TestCase
             'tokenApiEndpoint' => 'http://example.com/token',
             'consumerKey' => 'bar',
             'consumerSecret' => 'baz',
+            'database' => 'qux',
             'fileIngestionApiEndpoint' => 'http://example.com/ingest/file',
             'textIngestionApiEndpoint' => 'http://example.com/ingest/text',
         ]);

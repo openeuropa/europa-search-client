@@ -40,6 +40,10 @@ class Ingestion extends ApiBase implements IngestionInterface
             },
         ];
         return [
+            'database' => [
+                'type' => 'string',
+                'required' => true,
+            ],
             'textIngestionApiEndpoint' => $endpoint,
             'fileIngestionApiEndpoint' => $endpoint,
         ];
