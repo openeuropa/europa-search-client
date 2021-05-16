@@ -164,8 +164,16 @@ class Ingestion extends ApiBase implements IngestionInterface
     /**
      * @inheritDoc
      */
-    public function getConfigSchema(): array
+    public function ingestFile(): IngestionResult
     {
-        return [];
+        // TODO: Implement ingestFile() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(): bool
+    {
+        // TODO: Implement delete() method.
     }
 }
