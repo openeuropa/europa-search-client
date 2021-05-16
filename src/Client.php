@@ -74,7 +74,7 @@ class Client implements ClientInterface
         ?int $highlightLimit = null,
         ?string $sessionToken = null
     ): SearchResult {
-        return $this->getSearch()
+        return $this->getSearchService()
             ->setText($text)
             ->setLanguages($languages)
             ->setQuery($query)
@@ -153,7 +153,7 @@ class Client implements ClientInterface
     /**
      * @return \OpenEuropa\EuropaSearchClient\Contract\SearchInterface
      */
-    protected function getSearch(): SearchInterface
+    protected function getSearchService(): SearchInterface
     {
         return $this->getContainer()->get('search');
     }
