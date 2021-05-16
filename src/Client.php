@@ -130,7 +130,7 @@ class Client implements ClientInterface
         $container->share('search', Search::class);
         $container->share('token', Token::class);
         $container->share('ingestion', Ingestion::class)
-            ->addMethodCall('setToken', ['token']);
+            ->addMethodCall('setTokenService', ['token']);
 
         // Inject the services into APIs.
         $container->inflector(ApiInterface::class)

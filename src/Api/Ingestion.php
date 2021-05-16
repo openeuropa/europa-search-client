@@ -16,14 +16,14 @@ class Ingestion extends ApiBase implements IngestionInterface
     /**
      * @var TokenInterface
      */
-    protected $token;
+    protected $tokenService;
 
     /**
      * @inheritDoc
      */
-    public function setToken(TokenInterface $token): IngestionInterface
+    public function setTokenService(TokenInterface $tokenService): IngestionInterface
     {
-        $this->token = $token;
+        $this->tokenService = $tokenService;
         return $this;
     }
 

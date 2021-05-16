@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
-use OpenEuropa\EuropaSearchClient\Contract\TokenInterface;
 
 interface IngestionInterface extends ApiInterface
 {
     /**
-     * @param TokenInterface $token
+     * @param TokenInterface $tokenService
      *
      * @return $this
      */
-    public function setToken(TokenInterface $token): self;
+    public function setTokenService(TokenInterface $tokenService): self;
 }
