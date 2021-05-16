@@ -40,10 +40,12 @@ class QueryLanguage
      *
      * @param string $language
      *   The language code.
+     * @return $this
      */
-    public function setLanguage(string $language): void
+    public function setLanguage(string $language): self
     {
         $this->language = $language;
+        return $this;
     }
 
     /**
@@ -61,9 +63,11 @@ class QueryLanguage
      *
      * @param float $probability
      *   The query probability.
+     * @return $this
      */
-    public function setProbability(float $probability): void
+    public function setProbability(float $probability): self
     {
         $this->probability = $probability;
+        return $this;
     }
 }
