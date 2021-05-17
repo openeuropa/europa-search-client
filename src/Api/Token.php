@@ -32,13 +32,7 @@ class Token extends ApiBase implements TokenInterface
     public function getConfigSchema(): array
     {
         return [
-            'tokenApiEndpoint' => [
-                'type' => 'string',
-                'required' => true,
-                'value' => function (string $value) {
-                    return filter_var($value, FILTER_VALIDATE_URL);
-                },
-            ],
+            'tokenApiEndpoint' => $this->getEndpointSchema(),
             'consumerKey' => [
                 'type' => 'string',
                 'required' => true,
