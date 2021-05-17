@@ -85,6 +85,6 @@ class Token extends ApiBase implements TokenInterface
     {
         $consumerKey = $this->getConfigValue('consumerKey');
         $consumerSecret = $this->getConfigValue('consumerSecret');
-        return base64_encode("{$consumerKey};{$consumerSecret}");
+        return base64_encode("{$consumerKey}:{$consumerSecret}");
     }
 }
