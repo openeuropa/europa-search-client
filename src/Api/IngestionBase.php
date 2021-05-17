@@ -42,6 +42,10 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
     public function getConfigSchema(): array
     {
         return [
+            'apiKey' => [
+                'type' => 'string',
+                'required' => true,
+            ],
             'database' => [
                 'type' => 'string',
                 'required' => true,
