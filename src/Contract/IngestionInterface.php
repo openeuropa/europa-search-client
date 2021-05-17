@@ -43,10 +43,10 @@ interface IngestionInterface extends ApiInterface, TokenAwareInterface
     public function setMetadata(?array $metadata): self;
 
     /**
-     * @return array
+     * @return array|null
      * @todo Metadata is a complex structure and it requires its own type.
      */
-    public function getMetadata(): array;
+    public function getMetadata(): ?array;
 
     /**
      * @param string|null $reference
