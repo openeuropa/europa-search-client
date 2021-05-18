@@ -88,6 +88,9 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
      */
     public function setUri(string $uri): IngestionInterface
     {
+        if (!filter_var($uri, FILTER_VALIDATE_URL)) {
+            throw new \InvalidArgumentException("Passed '{$uri}' string is not a valid URI.");
+        }
         $this->uri = $uri;
         return $this;
     }

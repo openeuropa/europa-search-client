@@ -16,6 +16,8 @@ interface IngestionInterface extends ApiInterface, TokenAwareInterface
     /**
      * @param string $uri
      * @return $this
+     * @throws \InvalidArgumentException
+     *   If $uri is not a valid URI.
      */
     public function setUri(string $uri): self;
 
