@@ -6,7 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use OpenEuropa\EuropaSearchClient\Model\SearchResult;
 
-interface SearchInterface extends ApiInterface
+interface SearchInterface extends ApiInterface, LanguagesAwareInterface
 {
     /**
      * @return SearchResult
@@ -24,18 +24,6 @@ interface SearchInterface extends ApiInterface
      * @return string|null
      */
     public function getText(): ?string;
-
-    /**
-     * @param array|null $languages
-     *
-     * @return $this
-     */
-    public function setLanguages(?array $languages): self;
-
-    /**
-     * @return array|null
-     */
-    public function getLanguages(): ?array;
 
     /**
      * @param array|null $query

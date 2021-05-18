@@ -6,7 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use OpenEuropa\EuropaSearchClient\Model\IngestionResult;
 
-interface IngestionInterface extends ApiInterface, TokenAwareInterface
+interface IngestionInterface extends ApiInterface, TokenAwareInterface, LanguagesAwareInterface
 {
     /**
      * @return \OpenEuropa\EuropaSearchClient\Model\IngestionResult
@@ -25,17 +25,6 @@ interface IngestionInterface extends ApiInterface, TokenAwareInterface
      * @return string
      */
     public function getUri(): string;
-
-    /**
-     * @param array|null $languages
-     * @return $this
-     */
-    public function setLanguages(?array $languages): self;
-
-    /**
-     * @return string[]
-     */
-    public function getLanguages(): array;
 
     /**
      * @param array|null $metadata

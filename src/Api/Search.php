@@ -6,6 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\SearchInterface;
 use OpenEuropa\EuropaSearchClient\Model\SearchResult;
+use OpenEuropa\EuropaSearchClient\Traits\LanguagesAwareTrait;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -13,15 +14,12 @@ use Psr\Http\Message\UriInterface;
  */
 class Search extends ApiBase implements SearchInterface
 {
+    use LanguagesAwareTrait;
+
     /**
      * @var string
      */
     protected $text;
-
-    /**
-     * @var string[]
-     */
-    protected $languages;
 
     /**
      * @var array
@@ -159,23 +157,6 @@ class Search extends ApiBase implements SearchInterface
     {
         // The special case '***' means 'Give me all the results'.
         return $this->text ?? '***';
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setLanguages(?array $languages): SearchInterface
-    {
-        $this->languages = $languages;
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getLanguages(): ?array
-    {
-        return $this->languages;
     }
 
     /**

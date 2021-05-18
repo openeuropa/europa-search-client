@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\IngestionInterface;
+use OpenEuropa\EuropaSearchClient\Traits\LanguagesAwareTrait;
 use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
 use Psr\Http\Message\UriInterface;
 
@@ -13,6 +14,7 @@ use Psr\Http\Message\UriInterface;
  */
 abstract class IngestionBase extends ApiBase implements IngestionInterface
 {
+    use LanguagesAwareTrait;
     use TokenAwareTrait;
 
     /**
@@ -24,11 +26,6 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
      * @var string
      */
     protected $reference;
-
-    /**
-     * @var string[]
-     */
-    protected $languages;
 
     /**
      * @var array
@@ -101,23 +98,6 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
     public function getUri(): string
     {
         return $this->uri;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setLanguages(?array $languages): IngestionInterface
-    {
-        $this->languages = $languages;
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getLanguages(): array
-    {
-        return $this->languages;
     }
 
     /**
