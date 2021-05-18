@@ -14,7 +14,7 @@ interface SearchInterface extends ApiInterface, LanguagesAwareInterface
     public function search(): SearchResult;
 
     /**
-     * @param string $text
+     * @param string|null $text
      *
      * @return $this
      */
