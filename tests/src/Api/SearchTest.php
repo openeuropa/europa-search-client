@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
 use GuzzleHttp\Psr7\Response;
+use OpenEuropa\EuropaSearchClient\Model\Document;
 use OpenEuropa\EuropaSearchClient\Model\QueryLanguage;
 use OpenEuropa\EuropaSearchClient\Model\SearchResult;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
@@ -150,74 +151,56 @@ class SearchTest extends TestCase
                     ->setBestBets([])
                     ->setWarnings([])
                     ->setResults([
-                        [
-                            'apiVersion' => '2.69',
-                            'reference' => 'ref1',
-                            'url' => 'http://example.com/ref1',
-                            'title' => null,
-                            'contentType' => 'text/plain',
-                            'language' => 'en',
-                            'databaseLabel' => 'ACME',
-                            'database' => 'ACME',
-                            'summary' => null,
-                            'weight' => 9.849739,
-                            'groupById' => '3',
-                            'content' => 'A coordination platform',
-                            'accessRestriction' => false,
-                            'pages' => null,
-                            'metadata' => [
+                        (new Document())
+                            ->setApiVersion('2.69')
+                            ->setReference('ref1')
+                            ->setUrl('http://example.com/ref1')
+                            ->setTitle(null)
+                            ->setContentType('text/plain')
+                            ->setLanguage('en')
+                            ->setDatabaseLabel('ACME')
+                            ->setDatabase('ACME')
+                            ->setSummary(null)
+                            ->setWeight(9.849739)
+                            ->setGroupById('3')
+                            ->setContent('A coordination platform')
+                            ->setAccessRestriction(false)
+                            ->setPages(null)
+                            ->setMetadata([
                                 'keywords' => [
-                                    0 => '["End-users","Pollution (water, soil), waste disposal and treatm","Water-climate interactions"]',
+                                    '["End-users","Pollution (water, soil), waste disposal and treatm","Water-climate interactions"]',
                                 ],
-                                'sortStatus' => [
-                                    0 => '3',
-                                ],
-                                'destination' => [
-                                ],
-                                'type' => [
-                                    0 => '1',
-                                ],
-                                'title' => [
-                                    0 => 'A coordination platform',
-                                ],
-                            ],
-                            'children' => [
-                            ],
-                        ],
-                        [
-                            'apiVersion' => '2.69',
-                            'reference' => 'ref2',
-                            'url' => 'http://example.com/ref2',
-                            'title' => null,
-                            'contentType' => 'text/plain',
-                            'language' => 'en',
-                            'databaseLabel' => 'ACME',
-                            'database' => 'ACME',
-                            'summary' => null,
-                            'weight' => 9.549583,
-                            'groupById' => '3',
-                            'content' => 'Stepping up EU research and innovation cooperation in the water area',
-                            'accessRestriction' => false,
-                            'pages' => null,
-                            'metadata' => [
+                                'sortStatus' => ['3'],
+                                'destination' => [],
+                                'type' => ['1'],
+                                'title' => ['A coordination platform'],
+                            ])
+                            ->setChildren([]),
+                        (new Document())
+                            ->setApiVersion('2.69')
+                            ->setReference('ref2')
+                            ->setUrl('http://example.com/ref2')
+                            ->setTitle(null)
+                            ->setContentType('text/plain')
+                            ->setLanguage('en')
+                            ->setDatabaseLabel('ACME')
+                            ->setDatabase('ACME')
+                            ->setSummary(null)
+                            ->setWeight(9.549583)
+                            ->setGroupById('3')
+                            ->setContent('Stepping up EU research and innovation cooperation in the water area')
+                            ->setAccessRestriction(false)
+                            ->setPages(null)
+                            ->setMetadata([
                                 'keywords' => [
-                                    0 => '["Water harvesting","Water resources","Agronomy","Agriculture"]',
+                                    '["Water harvesting","Water resources","Agronomy","Agriculture"]',
                                 ],
-                                'sortStatus' => [
-                                    0 => '3',
-                                ],
-                                'destination' => [
-                                ],
-                                'type' => [
-                                    0 => '1',
-                                ],
-                                'title' => [
-                                    0 => 'EU research in the water area',
-                                ],
-                            ],
-                            'children' => [
-                            ],
-                        ],
+                                'sortStatus' => ['3'],
+                                'destination' => [],
+                                'type' => ['1'],
+                                'title' => ['EU research in the water area'],
+                            ])
+                            ->setChildren([]),
                     ]),
             ]
         ];

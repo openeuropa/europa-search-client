@@ -9,8 +9,8 @@ use League\Container\Argument\RawArgument;
 use League\Container\Container;
 use League\Container\ContainerAwareTrait;
 use OpenEuropa\EuropaSearchClient\Api\Delete;
-use OpenEuropa\EuropaSearchClient\Api\TextIngestion;
 use OpenEuropa\EuropaSearchClient\Api\Search;
+use OpenEuropa\EuropaSearchClient\Api\TextIngestion;
 use OpenEuropa\EuropaSearchClient\Api\Token;
 use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
@@ -25,9 +25,10 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -144,24 +145,17 @@ class Client implements ClientInterface
         $container->share('uriFactory', $uriFactory);
         $container->share('multipartStreamBuilder', MultipartStreamBuilder::class)
             ->addArgument($streamFactory);
-        $container->share('reflectionExtractor', ReflectionExtractor::class);
-        $container->share('camelCaseToSnakeCaseNameConverter', CamelCaseToSnakeCaseNameConverter::class);
-        $container->share('getSetMethodNormalizer', GetSetMethodNormalizer::class)
-            ->addArguments([
-                null,
-                'camelCaseToSnakeCaseNameConverter',
-                'reflectionExtractor',
-            ]);
         $container->share('jsonEncoder', JsonEncoder::class);
         $container->share('serializer', Serializer::class)
-            ->addArguments([
-                new RawArgument([
-                    $container->get('getSetMethodNormalizer'),
-                ]),
-                new RawArgument([
-                    $container->get('jsonEncoder'),
-                ])
-            ]);
+            ->addArgument([
+                new GetSetMethodNormalizer(
+                    null,
+                    new CamelCaseToSnakeCaseNameConverter(),
+                    new PhpDocExtractor()
+                ),
+                new ArrayDenormalizer(),
+            ])
+            ->addArgument(new RawArgument([$container->get('jsonEncoder')]));
 
         // API services are not shared, meaning that a new instance is created
         // every time the service is requested from the container.

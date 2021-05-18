@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\EuropaSearchClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
-use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Contract\SearchInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenInterface;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
@@ -15,9 +15,7 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -51,8 +49,6 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(StreamFactoryInterface::class, $container->get('streamFactory'));
         $this->assertInstanceOf(UriFactoryInterface::class, $container->get('uriFactory'));
         $this->assertInstanceOf(MultipartStreamBuilder::class, $container->get('multipartStreamBuilder'));
-        $this->assertInstanceOf(ReflectionExtractor::class, $container->get('reflectionExtractor'));
-        $this->assertInstanceOf(GetSetMethodNormalizer::class, $container->get('getSetMethodNormalizer'));
         $this->assertInstanceOf(JsonEncoder::class, $container->get('jsonEncoder'));
         $this->assertInstanceOf(SerializerInterface::class, $container->get('serializer'));
         $this->assertInstanceOf(SearchInterface::class, $container->get('search'));
