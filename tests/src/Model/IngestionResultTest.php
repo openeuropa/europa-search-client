@@ -4,15 +4,15 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\Tests\EuropaSearchClient\Model;
 
-use OpenEuropa\EuropaSearchClient\Model\Ingestion;
+use OpenEuropa\EuropaSearchClient\Model\IngestionResult;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the ingestion model class.
  *
- * @covers \OpenEuropa\EuropaSearchClient\Model\Ingestion
+ * @covers \OpenEuropa\EuropaSearchClient\Model\IngestionResult
  */
-class IngestionText extends TestCase
+class IngestionResultTest extends TestCase
 {
 
     /**
@@ -20,7 +20,7 @@ class IngestionText extends TestCase
      */
     public function testSettersAndGetters(): void
     {
-        $model = new Ingestion();
+        $model = new IngestionResult();
         $model->setApiVersion('2.31');
         $model->setReference('a4676974-39a6-4d72-a054-eede794b30d6');
         $model->setTrackingId('d426d72b-3b2c-4207-92f9-0f813934221f');
