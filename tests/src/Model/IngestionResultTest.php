@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \OpenEuropa\EuropaSearchClient\Model\IngestionResult
  */
-class IngestionText extends TestCase
+class IngestionResultTest extends TestCase
 {
 
     /**
