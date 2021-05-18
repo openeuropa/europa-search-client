@@ -4,7 +4,7 @@
 
 ## Description
 
-_Europa Search Client_ is library offering a PHP API to consume [Europa Search](http://example.com) services.
+_Europa Search Client_ is library offering a PHP API to consume Europa Search services.
 
 ## Install
 
@@ -76,7 +76,7 @@ Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::ingestFile()` fo
 $success = $client->delete('referenceID');
 ```
 
-Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::ingestFile()` for a complete list of parameters. The function returns a boolean indicating if the operation was successful. 
+Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::delete()` for a complete list of parameters. The function returns a boolean indicating if the operation was successful. 
 
 ### Checking availability
 
