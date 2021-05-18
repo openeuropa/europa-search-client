@@ -20,6 +20,9 @@ class SearchResult
      * A list of best bets documents.
      *
      * @var \OpenEuropa\EuropaSearchClient\Model\Document[]
+     *
+     * @todo This property will be converted into DocumentCollection.
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-158
      */
     protected $bestBets;
 
@@ -62,6 +65,9 @@ class SearchResult
      * An array of documents.
      *
      * @var \OpenEuropa\EuropaSearchClient\Model\Document[]
+     *
+     * @todo This property will be converted into DocumentCollection.
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-158
      */
     protected $results;
 
@@ -129,6 +135,9 @@ class SearchResult
      *
      * @return \OpenEuropa\EuropaSearchClient\Model\Document[]
      *   The best bets documents.
+     *
+     * @todo The method return will be converted into DocumentCollection.
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-158
      */
     public function getBestBets(): array
     {
@@ -141,6 +150,9 @@ class SearchResult
      * @param \OpenEuropa\EuropaSearchClient\Model\Document[] $bestBets
      *   The best bets documents.
      * @return $this
+     *
+     * @todo The parameter will be converted into DocumentCollection.
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-158
      */
     public function setBestBets(array $bestBets): self
     {
@@ -273,6 +285,9 @@ class SearchResult
      *
      * @return \OpenEuropa\EuropaSearchClient\Model\Document[]
      *   An array of documents.
+     *
+     * @todo The method return will be converted into DocumentCollection.
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-158
      */
     public function getResults(): array
     {
@@ -285,6 +300,9 @@ class SearchResult
      * @param \OpenEuropa\EuropaSearchClient\Model\Document[] $results
      *   An array of documents.
      * @return $this
+     *
+     * @todo The parameter will be converted into DocumentCollection.
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-158
      */
     public function setResults(array $results): self
     {
