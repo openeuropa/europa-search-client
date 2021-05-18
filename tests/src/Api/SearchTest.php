@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\Tests\EuropaSearchClient;
+namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Model\QueryLanguage;
