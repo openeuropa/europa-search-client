@@ -153,7 +153,7 @@ class Search extends ApiBase implements SearchInterface
     /**
      * @inheritDoc
      */
-    public function getText(): ?string
+    public function getText(): string
     {
         // The special case '***' means 'Give me all the results'.
         return $this->text ?? '***';

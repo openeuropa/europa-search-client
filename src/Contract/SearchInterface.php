@@ -21,9 +21,9 @@ interface SearchInterface extends ApiInterface, LanguagesAwareInterface
     public function setText(?string $text): self;
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getText(): ?string;
+    public function getText(): string;
 
     /**
      * @param array|null $query
