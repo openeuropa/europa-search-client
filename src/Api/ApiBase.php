@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
+use GuzzleHttp\Exception\ConnectException;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
+use OpenEuropa\EuropaSearchClient\Exception\EuropaSearchApiInvalidStatusCodeException;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -194,19 +197,19 @@ abstract class ApiBase implements ApiInterface
      * @param string $method
      *   The request method.
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      *   The response.
      *
-     * @throws \Psr\Http\Client\ClientExceptionInterface
-     *   Thrown if an error happened while processing the request.
+     * @throws ClientExceptionInterface
+     *   Thrown if a network error happened while processing the request.
+     * @throws EuropaSearchApiInvalidStatusCodeException
+     *   Thrown when the API endpoint returns code other than 200.
      */
     protected function send(string $method): ResponseInterface
     {
         $method = strtoupper($method);
-        $request = $this->requestFactory->createRequest(
-            $method,
-            $this->getRequestUri()
-        );
+        $uri = $this->getRequestUri();
+        $request = $this->requestFactory->createRequest($method, $uri);
 
         if ($headers = $this->getRequestHeaders()) {
             foreach ($headers as $name => $value) {
@@ -219,7 +222,13 @@ abstract class ApiBase implements ApiInterface
             $request = $request->withBody($body);
         }
 
-        return $this->httpClient->sendRequest($request);
+        $response = $this->httpClient->sendRequest($request);
+
+        if ($response->getStatusCode() !== 200) {
+            throw new EuropaSearchApiInvalidStatusCodeException("{$method} {$uri} returns {$response->getStatusCode()}");
+        }
+
+        return $response;
     }
 
     /**
