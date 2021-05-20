@@ -33,14 +33,8 @@ class Token extends ApiBase implements TokenInterface
     {
         return [
             'tokenApiEndpoint' => $this->getEndpointSchema(),
-            'consumerKey' => [
-                'type' => 'string',
-                'required' => true,
-            ],
-            'consumerSecret' => [
-                'type' => 'string',
-                'required' => true,
-            ],
+            'consumerKey' => $this->getRequiredStringSchema(),
+            'consumerSecret' => $this->getRequiredStringSchema(),
         ];
     }
 

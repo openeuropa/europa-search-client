@@ -327,4 +327,16 @@ abstract class ApiBase implements ApiInterface
             },
         ];
     }
+
+    /**
+     * @return array
+     * @see ApiInterface::getConfigSchema()
+     */
+    protected function getRequiredStringSchema(): array
+    {
+        return [
+            'type' => 'string',
+            'required' => true,
+        ];
+    }
 }
