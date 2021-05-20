@@ -144,10 +144,10 @@ class Client implements ClientInterface
         $container->share('streamFactory', $streamFactory);
         $container->share('uriFactory', $uriFactory);
         $container->share('multipartStreamBuilder', MultipartStreamBuilder::class)
-            ->addArgument($streamFactory);
+            ->withArgument($streamFactory);
         $container->share('jsonEncoder', JsonEncoder::class);
         $container->share('serializer', Serializer::class)
-            ->addArgument([
+            ->withArgument([
                 new GetSetMethodNormalizer(
                     null,
                     new CamelCaseToSnakeCaseNameConverter(),
@@ -155,7 +155,7 @@ class Client implements ClientInterface
                 ),
                 new ArrayDenormalizer(),
             ])
-            ->addArgument(new RawArgument([$container->get('jsonEncoder')]));
+            ->withArgument(new RawArgument([$container->get('jsonEncoder')]));
 
         // API services are not shared, meaning that a new instance is created
         // every time the service is requested from the container.
