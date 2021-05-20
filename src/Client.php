@@ -203,7 +203,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * @return TextIngestionInterface
+     * @return DeleteInterface
      */
     protected function getDeleteService(): DeleteInterface
     {
