@@ -4,67 +4,70 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Model;
 
+use OpenEuropa\EuropaSearchClient\Traits\ApiVersionAwareTrait;
+
 /**
  * A class that represents a facet data transfer object.
  */
 class Facet
 {
-    /**
-     * The facet database.
-     *
-     * @var string|null
-     */
-    protected $database;
+    use ApiVersionAwareTrait;
 
     /**
-     * The total number of results.
-     *
      * @var int
      */
     protected $count;
 
     /**
-     * The facet label that can be used in the search interface display.
-     *
+     * @var string
+     */
+    protected $database;
+
+    /**
      * @var string
      */
     protected $name;
 
     /**
-     * The facet name that can be used as id key between ES services and the Drupal implementation.
-     *
      * @var string
      */
     protected $rawName;
 
     /**
-     * An array of children facets.
-     *
-     * @var \OpenEuropa\EuropaSearchClient\Model\Facet[]
+     * @var FacetValue[]
      */
     protected $values;
 
     /**
-     * @return string|null
+     * @param string $database
+     * @return $this
      */
-    public function getDatabase(): ?string
+    public function setDatabase(string $database): self
+    {
+        $this->database = $database;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDatabase(): string
     {
         return $this->database;
     }
 
     /**
-     * @param string|null $database
+     * @param int $count
+     * @return $this
      */
-    public function setDatabase(?string $database): void
+    public function setCount(int $count): self
     {
-        $this->database = $database;
+        $this->count = $count;
+        return $this;
     }
 
     /**
-     * Returns the number of results found for this facet.
-     *
      * @return int
-     *   The number of result in the facet.
      */
     public function getCount(): int
     {
@@ -72,21 +75,17 @@ class Facet
     }
 
     /**
-     * Sets the number of results found for this facet.
-     *
-     * @param int $count
-     *   The number of result in the facet.
+     * @param string $name
+     * @return $this
      */
-    public function setCount(int $count): void
+    public function setName(string $name): self
     {
-        $this->count = $count;
+        $this->name = $name;
+        return $this;
     }
 
     /**
-     * Returns the facet label.
-     *
      * @return string
-     *   The facet label.
      */
     public function getName(): string
     {
@@ -94,57 +93,38 @@ class Facet
     }
 
     /**
-     * Sets the facet label.
-     *
-     * @param string $name
-     *   The facet label.
+     * @param string $rawName
+     * @return $this
      */
-    public function setName(string $name): void
+    public function setRawName(string $rawName): self
     {
-        $this->name = $name;
+        $this->rawName = $rawName;
+        return $this;
     }
 
     /**
-     * Returns the facet name.
-     *
      * @return string
-     *   The facet name.
      */
-    public function getRawname(): string
+    public function getRawName(): string
     {
         return $this->rawName;
     }
 
     /**
-     * Sets the facet name.
-     *
-     * @param string $rawName
-     *   The facet name.
+     * @param Facet[] $values
+     * @return $this
      */
-    public function setRawname(string $rawName): void
+    public function setValues(array $values): self
     {
-        $this->rawName = $rawName;
+        $this->values = $values;
+        return $this;
     }
 
     /**
-     * Returns the list of facet values.
-     *
-     * @return \OpenEuropa\EuropaSearchClient\Model\Facet[]
-     *   An array of child facets.
+     * @return Facet[]
      */
     public function getValues(): array
     {
         return $this->values;
-    }
-
-    /**
-     * Sets the list of facet values.
-     *
-     * @param \OpenEuropa\EuropaSearchClient\Model\Facet[] $values
-     *   An array of child facets.
-     */
-    public function setValues(array $values): void
-    {
-        $this->values = $values;
     }
 }

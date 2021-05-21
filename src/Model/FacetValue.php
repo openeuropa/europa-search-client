@@ -7,69 +7,70 @@ namespace OpenEuropa\EuropaSearchClient\Model;
 use OpenEuropa\EuropaSearchClient\Traits\ApiVersionAwareTrait;
 
 /**
- * A class that represents a facetvalue data object.
- *
- * @SuppressWarnings(PHPMD.TooManyFields)
+ * A class that represents a single facet value data object.
  */
 class FacetValue
 {
     use ApiVersionAwareTrait;
 
     /**
-     * An array of Facets.
-     *
-     * @var \OpenEuropa\EuropaSearchClient\Model\Facet[]
+     * @var int
      */
-    protected $facets;
+    protected $count;
 
     /**
-     * The search terms.
-     *
      * @var string
      */
-    protected $terms;
+    protected $rawValue;
 
     /**
-     * Returns the list of result facets.
-     *
-     * @return \OpenEuropa\EuropaSearchClient\Model\Facet[]
-     *   An array of facets.
+     * @var string
      */
-    public function getFacets(): array
+    protected $value;
+
+    /**
+     * @param int $count
+     * @return $this
+     */
+    public function setCount(int $count): self
     {
-        return $this->facets;
+        $this->count = $count;
+        return $this;
     }
 
     /**
-     * Sets the list of result facets.
-     *
-     * @param \OpenEuropa\EuropaSearchClient\Model\Facet[] $results
-     *   An array of facets.
+     * @return int
      */
-    public function setFacets(array $results): void
+    public function getCount(): int
     {
-        $this->facets = $results;
+        return $this->count;
     }
 
     /**
-     * Returns the facet terms.
-     *
+     * @param string $rawValue
+     * @return $this
+     */
+    public function setRawValue(string $rawValue): self
+    {
+        $this->rawValue = $rawValue;
+        return $this;
+    }
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setValue(string $value): self
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    /**
      * @return string
-     *   The facet terms.
      */
-    public function getTerms(): string
+    public function getValue(): string
     {
-        return $this->terms;
-    }
-
-    /**
-     * Sets the facet terms.
-     *
-     * @param string $terms
-     *   The facet terms.
-     */
-    public function setTerms(string $terms): void
-    {
-        $this->terms = $terms;
+        return $this->value;
     }
 }
