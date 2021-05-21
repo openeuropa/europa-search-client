@@ -4,13 +4,13 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use OpenEuropa\EuropaSearchClient\Contract\FacetInterface;
-use OpenEuropa\EuropaSearchClient\Model\Search;
+use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
+use OpenEuropa\EuropaSearchClient\Model\Facet;
 
 /**
  * Facet API.
  */
-class FacetApi extends SearchApiBase implements FacetInterface
+class FacetApi extends SearchApiBase implements FacetApiInterface
 {
     /**
      * @var string
@@ -20,14 +20,15 @@ class FacetApi extends SearchApiBase implements FacetInterface
     /**
      * @inheritDoc
      */
-    public function getFacets(): array
+    public function getFacets(): Facet
     {
-        return $this->serializer->deserialize(
+        /** @var Facet $facet */
+        $facet = $this->serializer->deserialize(
             $this->send('POST')->getBody()->__toString(),
-            Search::class,
+            Facet::class,
             'json'
         );
-        return $search;
+        return $facet;
     }
 
     /**
@@ -65,7 +66,7 @@ class FacetApi extends SearchApiBase implements FacetInterface
     /**
      * @inheritDoc
      */
-    public function setDisplayLanguage(?string $displayLanguage): FacetInterface
+    public function setDisplayLanguage(?string $displayLanguage): FacetApiInterface
     {
         $this->displayLanguage = $displayLanguage;
         return $this;
