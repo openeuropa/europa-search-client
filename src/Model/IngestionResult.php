@@ -7,7 +7,7 @@ namespace OpenEuropa\EuropaSearchClient\Model;
 /**
  * A class that represents an ingestion data transfer object.
  */
-class Ingestion
+class IngestionResult
 {
 
     /**
