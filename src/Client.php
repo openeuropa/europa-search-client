@@ -158,7 +158,10 @@ class Client implements ClientInterface
             ->withArgument(new RawArgument([$container->get('jsonEncoder')]));
 
         // API services are not shared, meaning that a new instance is created
-        // every time the service is requested from the container.
+        // every time the service is requested from the container. We're doing
+        // this because such a service might be called more than one time during
+        // the life time of a request, so internals set in a previous usage may
+        // leak into the later usages.
         $container->add('search', SearchApi::class);
         $container->add('token', TokenApi::class);
         $container->add('textIngestion', TextIngestionApi::class);
