@@ -57,6 +57,14 @@ class FacetValue
     }
 
     /**
+     * @return string
+     */
+    public function getRawValue(): string
+    {
+        return $this->rawValue;
+    }
+
+    /**
      * @param string $value
      * @return $this
      */
