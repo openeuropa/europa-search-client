@@ -9,7 +9,6 @@ namespace OpenEuropa\EuropaSearchClient\Model;
  */
 class Metadata
 {
-
     /**
      * @var string
      */

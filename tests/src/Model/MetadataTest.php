@@ -14,7 +14,6 @@ use PHPUnit\Framework\TestCase;
  */
 class MetadataTest extends TestCase
 {
-
     /**
      * Tests the setters and getters.
      */
