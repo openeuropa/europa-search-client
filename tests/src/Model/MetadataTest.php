@@ -36,7 +36,7 @@ class MetadataTest extends TestCase
     }
 
     /**
-     * Tests the setters and getters.
+     * Tests JSON serialization.
      */
     public function testSerialization(): void
     {

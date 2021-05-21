@@ -29,7 +29,7 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
     protected $reference;
 
     /**
-     * @var \OpenEuropa\EuropaSearchClient\Model\Metadata[]
+     * @var \OpenEuropa\EuropaSearchClient\Model\Metadata
      */
     protected $metadata;
 
