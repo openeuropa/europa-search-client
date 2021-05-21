@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use OpenEuropa\EuropaSearchClient\Model\IngestionResult;
-use OpenEuropa\EuropaSearchClient\Model\Metadata;
 
 interface IngestionInterface extends ApiInterface, TokenAwareInterface, LanguagesAwareInterface
 {
@@ -28,15 +27,17 @@ interface IngestionInterface extends ApiInterface, TokenAwareInterface, Language
     public function getUri(): string;
 
     /**
-     * @param \OpenEuropa\EuropaSearchClient\Model\Metadata $metadata
+     * @param array|null $metadata
      * @return $this
+     * @todo Metadata is a complex structure and it requires its own type.
      */
-    public function setMetadata(Metadata $metadata): self;
+    public function setMetadata(?array $metadata): self;
 
     /**
-     * @return \OpenEuropa\EuropaSearchClient\Model\Metadata
+     * @return array|null
+     * @todo Metadata is a complex structure and it requires its own type.
      */
-    public function getMetadata(): Metadata;
+    public function getMetadata(): ?array;
 
     /**
      * @param string|null $reference
