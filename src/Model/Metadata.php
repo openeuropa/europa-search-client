@@ -10,8 +10,14 @@ namespace OpenEuropa\EuropaSearchClient\Model;
 class Metadata
 {
 
+    /**
+     * @var string
+     */
     protected $key;
 
+    /**
+     * @var array
+     */
     protected $value;
 
     /**
@@ -33,7 +39,7 @@ class Metadata
      *
      * @return $this
      */
-    public function setKey(string $key): Metadata
+    public function setKey(string $key): self
     {
         $this->key = $key;
 
@@ -59,7 +65,7 @@ class Metadata
      *
      * @return $this
      */
-    public function setValue(array $value): Metadata
+    public function setValue(array $value): self
     {
         $this->value = $value;
 

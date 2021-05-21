@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace OpenEuropa\Tests\EuropaSearchClient\Model;
 
@@ -8,7 +8,7 @@ use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the query Metadata model class.
+ * Tests the Metadata model class.
  *
  * @covers \OpenEuropa\EuropaSearchClient\Model\Metadata
  */
