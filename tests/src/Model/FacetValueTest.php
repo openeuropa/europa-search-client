@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\EuropaSearchClient\Model;
 
-use OpenEuropa\Tests\EuropaSearchClient\Traits\FacetValueTestGeneratorTrait;
+use OpenEuropa\Tests\EuropaSearchClient\Traits\FacetTestGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 class FacetValueTest extends TestCase
 {
-    use FacetValueTestGeneratorTrait;
+    use FacetTestGeneratorTrait;
 
     /**
      * @covers ::setApiVersion

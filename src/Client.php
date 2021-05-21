@@ -20,7 +20,7 @@ use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
-use OpenEuropa\EuropaSearchClient\Model\Facet;
+use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
@@ -106,7 +106,7 @@ class Client implements ClientInterface
         ?array $query = null,
         ?array $sort = null,
         ?string $sessionToken = null
-    ): Facet {
+    ): Facets {
         return $this->getFacetService()
             ->setText($text)
             ->setLanguages($languages)

@@ -6,6 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use League\Container\ContainerAwareInterface;
 use OpenEuropa\EuropaSearchClient\Model\Facet;
+use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 
@@ -57,7 +58,7 @@ interface ClientInterface extends ContainerAwareInterface
         ?array $query = null,
         ?array $sort = null,
         ?string $sessionToken = null
-    ): Facet;
+    ): Facets;
 
     /**
      * @param string $uri

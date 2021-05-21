@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
-use OpenEuropa\EuropaSearchClient\Model\Facet;
+use OpenEuropa\EuropaSearchClient\Model\Facets;
 
 /**
  * Facet API.
@@ -20,15 +20,15 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
     /**
      * @inheritDoc
      */
-    public function getFacets(): Facet
+    public function getFacets(): Facets
     {
-        /** @var Facet $facet */
-        $facet = $this->serializer->deserialize(
+        /** @var Facets $facets */
+        $facets = $this->serializer->deserialize(
             $this->send('POST')->getBody()->__toString(),
-            Facet::class,
+            Facets::class,
             'json'
         );
-        return $facet;
+        return $facets;
     }
 
     /**

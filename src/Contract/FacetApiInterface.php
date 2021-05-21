@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
-use OpenEuropa\EuropaSearchClient\Model\Facet;
+use OpenEuropa\EuropaSearchClient\Model\Facets;
 
 interface FacetApiInterface extends SearchApiBaseInterface
 {
     /**
-     * @return Facet
+     * @return Facets
      */
-    public function getFacets(): Facet;
+    public function getFacets(): Facets;
 
     /**
      * @param string|null $displayLanguage

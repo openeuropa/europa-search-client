@@ -35,6 +35,8 @@ class Facet
 
     /**
      * @var FacetValue[]
+     * @todo This will be converted to a collection in OEL-166.
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-166
      */
     protected $values;
 
@@ -113,6 +115,8 @@ class Facet
     /**
      * @param Facet[] $values
      * @return $this
+     * @todo The $values parameter will be converted to a collection in OEL-166.
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-166
      */
     public function setValues(array $values): self
     {
@@ -122,6 +126,8 @@ class Facet
 
     /**
      * @return Facet[]
+     * @todo This will be converted to a collection in OEL-166.
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-166
      */
     public function getValues(): array
     {

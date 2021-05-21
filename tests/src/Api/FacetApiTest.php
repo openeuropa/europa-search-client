@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
 use GuzzleHttp\Psr7\Response;
-use OpenEuropa\EuropaSearchClient\Model\Facet;
+use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
-use OpenEuropa\Tests\EuropaSearchClient\Traits\FacetValueTestGeneratorTrait;
+use OpenEuropa\Tests\EuropaSearchClient\Traits\FacetTestGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 class FacetApiTest extends TestCase
 {
     use ClientTestTrait;
-    use FacetValueTestGeneratorTrait;
+    use FacetTestGeneratorTrait;
 
     /**
      * @covers ::getFacets
@@ -39,6 +39,7 @@ class FacetApiTest extends TestCase
      */
     public function providerTestGetFacets(): array
     {
+        [$facetsAsArray, $facetsAsObject] = $this->generateTestingFacetItems(5);
         $facetValues = [];
         for ($i = 0; $i < 5; $i++) {
             $facetValues[] = [
@@ -57,24 +58,13 @@ class FacetApiTest extends TestCase
                 ],
                 new Response(200, [], json_encode([
                     'apiVersion' => '1.34.0',
-                    'count' => 7689,
-                    'database' => 'foo',
-                    'name' => 'bar',
-                    'rawName' => 'baz',
-                    'values' => $facetValues,
+                    'facets' => $facetsAsArray,
+                    'terms' => 'foo',
                 ])),
-                (new Facet())
+                (new Facets())
                     ->setApiVersion('1.34.0')
-                    ->setCount(7689)
-                    ->setDatabase('foo')
-                    ->setName('bar')
-                    ->setRawName('baz')
-                    ->setValues(
-                        array_map(
-                            [$this, 'generateTestingFacetValue'],
-                            $facetValues
-                        )
-                    ),
+                    ->setFacets($facetsAsObject)
+                    ->setTerms('foo'),
             ],
         ];
     }
