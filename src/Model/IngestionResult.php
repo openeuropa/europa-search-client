@@ -47,14 +47,10 @@ class IngestionResult
      *
      * @param string $apiVersion
      *   The API version.
-     *
-     * @return $this
      */
-    public function setApiVersion(string $apiVersion): Ingestion
+    public function setApiVersion(string $apiVersion): void
     {
         $this->apiVersion = $apiVersion;
-
-        return $this;
     }
 
     /**
@@ -73,14 +69,10 @@ class IngestionResult
      *
      * @param string $reference
      *   The reference ID.
-     *
-     * @return $this
      */
-    public function setReference(string $reference): Ingestion
+    public function setReference(string $reference): void
     {
         $this->reference = $reference;
-
-        return $this;
     }
 
     /**
@@ -99,13 +91,9 @@ class IngestionResult
      *
      * @param string $trackingId
      *   The tracking ID.
-     *
-     * @return $this
      */
-    public function setTrackingId(string $trackingId): Ingestion
+    public function setTrackingId(string $trackingId): void
     {
         $this->trackingId = $trackingId;
-
-        return $this;
     }
 }
