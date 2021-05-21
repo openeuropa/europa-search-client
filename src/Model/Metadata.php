@@ -1,33 +1,24 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Model;
 
 /**
- * A class that represents the fields metadata.
+ * A class that represents a document's metadata.
  */
 class Metadata
 {
-    /**
-     * The object name.
-     *
-     * @var string
-     */
+
     protected $key;
 
-    /**
-     * An array of values.
-     *
-     * @var \OpenEuropa\EuropaSearchClient\Model\Metadata[]
-     */
     protected $value;
 
     /**
      * Returns the key name.
      *
-     * @return \OpenEuropa\EuropaSearchClient\Model\Metadata
-     *   An array of field values.
+     * @return string
+     *   The metadata key.
      */
     public function getKey(): string
     {
@@ -37,7 +28,7 @@ class Metadata
     /**
      * Sets the object key.
      *
-     * @param \OpenEuropa\EuropaSearchClient\Model\Metadata $key
+     * @param string $key
      *   The object key name.
      *
      * @return $this
@@ -52,7 +43,7 @@ class Metadata
     /**
      * Returns the list of values.
      *
-     * @return \OpenEuropa\EuropaSearchClient\Model\Metadata[]
+     * @return array
      *   An array of field values.
      */
     public function getValue(): array
@@ -63,7 +54,7 @@ class Metadata
     /**
      * Sets the object value.
      *
-     * @param \OpenEuropa\EuropaSearchClient\Model\Metadata[] $value
+     * @param array $value
      *   The object value.
      *
      * @return $this

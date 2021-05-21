@@ -8,7 +8,7 @@ use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the query language model class.
+ * Tests the query Metadata model class.
  *
  * @covers \OpenEuropa\EuropaSearchClient\Model\Metadata
  */

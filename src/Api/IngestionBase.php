@@ -103,16 +103,16 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
     /**
      * @inheritDoc
      */
-    public function setMetadata(Metadata $metadata): IngestionInterface
+    public function setMetadata(?array $metadata): IngestionInterface
     {
-        $this->metadata[$metadata->getKey()] = $metadata->getValue();
+        $this->metadata = $metadata;
         return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function getMetadata(): Metadata
+    public function getMetadata(): ?array
     {
         return $this->metadata;
     }
