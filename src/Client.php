@@ -9,15 +9,18 @@ use League\Container\Argument\RawArgument;
 use League\Container\Container;
 use League\Container\ContainerAwareTrait;
 use OpenEuropa\EuropaSearchClient\Api\DeleteApi;
+use OpenEuropa\EuropaSearchClient\Api\FacetApi;
 use OpenEuropa\EuropaSearchClient\Api\SearchApi;
 use OpenEuropa\EuropaSearchClient\Api\TextIngestionApi;
 use OpenEuropa\EuropaSearchClient\Api\TokenApi;
 use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
 use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
+use OpenEuropa\EuropaSearchClient\Model\Facet;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
@@ -93,6 +96,25 @@ class Client implements ClientInterface
             ->search();
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getFacets(
+        ?string $text = null,
+        ?array $languages = null,
+        ?string $displayLanguage = null,
+        ?array $query = null,
+        ?array $sort = null,
+        ?string $sessionToken = null
+    ): Facet {
+        return $this->getFacetService()
+            ->setText($text)
+            ->setLanguages($languages)
+            ->setDisplayLanguage($displayLanguage)
+            ->setQuery($query)
+            ->setSort($sort)
+            ->getFacets();
+    }
 
     /**
      * @inheritDoc
@@ -163,6 +185,7 @@ class Client implements ClientInterface
         // the life time of a request, so internals set in a previous usage may
         // leak into the later usages.
         $container->add('search', SearchApi::class);
+        $container->add('facet', FacetApi::class);
         $container->add('token', TokenApi::class);
         $container->add('textIngestion', TextIngestionApi::class);
         $container->add('deleteDocument', DeleteApi::class);
@@ -195,6 +218,14 @@ class Client implements ClientInterface
     protected function getSearchService(): SearchApiInterface
     {
         return $this->getContainer()->get('search');
+    }
+
+    /**
+     * @return \OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface
+     */
+    protected function getFacetService(): FacetApiInterface
+    {
+        return $this->getContainer()->get('facet');
     }
 
     /**

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use League\Container\ContainerAwareInterface;
+use OpenEuropa\EuropaSearchClient\Model\Facet;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 
@@ -23,7 +24,7 @@ interface ClientInterface extends ContainerAwareInterface
      * @param int|null $highlightLimit
      * @param string|null $sessionToken
      *
-     * @return \OpenEuropa\EuropaSearchClient\Model\Search
+     * @return Search
      */
     public function search(
         ?string $text = null,
@@ -36,6 +37,27 @@ interface ClientInterface extends ContainerAwareInterface
         ?int $highlightLimit = null,
         ?string $sessionToken = null
     ): Search;
+
+    /**
+     * Executes a facet search.
+     *
+     * @param string|null $text
+     * @param array|null $languages
+     * @param string|null $displayLanguage
+     * @param array|null $query
+     * @param array|null $sort
+     * @param string|null $sessionToken
+     *
+     * @return Facet
+     */
+    public function getFacets(
+        ?string $text = null,
+        ?array $languages = null,
+        ?string $displayLanguage = null,
+        ?array $query = null,
+        ?array $sort = null,
+        ?string $sessionToken = null
+    ): Facet;
 
     /**
      * @param string $uri
