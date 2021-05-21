@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\IngestionInterface;
+use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use OpenEuropa\EuropaSearchClient\Traits\LanguagesAwareTrait;
 use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
 use Psr\Http\Message\UriInterface;
@@ -28,8 +29,7 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
     protected $reference;
 
     /**
-     * @var array
-     * @todo Metadata is a complex structure and it requires its own type.
+     * @var \OpenEuropa\EuropaSearchClient\Model\Metadata[]
      */
     protected $metadata;
 
@@ -103,16 +103,16 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
     /**
      * @inheritDoc
      */
-    public function setMetadata(?array $metadata): IngestionInterface
+    public function setMetadata(Metadata $metadata): IngestionInterface
     {
-        $this->metadata = $metadata;
+        $this->metadata[$metadata->getKey()] = $metadata->getValue();
         return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function getMetadata(): ?array
+    public function getMetadata(): Metadata
     {
         return $this->metadata;
     }
