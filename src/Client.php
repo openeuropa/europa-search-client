@@ -19,6 +19,7 @@ use OpenEuropa\EuropaSearchClient\Contract\SearchInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TextIngestionInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Model\IngestionResult;
+use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use OpenEuropa\EuropaSearchClient\Model\SearchResult;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -104,6 +105,10 @@ class Client implements ClientInterface
         ?array $metadata = null,
         ?string $reference = null
     ): IngestionResult {
+        if (is_array($metadata)) {
+            $metadata = (new Metadata())
+                ->setCollection($metadata);
+        }
         return $this->getTextIngestionService()
             ->setUri($uri)
             ->setText($text)

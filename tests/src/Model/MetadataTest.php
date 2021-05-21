@@ -20,16 +20,31 @@ class MetadataTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $model = new Metadata();
-        $model->setValue(['value1']);
-        $model->setKey('key1');
-        $this->assertEquals($model->getValue(), ['value1']);
-        $this->assertEquals($model->getKey(), 'key1');
+        $model->setCollection([
+            'BODY_VALUE' => ["Value 1", "Value 2"],
+        ]);
+        $this->assertEquals($model->getCollection(), ['BODY_VALUE' => ["Value 1", "Value 2"]]);
 
+        $model->setCollection([
+            'BODY_VALUE' => ["Value 1", "Value 2"],
+            'TITLE' => ["Value 1"],
+        ]);
+        $this->assertEquals($model->getCollection(), [
+            'BODY_VALUE' => ["Value 1", "Value 2"],
+            'TITLE' => ["Value 1"],
+        ]);
+    }
+
+    /**
+     * Tests the setters and getters.
+     */
+    public function testSerialization(): void
+    {
         $model = new Metadata();
-        $model->setValue(['value3', 'value2']);
-        $model->setKey('key3');
-
-        $this->assertEquals($model->getValue(), ['value3', 'value2']);
-        $this->assertEquals($model->getKey(), 'key3');
+        $model->setCollection([
+            'BODY_VALUE' => ["Value 1", "Value 2"],
+        ]);
+        $actual = json_encode($model);
+        $this->assertEquals('{"BODY_VALUE":["Value 1","Value 2"]}', $actual);
     }
 }

@@ -7,67 +7,48 @@ namespace OpenEuropa\EuropaSearchClient\Model;
 /**
  * A class that represents a document's metadata.
  */
-class Metadata
+class Metadata implements \JsonSerializable
 {
-    /**
-     * @var string
-     */
-    protected $key;
-
     /**
      * @var array
      */
-    protected $value;
-
-    /**
-     * Returns the key name.
-     *
-     * @return string
-     *   The metadata key.
-     */
-    public function getKey(): string
-    {
-        return $this->key;
-    }
-
-    /**
-     * Sets the object key.
-     *
-     * @param string $key
-     *   The object key name.
-     *
-     * @return $this
-     */
-    public function setKey(string $key): self
-    {
-        $this->key = $key;
-
-        return $this;
-    }
+    protected $collection;
 
     /**
      * Returns the list of values.
      *
      * @return array
-     *   An array of field values.
+     *   An array of values.
      */
-    public function getValue(): array
+    public function getCollection(): array
     {
-        return $this->value;
+        return $this->collection;
     }
 
     /**
-     * Sets the object value.
+     * Add values.
      *
-     * @param array $value
-     *   The object value.
+     * @param array $values
+     *   The values to add.
      *
      * @return $this
      */
-    public function setValue(array $value): self
+    public function setCollection(array $values): self
     {
-        $this->value = $value;
-
+        $this->collection = $values;
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        $collection = new \stdClass();
+
+        foreach ($this->collection as $key => $value) {
+            $collection->{$key} = $value;
+        }
+        return $collection;
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\IngestionInterface;
+use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use OpenEuropa\EuropaSearchClient\Traits\LanguagesAwareTrait;
 use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
 use Psr\Http\Message\UriInterface;
@@ -102,7 +103,7 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
     /**
      * @inheritDoc
      */
-    public function setMetadata(?array $metadata): IngestionInterface
+    public function setMetadata(?Metadata $metadata): IngestionInterface
     {
         $this->metadata = $metadata;
         return $this;
@@ -111,7 +112,7 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
     /**
      * @inheritDoc
      */
-    public function getMetadata(): ?array
+    public function getMetadata(): ?Metadata
     {
         return $this->metadata;
     }
