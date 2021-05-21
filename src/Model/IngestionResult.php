@@ -4,18 +4,14 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Model;
 
+use OpenEuropa\EuropaSearchClient\Traits\ApiVersionAwareTrait;
+
 /**
  * A class that represents an ingestion data transfer object.
  */
-class IngestionResult
+class IngestionResult extends ResultBase
 {
-
-    /**
-     * The API version.
-     *
-     * @var string
-     */
-    protected $apiVersion;
+    use ApiVersionAwareTrait;
 
     /**
      * The reference ID.
@@ -30,28 +26,6 @@ class IngestionResult
      * @var string
      */
     protected $trackingId;
-
-    /**
-     * Returns the API version.
-     *
-     * @return string
-     *   The API version.
-     */
-    public function getApiVersion(): string
-    {
-        return $this->apiVersion;
-    }
-
-    /**
-     * Sets the API version.
-     *
-     * @param string $apiVersion
-     *   The API version.
-     */
-    public function setApiVersion(string $apiVersion): void
-    {
-        $this->apiVersion = $apiVersion;
-    }
 
     /**
      * Returns the reference ID.

@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Model;
 
+use OpenEuropa\EuropaSearchClient\Traits\ApiVersionAwareTrait;
+
 /**
  * A class that represents a facetvalue data object.
  *
@@ -11,13 +13,7 @@ namespace OpenEuropa\EuropaSearchClient\Model;
  */
 class FacetValue
 {
-
-    /**
-     * The API version.
-     *
-     * @var string
-     */
-    protected $apiVersion;
+    use ApiVersionAwareTrait;
 
     /**
      * An array of Facets.
@@ -32,28 +28,6 @@ class FacetValue
      * @var string
      */
     protected $terms;
-
-    /**
-     * Returns the API version.
-     *
-     * @return string
-     *   The API version.
-     */
-    public function getApiVersion(): string
-    {
-        return $this->apiVersion;
-    }
-
-    /**
-     * Sets the API version.
-     *
-     * @param string $apiVersion
-     *   The API version.
-     */
-    public function setApiVersion(string $apiVersion): void
-    {
-        $this->apiVersion = $apiVersion;
-    }
 
     /**
      * Returns the list of result facets.
