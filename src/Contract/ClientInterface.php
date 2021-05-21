@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use League\Container\ContainerAwareInterface;
-use OpenEuropa\EuropaSearchClient\Model\IngestionResult;
-use OpenEuropa\EuropaSearchClient\Model\SearchResult;
+use OpenEuropa\EuropaSearchClient\Model\Ingestion;
+use OpenEuropa\EuropaSearchClient\Model\Search;
 
 interface ClientInterface extends ContainerAwareInterface
 {
@@ -23,7 +23,7 @@ interface ClientInterface extends ContainerAwareInterface
      * @param int|null $highlightLimit
      * @param string|null $sessionToken
      *
-     * @return \OpenEuropa\EuropaSearchClient\Model\SearchResult
+     * @return \OpenEuropa\EuropaSearchClient\Model\Search
      */
     public function search(
         ?string $text = null,
@@ -35,7 +35,7 @@ interface ClientInterface extends ContainerAwareInterface
         ?string $highlightRegex = null,
         ?int $highlightLimit = null,
         ?string $sessionToken = null
-    ): SearchResult;
+    ): Search;
 
     /**
      * @param string $uri
@@ -44,7 +44,7 @@ interface ClientInterface extends ContainerAwareInterface
      * @param array|null $metadata
      * @param string|null $reference
      *
-     * @return IngestionResult
+     * @return Ingestion
      */
     public function ingestText(
         string $uri,
@@ -52,7 +52,7 @@ interface ClientInterface extends ContainerAwareInterface
         ?array $languages = null,
         ?array $metadata = null,
         ?string $reference = null
-    ): IngestionResult;
+    ): Ingestion;
 
     /**
      * @param string $reference

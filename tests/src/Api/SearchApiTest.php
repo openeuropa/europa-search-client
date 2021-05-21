@@ -7,14 +7,14 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Model\Document;
 use OpenEuropa\EuropaSearchClient\Model\QueryLanguage;
-use OpenEuropa\EuropaSearchClient\Model\SearchResult;
+use OpenEuropa\EuropaSearchClient\Model\Search;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\Search
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\SearchApi
  */
-class SearchTest extends TestCase
+class SearchApiTest extends TestCase
 {
     use ClientTestTrait;
 
@@ -133,7 +133,7 @@ class SearchTest extends TestCase
                     'warnings' => [
                     ],
                 ])),
-                (new SearchResult())
+                (new Search())
                     ->setApiVersion('2.69')
                     ->setTerms('"Programme managers"')
                     ->setResponseTime(44)

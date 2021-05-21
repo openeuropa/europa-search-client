@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
-interface SearchBaseInterface extends ApiInterface, LanguagesAwareInterface
+interface SearchApiBaseInterface extends ApiInterface, LanguagesAwareInterface
 {
     /**
      * @param string|null $text

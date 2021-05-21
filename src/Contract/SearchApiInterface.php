@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
-use OpenEuropa\EuropaSearchClient\Model\SearchResult;
+use OpenEuropa\EuropaSearchClient\Model\Search;
 
-interface SearchInterface extends SearchBaseInterface
+interface SearchApiInterface extends SearchApiBaseInterface
 {
     /**
      * @return array|null

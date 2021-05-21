@@ -4,76 +4,78 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use OpenEuropa\EuropaSearchClient\Model\FacetCollection;
-use OpenEuropa\EuropaSearchClient\Model\FacetValue;
-use Symfony\Component\OptionsResolver\Options;
+use OpenEuropa\EuropaSearchClient\Contract\FacetInterface;
+use OpenEuropa\EuropaSearchClient\Model\Search;
 
 /**
- * Class representing the Facet API endpoints.
+ * Facet API.
  */
-class FacetApi extends ApiBase
+class FacetApi extends SearchApiBase implements FacetInterface
 {
     /**
-     * Executes a facet search.
-     *
-     * @param array $parameters
-     *   The request parameters:
-     *     - text: The text to match in documents. Required.
-     *
-     * @return \OpenEuropa\EuropaSearchClient\Model\FacetValue
-     *   The facet model.
-     *
-     * @throws \Psr\Http\Client\ClientExceptionInterface
-     *   Thrown if an error happened while processing the request.
+     * @var string
      */
-    public function query(array $parameters = []): FacetValue
+    protected $displayLanguage;
+
+    /**
+     * @inheritDoc
+     */
+    public function getFacets(): array
     {
-        $resolver = $this->getOptionResolver();
-
-        $resolver->setRequired('text')
-            ->setAllowedTypes('text', 'string')
-            ->setDefault('text', '***');
-
-        $resolver->setDefined('displayLanguage')
-            ->setAllowedTypes('displayLanguage', 'string[]');
-        // @todo Validate languages with ISO 639-1 language codes.
-        // $resolver->setAllowedValues('languages', []);
-
-        $parameters = $resolver->resolve($parameters);
-
-        $queryKeys = array_flip(['apiKey', 'text']);
-        $queryParameters = array_intersect_key($parameters, $queryKeys);
-        $bodyParameters = array_diff_key($parameters, $queryKeys);
-        $response = $this->send('POST', 'rest/facet', $queryParameters, $bodyParameters, true);
-
-        /** @var FacetValue $search */
-        $search = $this->getSerializer()->deserialize((string)$response->getBody(), FacetValue::class, 'json');
-
+        return $this->serializer->deserialize(
+            $this->send('POST')->getBody()->__toString(),
+            Search::class,
+            'json'
+        );
         return $search;
     }
 
     /**
      * @inheritDoc
      */
-    protected function getOptionResolver(): Options
+    public function getConfigSchema(): array
     {
-        $resolver = parent::getOptionResolver();
-
-        $resolver->setRequired('apiKey')
-            ->setAllowedTypes('apiKey', 'string')
-            ->setDefault('apiKey', $this->client->getConfiguration('apiKey'));
-
-        return $resolver;
+        return [
+            'facetApiEndpoint' => $this->getEndpointSchema(),
+        ] + parent::getConfigSchema();
     }
 
     /**
      * @inheritDoc
      */
-    protected function prepareUri(string $path, array $queryParameters = []): string
+    protected function getEndpointUri(): string
     {
-        $base_path = $this->client->getConfiguration('search_api_endpoint');
-        $uri = rtrim($base_path, '/') . '/' . ltrim($path, '/');
+        return $this->getConfigValue('facetApiEndpoint');
+    }
 
-        return $this->addQueryParameters($uri, $queryParameters);
+    /**
+     * @inheritDoc
+     */
+    protected function getRequestMultipartStreamElements(): array
+    {
+        $parts = parent::getRequestMultipartStreamElements();
+
+        if ($displayLanguage = $this->getDisplayLanguage()) {
+            $parts['displayLanguage'] = $this->jsonEncoder->encode($displayLanguage, 'json');
+        }
+
+        return $parts;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setDisplayLanguage(?string $displayLanguage): FacetInterface
+    {
+        $this->displayLanguage = $displayLanguage;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDisplayLanguage(): ?string
+    {
+        return $this->displayLanguage;
     }
 }

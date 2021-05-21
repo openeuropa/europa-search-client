@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
-interface DeleteInterface extends ApiInterface, TokenAwareInterface
+interface DeleteApiInterface extends ApiInterface, TokenAwareInterface
 {
     /**
      * @return bool
      */
-    public function delete(): bool;
+    public function deleteDocument(): bool;
 
     /**
      * @param string $reference

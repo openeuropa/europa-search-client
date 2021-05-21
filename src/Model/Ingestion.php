@@ -9,7 +9,7 @@ use OpenEuropa\EuropaSearchClient\Traits\ApiVersionAwareTrait;
 /**
  * A class that represents an ingestion data transfer object.
  */
-class IngestionResult extends ResultBase
+class Ingestion
 {
     use ApiVersionAwareTrait;
 

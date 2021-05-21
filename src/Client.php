@@ -8,18 +8,18 @@ use Http\Message\MultipartStream\MultipartStreamBuilder;
 use League\Container\Argument\RawArgument;
 use League\Container\Container;
 use League\Container\ContainerAwareTrait;
-use OpenEuropa\EuropaSearchClient\Api\Delete;
-use OpenEuropa\EuropaSearchClient\Api\Search;
-use OpenEuropa\EuropaSearchClient\Api\TextIngestion;
-use OpenEuropa\EuropaSearchClient\Api\Token;
+use OpenEuropa\EuropaSearchClient\Api\DeleteApi;
+use OpenEuropa\EuropaSearchClient\Api\SearchApi;
+use OpenEuropa\EuropaSearchClient\Api\TextIngestionApi;
+use OpenEuropa\EuropaSearchClient\Api\TokenApi;
 use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
-use OpenEuropa\EuropaSearchClient\Contract\DeleteInterface;
-use OpenEuropa\EuropaSearchClient\Contract\SearchInterface;
-use OpenEuropa\EuropaSearchClient\Contract\TextIngestionInterface;
+use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
-use OpenEuropa\EuropaSearchClient\Model\IngestionResult;
-use OpenEuropa\EuropaSearchClient\Model\SearchResult;
+use OpenEuropa\EuropaSearchClient\Model\Ingestion;
+use OpenEuropa\EuropaSearchClient\Model\Search;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -79,7 +79,7 @@ class Client implements ClientInterface
         ?string $highlightRegex = null,
         ?int $highlightLimit = null,
         ?string $sessionToken = null
-    ): SearchResult {
+    ): Search {
         return $this->getSearchService()
             ->setText($text)
             ->setLanguages($languages)
@@ -103,7 +103,7 @@ class Client implements ClientInterface
         ?array $languages = null,
         ?array $metadata = null,
         ?string $reference = null
-    ): IngestionResult {
+    ): Ingestion {
         return $this->getTextIngestionService()
             ->setUri($uri)
             ->setText($text)
@@ -120,7 +120,7 @@ class Client implements ClientInterface
     {
         return $this->getDeleteService()
             ->setReference($reference)
-            ->delete();
+            ->deleteDocument();
     }
 
     /**
@@ -159,10 +159,10 @@ class Client implements ClientInterface
 
         // API services are not shared, meaning that a new instance is created
         // every time the service is requested from the container.
-        $container->add('search', Search::class);
-        $container->add('token', Token::class);
-        $container->add('textIngestion', TextIngestion::class);
-        $container->add('delete', Delete::class);
+        $container->add('search', SearchApi::class);
+        $container->add('token', TokenApi::class);
+        $container->add('textIngestion', TextIngestionApi::class);
+        $container->add('deleteDocument', DeleteApi::class);
 
         // Inject the token service for APIs that are requesting it.
         $container->inflector(TokenAwareInterface::class)
@@ -187,26 +187,26 @@ class Client implements ClientInterface
     }
 
     /**
-     * @return SearchInterface
+     * @return SearchApiInterface
      */
-    protected function getSearchService(): SearchInterface
+    protected function getSearchService(): SearchApiInterface
     {
         return $this->getContainer()->get('search');
     }
 
     /**
-     * @return TextIngestionInterface
+     * @return TextIngestionApiInterface
      */
-    protected function getTextIngestionService(): TextIngestionInterface
+    protected function getTextIngestionService(): TextIngestionApiInterface
     {
         return $this->getContainer()->get('textIngestion');
     }
 
     /**
-     * @return DeleteInterface
+     * @return DeleteApiInterface
      */
-    protected function getDeleteService(): DeleteInterface
+    protected function getDeleteService(): DeleteApiInterface
     {
-        return $this->getContainer()->get('delete');
+        return $this->getContainer()->get('deleteDocument');
     }
 }

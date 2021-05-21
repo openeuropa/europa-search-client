@@ -9,7 +9,7 @@ use OpenEuropa\EuropaSearchClient\Traits\ApiVersionAwareTrait;
 /**
  * A class that represents a search data transfer object.
  */
-class SearchResult
+class Search
 {
     use ApiVersionAwareTrait;
 

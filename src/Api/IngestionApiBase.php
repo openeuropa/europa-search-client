@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use OpenEuropa\EuropaSearchClient\Contract\IngestionInterface;
+use OpenEuropa\EuropaSearchClient\Contract\IngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Traits\LanguagesAwareTrait;
 use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
 use Psr\Http\Message\UriInterface;
@@ -12,7 +12,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Ingestion API.
  */
-abstract class IngestionBase extends ApiBase implements IngestionInterface
+abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
 {
     use LanguagesAwareTrait;
     use TokenAwareTrait;
@@ -77,7 +77,7 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
     /**
      * @inheritDoc
      */
-    public function setUri(string $uri): IngestionInterface
+    public function setUri(string $uri): IngestionApiInterface
     {
         if (!filter_var($uri, FILTER_VALIDATE_URL)) {
             throw new \InvalidArgumentException("Passed '{$uri}' string is not a valid URI.");
@@ -97,7 +97,7 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
     /**
      * @inheritDoc
      */
-    public function setMetadata(?array $metadata): IngestionInterface
+    public function setMetadata(?array $metadata): IngestionApiInterface
     {
         $this->metadata = $metadata;
         return $this;
@@ -114,7 +114,7 @@ abstract class IngestionBase extends ApiBase implements IngestionInterface
     /**
      * @inheritDoc
      */
-    public function setReference(?string $reference): IngestionInterface
+    public function setReference(?string $reference): IngestionApiInterface
     {
         $this->reference = $reference;
         return $this;

@@ -4,14 +4,14 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use OpenEuropa\EuropaSearchClient\Contract\SearchInterface;
-use OpenEuropa\EuropaSearchClient\Model\SearchResult;
+use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
+use OpenEuropa\EuropaSearchClient\Model\Search;
 use Psr\Http\Message\UriInterface;
 
 /**
  * Search API.
  */
-class Search extends SearchBase implements SearchInterface
+class SearchApi extends SearchApiBase implements SearchApiInterface
 {
     /**
      * @var int
@@ -36,12 +36,12 @@ class Search extends SearchBase implements SearchInterface
     /**
      * @inheritDoc
      */
-    public function search(): SearchResult
+    public function search(): Search
     {
-        /** @var SearchResult $search */
+        /** @var Search $search */
         $search = $this->serializer->deserialize(
             $this->send('POST')->getBody()->__toString(),
-            SearchResult::class,
+            Search::class,
             'json'
         );
         return $search;
@@ -91,7 +91,7 @@ class Search extends SearchBase implements SearchInterface
     /**
      * @inheritDoc
      */
-    public function setPageNumber(?int $pageNumber): SearchInterface
+    public function setPageNumber(?int $pageNumber): SearchApiInterface
     {
         $this->pageNumber = $pageNumber;
         return $this;
@@ -108,7 +108,7 @@ class Search extends SearchBase implements SearchInterface
     /**
      * @inheritDoc
      */
-    public function setPageSize(?int $pageSize): SearchInterface
+    public function setPageSize(?int $pageSize): SearchApiInterface
     {
         $this->pageSize = $pageSize;
         return $this;
@@ -125,7 +125,7 @@ class Search extends SearchBase implements SearchInterface
     /**
      * @inheritDoc
      */
-    public function setHighlightRegex(?string $highlightRegex): SearchInterface
+    public function setHighlightRegex(?string $highlightRegex): SearchApiInterface
     {
         $this->highlightRegex = $highlightRegex;
         return $this;
@@ -142,7 +142,7 @@ class Search extends SearchBase implements SearchInterface
     /**
      * @inheritDoc
      */
-    public function setHighlightLimit(?int $highlightLimit): SearchInterface
+    public function setHighlightLimit(?int $highlightLimit): SearchApiInterface
     {
         $this->highlightLimit = $highlightLimit;
         return $this;
