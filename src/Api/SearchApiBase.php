@@ -64,7 +64,7 @@ abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
      */
     protected function getRequestMultipartStreamElements(): array
     {
-        $parts = [];
+        $parts = parent::getRequestMultipartStreamElements();
 
         if ($languages = $this->getLanguages()) {
             $parts['languages'] = $this->jsonEncoder->encode($languages, 'json');
