@@ -138,7 +138,7 @@ class Client implements ClientInterface
     /**
      * @inheritDoc
      */
-    public function delete(string $reference): bool
+    public function deleteDocument(string $reference): bool
     {
         return $this->getDeleteService()
             ->setReference($reference)

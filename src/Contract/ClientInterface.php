@@ -81,5 +81,5 @@ interface ClientInterface extends ContainerAwareInterface
      * @param string $reference
      * @return bool
      */
-    public function delete(string $reference): bool;
+    public function deleteDocument(string $reference): bool;
 }
