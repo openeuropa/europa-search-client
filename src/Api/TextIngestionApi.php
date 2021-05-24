@@ -30,20 +30,6 @@ class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInter
     /**
      * @inheritDoc
      */
-    public function ingest(): Ingestion
-    {
-        /** @var Ingestion $ingestion */
-        $ingestion = $this->serializer->deserialize(
-            $this->send('POST')->getBody()->__toString(),
-            Ingestion::class,
-            'json'
-        );
-        return $ingestion;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getRequestMultipartStreamElements(): array
     {
         $parts = parent::getRequestMultipartStreamElements();

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\IngestionApiInterface;
+use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use OpenEuropa\EuropaSearchClient\Traits\LanguagesAwareTrait;
 use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
@@ -52,6 +53,20 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
      * @var string[]|null
      */
     protected $aclNoGroups;
+
+    /**
+     * @inheritDoc
+     */
+    public function ingest(): Ingestion
+    {
+        /** @var Ingestion $ingestion */
+        $ingestion = $this->serializer->deserialize(
+            $this->send('POST')->getBody()->__toString(),
+            Ingestion::class,
+            'json'
+        );
+        return $ingestion;
+    }
 
     /**
      * @inheritDoc
