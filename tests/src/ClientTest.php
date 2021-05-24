@@ -40,6 +40,7 @@ class ClientTest extends TestCase
             'consumerSecret' => 'baz',
             'database' => 'qux',
             'textIngestionApiEndpoint' => 'http://example.com/ingest/text',
+            'fileIngestionApiEndpoint' => 'http://example.com/ingest/file',
             'deleteApiEndpoint'  => 'http://example.com/ingest/delete',
         ]);
         $container = $client->getContainer();
@@ -57,6 +58,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(FacetApiInterface::class, $container->get('facet'));
         $this->assertInstanceOf(TokenApiInterface::class, $container->get('token'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('textIngestion'));
+        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('fileIngestion'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('deleteDocument'));
     }
 }
