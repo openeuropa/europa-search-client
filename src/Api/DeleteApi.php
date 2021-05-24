@@ -22,6 +22,8 @@ class DeleteApi extends ApiBase implements DeleteApiInterface
     public function getConfigSchema(): array
     {
         return [
+            'apiKey' => $this->getRequiredStringSchema(),
+            'database' => $this->getRequiredStringSchema(),
             'deleteApiEndpoint' => $this->getEndpointSchema(),
         ];
     }
