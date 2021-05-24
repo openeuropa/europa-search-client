@@ -24,32 +24,32 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     protected $uri;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $reference;
 
     /**
-     * @var Metadata
+     * @var Metadata|null
      */
     protected $metadata;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
     protected $aclUsers;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
     protected $aclNoUsers;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
     protected $aclGroups;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
     protected $aclNoGroups;
 
@@ -160,7 +160,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function getReference(): string
+    public function getReference(): ?string
     {
         return $this->reference;
     }
@@ -168,7 +168,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function setAclUsers(array $aclUsers): IngestionApiInterface
+    public function setAclUsers(?array $aclUsers): IngestionApiInterface
     {
         $this->aclUsers = $aclUsers;
         return $this;
@@ -177,7 +177,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function getAclUsers(): array
+    public function getAclUsers(): ?array
     {
         return $this->aclUsers;
     }
@@ -185,7 +185,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function setAclNoUsers(array $aclNoUsers): IngestionApiInterface
+    public function setAclNoUsers(?array $aclNoUsers): IngestionApiInterface
     {
         $this->aclNoUsers = $aclNoUsers;
         return $this;
@@ -194,7 +194,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function getAclNoUsers(): array
+    public function getAclNoUsers(): ?array
     {
         return $this->aclNoUsers;
     }
@@ -202,7 +202,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function setAclGroups(array $aclGroups): IngestionApiInterface
+    public function setAclGroups(?array $aclGroups): IngestionApiInterface
     {
         $this->aclGroups = $aclGroups;
         return $this;
@@ -211,7 +211,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function getAclGroups(): array
+    public function getAclGroups(): ?array
     {
         return $this->aclGroups;
     }
@@ -219,7 +219,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function setAclNoGroups(array $aclNoGroups): IngestionApiInterface
+    public function setAclNoGroups(?array $aclNoGroups): IngestionApiInterface
     {
         $this->aclNoGroups = $aclNoGroups;
         return $this;
@@ -228,7 +228,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function getAclNoGroups(): array
+    public function getAclNoGroups(): ?array
     {
         return $this->aclNoGroups;
     }

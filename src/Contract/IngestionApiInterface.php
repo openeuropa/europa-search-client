@@ -45,55 +45,51 @@ interface IngestionApiInterface extends ApiInterface, TokenAwareInterface, Langu
     public function setReference(?string $reference): self;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getReference(): string;
+    public function getReference(): ?string;
 
     /**
-     * @param array $aclUsers
-     *
+     * @param array|null $aclUsers
      * @return $this
      */
-    public function setAclUsers(array $aclUsers): self;
+    public function setAclUsers(?array $aclUsers): self;
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getAclUsers(): array;
+    public function getAclUsers(): ?array;
 
     /**
-     * @param array $aclNoUsers
-     *
+     * @param array|null $aclNoUsers
      * @return $this
      */
-    public function setAclNoUsers(array $aclNoUsers): self;
+    public function setAclNoUsers(?array $aclNoUsers): self;
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getAclNoUsers(): array;
+    public function getAclNoUsers(): ?array;
 
     /**
-     * @param array $aclGroups
-     *
+     * @param array|null $aclGroups
      * @return $this
      */
-    public function setAclGroups(array $aclGroups): self;
+    public function setAclGroups(?array $aclGroups): self;
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getAclGroups(): array;
+    public function getAclGroups(): ?array;
 
     /**
-     * @param array $aclNoGroups
-     *
+     * @param array|null $aclNoGroups
      * @return $this
      */
-    public function setAclNoGroups(array $aclNoGroups): self;
+    public function setAclNoGroups(?array $aclNoGroups): self;
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getAclNoGroups(): array;
+    public function getAclNoGroups(): ?array;
 }
