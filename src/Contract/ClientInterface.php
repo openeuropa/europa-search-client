@@ -49,7 +49,7 @@ interface ClientInterface extends ContainerAwareInterface
      * @param array|null $sort
      * @param string|null $sessionToken
      *
-     * @return Facet
+     * @return Facets
      */
     public function getFacets(
         ?string $text = null,

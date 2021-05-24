@@ -8,12 +8,12 @@ use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 
 /**
- * Ingestion API.
+ * Text ingestion API.
  */
 class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInterface
 {
     /**
-     * @var string
+     * @var string|null
      */
     protected $text;
 
