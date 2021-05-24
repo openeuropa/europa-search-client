@@ -69,12 +69,20 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
      */
     public function getRequestUriQuery(UriInterface $uri): array
     {
-        return [
+        $query = [
             'apiKey' => $this->getConfigValue('apiKey'),
             'database' => $this->getConfigValue('database'),
             'uri' => $this->getUri(),
-            'reference' => $this->getReference(),
         ] + parent::getRequestUriQuery($uri);
+
+        if ($languages = $this->getLanguages()) {
+            $query['language'] = $this->jsonEncoder->encode($languages, 'json');
+        }
+        if ($reference = $this->getReference()) {
+            $query['reference'] = $this->jsonEncoder->encode($reference, 'json');
+        }
+
+        return $query;
     }
 
     /**
@@ -84,9 +92,6 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     {
         $parts = parent::getRequestMultipartStreamElements();
 
-        if ($languages = $this->getLanguages()) {
-            $parts['languages'] = $this->jsonEncoder->encode($languages, 'json');
-        }
         if ($metadata = $this->getMetadata()) {
             $parts['metadata'] = $this->jsonEncoder->encode($metadata, 'json');
         }
