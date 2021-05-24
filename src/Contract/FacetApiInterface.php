@@ -16,6 +16,8 @@ interface FacetApiInterface extends SearchApiBaseInterface
     /**
      * @param string|null $displayLanguage
      * @todo Validate passed language code against ISO-639-1 in OEL-154.
+     *
+     * @return $this
      */
     public function setDisplayLanguage(?string $displayLanguage): self;
 

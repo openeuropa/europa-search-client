@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use GuzzleHttp\Exception\ConnectException;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
 use OpenEuropa\EuropaSearchClient\Exception\EuropaSearchApiInvalidStatusCodeException;
