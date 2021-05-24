@@ -11,6 +11,7 @@ use League\Container\ContainerAwareTrait;
 use OpenEuropa\EuropaSearchClient\Api\DeleteApi;
 use OpenEuropa\EuropaSearchClient\Api\FacetApi;
 use OpenEuropa\EuropaSearchClient\Api\FileIngestionApi;
+use OpenEuropa\EuropaSearchClient\Api\InfoApi;
 use OpenEuropa\EuropaSearchClient\Api\SearchApi;
 use OpenEuropa\EuropaSearchClient\Api\TextIngestionApi;
 use OpenEuropa\EuropaSearchClient\Api\TokenApi;
@@ -19,10 +20,12 @@ use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
 use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\FileIngestionApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\InfoApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
+use OpenEuropa\EuropaSearchClient\Model\Info;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use OpenEuropa\EuropaSearchClient\Model\Search;
@@ -118,6 +121,15 @@ class Client implements ClientInterface
             ->setFacetSort($sort)
             ->setSessionToken($sessionToken)
             ->getFacets();
+    }
+
+    /**
+     * @return Info
+     */
+    public function getInfo(): Info
+    {
+        return $this->getInfoService()
+            ->getInfo();
     }
 
     /**
@@ -225,6 +237,7 @@ class Client implements ClientInterface
         // into the later usages.
         $container->add('search', SearchApi::class);
         $container->add('facet', FacetApi::class);
+        $container->add('info', InfoApi::class);
         $container->add('token', TokenApi::class);
         $container->add('textIngestion', TextIngestionApi::class);
         $container->add('fileIngestion', FileIngestionApi::class);
@@ -266,6 +279,14 @@ class Client implements ClientInterface
     protected function getFacetService(): FacetApiInterface
     {
         return $this->getContainer()->get('facet');
+    }
+
+    /**
+     * @return InfoApiInterface
+     */
+    protected function getInfoService(): InfoApiInterface
+    {
+        return $this->getContainer()->get('info');
     }
 
     /**
