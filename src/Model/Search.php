@@ -4,17 +4,14 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Model;
 
+use OpenEuropa\EuropaSearchClient\Traits\ApiVersionAwareTrait;
+
 /**
  * A class that represents a search data transfer object.
  */
-class SearchResult
+class Search
 {
-    /**
-     * The API version.
-     *
-     * @var string
-     */
-    protected $apiVersion;
+    use ApiVersionAwareTrait;
 
     /**
      * A list of best bets documents.
@@ -99,30 +96,6 @@ class SearchResult
      * @var string[]
      */
     protected $warnings;
-
-    /**
-     * Returns the API version.
-     *
-     * @return string
-     *   The API version.
-     */
-    public function getApiVersion(): string
-    {
-        return $this->apiVersion;
-    }
-
-    /**
-     * Sets the API version.
-     *
-     * @param string $apiVersion
-     *   The API version.
-     * @return $this
-     */
-    public function setApiVersion(string $apiVersion): self
-    {
-        $this->apiVersion = $apiVersion;
-        return $this;
-    }
 
     /**
      * Returns the list of best bets documents.

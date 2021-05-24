@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use GuzzleHttp\Exception\ConnectException;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
 use OpenEuropa\EuropaSearchClient\Exception\EuropaSearchApiInvalidStatusCodeException;
@@ -325,6 +324,18 @@ abstract class ApiBase implements ApiInterface
             'value' => function (string $value) {
                 return filter_var($value, FILTER_VALIDATE_URL);
             },
+        ];
+    }
+
+    /**
+     * @return array
+     * @see ApiInterface::getConfigSchema()
+     */
+    protected function getRequiredStringSchema(): array
+    {
+        return [
+            'type' => 'string',
+            'required' => true,
         ];
     }
 }

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use OpenEuropa\EuropaSearchClient\Contract\DeleteInterface;
+use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
 use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
 
-class Delete extends ApiBase implements DeleteInterface
+class DeleteApi extends ApiBase implements DeleteApiInterface
 {
     use TokenAwareTrait;
 
@@ -29,7 +29,7 @@ class Delete extends ApiBase implements DeleteInterface
     /**
      * @inheritDoc
      */
-    public function delete(): bool
+    public function deleteDocument(): bool
     {
         $response = $this->send('DELETE');
         return $response->getStatusCode() === 200;
@@ -46,7 +46,7 @@ class Delete extends ApiBase implements DeleteInterface
     /**
      * @inheritDoc
      */
-    public function setReference(string $reference): DeleteInterface
+    public function setReference(string $reference): DeleteApiInterface
     {
         $this->reference = $reference;
         return $this;

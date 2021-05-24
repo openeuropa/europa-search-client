@@ -6,13 +6,13 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Model;
 
 use OpenEuropa\EuropaSearchClient\Model\Document;
 use OpenEuropa\EuropaSearchClient\Model\QueryLanguage;
-use OpenEuropa\EuropaSearchClient\Model\SearchResult;
+use OpenEuropa\EuropaSearchClient\Model\Search;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass  \OpenEuropa\EuropaSearchClient\Model\SearchResult
+ * @coversDefaultClass  \OpenEuropa\EuropaSearchClient\Model\Search
  */
-class SearchResultTest extends TestCase
+class SearchTest extends TestCase
 {
 
     /**
@@ -45,7 +45,7 @@ class SearchResultTest extends TestCase
      */
     public function testSettersAndGetters(): void
     {
-        $model = new SearchResult();
+        $model = new Search();
         $model->setApiVersion('2.31');
         $model->setBestBets([]);
         $model->setGroupByField('group_1');

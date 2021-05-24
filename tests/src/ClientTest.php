@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\EuropaSearchClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
-use OpenEuropa\EuropaSearchClient\Contract\SearchInterface;
+use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
-use OpenEuropa\EuropaSearchClient\Contract\TokenInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TokenApiInterface;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
@@ -33,6 +34,7 @@ class ClientTest extends TestCase
         $client = $this->getTestingClient([
             'apiKey' => 'foo',
             'searchApiEndpoint' => 'http://example.com/search',
+            'facetApiEndpoint' => 'http://example.com/facet',
             'tokenApiEndpoint' => 'http://example.com/token',
             'consumerKey' => 'bar',
             'consumerSecret' => 'baz',
@@ -51,9 +53,10 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(MultipartStreamBuilder::class, $container->get('multipartStreamBuilder'));
         $this->assertInstanceOf(JsonEncoder::class, $container->get('jsonEncoder'));
         $this->assertInstanceOf(SerializerInterface::class, $container->get('serializer'));
-        $this->assertInstanceOf(SearchInterface::class, $container->get('search'));
-        $this->assertInstanceOf(TokenInterface::class, $container->get('token'));
+        $this->assertInstanceOf(SearchApiInterface::class, $container->get('search'));
+        $this->assertInstanceOf(FacetApiInterface::class, $container->get('facet'));
+        $this->assertInstanceOf(TokenApiInterface::class, $container->get('token'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('textIngestion'));
-        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('delete'));
+        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('deleteDocument'));
     }
 }
