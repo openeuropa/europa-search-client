@@ -22,6 +22,7 @@ use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
+use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -130,7 +131,7 @@ class Client implements ClientInterface
             ->setUri($uri)
             ->setText($text)
             ->setLanguages($languages)
-            ->setMetadata($metadata)
+            ->setMetadata(new Metadata($metadata))
             ->setReference($reference)
             ->ingest();
     }
@@ -181,9 +182,9 @@ class Client implements ClientInterface
 
         // API services are not shared, meaning that a new instance is created
         // every time the service is requested from the container. We're doing
-        // this because such a service might be called more than one time during
-        // the life time of a request, so internals set in a previous usage may
-        // leak into the later usages.
+        // this because such a service might be called more than once during the
+        // lifetime of a request, so internals set in a previous usage may leak
+        // into the later usages.
         $container->add('search', SearchApi::class);
         $container->add('facet', FacetApi::class);
         $container->add('token', TokenApi::class);
