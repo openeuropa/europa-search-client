@@ -8,6 +8,7 @@ use Http\Message\MultipartStream\MultipartStreamBuilder;
 use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\FileIngestionApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\InfoApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
@@ -38,6 +39,7 @@ class ClientTest extends TestCase
             'apiKey' => 'foo',
             'searchApiEndpoint' => 'http://example.com/search',
             'facetApiEndpoint' => 'http://example.com/facet',
+            'infoApiEndpoint' => 'http://example.com/search/info',
             'tokenApiEndpoint' => 'http://example.com/token',
             'consumerKey' => 'bar',
             'consumerSecret' => 'baz',
@@ -59,6 +61,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(SerializerInterface::class, $container->get('serializer'));
         $this->assertInstanceOf(SearchApiInterface::class, $container->get('search'));
         $this->assertInstanceOf(FacetApiInterface::class, $container->get('facet'));
+        $this->assertInstanceOf(InfoApiInterface::class, $container->get('info'));
         $this->assertInstanceOf(TokenApiInterface::class, $container->get('token'));
         $this->assertInstanceOf(TextIngestionApiInterface::class, $container->get('textIngestion'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('textIngestion'));
