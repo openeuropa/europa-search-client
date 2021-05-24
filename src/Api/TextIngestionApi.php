@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use OpenEuropa\EuropaSearchClient\Contract\TextIngestionInterface;
-use OpenEuropa\EuropaSearchClient\Model\IngestionResult;
+use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
+use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 
 /**
  * Ingestion API.
  */
-class TextIngestion extends IngestionBase implements TextIngestionInterface
+class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInterface
 {
     /**
      * @var string
@@ -30,12 +30,12 @@ class TextIngestion extends IngestionBase implements TextIngestionInterface
     /**
      * @inheritDoc
      */
-    public function ingest(): IngestionResult
+    public function ingest(): Ingestion
     {
-        /** @var IngestionResult $ingestion */
+        /** @var Ingestion $ingestion */
         $ingestion = $this->serializer->deserialize(
             $this->send('POST')->getBody()->__toString(),
-            IngestionResult::class,
+            Ingestion::class,
             'json'
         );
         return $ingestion;
@@ -66,7 +66,7 @@ class TextIngestion extends IngestionBase implements TextIngestionInterface
     /**
      * @inheritDoc
      */
-    public function setText(?string $text): TextIngestionInterface
+    public function setText(?string $text): TextIngestionApiInterface
     {
         $this->text = $text;
         return $this;

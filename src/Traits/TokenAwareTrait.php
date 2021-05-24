@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Traits;
 
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
-use OpenEuropa\EuropaSearchClient\Contract\TokenInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TokenApiInterface;
 
 trait TokenAwareTrait
 {
     /**
-     * @var TokenInterface
+     * @var TokenApiInterface
      */
     protected $tokenService;
 
     /**
      * @inheritDoc
      */
-    public function setTokenService(TokenInterface $tokenService): TokenAwareInterface
+    public function setTokenService(TokenApiInterface $tokenService): TokenAwareInterface
     {
         $this->tokenService = $tokenService;
         return $this;

@@ -4,46 +4,10 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
-use OpenEuropa\EuropaSearchClient\Model\SearchResult;
+use OpenEuropa\EuropaSearchClient\Model\Search;
 
-interface SearchInterface extends ApiInterface, LanguagesAwareInterface
+interface SearchApiInterface extends SearchApiBaseInterface
 {
-    /**
-     * @return SearchResult
-     */
-    public function search(): SearchResult;
-
-    /**
-     * @param string|null $text
-     *
-     * @return $this
-     */
-    public function setText(?string $text): self;
-
-    /**
-     * @return string
-     */
-    public function getText(): string;
-
-    /**
-     * @param array|null $query
-     *
-     * @return $this
-     */
-    public function setQuery(?array $query): self;
-
-    /**
-     * @return array|null
-     */
-    public function getQuery(): ?array;
-
-    /**
-     * @param array|null $sort
-     *
-     * @return $this
-     */
-    public function setSort(?array $sort): self;
-
     /**
      * @return array|null
      */
@@ -96,16 +60,4 @@ interface SearchInterface extends ApiInterface, LanguagesAwareInterface
      * @return int|null
      */
     public function getHighlightLimit(): ?int;
-
-    /**
-     * @param string|null $sessionToken
-     *
-     * @return $this
-     */
-    public function setSessionToken(?string $sessionToken): self;
-
-    /**
-     * @return string|null
-     */
-    public function getSessionToken(): ?string;
 }

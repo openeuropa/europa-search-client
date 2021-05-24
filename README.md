@@ -40,17 +40,17 @@ In the above example, we're passing the Guzzle HTTP client, request, stream and 
 - `consumerKey` (string): Used by Ingestion API.
 - `consumerSecret` (string): Used by Ingestion API.
 - `searchApiEndpoint` (string, valid URI): The endpoint for Search API.
-- `textIngestionApiEndpoint` (string, valid URI): Used by IngestionSearch API to ingest text.
-- `fileIngestionApiEndpoint` (string, valid URI): Used by IngestionSearch API to ingest files.
-- `deleteApiEndpoint` (string, valid URI): Used by IngestionSearch API to delete documents from the index.
+- `textIngestionApiEndpoint` (string, valid URI): Used by Ingestion API to ingest text.
+- `fileIngestionApiEndpoint` (string, valid URI): Used by Ingestion API to ingest files.
+- `deleteApiEndpoint` (string, valid URI): Used by Ingestion API to delete a document from the index.
 
 ### Searching
 
 ```php
-$response = $client->search('something to serach');
+$response = $client->search('something to search');
 ```
 
-The search can be fine-tuned by passing additional arguments. Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::search()` for a full list of parameters. The response is an `\OpenEuropa\EuropaSearchClient\Model\SearchResult` object.
+The search can be fine-tuned by passing additional arguments. Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::search()` for a full list of parameters. The response is an `\OpenEuropa\EuropaSearchClient\Model\Search` object.
 
 ### Ingesting
 
@@ -60,7 +60,7 @@ The search can be fine-tuned by passing additional arguments. Check `\OpenEuropa
 $response = $client->ingestText('http://example.com/page/to/be/ingested', 'text to be ingested/index');
 ```
 
-Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::ingestText()` for a complete list of parameters. The response is an `\OpenEuropa\EuropaSearchClient\Model\IngestionResult` object. 
+Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::ingestText()` for a complete list of parameters. The response is an `\OpenEuropa\EuropaSearchClient\Model\Ingestion` object. 
 
 #### File
 
@@ -68,15 +68,15 @@ Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::ingestText()` fo
 $client->ingestFile(@todo);
 ```
 
-Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::ingestFile()` for a complete list of parameters. The response is an `\OpenEuropa\EuropaSearchClient\Model\IngestionResult` object.
+Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::ingestFile()` for a complete list of parameters. The response is an `\OpenEuropa\EuropaSearchClient\Model\Ingestion` object.
 
 #### Delete document
 
 ```php
-$success = $client->delete('referenceID');
+$success = $client->deleteDocument('referenceID');
 ```
 
-Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::delete()` for a complete list of parameters. The function returns a boolean indicating if the operation was successful. 
+Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::deleteDocument()` for a complete list of parameters. The function returns a boolean indicating if the operation was successful.
 
 ### Checking availability
 

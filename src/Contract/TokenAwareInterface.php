@@ -7,9 +7,9 @@ namespace OpenEuropa\EuropaSearchClient\Contract;
 interface TokenAwareInterface
 {
     /**
-     * @param TokenInterface $tokenService
+     * @param TokenApiInterface $tokenService
      *
      * @return $this
      */
-    public function setTokenService(TokenInterface $tokenService): self;
+    public function setTokenService(TokenApiInterface $tokenService): self;
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Model;
 
-class TokenResult
+class Token
 {
     /**
      * @var string

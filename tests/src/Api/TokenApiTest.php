@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
 use GuzzleHttp\Psr7\Response;
-use OpenEuropa\EuropaSearchClient\Contract\TokenInterface;
-use OpenEuropa\EuropaSearchClient\Model\TokenResult;
+use OpenEuropa\EuropaSearchClient\Contract\TokenApiInterface;
+use OpenEuropa\EuropaSearchClient\Model\Token;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\Token
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\TokenApi
  */
-class TokenTest extends TestCase
+class TokenApiTest extends TestCase
 {
     use ClientTestTrait;
 
@@ -28,7 +28,7 @@ class TokenTest extends TestCase
     public function testToken(array $clientConfig, $response, $expectedResult): void
     {
         $client = $this->getTestingClient($clientConfig, [$response]);
-        /** @var TokenInterface $tokenService */
+        /** @var TokenApiInterface $tokenService */
         $tokenService = $client->getContainer()->get('token');
         $actualResult = $tokenService->getToken();
         $this->assertEquals($expectedResult, $actualResult);
@@ -52,7 +52,7 @@ class TokenTest extends TestCase
                     'token_type' => 'Bearer',
                     'expires_in' => 3600,
                 ])),
-                (new TokenResult())
+                (new Token())
                     ->setAccessToken('JWT_TOKEN')
                     ->setScope('APPLICATION_SCOPE')
                     ->setTokenType('Bearer')

@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use OpenEuropa\EuropaSearchClient\Contract\TokenInterface;
-use OpenEuropa\EuropaSearchClient\Model\TokenResult;
+use OpenEuropa\EuropaSearchClient\Contract\TokenApiInterface;
+use OpenEuropa\EuropaSearchClient\Model\Token;
 
 /**
  * Token API.
  */
-class Token extends ApiBase implements TokenInterface
+class TokenApi extends ApiBase implements TokenApiInterface
 {
     /**
      * @inheritDoc
      */
-    public function getToken(): TokenResult
+    public function getToken(): Token
     {
-        /** @var TokenResult $token */
+        /** @var Token $token */
         $token = $this->serializer->deserialize(
             $this->send('POST')->getBody()->__toString(),
-            TokenResult::class,
+            Token::class,
             'json'
         );
         return $token;
@@ -33,14 +33,8 @@ class Token extends ApiBase implements TokenInterface
     {
         return [
             'tokenApiEndpoint' => $this->getEndpointSchema(),
-            'consumerKey' => [
-                'type' => 'string',
-                'required' => true,
-            ],
-            'consumerSecret' => [
-                'type' => 'string',
-                'required' => true,
-            ],
+            'consumerKey' => $this->getRequiredStringSchema(),
+            'consumerSecret' => $this->getRequiredStringSchema(),
         ];
     }
 

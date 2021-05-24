@@ -4,13 +4,14 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Model;
 
+use OpenEuropa\EuropaSearchClient\Traits\ApiVersionAwareTrait;
+
 /**
  * A class that represents a document transfer object.
- *
- * @SuppressWarnings(PHPMD.TooManyFields)
  */
 class Document
 {
+    use ApiVersionAwareTrait;
 
     /**
      * If the document has access restrictions.
@@ -18,13 +19,6 @@ class Document
      * @var bool
      */
     protected $accessRestriction;
-
-    /**
-     * The API version.
-     *
-     * @var string
-     */
-    protected $apiVersion;
 
     /**
      * An array of children documents.
@@ -142,30 +136,6 @@ class Document
     public function setAccessRestriction(bool $accessRestriction): self
     {
         $this->accessRestriction = $accessRestriction;
-        return $this;
-    }
-
-    /**
-     * Returns the API version.
-     *
-     * @return string
-     *   The API version.
-     */
-    public function getApiVersion(): string
-    {
-        return $this->apiVersion;
-    }
-
-    /**
-     * Sets the API version.
-     *
-     * @param string $apiVersion
-     *   The API version.
-     * @return $this
-     */
-    public function setApiVersion(string $apiVersion): self
-    {
-        $this->apiVersion = $apiVersion;
         return $this;
     }
 

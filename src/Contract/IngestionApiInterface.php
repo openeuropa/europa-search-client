@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
-use OpenEuropa\EuropaSearchClient\Model\IngestionResult;
+use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Metadata;
 
-interface IngestionInterface extends ApiInterface, TokenAwareInterface, LanguagesAwareInterface
+interface IngestionApiInterface extends ApiInterface, TokenAwareInterface, LanguagesAwareInterface
 {
     /**
-     * @return \OpenEuropa\EuropaSearchClient\Model\IngestionResult
+     * @return \OpenEuropa\EuropaSearchClient\Model\Ingestion
      */
-    public function ingest(): IngestionResult;
+    public function ingest(): Ingestion;
 
     /**
      * @param string $uri
