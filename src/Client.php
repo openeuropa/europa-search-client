@@ -146,7 +146,6 @@ class Client implements ClientInterface
             ->ingest();
     }
 
-
     /**
      * @inheritDoc
      */
