@@ -22,6 +22,7 @@ use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
+use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -130,7 +131,7 @@ class Client implements ClientInterface
             ->setUri($uri)
             ->setText($text)
             ->setLanguages($languages)
-            ->setMetadata($metadata)
+            ->setMetadata(new Metadata($metadata))
             ->setReference($reference)
             ->ingest();
     }

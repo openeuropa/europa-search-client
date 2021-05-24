@@ -15,6 +15,14 @@ class Metadata implements \ArrayAccess, \Countable, \JsonSerializable
     protected $metadata = [];
 
     /**
+     * @param array|null $metadata
+     */
+    public function __construct(?array $metadata = null)
+    {
+        $this->setMetadata($metadata);
+    }
+
+    /**
      * @return array
      */
     public function getMetadata(): array
