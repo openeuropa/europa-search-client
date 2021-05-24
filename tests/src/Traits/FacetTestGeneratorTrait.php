@@ -63,7 +63,7 @@ trait FacetTestGeneratorTrait
         $facetsAsArray = [];
         for ($i = 0; $i < $count; $i++) {
             $toShuffle = md5(serialize($facetsAsArray));
-            [$facetValuesAsArray, $facetValuesAsObject] = $this->generateTestingFacetValues(rand(2, 7));
+            [$facetValuesAsArray] = $this->generateTestingFacetValues(rand(2, 7));
             $facetsAsArray[] = [
                 'apiVersion' => str_shuffle($toShuffle),
                 'count' => rand(1, 100000),
