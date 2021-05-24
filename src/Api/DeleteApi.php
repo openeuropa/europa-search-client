@@ -33,8 +33,7 @@ class DeleteApi extends ApiBase implements DeleteApiInterface
      */
     public function deleteDocument(): bool
     {
-        $response = $this->send('DELETE');
-        return $response->getStatusCode() === 200;
+        return $this->send('DELETE')->getStatusCode() === 200;
     }
 
     /**
