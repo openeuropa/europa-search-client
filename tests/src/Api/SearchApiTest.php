@@ -23,12 +23,12 @@ class SearchApiTest extends TestCase
      * @dataProvider providerTestSearch
      *
      * @param array $clientConfig
-     * @param mixed $response
+     * @param array $responses
      * @param mixed $expectedResult
      */
-    public function testSearch(array $clientConfig, $response, $expectedResult): void
+    public function testSearch(array $clientConfig, array $responses, $expectedResult): void
     {
-        $actualResult = $this->getTestingClient($clientConfig, [$response])
+        $actualResult = $this->getTestingClient($clientConfig, $responses)
             ->search('Programme managers');
         $this->assertEquals($expectedResult, $actualResult);
     }
@@ -44,95 +44,97 @@ class SearchApiTest extends TestCase
                     'apiKey' => 'foo',
                     'searchApiEndpoint' => 'http://example.com/search',
                 ],
-                new Response(200, [], json_encode([
-                    'apiVersion' => '2.69',
-                    'terms' => '"Programme managers"',
-                    'responseTime' => 44,
-                    'totalResults' => 2,
-                    'pageNumber' => 1,
-                    'pageSize' => 50,
-                    'sort' => 'title:ASC',
-                    'groupByField' => null,
-                    'queryLanguage' => [
-                        'language' => 'en',
-                        'probability' => 0.0,
-                    ],
-                    'spellingSuggestion' => '<b>programmes managed</b>',
-                    'bestBets' => [
-                    ],
-                    'results' => [
-                        [
-                            'apiVersion' => '2.69',
-                            'reference' => 'ref1',
-                            'url' => 'http://example.com/ref1',
-                            'title' => null,
-                            'contentType' => 'text/plain',
+                [
+                    new Response(200, [], json_encode([
+                        'apiVersion' => '2.69',
+                        'terms' => '"Programme managers"',
+                        'responseTime' => 44,
+                        'totalResults' => 2,
+                        'pageNumber' => 1,
+                        'pageSize' => 50,
+                        'sort' => 'title:ASC',
+                        'groupByField' => null,
+                        'queryLanguage' => [
                             'language' => 'en',
-                            'databaseLabel' => 'ACME',
-                            'database' => 'ACME',
-                            'summary' => null,
-                            'weight' => 9.849739,
-                            'groupById' => '3',
-                            'content' => 'A coordination platform',
-                            'accessRestriction' => false,
-                            'pages' => null,
-                            'metadata' => [
-                                'keywords' => [
-                                    0 => '["End-users","Pollution (water, soil), waste disposal and treatm","Water-climate interactions"]',
+                            'probability' => 0.0,
+                        ],
+                        'spellingSuggestion' => '<b>programmes managed</b>',
+                        'bestBets' => [
+                        ],
+                        'results' => [
+                            [
+                                'apiVersion' => '2.69',
+                                'reference' => 'ref1',
+                                'url' => 'http://example.com/ref1',
+                                'title' => null,
+                                'contentType' => 'text/plain',
+                                'language' => 'en',
+                                'databaseLabel' => 'ACME',
+                                'database' => 'ACME',
+                                'summary' => null,
+                                'weight' => 9.849739,
+                                'groupById' => '3',
+                                'content' => 'A coordination platform',
+                                'accessRestriction' => false,
+                                'pages' => null,
+                                'metadata' => [
+                                    'keywords' => [
+                                        0 => '["End-users","Pollution (water, soil), waste disposal and treatm","Water-climate interactions"]',
+                                    ],
+                                    'sortStatus' => [
+                                        0 => '3',
+                                    ],
+                                    'destination' => [
+                                    ],
+                                    'type' => [
+                                        0 => '1',
+                                    ],
+                                    'title' => [
+                                        0 => 'A coordination platform',
+                                    ],
                                 ],
-                                'sortStatus' => [
-                                    0 => '3',
-                                ],
-                                'destination' => [
-                                ],
-                                'type' => [
-                                    0 => '1',
-                                ],
-                                'title' => [
-                                    0 => 'A coordination platform',
+                                'children' => [
                                 ],
                             ],
-                            'children' => [
+                            [
+                                'apiVersion' => '2.69',
+                                'reference' => 'ref2',
+                                'url' => 'http://example.com/ref2',
+                                'title' => null,
+                                'contentType' => 'text/plain',
+                                'language' => 'en',
+                                'databaseLabel' => 'ACME',
+                                'database' => 'ACME',
+                                'summary' => null,
+                                'weight' => 9.549583,
+                                'groupById' => '3',
+                                'content' => 'Stepping up EU research and innovation cooperation in the water area',
+                                'accessRestriction' => false,
+                                'pages' => null,
+                                'metadata' => [
+                                    'keywords' => [
+                                        0 => '["Water harvesting","Water resources","Agronomy","Agriculture"]',
+                                    ],
+                                    'sortStatus' => [
+                                        0 => '3',
+                                    ],
+                                    'destination' => [
+                                    ],
+                                    'type' => [
+                                        0 => '1',
+                                    ],
+                                    'title' => [
+                                        0 => 'EU research in the water area',
+                                    ],
+                                ],
+                                'children' => [
+                                ],
                             ],
                         ],
-                        [
-                            'apiVersion' => '2.69',
-                            'reference' => 'ref2',
-                            'url' => 'http://example.com/ref2',
-                            'title' => null,
-                            'contentType' => 'text/plain',
-                            'language' => 'en',
-                            'databaseLabel' => 'ACME',
-                            'database' => 'ACME',
-                            'summary' => null,
-                            'weight' => 9.549583,
-                            'groupById' => '3',
-                            'content' => 'Stepping up EU research and innovation cooperation in the water area',
-                            'accessRestriction' => false,
-                            'pages' => null,
-                            'metadata' => [
-                                'keywords' => [
-                                    0 => '["Water harvesting","Water resources","Agronomy","Agriculture"]',
-                                ],
-                                'sortStatus' => [
-                                    0 => '3',
-                                ],
-                                'destination' => [
-                                ],
-                                'type' => [
-                                    0 => '1',
-                                ],
-                                'title' => [
-                                    0 => 'EU research in the water area',
-                                ],
-                            ],
-                            'children' => [
-                            ],
+                        'warnings' => [
                         ],
-                    ],
-                    'warnings' => [
-                    ],
-                ])),
+                    ]))
+                ],
                 (new Search())
                     ->setApiVersion('2.69')
                     ->setTerms('"Programme managers"')
