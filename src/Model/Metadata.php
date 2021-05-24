@@ -116,7 +116,7 @@ class Metadata implements \ArrayAccess, \Countable, \JsonSerializable
         }
         array_walk($value, function ($item, $delta) use ($offset): void {
             if (!is_scalar($item)) {
-                throw new \InvalidArgumentException("The metadata '{$offset}' value, offset '{$delta}', should be a scalar. Given: " . var_export($item, true));
+                throw new \InvalidArgumentException("The metadata '{$offset}' value, delta {$delta}, should be a scalar. Given: " . var_export($item, true));
             }
         });
     }

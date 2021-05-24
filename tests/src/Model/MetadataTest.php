@@ -89,7 +89,7 @@ class MetadataTest extends TestCase
             ],
             'array value with non-scalar' => [
                 ['field1' => [new \stdClass()]],
-                "The metadata 'field1' value, offset '0', should be a scalar. Given: (object) array(\n)",
+                "The metadata 'field1' value, delta 0, should be a scalar. Given: (object) array(\n)",
             ],
         ];
     }
