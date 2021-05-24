@@ -66,6 +66,10 @@ interface ClientInterface extends ContainerAwareInterface
      * @param array|null $languages
      * @param array|null $metadata
      * @param string|null $reference
+     * @param array|null $aclUsers
+     * @param array|null $aclNoUsers
+     * @param array|null $aclGroups
+     * @param array|null $aclNoGroups
      *
      * @return Ingestion
      */
@@ -74,7 +78,11 @@ interface ClientInterface extends ContainerAwareInterface
         ?string $text,
         ?array $languages = null,
         ?array $metadata = null,
-        ?string $reference = null
+        ?string $reference = null,
+        ?array $aclUsers = null,
+        ?array $aclNoUsers = null,
+        ?array $aclGroups = null,
+        ?array $aclNoGroups = null
     ): Ingestion;
 
     /**

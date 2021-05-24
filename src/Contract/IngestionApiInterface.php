@@ -48,4 +48,52 @@ interface IngestionApiInterface extends ApiInterface, TokenAwareInterface, Langu
      * @return string
      */
     public function getReference(): string;
+
+    /**
+     * @param array $aclUsers
+     *
+     * @return $this
+     */
+    public function setAclUsers(array $aclUsers): self;
+
+    /**
+     * @return array
+     */
+    public function getAclUsers(): array;
+
+    /**
+     * @param array $aclNoUsers
+     *
+     * @return $this
+     */
+    public function setAclNoUsers(array $aclNoUsers): self;
+
+    /**
+     * @return array
+     */
+    public function getAclNoUsers(): array;
+
+    /**
+     * @param array $aclGroups
+     *
+     * @return $this
+     */
+    public function setAclGroups(array $aclGroups): self;
+
+    /**
+     * @return array
+     */
+    public function getAclGroups(): array;
+
+    /**
+     * @param array $aclNoGroups
+     *
+     * @return $this
+     */
+    public function setAclNoGroups(array $aclNoGroups): self;
+
+    /**
+     * @return array
+     */
+    public function getAclNoGroups(): array;
 }

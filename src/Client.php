@@ -125,7 +125,11 @@ class Client implements ClientInterface
         ?string $text,
         ?array $languages = null,
         ?array $metadata = null,
-        ?string $reference = null
+        ?string $reference = null,
+        ?array $aclUsers = null,
+        ?array $aclNoUsers = null,
+        ?array $aclGroups = null,
+        ?array $aclNoGroups = null
     ): Ingestion {
         return $this->getTextIngestionService()
             ->setUri($uri)
@@ -133,6 +137,10 @@ class Client implements ClientInterface
             ->setLanguages($languages)
             ->setMetadata(new Metadata($metadata))
             ->setReference($reference)
+            ->setAclUsers($aclUsers)
+            ->setAclNoUsers($aclNoUsers)
+            ->setAclGroups($aclGroups)
+            ->setAclNoGroups($aclNoGroups)
             ->ingest();
     }
 

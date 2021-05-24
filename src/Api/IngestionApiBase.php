@@ -29,9 +29,29 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     protected $reference;
 
     /**
-     * @var \OpenEuropa\EuropaSearchClient\Model\Metadata
+     * @var Metadata
      */
     protected $metadata;
+
+    /**
+     * @var string[]
+     */
+    protected $aclUsers;
+
+    /**
+     * @var string[]
+     */
+    protected $aclNoUsers;
+
+    /**
+     * @var string[]
+     */
+    protected $aclGroups;
+
+    /**
+     * @var string[]
+     */
+    protected $aclNoGroups;
 
     /**
      * @inheritDoc
@@ -69,6 +89,18 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
         }
         if ($metadata = $this->getMetadata()) {
             $parts['metadata'] = $this->jsonEncoder->encode($metadata, 'json');
+        }
+        if ($aclUsers = $this->getAclUsers()) {
+            $parts['aclUsers'] = $this->jsonEncoder->encode($aclUsers, 'json');
+        }
+        if ($aclNolUsers = $this->getAclNoUsers()) {
+            $parts['aclNolUsers'] = $this->jsonEncoder->encode($aclNolUsers, 'json');
+        }
+        if ($aclGroups = $this->getAclGroups()) {
+            $parts['aclGroups'] = $this->jsonEncoder->encode($aclGroups, 'json');
+        }
+        if ($aclNoGroups = $this->getAclNoGroups()) {
+            $parts['aclNoGroups'] = $this->jsonEncoder->encode($aclNoGroups, 'json');
         }
 
         return $parts;
@@ -126,5 +158,73 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     public function getReference(): string
     {
         return $this->reference;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setAclUsers(array $aclUsers): IngestionApiInterface
+    {
+        $this->aclUsers = $aclUsers;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAclUsers(): array
+    {
+        return $this->aclUsers;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setAclNoUsers(array $aclNoUsers): IngestionApiInterface
+    {
+        $this->aclNoUsers = $aclNoUsers;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAclNoUsers(): array
+    {
+        return $this->aclNoUsers;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setAclGroups(array $aclGroups): IngestionApiInterface
+    {
+        $this->aclGroups = $aclGroups;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAclGroups(): array
+    {
+        return $this->aclGroups;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setAclNoGroups(array $aclNoGroups): IngestionApiInterface
+    {
+        $this->aclNoGroups = $aclNoGroups;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAclNoGroups(): array
+    {
+        return $this->aclNoGroups;
     }
 }
