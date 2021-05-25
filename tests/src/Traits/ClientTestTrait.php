@@ -6,33 +6,33 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Traits;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Handler\MockHandler;
 use Http\Factory\Guzzle\RequestFactory;
 use Http\Factory\Guzzle\StreamFactory;
 use Http\Factory\Guzzle\UriFactory;
 use OpenEuropa\EuropaSearchClient\Client;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
+use OpenEuropa\Tests\EuropaSearchClient\MockHandler;
 
 trait ClientTestTrait
 {
     /**
      * @param array $configuration
      * @param array $responseQueue
+     * @param callable|null $onRequest
      * @return ClientInterface
      */
-    protected function getTestingClient(array $configuration = [], array $responseQueue = []): ClientInterface
-    {
-        $mock = new MockHandler($responseQueue);
+    protected function getTestingClient(
+        array $configuration = [],
+        array $responseQueue = [],
+        ?callable $onRequest = null
+    ): ClientInterface {
+        $mock = new MockHandler($responseQueue, null, null, $onRequest);
         $handlerStack = HandlerStack::create($mock);
-        $httpClient = new HttpClient(['handler' => $handlerStack]);
-        $requestFactory = new RequestFactory();
-        $streamFactory = new StreamFactory();
-        $uriFactory = new UriFactory();
         return new Client(
-            $httpClient,
-            $requestFactory,
-            $streamFactory,
-            $uriFactory,
+            new HttpClient(['handler' => $handlerStack]),
+            new RequestFactory(),
+            new StreamFactory(),
+            new UriFactory(),
             $configuration
         );
     }
