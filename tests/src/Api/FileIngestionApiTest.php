@@ -27,7 +27,10 @@ class FileIngestionApiTest extends TestCase
     public function testFileIngestion(array $clientConfig, array $responses, $expectedResult): void
     {
         $actualResult = $this->getTestingClient($clientConfig, $responses)
-            ->ingestFile('http://example.com', chr(0) . 'saDD*&6778)(&88');
+            ->ingestFile(
+                'http://example.com',
+                file_get_contents(__DIR__ . '/../../fixtures/files/image.png')
+            );
         $this->assertEquals($expectedResult, $actualResult);
     }
 
