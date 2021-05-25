@@ -94,7 +94,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
             $query['language'] = $this->jsonEncoder->encode($languages, 'json');
         }
         if ($reference = $this->getReference()) {
-            $query['reference'] = $this->jsonEncoder->encode($reference, 'json');
+            $query['reference'] = $reference;
         }
 
         return $query;
