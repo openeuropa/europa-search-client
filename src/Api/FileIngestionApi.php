@@ -34,7 +34,11 @@ class FileIngestionApi extends IngestionApiBase implements FileIngestionApiInter
         $parts = parent::getRequestMultipartStreamElements();
 
         if ($file = $this->getFile()) {
-            $parts['file'] = $file;
+            $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
+            $parts['file'] = [
+                'content' => $file,
+                'contentType' => $fileInfo->buffer($file),
+            ];
         }
 
         return $parts;

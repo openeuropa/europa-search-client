@@ -57,7 +57,7 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
         $parts = parent::getRequestMultipartStreamElements();
 
         if ($displayLanguage = $this->getDisplayLanguage()) {
-            $parts['displayLanguage'] = $this->jsonEncoder->encode($displayLanguage, 'json');
+            $parts['displayLanguage']['content'] = $this->jsonEncoder->encode($displayLanguage, 'json');
         }
 
         return $parts;

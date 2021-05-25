@@ -34,7 +34,7 @@ class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInter
         $parts = parent::getRequestMultipartStreamElements();
 
         if ($text = $this->getText()) {
-            $parts['text'] = $this->jsonEncoder->encode($text, 'json');
+            $parts['text']['content'] = $this->jsonEncoder->encode($text, 'json');
         }
 
         return $parts;

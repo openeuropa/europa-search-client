@@ -108,19 +108,19 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
         $parts = parent::getRequestMultipartStreamElements();
 
         if ($metadata = $this->getMetadata()) {
-            $parts['metadata'] = $this->jsonEncoder->encode($metadata, 'json');
+            $parts['metadata']['content'] = $this->jsonEncoder->encode($metadata, 'json');
         }
         if ($aclUsers = $this->getAclUsers()) {
-            $parts['aclUsers'] = $this->jsonEncoder->encode($aclUsers, 'json');
+            $parts['aclUsers']['content'] = $this->jsonEncoder->encode($aclUsers, 'json');
         }
         if ($aclNolUsers = $this->getAclNoUsers()) {
-            $parts['aclNolUsers'] = $this->jsonEncoder->encode($aclNolUsers, 'json');
+            $parts['aclNolUsers']['content'] = $this->jsonEncoder->encode($aclNolUsers, 'json');
         }
         if ($aclGroups = $this->getAclGroups()) {
-            $parts['aclGroups'] = $this->jsonEncoder->encode($aclGroups, 'json');
+            $parts['aclGroups']['content'] = $this->jsonEncoder->encode($aclGroups, 'json');
         }
         if ($aclNoGroups = $this->getAclNoGroups()) {
-            $parts['aclNoGroups'] = $this->jsonEncoder->encode($aclNoGroups, 'json');
+            $parts['aclNoGroups']['content'] = $this->jsonEncoder->encode($aclNoGroups, 'json');
         }
 
         return $parts;

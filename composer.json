@@ -8,6 +8,7 @@
     "require": {
         "php": ">=7.3",
         "ext-json": "*",
+        "ext-fileinfo": "*",
         "league/container": "^2",
         "php-http/multipart-stream-builder": "^1.1",
         "phpdocumentor/type-resolver": "^0.4 || ^1.4",
