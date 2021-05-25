@@ -32,6 +32,6 @@ trait TokenAwareTrait
         return [
             'Authorization' => "{$token->getTokenType()} {$token->getAccessToken()}",
             'Authorization-propagation' => $token->getAccessToken(),
-        ];
+        ] + parent::getRequestHeaders();
     }
 }

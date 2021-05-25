@@ -70,6 +70,11 @@ abstract class ApiBase implements ApiInterface
     protected $jsonEncoder;
 
     /**
+     * @var array
+     */
+    protected $headers = [];
+
+    /**
      * @inheritDoc
      */
     public function setConfiguration(array $configuration): ApiInterface
@@ -210,15 +215,15 @@ abstract class ApiBase implements ApiInterface
         $uri = $this->getRequestUri();
         $request = $this->requestFactory->createRequest($method, $uri);
 
+        $methodsWithBody = ['POST', 'PUT', 'PATCH'];
+        if (in_array($method, $methodsWithBody) && $body = $this->getRequestBody()) {
+            $request = $request->withBody($body);
+        }
+
         if ($headers = $this->getRequestHeaders()) {
             foreach ($headers as $name => $value) {
                 $request = $request->withHeader($name, $value);
             }
-        }
-
-        $methodsWithBody = ['POST', 'PUT', 'PATCH'];
-        if (in_array($method, $methodsWithBody) && $body = $this->getRequestBody()) {
-            $request = $request->withBody($body);
         }
 
         $response = $this->httpClient->sendRequest($request);
@@ -266,7 +271,9 @@ abstract class ApiBase implements ApiInterface
      */
     protected function getRequestHeaders(): array
     {
-        return [];
+        // Methods building the request URI or body may store additional headers
+        // in $this->headers array, as they act before this method.
+        return $this->headers;
     }
 
     /**
@@ -285,11 +292,16 @@ abstract class ApiBase implements ApiInterface
                     'filename' => 'blob',
                 ]);
             }
+
+            // Set the request content-type.
+            $this->headers['Content-Type'] = 'multipart/form-data;boundary="' . $this->multipartStreamBuilder->getBoundary() . '"';
+
             return $this->multipartStreamBuilder->build();
         }
 
         // Simple form elements.
         if ($parts = $this->getRequestFormElements()) {
+            $this->headers['Content-Type'] = 'application/x-www-form-urlencoded';
             return $this->streamFactory->createStream(http_build_query($parts));
         }
 

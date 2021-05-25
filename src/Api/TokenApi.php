@@ -53,7 +53,7 @@ class TokenApi extends ApiBase implements TokenApiInterface
     {
         return [
             'Authorization' => "Basic {$this->getAuthorizationHash()}",
-        ];
+        ] + parent::getRequestHeaders();
     }
 
     /**
