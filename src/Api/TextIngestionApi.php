@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
-use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 
 /**
  * Text ingestion API.
