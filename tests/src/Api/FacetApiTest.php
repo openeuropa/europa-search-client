@@ -23,12 +23,12 @@ class FacetApiTest extends TestCase
      * @dataProvider providerTestGetFacets
      *
      * @param array $clientConfig
-     * @param mixed $response
+     * @param array $responses
      * @param mixed $expectedResult
      */
-    public function testGetFacets(array $clientConfig, $response, $expectedResult): void
+    public function testGetFacets(array $clientConfig, array $responses, $expectedResult): void
     {
-        $actualResult = $this->getTestingClient($clientConfig, [$response])
+        $actualResult = $this->getTestingClient($clientConfig, $responses)
             ->getFacets('whatever');
         $this->assertEquals($expectedResult, $actualResult);
     }
@@ -56,11 +56,13 @@ class FacetApiTest extends TestCase
                     'apiKey' => 'foo',
                     'facetApiEndpoint' => 'http://example.com/facet',
                 ],
-                new Response(200, [], json_encode([
-                    'apiVersion' => '1.34.0',
-                    'facets' => $facetsAsArray,
-                    'terms' => 'foo',
-                ])),
+                [
+                    new Response(200, [], json_encode([
+                        'apiVersion' => '1.34.0',
+                        'facets' => $facetsAsArray,
+                        'terms' => 'foo',
+                    ])),
+                ],
                 (new Facets())
                     ->setApiVersion('1.34.0')
                     ->setFacets($facetsAsObject)

@@ -49,7 +49,7 @@ interface ClientInterface extends ContainerAwareInterface
      * @param array|null $sort
      * @param string|null $sessionToken
      *
-     * @return Facet
+     * @return Facets
      */
     public function getFacets(
         ?string $text = null,
@@ -66,15 +66,48 @@ interface ClientInterface extends ContainerAwareInterface
      * @param array|null $languages
      * @param array|null $metadata
      * @param string|null $reference
+     * @param array|null $aclUsers
+     * @param array|null $aclNoUsers
+     * @param array|null $aclGroups
+     * @param array|null $aclNoGroups
      *
      * @return Ingestion
      */
     public function ingestText(
         string $uri,
-        ?string $text,
+        ?string $text = null,
         ?array $languages = null,
         ?array $metadata = null,
-        ?string $reference = null
+        ?string $reference = null,
+        ?array $aclUsers = null,
+        ?array $aclNoUsers = null,
+        ?array $aclGroups = null,
+        ?array $aclNoGroups = null
+    ): Ingestion;
+
+    /**
+     * @param string $uri
+     * @param string|null $file
+     * @param array|null $languages
+     * @param array|null $metadata
+     * @param string|null $reference
+     * @param array|null $aclUsers
+     * @param array|null $aclNoUsers
+     * @param array|null $aclGroups
+     * @param array|null $aclNoGroups
+     *
+     * @return Ingestion
+     */
+    public function ingestFile(
+        string $uri,
+        ?string $file = null,
+        ?array $languages = null,
+        ?array $metadata = null,
+        ?string $reference = null,
+        ?array $aclUsers = null,
+        ?array $aclNoUsers = null,
+        ?array $aclGroups = null,
+        ?array $aclNoGroups = null
     ): Ingestion;
 
     /**

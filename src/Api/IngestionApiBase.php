@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\IngestionApiInterface;
+use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use OpenEuropa\EuropaSearchClient\Traits\LanguagesAwareTrait;
 use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
@@ -24,14 +25,48 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     protected $uri;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $reference;
 
     /**
-     * @var \OpenEuropa\EuropaSearchClient\Model\Metadata
+     * @var Metadata|null
      */
     protected $metadata;
+
+    /**
+     * @var string[]|null
+     */
+    protected $aclUsers;
+
+    /**
+     * @var string[]|null
+     */
+    protected $aclNoUsers;
+
+    /**
+     * @var string[]|null
+     */
+    protected $aclGroups;
+
+    /**
+     * @var string[]|null
+     */
+    protected $aclNoGroups;
+
+    /**
+     * @inheritDoc
+     */
+    public function ingest(): Ingestion
+    {
+        /** @var Ingestion $ingestion */
+        $ingestion = $this->serializer->deserialize(
+            $this->send('POST')->getBody()->__toString(),
+            Ingestion::class,
+            'json'
+        );
+        return $ingestion;
+    }
 
     /**
      * @inheritDoc
@@ -49,12 +84,20 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
      */
     public function getRequestUriQuery(UriInterface $uri): array
     {
-        return [
+        $query = [
             'apiKey' => $this->getConfigValue('apiKey'),
             'database' => $this->getConfigValue('database'),
             'uri' => $this->getUri(),
-            'reference' => $this->getReference(),
         ] + parent::getRequestUriQuery($uri);
+
+        if ($languages = $this->getLanguages()) {
+            $query['language'] = $this->jsonEncoder->encode($languages, 'json');
+        }
+        if ($reference = $this->getReference()) {
+            $query['reference'] = $reference;
+        }
+
+        return $query;
     }
 
     /**
@@ -64,11 +107,20 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     {
         $parts = parent::getRequestMultipartStreamElements();
 
-        if ($languages = $this->getLanguages()) {
-            $parts['languages'] = $this->jsonEncoder->encode($languages, 'json');
-        }
         if ($metadata = $this->getMetadata()) {
-            $parts['metadata'] = $this->jsonEncoder->encode($metadata, 'json');
+            $parts['metadata']['content'] = $this->jsonEncoder->encode($metadata, 'json');
+        }
+        if ($aclUsers = $this->getAclUsers()) {
+            $parts['aclUsers']['content'] = $this->jsonEncoder->encode($aclUsers, 'json');
+        }
+        if ($aclNolUsers = $this->getAclNoUsers()) {
+            $parts['aclNolUsers']['content'] = $this->jsonEncoder->encode($aclNolUsers, 'json');
+        }
+        if ($aclGroups = $this->getAclGroups()) {
+            $parts['aclGroups']['content'] = $this->jsonEncoder->encode($aclGroups, 'json');
+        }
+        if ($aclNoGroups = $this->getAclNoGroups()) {
+            $parts['aclNoGroups']['content'] = $this->jsonEncoder->encode($aclNoGroups, 'json');
         }
 
         return $parts;
@@ -123,8 +175,76 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function getReference(): string
+    public function getReference(): ?string
     {
         return $this->reference;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setAclUsers(?array $aclUsers): IngestionApiInterface
+    {
+        $this->aclUsers = $aclUsers;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAclUsers(): ?array
+    {
+        return $this->aclUsers;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setAclNoUsers(?array $aclNoUsers): IngestionApiInterface
+    {
+        $this->aclNoUsers = $aclNoUsers;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAclNoUsers(): ?array
+    {
+        return $this->aclNoUsers;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setAclGroups(?array $aclGroups): IngestionApiInterface
+    {
+        $this->aclGroups = $aclGroups;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAclGroups(): ?array
+    {
+        return $this->aclGroups;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setAclNoGroups(?array $aclNoGroups): IngestionApiInterface
+    {
+        $this->aclNoGroups = $aclNoGroups;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAclNoGroups(): ?array
+    {
+        return $this->aclNoGroups;
     }
 }

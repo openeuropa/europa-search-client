@@ -67,13 +67,13 @@ abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
         $parts = parent::getRequestMultipartStreamElements();
 
         if ($languages = $this->getLanguages()) {
-            $parts['languages'] = $this->jsonEncoder->encode($languages, 'json');
+            $parts['languages']['content'] = $this->jsonEncoder->encode($languages, 'json');
         }
         if ($query = $this->getQuery()) {
-            $parts['query'] = $this->jsonEncoder->encode($query, 'json');
+            $parts['query']['content'] = $this->jsonEncoder->encode($query, 'json');
         }
         if ($sort = $this->getSort()) {
-            $parts['sort'] = $this->jsonEncoder->encode($sort, 'json');
+            $parts['sort']['content'] = $this->jsonEncoder->encode($sort, 'json');
         }
 
         return $parts;

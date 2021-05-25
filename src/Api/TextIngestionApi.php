@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
-use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 
 /**
- * Ingestion API.
+ * Text ingestion API.
  */
 class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInterface
 {
     /**
-     * @var string
+     * @var string|null
      */
     protected $text;
 
@@ -30,26 +29,12 @@ class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInter
     /**
      * @inheritDoc
      */
-    public function ingest(): Ingestion
-    {
-        /** @var Ingestion $ingestion */
-        $ingestion = $this->serializer->deserialize(
-            $this->send('POST')->getBody()->__toString(),
-            Ingestion::class,
-            'json'
-        );
-        return $ingestion;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getRequestMultipartStreamElements(): array
     {
         $parts = parent::getRequestMultipartStreamElements();
 
         if ($text = $this->getText()) {
-            $parts['text'] = $this->jsonEncoder->encode($text, 'json');
+            $parts['text']['content'] = $this->jsonEncoder->encode($text, 'json');
         }
 
         return $parts;

@@ -10,6 +10,7 @@ use League\Container\Container;
 use League\Container\ContainerAwareTrait;
 use OpenEuropa\EuropaSearchClient\Api\DeleteApi;
 use OpenEuropa\EuropaSearchClient\Api\FacetApi;
+use OpenEuropa\EuropaSearchClient\Api\FileIngestionApi;
 use OpenEuropa\EuropaSearchClient\Api\SearchApi;
 use OpenEuropa\EuropaSearchClient\Api\TextIngestionApi;
 use OpenEuropa\EuropaSearchClient\Api\TokenApi;
@@ -17,6 +18,7 @@ use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
 use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\FileIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
@@ -122,10 +124,14 @@ class Client implements ClientInterface
      */
     public function ingestText(
         string $uri,
-        ?string $text,
+        ?string $text = null,
         ?array $languages = null,
         ?array $metadata = null,
-        ?string $reference = null
+        ?string $reference = null,
+        ?array $aclUsers = null,
+        ?array $aclNoUsers = null,
+        ?array $aclGroups = null,
+        ?array $aclNoGroups = null
     ): Ingestion {
         return $this->getTextIngestionService()
             ->setUri($uri)
@@ -133,6 +139,37 @@ class Client implements ClientInterface
             ->setLanguages($languages)
             ->setMetadata(new Metadata($metadata))
             ->setReference($reference)
+            ->setAclUsers($aclUsers)
+            ->setAclNoUsers($aclNoUsers)
+            ->setAclGroups($aclGroups)
+            ->setAclNoGroups($aclNoGroups)
+            ->ingest();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function ingestFile(
+        string $uri,
+        ?string $file = null,
+        ?array $languages = null,
+        ?array $metadata = null,
+        ?string $reference = null,
+        ?array $aclUsers = null,
+        ?array $aclNoUsers = null,
+        ?array $aclGroups = null,
+        ?array $aclNoGroups = null
+    ): Ingestion {
+        return $this->getFileIngestionService()
+            ->setUri($uri)
+            ->setFile($file)
+            ->setLanguages($languages)
+            ->setMetadata(new Metadata($metadata))
+            ->setReference($reference)
+            ->setAclUsers($aclUsers)
+            ->setAclNoUsers($aclNoUsers)
+            ->setAclGroups($aclGroups)
+            ->setAclNoGroups($aclNoGroups)
             ->ingest();
     }
 
@@ -189,6 +226,7 @@ class Client implements ClientInterface
         $container->add('facet', FacetApi::class);
         $container->add('token', TokenApi::class);
         $container->add('textIngestion', TextIngestionApi::class);
+        $container->add('fileIngestion', FileIngestionApi::class);
         $container->add('deleteDocument', DeleteApi::class);
 
         // Inject the token service for APIs that are requesting it.
@@ -235,6 +273,14 @@ class Client implements ClientInterface
     protected function getTextIngestionService(): TextIngestionApiInterface
     {
         return $this->getContainer()->get('textIngestion');
+    }
+
+    /**
+     * @return FileIngestionApiInterface
+     */
+    protected function getFileIngestionService(): FileIngestionApiInterface
+    {
+        return $this->getContainer()->get('fileIngestion');
     }
 
     /**

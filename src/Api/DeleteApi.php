@@ -6,6 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
 use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
+use Psr\Http\Message\UriInterface;
 
 class DeleteApi extends ApiBase implements DeleteApiInterface
 {
@@ -22,6 +23,8 @@ class DeleteApi extends ApiBase implements DeleteApiInterface
     public function getConfigSchema(): array
     {
         return [
+            'apiKey' => $this->getRequiredStringSchema(),
+            'database' => $this->getRequiredStringSchema(),
             'deleteApiEndpoint' => $this->getEndpointSchema(),
         ];
     }
@@ -31,8 +34,19 @@ class DeleteApi extends ApiBase implements DeleteApiInterface
      */
     public function deleteDocument(): bool
     {
-        $response = $this->send('DELETE');
-        return $response->getStatusCode() === 200;
+        return $this->send('DELETE')->getStatusCode() === 200;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getRequestUriQuery(UriInterface $uri): array
+    {
+        return [
+            'apiKey' => $this->getConfigValue('apiKey'),
+            'database' => $this->getConfigValue('database'),
+            'reference' => $this->getReference(),
+        ] + parent::getRequestUriQuery($uri);
     }
 
     /**

@@ -22,12 +22,12 @@ class TokenApiTest extends TestCase
      * @dataProvider providerTestToken
      *
      * @param array $clientConfig
-     * @param mixed $response
+     * @param array $responses
      * @param mixed $expectedResult
      */
-    public function testToken(array $clientConfig, $response, $expectedResult): void
+    public function testToken(array $clientConfig, array $responses, $expectedResult): void
     {
-        $client = $this->getTestingClient($clientConfig, [$response]);
+        $client = $this->getTestingClient($clientConfig, $responses);
         /** @var TokenApiInterface $tokenService */
         $tokenService = $client->getContainer()->get('token');
         $actualResult = $tokenService->getToken();
@@ -46,12 +46,14 @@ class TokenApiTest extends TestCase
                     'consumerKey' => 'foo',
                     'consumerSecret' => 'bar',
                 ],
-                new Response(200, [], json_encode([
-                    'access_token' => 'JWT_TOKEN',
-                    'scope' => 'APPLICATION_SCOPE',
-                    'token_type' => 'Bearer',
-                    'expires_in' => 3600,
-                ])),
+                [
+                    new Response(200, [], json_encode([
+                        'access_token' => 'JWT_TOKEN',
+                        'scope' => 'APPLICATION_SCOPE',
+                        'token_type' => 'Bearer',
+                        'expires_in' => 3600,
+                    ]))
+                ],
                 (new Token())
                     ->setAccessToken('JWT_TOKEN')
                     ->setScope('APPLICATION_SCOPE')

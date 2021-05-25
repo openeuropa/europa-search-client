@@ -276,10 +276,11 @@ abstract class ApiBase implements ApiInterface
     {
         // Multipart stream has precedence, if it has been defined.
         if ($parts = $this->getRequestMultipartStreamElements()) {
-            foreach ($parts as $name => $contents) {
-                $this->multipartStreamBuilder->addResource($name, $contents, [
+            foreach ($parts as $name => $part) {
+                $contentType = $part['contentType'] ?? 'application/json';
+                $this->multipartStreamBuilder->addResource($name, $part['content'], [
                     'headers' => [
-                        'Content-Type' => 'application/json',
+                        'Content-Type' => $contentType,
                     ],
                     'filename' => 'blob',
                 ]);
@@ -298,6 +299,11 @@ abstract class ApiBase implements ApiInterface
 
     /**
      * @return array
+     *   Associative array of multipart parts keyed by the part name. The values
+     *   are associative arrays with two keys:
+     *   - content (string): The multipart part contents.
+     *   - contentType (string, optional): The multipart part content type. If
+     *     omitted, 'application/json' is assumed.
      */
     protected function getRequestMultipartStreamElements(): array
     {
