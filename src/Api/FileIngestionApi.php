@@ -34,7 +34,7 @@ class FileIngestionApi extends IngestionApiBase implements FileIngestionApiInter
         $parts = parent::getRequestMultipartStreamElements();
 
         if ($file = $this->getFile()) {
-            $parts['file'] = $this->jsonEncoder->encode($file, 'json');
+            $parts['file'] = $file;
         }
 
         return $parts;
