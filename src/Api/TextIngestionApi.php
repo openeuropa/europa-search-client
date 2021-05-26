@@ -34,7 +34,10 @@ class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInter
         $parts = parent::getRequestMultipartStreamElements();
 
         if ($text = $this->getText()) {
-            $parts['text']['content'] = $text;
+            $parts['text'] = [
+                'content' => $text,
+                'contentType' => 'text/plain',
+            ];
         }
 
         return $parts;

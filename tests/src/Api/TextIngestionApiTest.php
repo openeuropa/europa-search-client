@@ -64,7 +64,7 @@ class TextIngestionApiTest extends TestCase
             $this->inspectPart($parts[2], 'application/json', 'aclNolUsers', 20, '["user003","user04"]');
             $this->inspectPart($parts[3], 'application/json', 'aclGroups', 23, '["group001","group002"]');
             $this->inspectPart($parts[4], 'application/json', 'aclNoGroups', 23, '["group003","group004"]');
-            $this->inspectPart($parts[5], 'application/json', 'text', 43, 'The quick brown fox jumps over the lazy dog');
+            $this->inspectPart($parts[5], 'text/plain', 'text', 43, 'The quick brown fox jumps over the lazy dog');
         }
     }
 
