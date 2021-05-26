@@ -24,14 +24,14 @@ class FacetApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::setSort
+     * @covers ::setFacetSort
      */
     public function testSetSortInvalidParameter(): void
     {
         $object = new FacetApi();
         $class = new \ReflectionClass($object);
-        $method = $class->getMethod('setSort');
-        $exception = new EuropaSearchApiInvalidParameterValueException("`setSort()` received invalid argument `Invalid argument`, must be one of DATE, REVERSE_DATE, ALPHABETICAL, REVERSE_ALPHABETICAL, DOCUMENT_COUNT, REVERSE_DOCUMENT_COUNT, NUMBER_DECREASING, NUMBER_INCREASING.");
+        $method = $class->getMethod('setFacetSort');
+        $exception = new EuropaSearchApiInvalidParameterValueException("::setFacetSort() received invalid argument 'Invalid argument', must be one of 'DATE', 'REVERSE_DATE', 'ALPHABETICAL', 'REVERSE_ALPHABETICAL', 'DOCUMENT_COUNT', 'REVERSE_DOCUMENT_COUNT', 'NUMBER_DECREASING', 'NUMBER_INCREASING'.");
         $this->expectExceptionObject($exception);
         $method->invokeArgs($object, ['Invalid argument']);
     }

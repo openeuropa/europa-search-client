@@ -115,7 +115,7 @@ class Client implements ClientInterface
             ->setLanguages($languages)
             ->setDisplayLanguage($displayLanguage)
             ->setQuery($query)
-            ->setSort($sort)
+            ->setFacetSort($sort)
             ->setSessionToken($sessionToken)
             ->getFacets();
     }

@@ -23,11 +23,6 @@ abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
     protected $query;
 
     /**
-     * @var array
-     */
-    protected $sort;
-
-    /**
      * @var string
      */
     protected $sessionToken;
@@ -109,23 +104,6 @@ abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
     public function getQuery(): ?array
     {
         return $this->query;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setSort($sort): SearchApiBaseInterface
-    {
-        $this->sort = $sort;
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSort()
-    {
-        return $this->sort;
     }
 
     /**

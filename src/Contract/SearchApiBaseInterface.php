@@ -31,18 +31,6 @@ interface SearchApiBaseInterface extends ApiInterface, LanguagesAwareInterface
     public function getQuery(): ?array;
 
     /**
-     * @param mixed $sort
-     *
-     * @return $this
-     */
-    public function setSort($sort): self;
-
-    /**
-     * @return mixed
-     */
-    public function getSort();
-
-    /**
      * @param string|null $sessionToken
      *
      * @return $this

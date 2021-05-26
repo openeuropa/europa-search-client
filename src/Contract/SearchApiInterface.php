@@ -4,15 +4,8 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
-use OpenEuropa\EuropaSearchClient\Model\Search;
-
 interface SearchApiInterface extends SearchApiBaseInterface
 {
-    /**
-     * @return array|null
-     */
-    public function getSort(): ?array;
-
     /**
      * @param int|null $pageNumber
      *
@@ -60,4 +53,19 @@ interface SearchApiInterface extends SearchApiBaseInterface
      * @return int|null
      */
     public function getHighlightLimit(): ?int;
+
+    /**
+     * @param array|null $sort
+     * @return $this
+     * @todo Create a Sort model in OEL-173
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-173
+     */
+    public function setSort(?array $sort): self;
+
+    /**
+     * @return array|null
+     * @todo Create a Sort model in OEL-173
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-173
+     */
+    public function getSort(): ?array;
 }
