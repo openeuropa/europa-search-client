@@ -6,6 +6,7 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
@@ -15,6 +16,7 @@ use Psr\Http\Message\RequestInterface;
 class DeleteApiTest extends TestCase
 {
     use ClientTestTrait;
+    use InspectTestRequestTrait;
 
     /**
      * @covers ::deleteDocument
@@ -37,14 +39,10 @@ class DeleteApiTest extends TestCase
     public function inspectRequest(RequestInterface $request): void
     {
         if ($request->getUri() == 'http://example.com/token') {
-            $this->assertEquals('http://example.com/token', $request->getUri());
-            $this->assertSame('Basic YmF6OnF1eA==', $request->getHeaderLine('Authorization'));
-            $this->assertSame('application/x-www-form-urlencoded', $request->getHeaderLine('Content-Type'));
-            $this->assertSame('grant_type=client_credentials', $request->getBody()->getContents());
+            $this->inspectTokenRequest($request);
         } else {
             $this->assertEquals('http://example.com/ingest/delete?apiKey=bananas&database=cucumbers&reference=foo', $request->getUri());
-            $this->assertSame('Bearer JWT_TOKEN', $request->getHeaderLine('Authorization'));
-            $this->assertSame('JWT_TOKEN', $request->getHeaderLine('Authorization-propagation'));
+            $this->inspectAuthorizationHeaders($request);
         }
     }
 

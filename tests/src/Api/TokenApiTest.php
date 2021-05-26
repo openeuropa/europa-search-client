@@ -7,6 +7,7 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Model\Token;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
@@ -16,6 +17,7 @@ use Psr\Http\Message\RequestInterface;
 class TokenApiTest extends TestCase
 {
     use ClientTestTrait;
+    use InspectTestRequestTrait;
 
     /**
      * @covers ::getToken
@@ -38,10 +40,7 @@ class TokenApiTest extends TestCase
      */
     public function inspectRequest(RequestInterface $request): void
     {
-        $this->assertEquals('http://example.com/token', $request->getUri());
-        $this->assertSame('Basic Zm9vOmJhcg==', $request->getHeaderLine('Authorization'));
-        $this->assertSame('application/x-www-form-urlencoded', $request->getHeaderLine('Content-Type'));
-        $this->assertSame('grant_type=client_credentials', $request->getBody()->getContents());
+        $this->inspectTokenRequest($request);
     }
 
     /**
@@ -53,8 +52,8 @@ class TokenApiTest extends TestCase
             'simple token call' => [
                 [
                     'tokenApiEndpoint' => 'http://example.com/token',
-                    'consumerKey' => 'foo',
-                    'consumerSecret' => 'bar',
+                    'consumerKey' => 'baz',
+                    'consumerSecret' => 'qux',
                 ],
                 [
                     new Response(200, [], json_encode([

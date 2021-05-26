@@ -7,6 +7,7 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
@@ -16,6 +17,7 @@ use Psr\Http\Message\RequestInterface;
 class FileIngestionApiTest extends TestCase
 {
     use ClientTestTrait;
+    use InspectTestRequestTrait;
 
     /**
      * @covers ::ingest
@@ -47,39 +49,16 @@ class FileIngestionApiTest extends TestCase
     public function inspectRequest(RequestInterface $request): void
     {
         if ($request->getUri() == 'http://example.com/token') {
-            $this->assertEquals('http://example.com/token', $request->getUri());
-            $this->assertSame('Basic YmF6OnF1eA==', $request->getHeaderLine('Authorization'));
-            $this->assertSame('application/x-www-form-urlencoded', $request->getHeaderLine('Content-Type'));
-            $this->assertSame('grant_type=client_credentials', $request->getBody()->getContents());
+            $this->inspectTokenRequest($request);
         } else {
             $this->assertEquals('http://example.com/ingest?apiKey=bananas&database=cucumbers&uri=http%3A%2F%2Fexample.com&language=%5B%22en%22%2C%22ro%22%5D&reference=unique-my-ID', $request->getUri());
-            $this->assertSame('Bearer JWT_TOKEN', $request->getHeaderLine('Authorization'));
-            $this->assertSame('JWT_TOKEN', $request->getHeaderLine('Authorization-propagation'));
-
-            // Detect the boundary.
-            preg_match('/; boundary="([^"].*)"/', $request->getHeaderLine('Content-Type'), $found);
-            $boundary = $found[1];
-            $this->assertSame('multipart/form-data; boundary="' . $boundary . '"', $request->getHeaderLine('Content-Type'));
-
-            $parts = explode("--{$boundary}", $request->getBody()->getContents());
-            array_shift($parts);
-            array_pop($parts);
-
-            [$headers, $content] = explode("\r\n\r\n", $parts['0']);
-            $headers = explode("\r\n", $headers);
-            $content = explode("\r\n", $content);
-            $this->assertContains('Content-Type: application/json', $headers);
-            $this->assertContains('Content-Disposition: form-data; name="metadata"; filename="metadata"', $headers);
-            $this->assertContains('Content-Length: 55', $headers);
-            $this->assertContains('{"field1":["value1","value2"],"field2":["value3",2345]}', $content);
-
-            [$headers, $content] = explode("\r\n\r\n", $parts[1]);
-            $headers = explode("\r\n", $headers);
-            $data = file_get_contents(__DIR__ . '/../../fixtures/files/image.png');
-            $this->assertContains('Content-Type: image/png', $headers);
-            $this->assertContains('Content-Disposition: form-data; name="file"; filename="file"', $headers);
-            $this->assertContains('Content-Length: 67', $headers);
-            $this->assertSame($data."\r\n", $content);
+            $this->inspectAuthorizationHeaders($request);
+            $this->inspectBoundary($request);
+            $this->inspectBoundary($request);
+            $parts = $this->getMultiParts($request);
+            $fileData = file_get_contents(__DIR__ . '/../../fixtures/files/image.png');
+            $this->inspectPart($parts[0], 'application/json', 'metadata', 55, '{"field1":["value1","value2"],"field2":["value3",2345]}');
+            $this->inspectPart($parts[1], 'image/png', 'file', 67, $fileData);
         }
     }
 
