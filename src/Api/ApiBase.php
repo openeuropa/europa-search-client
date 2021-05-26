@@ -293,7 +293,8 @@ abstract class ApiBase implements ApiInterface
                 ]);
             }
 
-            // Set the request content-type.
+            // The multipart stream needs inform the server about the
+            // Content-Type and  multipart parts boundary ID.
             $this->headers['Content-Type'] = 'multipart/form-data; boundary="' . $this->multipartStreamBuilder->getBoundary() . '"';
 
             return $this->multipartStreamBuilder->build();
@@ -301,6 +302,7 @@ abstract class ApiBase implements ApiInterface
 
         // Simple form elements.
         if ($parts = $this->getRequestFormElements()) {
+            // Give server guidance on how to decode the stream.
             $this->headers['Content-Type'] = 'application/x-www-form-urlencoded';
             return $this->streamFactory->createStream(http_build_query($parts));
         }
