@@ -86,7 +86,7 @@ abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
     public function getText(): string
     {
         // The special case '***' means 'Give me all the results'.
-        return $this->text ?? '***';
+        return $this->text ?: '***';
     }
 
     /**

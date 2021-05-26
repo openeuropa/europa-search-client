@@ -17,7 +17,7 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
     /**
      * @var string
      */
-    protected $facetSort = 'DOCUMENT_COUNT';
+    protected $facetSort;
 
     /**
      * @var string
@@ -101,9 +101,9 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
     /**
      * @inheritDoc
      */
-    public function setFacetSort(string $facetSort): FacetApiInterface
+    public function setFacetSort(?string $facetSort): FacetApiInterface
     {
-        if (!in_array($facetSort, static::ALLOWED_SORT_VALUES, true)) {
+        if ($facetSort !== null && !in_array($facetSort, static::ALLOWED_SORT_VALUES, true)) {
             $allowedValues = implode("', '", static::ALLOWED_SORT_VALUES);
             throw new EuropaSearchApiInvalidParameterValueException("::setFacetSort() received invalid argument '{$facetSort}', must be one of '{$allowedValues}'.");
         }
@@ -116,7 +116,7 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
      */
     public function getFacetSort(): string
     {
-        return $this->facetSort;
+        return $this->facetSort ?: 'DOCUMENT_COUNT';
     }
 
     /**
