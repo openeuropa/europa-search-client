@@ -91,6 +91,28 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
+    protected function getRequestMultipartStreamElements(): array
+    {
+        $parts = parent::getRequestMultipartStreamElements();
+
+        if ($sort = $this->getSort()) {
+            $parts['sort']['content'] = $this->jsonEncoder->encode($sort, 'json');
+        }
+
+        return $parts;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSort(): ?array
+    {
+        return $this->sort;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function setPageNumber(?int $pageNumber): SearchApiInterface
     {
         $this->pageNumber = $pageNumber;

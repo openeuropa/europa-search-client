@@ -31,16 +31,16 @@ interface SearchApiBaseInterface extends ApiInterface, LanguagesAwareInterface
     public function getQuery(): ?array;
 
     /**
-     * @param array|null $sort
+     * @param mixed $sort
      *
      * @return $this
      */
-    public function setSort(?array $sort): self;
+    public function setSort($sort): self;
 
     /**
-     * @return array|null
+     * @return mixed
      */
-    public function getSort(): ?array;
+    public function getSort();
 
     /**
      * @param string|null $sessionToken

@@ -72,9 +72,6 @@ abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
         if ($query = $this->getQuery()) {
             $parts['query']['content'] = $this->jsonEncoder->encode($query, 'json');
         }
-        if ($sort = $this->getSort()) {
-            $parts['sort']['content'] = $this->jsonEncoder->encode($sort, 'json');
-        }
 
         return $parts;
     }
@@ -117,7 +114,7 @@ abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
     /**
      * @inheritDoc
      */
-    public function setSort(?array $sort): SearchApiBaseInterface
+    public function setSort($sort): SearchApiBaseInterface
     {
         $this->sort = $sort;
         return $this;
@@ -126,7 +123,7 @@ abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
     /**
      * @inheritDoc
      */
-    public function getSort(): ?array
+    public function getSort()
     {
         return $this->sort;
     }
