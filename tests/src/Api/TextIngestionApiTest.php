@@ -59,6 +59,7 @@ class TextIngestionApiTest extends TestCase
             $this->inspectAuthorizationHeaders($request);
             $this->inspectBoundary($request);
             $parts = $this->getMultiParts($request);
+            $this->assertCount(6, $parts);
             $this->inspectPart($parts[0], 'application/json', 'metadata', 55, '{"field1":["value1","value2"],"field2":["value3",2345]}');
             $this->inspectPart($parts[1], 'application/json', 'aclUsers', 20, '["user001","user02"]');
             $this->inspectPart($parts[2], 'application/json', 'aclNolUsers', 20, '["user003","user04"]');
