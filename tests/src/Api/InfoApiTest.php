@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Model\Info;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\InfoApi
@@ -26,9 +27,19 @@ class InfoApiTest extends TestCase
      */
     public function testGetInfo(array $clientConfig, array $responses, $expectedResult): void
     {
-        $actualResult = $this->getTestingClient($clientConfig, $responses)
-            ->getInfo();
+        $actualResult = $this->getTestingClient($clientConfig, $responses, [
+            $this,
+            'inspectRequest',
+        ])->getInfo();
         $this->assertEquals($expectedResult, $actualResult);
+    }
+
+    /**
+     * @param RequestInterface $request
+     */
+    public function inspectRequest(RequestInterface $request): void
+    {
+        $this->assertEquals('http://example.com/info', $request->getUri());
     }
 
     /**
@@ -39,7 +50,7 @@ class InfoApiTest extends TestCase
         return [
             'info' => [
                 [
-                    'infoApiEndpoint' => 'http://example.com/search',
+                    'infoApiEndpoint' => 'http://example.com/info',
                 ],
                 [
                     new Response(200, [], json_encode([
