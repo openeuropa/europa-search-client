@@ -228,7 +228,7 @@ abstract class ApiBase implements ApiInterface
 
         $response = $this->httpClient->sendRequest($request);
 
-        if ($response->getStatusCode() !== 200) {
+        if (!in_array($response->getStatusCode(), [200, 201], true)) {
             throw new EuropaSearchApiInvalidStatusCodeException("{$method} {$uri} returns {$response->getStatusCode()}");
         }
 
