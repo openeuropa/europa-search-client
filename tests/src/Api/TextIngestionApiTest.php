@@ -39,6 +39,10 @@ class TextIngestionApiTest extends TestCase
                     'field2' => ['value3', 2345],
                 ],
                 'unique-my-ID',
+                ['user001', 'user02'],
+                ['user003', 'user04'],
+                ['group001', 'group002'],
+                ['group003', 'group004']
             );
         $this->assertEquals($expectedResult, $actualResult);
     }
@@ -56,7 +60,11 @@ class TextIngestionApiTest extends TestCase
             $this->inspectBoundary($request);
             $parts = $this->getMultiParts($request);
             $this->inspectPart($parts[0], 'application/json', 'metadata', 55, '{"field1":["value1","value2"],"field2":["value3",2345]}');
-            $this->inspectPart($parts[1], 'application/json', 'text', 45, '"The quick brown fox jumps over the lazy dog"');
+            $this->inspectPart($parts[1], 'application/json', 'aclUsers', 20, '["user001","user02"]');
+            $this->inspectPart($parts[2], 'application/json', 'aclNolUsers', 20, '["user003","user04"]');
+            $this->inspectPart($parts[3], 'application/json', 'aclGroups', 23, '["group001","group002"]');
+            $this->inspectPart($parts[4], 'application/json', 'aclNoGroups', 23, '["group003","group004"]');
+            $this->inspectPart($parts[5], 'application/json', 'text', 43, 'The quick brown fox jumps over the lazy dog');
         }
     }
 

@@ -39,6 +39,10 @@ class FileIngestionApiTest extends TestCase
                     'field2' => ['value3', 2345],
                 ],
                 'unique-my-ID',
+                ['user001', 'user02'],
+                ['user003', 'user04'],
+                ['group001', 'group002'],
+                ['group003', 'group004']
             );
         $this->assertEquals($expectedResult, $actualResult);
     }
@@ -58,7 +62,11 @@ class FileIngestionApiTest extends TestCase
             $parts = $this->getMultiParts($request);
             $fileData = file_get_contents(__DIR__ . '/../../fixtures/files/image.png');
             $this->inspectPart($parts[0], 'application/json', 'metadata', 55, '{"field1":["value1","value2"],"field2":["value3",2345]}');
-            $this->inspectPart($parts[1], 'image/png', 'file', 67, $fileData);
+            $this->inspectPart($parts[1], 'application/json', 'aclUsers', 20, '["user001","user02"]');
+            $this->inspectPart($parts[2], 'application/json', 'aclNolUsers', 20, '["user003","user04"]');
+            $this->inspectPart($parts[3], 'application/json', 'aclGroups', 23, '["group001","group002"]');
+            $this->inspectPart($parts[4], 'application/json', 'aclNoGroups', 23, '["group003","group004"]');
+            $this->inspectPart($parts[5], 'image/png', 'file', 67, $fileData);
         }
     }
 

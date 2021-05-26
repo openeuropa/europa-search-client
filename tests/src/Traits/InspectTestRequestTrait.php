@@ -57,13 +57,13 @@ trait InspectTestRequestTrait
     }
 
     /**
-     * @param $part
+     * @param string $part
      * @param string $contentType
      * @param string $name
      * @param int $length
      * @param string $expected_content
      */
-    protected function inspectPart($part, string $contentType, string $name, int $length, string $expected_content)
+    protected function inspectPart(string $part, string $contentType, string $name, int $length, string $expected_content)
     {
         [$headers, $content] = explode("\r\n\r\n", $part);
         $headers = explode("\r\n", $headers);
