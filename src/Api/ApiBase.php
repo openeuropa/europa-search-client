@@ -190,7 +190,7 @@ abstract class ApiBase implements ApiInterface
     protected function getConfigValue(string $configKey)
     {
         if (!isset($this->configuration[$configKey])) {
-            throw new \InvalidArgumentException("Invalid config key: '{$configKey}'. Valid keys: '" . implode(', ', array_keys($this->configuration)) . "'.");
+            throw new \InvalidArgumentException("Invalid config key: '{$configKey}'. Valid keys: '" . implode("', '", array_keys($this->configuration)) . "'.");
         }
         return $this->configuration[$configKey];
     }
