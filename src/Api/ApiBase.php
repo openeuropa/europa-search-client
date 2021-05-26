@@ -289,12 +289,12 @@ abstract class ApiBase implements ApiInterface
                     'headers' => [
                         'Content-Type' => $contentType,
                     ],
-                    'filename' => 'blob',
+                    'filename' => $name,
                 ]);
             }
 
             // Set the request content-type.
-            $this->headers['Content-Type'] = 'multipart/form-data;boundary="' . $this->multipartStreamBuilder->getBoundary() . '"';
+            $this->headers['Content-Type'] = 'multipart/form-data; boundary="' . $this->multipartStreamBuilder->getBoundary() . '"';
 
             return $this->multipartStreamBuilder->build();
         }

@@ -47,6 +47,9 @@ class TextIngestionApiTest extends TestCase
     public function inspectRequest(RequestInterface $request): void
     {
         if ($request->getUri() == 'http://example.com/token') {
+            $this->assertEquals('http://example.com/token', $request->getUri());
+            $this->assertSame('Basic YmF6OnF1eA==', $request->getHeaderLine('Authorization'));
+            $this->assertSame('application/x-www-form-urlencoded', $request->getHeaderLine('Content-Type'));
             $this->assertSame('grant_type=client_credentials', $request->getBody()->getContents());
         } else {
             $this->assertEquals('http://example.com/ingest/text?apiKey=bananas&database=cucumbers&uri=http%3A%2F%2Fexample.com&language=%5B%22en%22%2C%22ro%22%5D&reference=unique-my-ID', $request->getUri());
@@ -54,18 +57,29 @@ class TextIngestionApiTest extends TestCase
             $this->assertSame('JWT_TOKEN', $request->getHeaderLine('Authorization-propagation'));
 
             // Detect the boundary.
-            preg_match('/;boundary="([^"].*)"/', $request->getHeaderLine('Content-Type'), $found);
+            preg_match('/; boundary="([^"].*)"/', $request->getHeaderLine('Content-Type'), $found);
             $boundary = $found[1];
-            $this->assertSame('multipart/form-data;boundary="' . $boundary . '"', $request->getHeaderLine('Content-Type'));
+            $this->assertSame('multipart/form-data; boundary="' . $boundary . '"', $request->getHeaderLine('Content-Type'));
 
             $parts = explode("--{$boundary}", $request->getBody()->getContents());
             array_shift($parts);
             array_pop($parts);
 
-            [$headers, $content] = explode("\r\n\r\n", $parts[0]);
+            [$headers, $content] = explode("\r\n\r\n", $parts['0']);
+            $headers = explode("\r\n", $headers);
+            $content = explode("\r\n", $content);
+            $this->assertContains('Content-Type: application/json', $headers);
+            $this->assertContains('Content-Disposition: form-data; name="metadata"; filename="metadata"', $headers);
+            $this->assertContains('Content-Length: 55', $headers);
+            $this->assertContains('{"field1":["value1","value2"],"field2":["value3",2345]}', $content);
 
-            // @todo Inspect the headers & content of each part. Maybe it's
-            //   worth it to create a trait to be reused in each test.
+            [$headers, $content] = explode("\r\n\r\n", $parts[1]);
+            $headers = explode("\r\n", $headers);
+            $content = explode("\r\n", $content);
+            $this->assertContains('Content-Type: application/json', $headers);
+            $this->assertContains('Content-Disposition: form-data; name="text"; filename="text"', $headers);
+            $this->assertContains('Content-Length: 45', $headers);
+            $this->assertContains('"The quick brown fox jumps over the lazy dog"', $content);
         }
     }
 

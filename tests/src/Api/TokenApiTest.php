@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
 use GuzzleHttp\Psr7\Response;
-use OpenEuropa\EuropaSearchClient\Contract\TokenApiInterface;
 use OpenEuropa\EuropaSearchClient\Model\Token;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\TokenApi
@@ -27,11 +27,21 @@ class TokenApiTest extends TestCase
      */
     public function testToken(array $clientConfig, array $responses, $expectedResult): void
     {
-        $client = $this->getTestingClient($clientConfig, $responses);
-        /** @var TokenApiInterface $tokenService */
-        $tokenService = $client->getContainer()->get('token');
-        $actualResult = $tokenService->getToken();
+        $actualResult = $this->getTestingClient($clientConfig, $responses, [$this, 'inspectRequest'])
+            ->getContainer()->get('token')
+            ->getToken();
         $this->assertEquals($expectedResult, $actualResult);
+    }
+
+    /**
+     * @param RequestInterface $request
+     */
+    public function inspectRequest(RequestInterface $request): void
+    {
+        $this->assertEquals('http://example.com/token', $request->getUri());
+        $this->assertSame('Basic Zm9vOmJhcg==', $request->getHeaderLine('Authorization'));
+        $this->assertSame('application/x-www-form-urlencoded', $request->getHeaderLine('Content-Type'));
+        $this->assertSame('grant_type=client_credentials', $request->getBody()->getContents());
     }
 
     /**
