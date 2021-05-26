@@ -14,6 +14,13 @@ use Psr\Http\Message\UriInterface;
 class SearchApi extends SearchApiBase implements SearchApiInterface
 {
     /**
+     * @var array
+     * @todo Create a Sort model in OEL-173
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-173
+     */
+    protected $sort;
+
+    /**
      * @var int
      */
     protected $pageNumber;
@@ -86,6 +93,37 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
         }
 
         return $query;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getRequestMultipartStreamElements(): array
+    {
+        $parts = parent::getRequestMultipartStreamElements();
+
+        if ($sort = $this->getSort()) {
+            $parts['sort']['content'] = $this->jsonEncoder->encode($sort, 'json');
+        }
+
+        return $parts;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setSort(?array $sort): SearchApiInterface
+    {
+        $this->sort = $sort;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSort(): ?array
+    {
+        return $this->sort;
     }
 
     /**

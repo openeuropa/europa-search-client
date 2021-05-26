@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
+use OpenEuropa\EuropaSearchClient\Exception\EuropaSearchApiInvalidParameterValueException;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
+use Psr\Http\Message\UriInterface;
 
 /**
  * Facet API.
@@ -15,7 +17,26 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
     /**
      * @var string
      */
+    protected $facetSort = 'DOCUMENT_COUNT';
+
+    /**
+     * @var string
+     */
     protected $displayLanguage;
+
+    /**
+     * @var string[]
+     */
+    protected const ALLOWED_SORT_VALUES = [
+        'DATE',
+        'REVERSE_DATE',
+        'ALPHABETICAL',
+        'REVERSE_ALPHABETICAL',
+        'DOCUMENT_COUNT',
+        'REVERSE_DOCUMENT_COUNT',
+        'NUMBER_DECREASING',
+        'NUMBER_INCREASING',
+    ];
 
     /**
      * @inheritDoc
@@ -52,6 +73,20 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
     /**
      * @inheritDoc
      */
+    protected function getRequestUriQuery(UriInterface $uri): array
+    {
+        $query = parent::getRequestUriQuery($uri);
+
+        if ($facetSort = $this->getFacetSort()) {
+            $query['sort'] = $facetSort;
+        }
+
+        return $query;
+    }
+
+    /**
+     * @inheritDoc
+     */
     protected function getRequestMultipartStreamElements(): array
     {
         $parts = parent::getRequestMultipartStreamElements();
@@ -61,6 +96,27 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
         }
 
         return $parts;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setFacetSort(string $facetSort): FacetApiInterface
+    {
+        if (!in_array($facetSort, static::ALLOWED_SORT_VALUES, true)) {
+            $allowedValues = implode("', '", static::ALLOWED_SORT_VALUES);
+            throw new EuropaSearchApiInvalidParameterValueException("::setFacetSort() received invalid argument '{$facetSort}', must be one of '{$allowedValues}'.");
+        }
+        $this->facetSort = $facetSort;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getFacetSort(): string
+    {
+        return $this->facetSort;
     }
 
     /**

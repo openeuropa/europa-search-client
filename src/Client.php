@@ -107,7 +107,7 @@ class Client implements ClientInterface
         ?array $languages = null,
         ?string $displayLanguage = null,
         ?array $query = null,
-        ?array $sort = null,
+        ?string $sort = null,
         ?string $sessionToken = null
     ): Facets {
         return $this->getFacetService()
@@ -115,7 +115,8 @@ class Client implements ClientInterface
             ->setLanguages($languages)
             ->setDisplayLanguage($displayLanguage)
             ->setQuery($query)
-            ->setSort($sort)
+            ->setFacetSort($sort)
+            ->setSessionToken($sessionToken)
             ->getFacets();
     }
 

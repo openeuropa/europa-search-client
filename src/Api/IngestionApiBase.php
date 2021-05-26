@@ -107,8 +107,8 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     {
         $parts = parent::getRequestMultipartStreamElements();
 
-        if ($metadata = $this->getMetadata()) {
-            $parts['metadata']['content'] = $this->jsonEncoder->encode($metadata, 'json');
+        if ($this->getMetadata()->count()) {
+            $parts['metadata']['content'] = $this->jsonEncoder->encode($this->getMetadata(), 'json');
         }
         if ($aclUsers = $this->getAclUsers()) {
             $parts['aclUsers']['content'] = $this->jsonEncoder->encode($aclUsers, 'json');

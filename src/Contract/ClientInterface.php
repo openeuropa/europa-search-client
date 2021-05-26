@@ -46,7 +46,7 @@ interface ClientInterface extends ContainerAwareInterface
      * @param array|null $languages
      * @param string|null $displayLanguage
      * @param array|null $query
-     * @param array|null $sort
+     * @param string|null $sort
      * @param string|null $sessionToken
      *
      * @return Facets
@@ -56,7 +56,7 @@ interface ClientInterface extends ContainerAwareInterface
         ?array $languages = null,
         ?string $displayLanguage = null,
         ?array $query = null,
-        ?array $sort = null,
+        ?string $sort = null,
         ?string $sessionToken = null
     ): Facets;
 

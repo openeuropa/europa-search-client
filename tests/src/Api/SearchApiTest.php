@@ -9,7 +9,9 @@ use OpenEuropa\EuropaSearchClient\Model\Document;
 use OpenEuropa\EuropaSearchClient\Model\QueryLanguage;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\SearchApi
@@ -17,6 +19,7 @@ use PHPUnit\Framework\TestCase;
 class SearchApiTest extends TestCase
 {
     use ClientTestTrait;
+    use InspectTestRequestTrait;
 
     /**
      * @covers ::search
@@ -28,9 +31,33 @@ class SearchApiTest extends TestCase
      */
     public function testSearch(array $clientConfig, array $responses, $expectedResult): void
     {
-        $actualResult = $this->getTestingClient($clientConfig, $responses)
-            ->search('Programme managers');
+        $actualResult = $this->getTestingClient($clientConfig, $responses, [$this, 'inspectRequest'])
+            ->search(
+                'Programme managers',
+                ['en', 'de'],
+                ['term' => ['DMAKE_ES_EVENT_TYPE_NAME' => 'ADOPTION_DISTRIBUTE']],
+                ['field' => 'es_SortDate', 'order' => 'DESC'],
+                2,
+                5,
+                '{w+}',
+                150,
+                '21edswq223rews'
+            );
         $this->assertEquals($expectedResult, $actualResult);
+    }
+
+    /**
+     * @param RequestInterface $request
+     */
+    public function inspectRequest(RequestInterface $request): void
+    {
+        $this->assertEquals('http://example.com/search?apiKey=foo&text=Programme+managers&sessionToken=21edswq223rews&pageNumber=2&pageSize=5&highlightRegex=%7Bw%2B%7D&highlightLimit=150', $request->getUri());
+        $this->inspectBoundary($request);
+        $parts = $this->getMultiParts($request);
+        $this->assertCount(3, $parts);
+        $this->inspectPart($parts[0], 'application/json', 'languages', 11, '["en","de"]');
+        $this->inspectPart($parts[1], 'application/json', 'query', 59, '{"term":{"DMAKE_ES_EVENT_TYPE_NAME":"ADOPTION_DISTRIBUTE"}}');
+        $this->inspectPart($parts[2], 'application/json', 'sort', 38, '{"field":"es_SortDate","order":"DESC"}');
     }
 
     /**

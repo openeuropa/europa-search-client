@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
 use GuzzleHttp\Psr7\Response;
-use OpenEuropa\EuropaSearchClient\Contract\TokenApiInterface;
 use OpenEuropa\EuropaSearchClient\Model\Token;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\TokenApi
@@ -16,6 +17,7 @@ use PHPUnit\Framework\TestCase;
 class TokenApiTest extends TestCase
 {
     use ClientTestTrait;
+    use InspectTestRequestTrait;
 
     /**
      * @covers ::getToken
@@ -27,11 +29,18 @@ class TokenApiTest extends TestCase
      */
     public function testToken(array $clientConfig, array $responses, $expectedResult): void
     {
-        $client = $this->getTestingClient($clientConfig, $responses);
-        /** @var TokenApiInterface $tokenService */
-        $tokenService = $client->getContainer()->get('token');
-        $actualResult = $tokenService->getToken();
+        $actualResult = $this->getTestingClient($clientConfig, $responses, [$this, 'inspectRequest'])
+            ->getContainer()->get('token')
+            ->getToken();
         $this->assertEquals($expectedResult, $actualResult);
+    }
+
+    /**
+     * @param RequestInterface $request
+     */
+    public function inspectRequest(RequestInterface $request): void
+    {
+        $this->inspectTokenRequest($request);
     }
 
     /**
@@ -43,8 +52,8 @@ class TokenApiTest extends TestCase
             'simple token call' => [
                 [
                     'tokenApiEndpoint' => 'http://example.com/token',
-                    'consumerKey' => 'foo',
-                    'consumerSecret' => 'bar',
+                    'consumerKey' => 'baz',
+                    'consumerSecret' => 'qux',
                 ],
                 [
                     new Response(200, [], json_encode([

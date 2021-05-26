@@ -6,7 +6,9 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
+use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\DeleteApi
@@ -14,6 +16,7 @@ use PHPUnit\Framework\TestCase;
 class DeleteApiTest extends TestCase
 {
     use ClientTestTrait;
+    use InspectTestRequestTrait;
 
     /**
      * @covers ::deleteDocument
@@ -25,9 +28,22 @@ class DeleteApiTest extends TestCase
      */
     public function testDeleteDocument(array $clientConfig, array $responses, $expectedResult): void
     {
-        $actualResult = $this->getTestingClient($clientConfig, $responses)
+        $actualResult = $this->getTestingClient($clientConfig, $responses, [$this, 'inspectRequest'])
             ->deleteDocument('foo');
         $this->assertSame($expectedResult, $actualResult);
+    }
+
+    /**
+     * @param RequestInterface $request
+     */
+    public function inspectRequest(RequestInterface $request): void
+    {
+        if ($request->getUri() == 'http://example.com/token') {
+            $this->inspectTokenRequest($request);
+        } else {
+            $this->assertEquals('http://example.com/ingest/delete?apiKey=bananas&database=cucumbers&reference=foo', $request->getUri());
+            $this->inspectAuthorizationHeaders($request);
+        }
     }
 
     /**
