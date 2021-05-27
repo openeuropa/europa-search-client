@@ -63,7 +63,7 @@ class FacetApiTest extends TestCase
      */
     public function inspectRequest(RequestInterface $request): void
     {
-        $this->assertEquals('http://example.com/facet?apiKey=foo&text=whatever&sessionToken=21edswq223rews&sort=ALPHABETICAL', $request->getUri());
+        $this->assertEquals('http://example.com/facet?apiKey=foo&database=qux&text=whatever&sessionToken=21edswq223rews&sort=ALPHABETICAL', $request->getUri());
         $this->inspectBoundary($request);
         $parts = $this->getMultiParts($request);
         $this->assertCount(3, $parts);
@@ -93,6 +93,7 @@ class FacetApiTest extends TestCase
             'simple facet request' => [
                 [
                     'apiKey' => 'foo',
+                    'database' => 'qux',
                     'facetApiEndpoint' => 'http://example.com/facet',
                 ],
                 [

@@ -34,6 +34,7 @@ abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
     {
         return [
             'apiKey' => $this->getRequiredStringSchema(),
+            'database' => $this->getRequiredStringSchema(),
         ];
     }
 
@@ -45,6 +46,7 @@ abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
         $query = parent::getRequestUriQuery($uri);
 
         $query['apiKey'] = $this->getConfigValue('apiKey');
+        $query['database'] = $this->getConfigValue('database');
         $query['text'] = $this->getText();
 
         if ($sessionToken = $this->getSessionToken()) {
@@ -86,7 +88,7 @@ abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
     public function getText(): string
     {
         // The special case '***' means 'Give me all the results'.
-        return $this->text ?? '***';
+        return $this->text ?: '***';
     }
 
     /**

@@ -51,7 +51,7 @@ class SearchApiTest extends TestCase
      */
     public function inspectRequest(RequestInterface $request): void
     {
-        $this->assertEquals('http://example.com/search?apiKey=foo&text=Programme+managers&sessionToken=21edswq223rews&pageNumber=2&pageSize=5&highlightRegex=%7Bw%2B%7D&highlightLimit=150', $request->getUri());
+        $this->assertEquals('http://example.com/search?apiKey=foo&database=bar&text=Programme+managers&sessionToken=21edswq223rews&pageNumber=2&pageSize=5&highlightRegex=%7Bw%2B%7D&highlightLimit=150', $request->getUri());
         $this->inspectBoundary($request);
         $parts = $this->getMultiParts($request);
         $this->assertCount(3, $parts);
@@ -69,6 +69,7 @@ class SearchApiTest extends TestCase
             'simple search' => [
                 [
                     'apiKey' => 'foo',
+                    'database' => 'bar',
                     'searchApiEndpoint' => 'http://example.com/search',
                 ],
                 [

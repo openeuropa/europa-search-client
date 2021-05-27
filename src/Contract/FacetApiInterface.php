@@ -27,10 +27,11 @@ interface FacetApiInterface extends SearchApiBaseInterface
     public function getDisplayLanguage(): ?string;
 
     /**
-     * @param string $facetSort
+     * @param string|null $facetSort
+     *
      * @return $this
      */
-    public function setFacetSort(string $facetSort): self;
+    public function setFacetSort(?string $facetSort): self;
 
     /**
      * @return string
