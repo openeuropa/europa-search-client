@@ -24,6 +24,7 @@ class ApiBaseTest extends TestCase
     {
         $client = $this->getTestingClient([
             'apiKey' => 'foo',
+            'database' => 'bar',
             'searchApiEndpoint' => 'http://example.com/search',
             // Config not defined in Search API schema.
             'foo' => 'bar',
@@ -36,7 +37,7 @@ class ApiBaseTest extends TestCase
 
         $this->assertSame('foo', $method->invokeArgs($container->get('search'), ['apiKey']));
         $this->assertSame('http://example.com/search', $method->invokeArgs($container->get('search'), ['searchApiEndpoint']));
-        $this->expectExceptionObject(new \InvalidArgumentException("Invalid config key: 'foo'. Valid keys: 'apiKey, searchApiEndpoint'."));
+        $this->expectExceptionObject(new \InvalidArgumentException("Invalid config key: 'foo'. Valid keys: 'apiKey', 'database', 'searchApiEndpoint'."));
         $method->invokeArgs($container->get('search'), ['foo']);
     }
 
@@ -49,7 +50,7 @@ class ApiBaseTest extends TestCase
         $class = new \ReflectionClass($client);
         $method = $class->getMethod('search');
         $method->setAccessible(true);
-        $this->expectExceptionObject(new MissingOptionsException('The required options "apiKey", "searchApiEndpoint" are missing.'));
+        $this->expectExceptionObject(new MissingOptionsException('The required options "apiKey", "database", "searchApiEndpoint" are missing.'));
         $this->assertSame([], $method->invokeArgs($client, []));
     }
 
@@ -60,6 +61,7 @@ class ApiBaseTest extends TestCase
     {
         $client = $this->getTestingClient([
             'apiKey' => 'foo',
+            'database' => 'bar',
             'searchApiEndpoint' => 'INVALID_URL',
         ]);
         $this->expectExceptionObject(new InvalidOptionsException('The option "searchApiEndpoint" with value "INVALID_URL" is invalid.'));
