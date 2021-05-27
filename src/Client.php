@@ -29,6 +29,7 @@ use OpenEuropa\EuropaSearchClient\Model\Info;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use OpenEuropa\EuropaSearchClient\Model\Search;
+use OpenEuropa\EuropaSearchClient\Model\Sort;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -77,12 +78,14 @@ class Client implements ClientInterface
 
     /**
      * @inheritDoc
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function search(
         ?string $text = null,
         ?array $languages = null,
         ?array $query = null,
-        ?array $sort = null,
+        ?string $sortField = null,
+        ?string $sortOrder = null,
         ?int $pageNumber = null,
         ?int $pageSize = null,
         ?string $highlightRegex = null,
@@ -93,7 +96,7 @@ class Client implements ClientInterface
             ->setText($text)
             ->setLanguages($languages)
             ->setQuery($query)
-            ->setSort($sort)
+            ->setSort(new Sort($sortField, $sortOrder))
             ->setPageNumber($pageNumber)
             ->setPageSize($pageSize)
             ->setHighlightRegex($highlightRegex)
@@ -110,7 +113,7 @@ class Client implements ClientInterface
         ?array $languages = null,
         ?string $displayLanguage = null,
         ?array $query = null,
-        ?string $sort = null,
+        ?string $facetSort = null,
         ?string $sessionToken = null
     ): Facets {
         return $this->getFacetService()
@@ -118,7 +121,7 @@ class Client implements ClientInterface
             ->setLanguages($languages)
             ->setDisplayLanguage($displayLanguage)
             ->setQuery($query)
-            ->setFacetSort($sort)
+            ->setFacetSort($facetSort)
             ->setSessionToken($sessionToken)
             ->getFacets();
     }

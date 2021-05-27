@@ -18,7 +18,8 @@ interface ClientInterface extends ContainerAwareInterface
      * @param string|null $text
      * @param array|null $languages
      * @param array|null $query
-     * @param array|null $sort
+     * @param string|null $sortField
+     * @param string|null $sortOrder
      * @param int|null $pageNumber
      * @param int|null $pageSize
      * @param string|null $highlightRegex
@@ -26,12 +27,15 @@ interface ClientInterface extends ContainerAwareInterface
      * @param string|null $sessionToken
      *
      * @return Search
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function search(
         ?string $text = null,
         ?array $languages = null,
         ?array $query = null,
-        ?array $sort = null,
+        ?string $sortField = null,
+        ?string $sortOrder = null,
         ?int $pageNumber = null,
         ?int $pageSize = null,
         ?string $highlightRegex = null,
@@ -46,7 +50,7 @@ interface ClientInterface extends ContainerAwareInterface
      * @param array|null $languages
      * @param string|null $displayLanguage
      * @param array|null $query
-     * @param string|null $sort
+     * @param string|null $facetSort
      * @param string|null $sessionToken
      *
      * @return Facets
@@ -56,7 +60,7 @@ interface ClientInterface extends ContainerAwareInterface
         ?array $languages = null,
         ?string $displayLanguage = null,
         ?array $query = null,
-        ?string $sort = null,
+        ?string $facetSort = null,
         ?string $sessionToken = null
     ): Facets;
 
