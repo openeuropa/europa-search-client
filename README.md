@@ -27,30 +27,56 @@ $client = new \OpenEuropa\EuropaSearchClient\Client(
     new \Http\Factory\Guzzle\StreamFactory(),
     new \Http\Factory\Guzzle\UriFactory(),
     [
+        // For a full list of options see "Configuration".
         'apiKey' => 'foo',
         'searchApiEndpoint' => 'https://example.com/search',
     ]
 );
 ```
 
-In the above example, we're passing the Guzzle HTTP client, request, stream and URI factories. But these can be replaced by any similar factories that are implementing the PSR interfaces. The last parameter is the configuration, whose values should be provided by the _Europa Search_ team. The possible values are:
+In the above example, we're passing the Guzzle HTTP client, request, stream and URI factories. But these can be replaced by any similar factories that are implementing the PSR interfaces. The last parameter is the configuration.
+
+### Configuration
+
+Possible configurations:
 
 - `apiKey` (string): Used by the Search and Ingestion APIs.
 - `database` (string): Used by Ingestion API.
-- `consumerKey` (string): Used by Ingestion API.
-- `consumerSecret` (string): Used by Ingestion API.
+- `infoApiEndpoint` (string, valid URI): The endpoint for Info API.
 - `searchApiEndpoint` (string, valid URI): The endpoint for Search API.
+- `facetApiEndpoint` (string, valid URI): The endpoint for Facet API.
+- `tokenApiEndpoint` (string, valid URI): The endpoint for Authorisation/Token API.
+- `consumerKey` (string): Used by Authorisation/Token API.
+- `consumerSecret` (string): Used by Authorisation/Token API.
 - `textIngestionApiEndpoint` (string, valid URI): Used by Ingestion API to ingest text.
 - `fileIngestionApiEndpoint` (string, valid URI): Used by Ingestion API to ingest files.
 - `deleteApiEndpoint` (string, valid URI): Used by Ingestion API to delete a document from the index.
 
+### Server info
+
+```php
+$response = $client->getInfo();
+```
+
+Will return information about Europa Search server availability and API version.
+
 ### Searching
+
+#### Simple
 
 ```php
 $response = $client->search('something to search');
 ```
 
 The search can be fine-tuned by passing additional arguments. Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::search()` for a full list of parameters. The response is an `\OpenEuropa\EuropaSearchClient\Model\Search` object.
+
+#### Facets
+
+```php
+$response = $client->getFacets('something to search');
+```
+
+The facets search can be fine-tuned by passing additional arguments. Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::getFacets()` for a full list of parameters. The response is an `\OpenEuropa\EuropaSearchClient\Model\Facets` object.
 
 ### Ingesting
 
@@ -65,7 +91,8 @@ Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::ingestText()` fo
 #### File
 
 ```php
-$client->ingestFile(@todo);
+$binaryString = file_get_contents(...);
+$client->ingestFile('http://example.com/file/to/be/ingested', $binaryString);
 ```
 
 Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::ingestFile()` for a complete list of parameters. The response is an `\OpenEuropa\EuropaSearchClient\Model\Ingestion` object.
@@ -76,10 +103,4 @@ Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::ingestFile()` fo
 $success = $client->deleteDocument('referenceID');
 ```
 
-Check `\OpenEuropa\EuropaSearchClient\Contract\ClientInterface::deleteDocument()` for a complete list of parameters. The function returns a boolean indicating if the operation was successful.
-
-### Checking availability
-
-```php
-$client->ping(@todo);
-```
+The function returns a boolean indicating if the operation was successful.
