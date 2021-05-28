@@ -6,6 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
 use OpenEuropa\EuropaSearchClient\Model\Search;
+use OpenEuropa\EuropaSearchClient\Model\Sort;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -14,9 +15,7 @@ use Psr\Http\Message\UriInterface;
 class SearchApi extends SearchApiBase implements SearchApiInterface
 {
     /**
-     * @var array
-     * @todo Create a Sort model in OEL-173
-     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-173
+     * @var Sort
      */
     protected $sort;
 
@@ -102,8 +101,8 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     {
         $parts = parent::getRequestMultipartStreamElements();
 
-        if ($sort = $this->getSort()) {
-            $parts['sort']['content'] = $this->jsonEncoder->encode($sort, 'json');
+        if (!$this->getSort()->isEmpty()) {
+            $parts['sort']['content'] = $this->jsonEncoder->encode($this->getSort(), 'json');
         }
 
         return $parts;
@@ -112,7 +111,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function setSort(?array $sort): SearchApiInterface
+    public function setSort(Sort $sort): SearchApiInterface
     {
         $this->sort = $sort;
         return $this;
@@ -121,7 +120,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function getSort(): ?array
+    public function getSort(): Sort
     {
         return $this->sort;
     }
