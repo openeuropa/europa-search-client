@@ -8,7 +8,8 @@ namespace OpenEuropa\EuropaSearchClient\Model;
  * The reason of having a base class for Document is that 3rd-party code can use
  * it to provide document ingestion models.
  */
-abstract class DocumentBase {
+abstract class DocumentBase
+{
 
     /**
      * @var string
