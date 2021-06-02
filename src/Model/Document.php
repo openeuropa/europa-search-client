@@ -9,7 +9,7 @@ use OpenEuropa\EuropaSearchClient\Traits\ApiVersionAwareTrait;
 /**
  * A class that represents a document transfer object.
  */
-class Document
+class Document extends DocumentBase
 {
     use ApiVersionAwareTrait;
 
@@ -57,35 +57,11 @@ class Document
     protected $groupById;
 
     /**
-     * The document language.
-     *
-     * @var string
-     */
-    protected $language;
-
-    /**
-     * The document metadata.
-     *
-     * It consists of a nested array where the first level contains the field name
-     * as key and the value is a list of values for the field itself.
-     *
-     * @var array
-     */
-    protected $metadata;
-
-    /**
      * The number of pages in the document.
      *
      * @var int|null
      */
     protected $pages;
-
-    /**
-     * The document unique reference.
-     *
-     * @var string
-     */
-    protected $reference;
 
     /**
      * The document summary.
@@ -100,13 +76,6 @@ class Document
      * @var string|null
      */
     protected $title;
-
-    /**
-     * The document url.
-     *
-     * @var string
-     */
-    protected $url;
 
     /**
      * The document weight.
@@ -160,30 +129,6 @@ class Document
     public function setChildren(array $children): self
     {
         $this->children = $children;
-        return $this;
-    }
-
-    /**
-     * Returns the document content.
-     *
-     * @return string
-     *   The document content.
-     */
-    public function getContent(): string
-    {
-        return $this->content;
-    }
-
-    /**
-     * Sets the document content.
-     *
-     * @param string $content
-     *   The document content.
-     * @return $this
-     */
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
         return $this;
     }
 
@@ -266,54 +211,6 @@ class Document
     }
 
     /**
-     * Returns the document language.
-     *
-     * @return string
-     *   The document language.
-     */
-    public function getLanguage(): string
-    {
-        return $this->language;
-    }
-
-    /**
-     * Sets the document language.
-     *
-     * @param string $language
-     *   The document language.
-     * @return $this
-     */
-    public function setLanguage(string $language): self
-    {
-        $this->language = $language;
-        return $this;
-    }
-
-    /**
-     * Returns the document metadata.
-     *
-     * @return array
-     *   A nested array of field names and values.
-     */
-    public function getMetadata(): array
-    {
-        return $this->metadata;
-    }
-
-    /**
-     * Sets the document metadata.
-     *
-     * @param array $metadata
-     *   A nested array of field names and values.
-     * @return $this
-     */
-    public function setMetadata(array $metadata): self
-    {
-        $this->metadata = $metadata;
-        return $this;
-    }
-
-    /**
      * Returns the number of pages in the document.
      *
      * @return int|null
@@ -334,30 +231,6 @@ class Document
     public function setPages(?int $pages): self
     {
         $this->pages = $pages;
-        return $this;
-    }
-
-    /**
-     * Returns the document unique reference.
-     *
-     * @return string
-     *   The document unique reference.
-     */
-    public function getReference(): string
-    {
-        return $this->reference;
-    }
-
-    /**
-     * Sets the document unique reference.
-     *
-     * @param string $reference
-     *   The document unique reference.
-     * @return $this
-     */
-    public function setReference(string $reference): self
-    {
-        $this->reference = $reference;
         return $this;
     }
 
@@ -406,30 +279,6 @@ class Document
     public function setTitle(?string $title): self
     {
         $this->title = $title;
-        return $this;
-    }
-
-    /**
-     * Returns the document URL.
-     *
-     * @return string
-     *   The document url.
-     */
-    public function getUrl(): string
-    {
-        return $this->url;
-    }
-
-    /**
-     * Sets the document URL.
-     *
-     * @param string $url
-     *   The document url.
-     * @return $this
-     */
-    public function setUrl(string $url): self
-    {
-        $this->url = $url;
         return $this;
     }
 
