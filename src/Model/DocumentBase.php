@@ -23,6 +23,8 @@ abstract class DocumentBase
 
     /**
      * @var array[]
+     * @todo Convert to Metadata model in OEL-188
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-188
      */
     protected $metadata;
 
@@ -77,6 +79,8 @@ abstract class DocumentBase
     /**
      * @param array $metadata
      * @return $this
+     * @todo Convert to Metadata model in OEL-188
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-188
      */
     public function setMetadata(array $metadata): self
     {
@@ -86,6 +90,8 @@ abstract class DocumentBase
 
     /**
      * @return array
+     * @todo Convert to Metadata model in OEL-188
+     * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-188
      */
     public function getMetadata(): array
     {
