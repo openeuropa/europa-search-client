@@ -14,9 +14,9 @@
         "phpdocumentor/type-resolver": "^0.4 || ^1.4",
         "psr/http-client": "^1.0",
         "psr/http-factory": "^1.0",
-        "symfony/options-resolver": "^4.3",
-        "symfony/property-info": "^4.3",
-        "symfony/serializer": "^4.3"
+        "symfony/options-resolver": "^3.4 || ^4.3",
+        "symfony/property-info": "^3.4 || ^4.3",
+        "symfony/serializer": "^3.4 || ^4.3"
     },
     "require-dev": {
         "guzzlehttp/psr7": "^1.8",
