@@ -4,7 +4,7 @@
 
 ## Description
 
-_Europa Search Client_ is library offering a PHP API to consume Europa Search services.
+_Europa Search Client_ is a library offering a PHP API to consume Europa Search services.
 
 ## Install
 
@@ -42,15 +42,15 @@ Possible configurations:
 
 - `apiKey` (string): Used by the Search and Ingestion APIs.
 - `database` (string): Used by Ingestion API.
-- `infoApiEndpoint` (string, valid URI): The endpoint for Info API.
-- `searchApiEndpoint` (string, valid URI): The endpoint for Search API.
-- `facetApiEndpoint` (string, valid URI): The endpoint for Facet API.
+- `infoApiEndpoint` (string, valid URI): The Search API info endpoint.
+- `searchApiEndpoint` (string, valid URI): The Search API endpoint.
+- `facetApiEndpoint` (string, valid URI): The Search API facets endpoint.
 - `tokenApiEndpoint` (string, valid URI): The endpoint for Authorisation/Token API.
 - `consumerKey` (string): Used by Authorisation/Token API.
 - `consumerSecret` (string): Used by Authorisation/Token API.
-- `textIngestionApiEndpoint` (string, valid URI): Used by Ingestion API to ingest text.
-- `fileIngestionApiEndpoint` (string, valid URI): Used by Ingestion API to ingest files.
-- `deleteApiEndpoint` (string, valid URI): Used by Ingestion API to delete a document from the index.
+- `textIngestionApiEndpoint` (string, valid URI): The Ingestion API endpoint to ingest text.
+- `fileIngestionApiEndpoint` (string, valid URI): The Ingestion API endpoint to ingest files.
+- `deleteApiEndpoint` (string, valid URI): The Ingestion API endpoint to delete a document from the index.
 
 ### Server info
 
@@ -104,3 +104,12 @@ $success = $client->deleteDocument('referenceID');
 ```
 
 The function returns a boolean indicating if the operation was successful.
+
+## Contributing
+
+Please read [the full documentation](https://github.com/openeuropa/openeuropa) for details on our code of conduct,
+and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. 
