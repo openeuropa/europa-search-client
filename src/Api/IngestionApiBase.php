@@ -20,7 +20,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     use TokenAwareTrait;
 
     /**
-     * @var string
+     * @var UriInterface
      */
     protected $uri;
 
@@ -87,7 +87,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
         $query = [
             'apiKey' => $this->getConfigValue('apiKey'),
             'database' => $this->getConfigValue('database'),
-            'uri' => $this->getUri(),
+            'uri' => $this->getUri()->__toString(),
         ] + parent::getRequestUriQuery($uri);
 
         if ($languages = $this->getLanguages()) {
@@ -129,11 +129,8 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function setUri(string $uri): IngestionApiInterface
+    public function setUri(UriInterface $uri): IngestionApiInterface
     {
-        if (!filter_var($uri, FILTER_VALIDATE_URL)) {
-            throw new \InvalidArgumentException("Passed '{$uri}' string is not a valid URI.");
-        }
         $this->uri = $uri;
         return $this;
     }
@@ -141,7 +138,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function getUri(): string
+    public function getUri(): UriInterface
     {
         return $this->uri;
     }

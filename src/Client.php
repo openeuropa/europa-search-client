@@ -150,7 +150,7 @@ class Client implements ClientInterface
         ?array $aclNoGroups = null
     ): Ingestion {
         return $this->getTextIngestionService()
-            ->setUri($uri)
+            ->setUri($this->getUriFactory()->createUri($uri))
             ->setText($text)
             ->setLanguages($languages)
             ->setMetadata(new Metadata($metadata))
@@ -177,7 +177,7 @@ class Client implements ClientInterface
         ?array $aclNoGroups = null
     ): Ingestion {
         return $this->getFileIngestionService()
-            ->setUri($uri)
+            ->setUri($this->getUriFactory()->createUri($uri))
             ->setFile($file)
             ->setLanguages($languages)
             ->setMetadata(new Metadata($metadata))
@@ -314,5 +314,13 @@ class Client implements ClientInterface
     protected function getDeleteService(): DeleteApiInterface
     {
         return $this->getContainer()->get('deleteDocument');
+    }
+
+    /**
+     * @return UriFactoryInterface
+     */
+    protected function getUriFactory(): UriFactoryInterface
+    {
+        return $this->getContainer()->get('uriFactory');
     }
 }
