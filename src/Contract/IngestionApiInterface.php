@@ -6,6 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Metadata;
+use Psr\Http\Message\UriInterface;
 
 interface IngestionApiInterface extends ApiInterface, TokenAwareInterface, LanguagesAwareInterface
 {
@@ -15,17 +16,15 @@ interface IngestionApiInterface extends ApiInterface, TokenAwareInterface, Langu
     public function ingest(): Ingestion;
 
     /**
-     * @param string $uri
+     * @param UriInterface $uri
      * @return $this
-     * @throws \InvalidArgumentException
-     *   If $uri is not a valid URI.
      */
-    public function setUri(string $uri): self;
+    public function setUri(UriInterface $uri): self;
 
     /**
-     * @return string
+     * @return UriInterface
      */
-    public function getUri(): string;
+    public function getUri(): UriInterface;
 
     /**
      * @param Metadata|null $metadata
