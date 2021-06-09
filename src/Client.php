@@ -219,8 +219,6 @@ class Client implements ClientInterface
         $container->share('requestFactory', $requestFactory);
         $container->share('streamFactory', $streamFactory);
         $container->share('uriFactory', $uriFactory);
-        $container->share('multipartStreamBuilder', MultipartStreamBuilder::class)
-            ->withArgument($streamFactory);
         $container->share('jsonEncoder', JsonEncoder::class);
         $container->share('serializer', Serializer::class)
             ->withArgument([
@@ -238,6 +236,8 @@ class Client implements ClientInterface
         // this because such a service might be called more than once during the
         // lifetime of a request, so internals set in a previous usage may leak
         // into the later usages.
+        $container->add('multipartStreamBuilder', MultipartStreamBuilder::class)
+            ->withArgument($streamFactory);
         $container->add('search', SearchApi::class);
         $container->add('facet', FacetApi::class);
         $container->add('info', InfoApi::class);
