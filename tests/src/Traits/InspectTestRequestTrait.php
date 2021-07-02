@@ -18,10 +18,10 @@ trait InspectTestRequestTrait
      */
     protected function inspectTokenRequest(RequestInterface $request): void
     {
-        $this->assertEquals('http://example.com/token', $request->getUri());
+        $this->assertEquals('http://web:8080/tests/fixtures/json/token.json', $request->getUri());
         $this->assertSame('Basic YmF6OnF1eA==', $request->getHeaderLine('Authorization'));
         $this->assertSame('application/x-www-form-urlencoded', $request->getHeaderLine('Content-Type'));
-        $this->assertSame('grant_type=client_credentials', $request->getBody()->getContents());
+        $this->assertSame('grant_type=client_credentials', $request->getBody()->__toString());
     }
 
     /**
@@ -60,7 +60,7 @@ trait InspectTestRequestTrait
      */
     protected function getMultiParts(RequestInterface $request, string $boundary)
     {
-        $parts = explode("--{$boundary}", $request->getBody()->getContents());
+        $parts = explode("--{$this->boundary}", $request->getBody()->__toString());
         array_shift($parts);
         array_pop($parts);
 

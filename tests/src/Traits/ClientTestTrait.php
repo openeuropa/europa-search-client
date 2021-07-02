@@ -11,23 +11,22 @@ use Http\Factory\Guzzle\StreamFactory;
 use Http\Factory\Guzzle\UriFactory;
 use OpenEuropa\EuropaSearchClient\Client;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
-use OpenEuropa\Tests\EuropaSearchClient\MockHandler;
+use OpenEuropa\Tests\EuropaSearchClient\HistoryMiddleware;
 
 trait ClientTestTrait
 {
     /**
      * @param array $configuration
-     * @param array $responseQueue
-     * @param callable|null $onRequest
+     * @param HistoryMiddleware $historyMiddleware
      * @return ClientInterface
      */
     protected function getTestingClient(
         array $configuration = [],
-        array $responseQueue = [],
-        ?callable $onRequest = null
+        HistoryMiddleware $historyMiddleware = null
     ): ClientInterface {
-        $mock = new MockHandler($responseQueue, null, null, $onRequest);
-        $handlerStack = HandlerStack::create($mock);
+        $handlerStack = HandlerStack::create();
+        $handlerStack->push($historyMiddleware(), 'test.http_client.middleware');
+
         return new Client(
             new HttpClient(['handler' => $handlerStack]),
             new RequestFactory(),
