@@ -6,7 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Api;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
-use OpenEuropa\EuropaSearchClient\Exception\EuropaSearchApiInvalidStatusCodeException;
+use OpenEuropa\EuropaSearchClient\Exception\StatusCodeException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Model;
 
-use OpenEuropa\EuropaSearchClient\Exception\EuropaSearchApiInvalidParameterValueException;
+use OpenEuropa\EuropaSearchClient\Exception\ParameterValueException;
 
 class Sort implements \JsonSerializable
 {
@@ -57,7 +57,7 @@ class Sort implements \JsonSerializable
         if ($order !== null) {
             $order = strtoupper($order);
             if (!in_array($order, ['ASC', 'DESC'], true)) {
-                throw new EuropaSearchApiInvalidParameterValueException(
+                throw new ParameterValueException(
                     "::setOrder() received an invalid argument '{$order}', must be one of 'ASC' and 'DESC'."
                 );
             }

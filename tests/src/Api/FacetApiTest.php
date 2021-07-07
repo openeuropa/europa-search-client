@@ -6,7 +6,7 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Api\FacetApi;
-use OpenEuropa\EuropaSearchClient\Exception\EuropaSearchApiInvalidParameterValueException;
+use OpenEuropa\EuropaSearchClient\Exception\ParameterValueException;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\FacetTestGeneratorTrait;
@@ -31,7 +31,7 @@ class FacetApiTest extends TestCase
         $object = new FacetApi();
         $class = new \ReflectionClass($object);
         $method = $class->getMethod('setFacetSort');
-        $exception = new EuropaSearchApiInvalidParameterValueException("::setFacetSort() received invalid argument 'Invalid argument', must be one of 'DATE', 'REVERSE_DATE', 'ALPHABETICAL', 'REVERSE_ALPHABETICAL', 'DOCUMENT_COUNT', 'REVERSE_DOCUMENT_COUNT', 'NUMBER_DECREASING', 'NUMBER_INCREASING'.");
+        $exception = new ParameterValueException("::setFacetSort() received invalid argument 'Invalid argument', must be one of 'DATE', 'REVERSE_DATE', 'ALPHABETICAL', 'REVERSE_ALPHABETICAL', 'DOCUMENT_COUNT', 'REVERSE_DOCUMENT_COUNT', 'NUMBER_DECREASING', 'NUMBER_INCREASING'.");
         $this->expectExceptionObject($exception);
         $method->invokeArgs($object, ['Invalid argument']);
     }

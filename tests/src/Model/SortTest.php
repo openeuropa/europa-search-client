@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\EuropaSearchClient\Model;
 
-use OpenEuropa\EuropaSearchClient\Exception\EuropaSearchApiInvalidParameterValueException;
+use OpenEuropa\EuropaSearchClient\Exception\ParameterValueException;
 use OpenEuropa\EuropaSearchClient\Model\Sort;
 use PHPUnit\Framework\TestCase;
 
@@ -32,7 +32,7 @@ class SortTest extends TestCase
         $this->assertSame('ASC', $sort->getOrder());
 
         $this->expectExceptionObject(
-            new EuropaSearchApiInvalidParameterValueException(
+            new ParameterValueException(
                 "::setOrder() received an invalid argument 'INVALID', must be one of 'ASC' and 'DESC'."
             )
         );
