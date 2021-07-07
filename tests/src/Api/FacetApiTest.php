@@ -79,15 +79,6 @@ class FacetApiTest extends TestCase
     public function providerTestGetFacets(): array
     {
         [$facetsAsArray, $facetsAsObject] = $this->generateTestingFacetItems(5);
-        $facetValues = [];
-        for ($i = 0; $i < 5; $i++) {
-            $facetValues[] = [
-                'apiVersion' => str_shuffle(md5(serialize($facetValues))),
-                'count' => rand(30, 3000),
-                'rawValue' => str_shuffle(md5(serialize($facetValues))),
-                'value' => str_shuffle(md5(serialize($facetValues))),
-            ];
-        }
 
         return [
             'simple facet request' => [
