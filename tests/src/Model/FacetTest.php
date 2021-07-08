@@ -30,7 +30,8 @@ class FacetTest extends TestCase
      */
     public function testSettersAndGetters(): void
     {
-        [$facetValuesAsArray, $facetValuesAsObject] = $this->generateTestingFacetValues(5);
+        $facetValuesAsArray = $this->generateTestingFacetValuesAsArray(5);
+        $facetValuesAsObject = $this->generateTestingFacetValuesAsObject($facetValuesAsArray);
         $facet = $this->generateTestingFacet([
             'apiVersion' => '1.34',
             'count' => 123,
