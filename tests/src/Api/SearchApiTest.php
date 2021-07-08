@@ -53,8 +53,9 @@ class SearchApiTest extends TestCase
     public function inspectRequest(RequestInterface $request): void
     {
         $this->assertEquals('http://example.com/search?apiKey=foo&database=bar&text=Programme+managers&sessionToken=21edswq223rews&pageNumber=2&pageSize=5&highlightRegex=%7Bw%2B%7D&highlightLimit=150', $request->getUri());
-        $this->inspectBoundary($request);
-        $parts = $this->getMultiParts($request);
+        $boundary = $this->getBoundary($request);
+        $this->inspectBoundary($request, $boundary);
+        $parts = $this->getMultiParts($request, $boundary);
         $this->assertCount(3, $parts);
         $this->inspectPart($parts[0], 'application/json', 'languages', 11, '["en","de"]');
         $this->inspectPart($parts[1], 'application/json', 'query', 59, '{"term":{"DMAKE_ES_EVENT_TYPE_NAME":"ADOPTION_DISTRIBUTE"}}');
