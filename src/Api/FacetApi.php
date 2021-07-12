@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
-use OpenEuropa\EuropaSearchClient\Exception\EuropaSearchApiInvalidParameterValueException;
+use OpenEuropa\EuropaSearchClient\Exception\ParameterValueException;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use Psr\Http\Message\UriInterface;
 
@@ -105,7 +105,7 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
     {
         if ($facetSort !== null && !in_array($facetSort, static::ALLOWED_SORT_VALUES, true)) {
             $allowedValues = implode("', '", static::ALLOWED_SORT_VALUES);
-            throw new EuropaSearchApiInvalidParameterValueException("::setFacetSort() received invalid argument '{$facetSort}', must be one of '{$allowedValues}'.");
+            throw new ParameterValueException("::setFacetSort() received invalid argument '{$facetSort}', must be one of '{$allowedValues}'.");
         }
         $this->facetSort = $facetSort;
         return $this;
