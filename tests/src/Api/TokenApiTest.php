@@ -20,7 +20,6 @@ class TokenApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::getToken
      * @dataProvider providerTestToken
      *
      * @param array $clientConfig
