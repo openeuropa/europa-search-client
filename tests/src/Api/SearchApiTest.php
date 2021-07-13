@@ -53,7 +53,7 @@ class SearchApiTest extends TestCase
     {
         $this->assertEquals('http://example.com/search?apiKey=foo&database=bar&text=Programme+managers&sessionToken=21edswq223rews&pageNumber=2&pageSize=5&highlightRegex=%7Bw%2B%7D&highlightLimit=150', $request->getUri());
         $boundary = $this->getBoundary($request);
-        $this->inspectBoundary($request, $boundary);
+        $this->assertBoundary($request, $boundary);
         $parts = $this->getMultiParts($request, $boundary);
         $this->assertCount(3, $parts);
         $this->inspectPart($parts[0], 'application/json', 'languages', 11, '["en","de"]');

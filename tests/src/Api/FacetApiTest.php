@@ -64,7 +64,7 @@ class FacetApiTest extends TestCase
     {
         $this->assertEquals('http://example.com/facet?apiKey=foo&database=qux&text=whatever&sessionToken=21edswq223rews&sort=ALPHABETICAL', $request->getUri());
         $boundary = $this->getBoundary($request);
-        $this->inspectBoundary($request, $boundary);
+        $this->assertBoundary($request, $boundary);
         $parts = $this->getMultiParts($request, $boundary);
         $this->assertCount(3, $parts);
         $this->inspectPart($parts[0], 'application/json', 'languages', 11, '["en","de"]');

@@ -37,7 +37,7 @@ trait InspectTestRequestTrait
      * @param RequestInterface $request
      * @param string $boundary
      */
-    protected function inspectBoundary(RequestInterface $request, string $boundary): void
+    protected function assertBoundary(RequestInterface $request, string $boundary): void
     {
         $this->assertSame('multipart/form-data; boundary="' . $boundary . '"', $request->getHeaderLine('Content-Type'));
     }
