@@ -9,8 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the ingestion model class.
- *
- * @covers \OpenEuropa\EuropaSearchClient\Model\Ingestion
  */
 class IngestionTest extends TestCase
 {

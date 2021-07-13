@@ -10,38 +10,13 @@ use OpenEuropa\EuropaSearchClient\Model\Search;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass  \OpenEuropa\EuropaSearchClient\Model\Search
+ * Tests the search class.
  */
 class SearchTest extends TestCase
 {
 
     /**
-     * @covers ::setApiVersion
-     * @covers ::getApiVersion
-     * @covers ::setBestBets
-     * @covers ::getBestBets
-     * @covers ::setGroupByField
-     * @covers ::getGroupByField
-     * @covers ::setPageNumber
-     * @covers ::getPageNumber
-     * @covers ::setPageSize
-     * @covers ::getPageSize
-     * @covers ::setQueryLanguage
-     * @covers ::getQueryLanguage
-     * @covers ::setResponseTime
-     * @covers ::getResponseTime
-     * @covers ::setResults
-     * @covers ::getResults
-     * @covers ::setSort
-     * @covers ::getSort
-     * @covers ::setSpellingSuggestion
-     * @covers ::getSpellingSuggestion
-     * @covers ::setTerms
-     * @covers ::getTerms
-     * @covers ::setTotalResults
-     * @covers ::getTotalResults
-     * @covers ::setWarnings
-     * @covers ::getWarnings
+     * Tests the setters and getters.
      */
     public function testSettersAndGetters(): void
     {

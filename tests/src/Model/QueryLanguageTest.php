@@ -9,8 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the query language model class.
- *
- * @covers \OpenEuropa\EuropaSearchClient\Model\QueryLanguage
  */
 class QueryLanguageTest extends TestCase
 {

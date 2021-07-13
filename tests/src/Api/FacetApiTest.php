@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\FacetApi
+ * Tests the facet API.
  */
 class FacetApiTest extends TestCase
 {
@@ -24,7 +24,7 @@ class FacetApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::setFacetSort
+     * Tests set sort invalid parameter.
      */
     public function testSetSortInvalidParameter(): void
     {
@@ -37,7 +37,6 @@ class FacetApiTest extends TestCase
     }
 
     /**
-     * @covers ::getFacets
      * @dataProvider providerTestGetFacets
      *
      * @param array $clientConfig

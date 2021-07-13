@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\InfoApi
+ * Tests the info API.
  */
 class InfoApiTest extends TestCase
 {
@@ -20,7 +20,6 @@ class InfoApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::getInfo
      * @dataProvider providerTestGetInfo
      *
      * @param array $clientConfig

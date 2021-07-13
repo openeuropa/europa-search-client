@@ -9,8 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the document model class.
- *
- * @covers \OpenEuropa\EuropaSearchClient\Model\Document
  */
 class DocumentTest extends TestCase
 {

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\TokenApi
+ * Tests the token API.
  */
 class TokenApiTest extends TestCase
 {

@@ -8,25 +8,14 @@ use OpenEuropa\Tests\EuropaSearchClient\Traits\FacetTestGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Model\Facet
+ * Tests the facet model class.
  */
 class FacetTest extends TestCase
 {
     use FacetTestGeneratorTrait;
 
     /**
-     * @covers ::setApiVersion
-     * @covers ::getApiVersion
-     * @covers ::setCount
-     * @covers ::getCount
-     * @covers ::setDatabase
-     * @covers ::getDatabase
-     * @covers ::setName
-     * @covers ::getName
-     * @covers ::setRawName
-     * @covers ::getRawName
-     * @covers ::setValues
-     * @covers ::getValues
+     * Tests the setters and getters.
      */
     public function testSettersAndGetters(): void
     {

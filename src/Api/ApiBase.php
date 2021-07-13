@@ -6,7 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Api;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
-use OpenEuropa\EuropaSearchClient\Exception\StatusCodeException;
+use OpenEuropa\EuropaSearchClient\Exception\InvalidStatusCodeException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -206,7 +206,7 @@ abstract class ApiBase implements ApiInterface
      *
      * @throws ClientExceptionInterface
      *   Thrown if a network error happened while processing the request.
-     * @throws EuropaSearchApiInvalidStatusCodeException
+     * @throws InvalidStatusCodeException
      *   Thrown when the API endpoint returns code other than 200.
      */
     protected function send(string $method): ResponseInterface
@@ -229,7 +229,7 @@ abstract class ApiBase implements ApiInterface
         $response = $this->httpClient->sendRequest($request);
 
         if (!in_array($response->getStatusCode(), [200, 201], true)) {
-            throw new EuropaSearchApiInvalidStatusCodeException("{$method} {$uri} returns {$response->getStatusCode()}");
+            throw new InvalidStatusCodeException("{$method} {$uri} returns {$response->getStatusCode()}");
         }
 
         return $response;

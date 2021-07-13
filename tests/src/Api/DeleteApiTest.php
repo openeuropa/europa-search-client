@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\DeleteApi
+ * Tests the delete API.
  */
 class DeleteApiTest extends TestCase
 {
@@ -19,7 +19,6 @@ class DeleteApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::deleteDocument
      * @dataProvider providerTestDeleteDocument
      *
      * @param array $clientConfig

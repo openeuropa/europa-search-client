@@ -8,17 +8,12 @@ use OpenEuropa\EuropaSearchClient\Model\Info;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Model\Info
+ * Tests the info model class.
  */
 class InfoTest extends TestCase
 {
     /**
-     * @covers ::setGroupId
-     * @covers ::getGroupId
-     * @covers ::setComment
-     * @covers ::getComment
-     * @covers ::setArtifactId
-     * @covers ::getArtifactId
+     * Tests the setters and getters.
      */
     public function testSettersAndGetters(): void
     {

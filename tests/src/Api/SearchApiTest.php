@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\SearchApi
+ * Tests the search API.
  */
 class SearchApiTest extends TestCase
 {
@@ -22,7 +22,6 @@ class SearchApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::search
      * @dataProvider providerTestSearch
      *
      * @param array $clientConfig

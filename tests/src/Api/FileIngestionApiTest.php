@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\FileIngestionApi
+ * Tests the file ingestion API.
  */
 class FileIngestionApiTest extends TestCase
 {
@@ -20,7 +20,6 @@ class FileIngestionApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::ingest
      * @dataProvider providerTestFileIngestion
      *
      * @param array $clientConfig

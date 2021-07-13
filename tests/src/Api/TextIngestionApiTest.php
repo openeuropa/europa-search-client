@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\TextIngestionApi
+ * Tests the text ingestion API.
  */
 class TextIngestionApiTest extends TestCase
 {
@@ -20,7 +20,6 @@ class TextIngestionApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::ingest
      * @dataProvider providerTestTextIngestion
      *
      * @param array $clientConfig

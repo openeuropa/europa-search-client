@@ -9,15 +9,12 @@ use OpenEuropa\EuropaSearchClient\Model\Sort;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Model\Sort
+ * Tests the sort class.
  */
 class SortTest extends TestCase
 {
     /**
-     * @covers ::setField
-     * @covers ::getField
-     * @covers ::setOrder
-     * @covers ::getOrder
+     * Tests the setters and getters.
      */
     public function testSettersAndGetters(): void
     {
@@ -40,7 +37,7 @@ class SortTest extends TestCase
     }
 
     /**
-     * @covers ::jsonSerialize
+     * Tests the serialization.
      */
     public function testSerialization(): void
     {
@@ -49,7 +46,7 @@ class SortTest extends TestCase
     }
 
     /**
-     * @covers ::isEmpty
+     * Tests the isEmpty method.
      */
     public function testIsEmpty(): void
     {

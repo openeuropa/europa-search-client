@@ -8,13 +8,12 @@ use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass  \OpenEuropa\EuropaSearchClient\Model\Metadata
+ * Tests the metadata class.
  */
 class MetadataTest extends TestCase
 {
     /**
-     * @covers ::setMetadata
-     * @covers ::getMetadata
+     * Tests the setters and getters.
      */
     public function testSettersAndGetters(): void
     {
@@ -40,7 +39,7 @@ class MetadataTest extends TestCase
     }
 
     /**
-     * @covers ::jsonSerialize
+     * Tests the serialization.
      */
     public function testSerialization(): void
     {
@@ -53,8 +52,7 @@ class MetadataTest extends TestCase
     }
 
     /**
-     * @covers ::validateOffset
-     * @covers ::validateValue
+     * Tests the invalid offset.
      *
      * @dataProvider providerInvalidOffsetOrValue
      *
