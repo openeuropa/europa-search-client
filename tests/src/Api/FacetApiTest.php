@@ -79,7 +79,8 @@ class FacetApiTest extends TestCase
     public function providerTestGetFacets(): array
     {
         [$facetsAsArray, $facetsAsObject] = $this->generateTestingFacetItems(5);
-
+        $response = json_decode(file_get_contents(__DIR__ . '/../../fixtures/files/simple_facet_response.json'), true);
+        $response['facets'] = $facetsAsArray;
         return [
             'simple facet request' => [
                 [
@@ -88,11 +89,7 @@ class FacetApiTest extends TestCase
                     'facetApiEndpoint' => 'http://example.com/facet',
                 ],
                 [
-                    new Response(200, [], json_encode([
-                        'apiVersion' => '1.34.0',
-                        'facets' => $facetsAsArray,
-                        'terms' => 'foo',
-                    ])),
+                    new Response(200, [], json_encode($response)),
                 ],
                 (new Facets())
                     ->setApiVersion('1.34.0')
