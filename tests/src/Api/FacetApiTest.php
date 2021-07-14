@@ -45,7 +45,7 @@ class FacetApiTest extends TestCase
      */
     public function testGetFacets(array $clientConfig, array $responses, $expectedResult): void
     {
-        $actualResult = $this->getTestingClient($clientConfig, $responses, [$this, 'assertRequest'])
+        $actualResult = $this->getTestingClient($clientConfig, $responses, [$this, 'inspectRequest'])
             ->getFacets(
                 'whatever',
                 ['en', 'de'],
@@ -60,7 +60,7 @@ class FacetApiTest extends TestCase
     /**
      * @param RequestInterface $request
      */
-    public function assertRequest(RequestInterface $request): void
+    public function inspectRequest(RequestInterface $request): void
     {
         $this->assertEquals('http://example.com/facet?apiKey=foo&database=qux&text=whatever&sessionToken=21edswq223rews&sort=ALPHABETICAL', $request->getUri());
         $boundary = $this->getBoundary($request);
