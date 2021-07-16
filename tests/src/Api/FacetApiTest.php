@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Tests the facet API.
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\FacetApi
  */
 class FacetApiTest extends TestCase
 {
@@ -23,9 +23,6 @@ class FacetApiTest extends TestCase
     use FacetTestGeneratorTrait;
     use InspectTestRequestTrait;
 
-    /**
-     * Tests set sort invalid parameter.
-     */
     public function testSetSortInvalidParameter(): void
     {
         $object = new FacetApi();
@@ -79,7 +76,7 @@ class FacetApiTest extends TestCase
     public function providerTestGetFacets(): array
     {
         [$facetsAsArray, $facetsAsObject] = $this->generateTestingFacetItems(5);
-        $response = json_decode(file_get_contents(__DIR__ . '/../../fixtures/files/simple_facet_response.json'), true);
+        $response = json_decode(file_get_contents(__DIR__ . '/../../fixtures/jsons/simple_facet_response.json'), true);
         $response['facets'] = $facetsAsArray;
         return [
             'simple facet request' => [

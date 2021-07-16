@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Tests the token API.
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\TokenApi
  */
 class TokenApiTest extends TestCase
 {
@@ -55,7 +55,7 @@ class TokenApiTest extends TestCase
                     'consumerSecret' => 'qux',
                 ],
                 [
-                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/files/simple_token_call_response.json'))
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/simple_token_call_response.json'))
                 ],
                 (new Token())
                     ->setAccessToken('JWT_TOKEN')

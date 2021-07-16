@@ -10,14 +10,11 @@ use OpenEuropa\EuropaSearchClient\Model\Search;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the search class.
+ * @coversDefaultClass  \OpenEuropa\EuropaSearchClient\Model\Search
  */
 class SearchTest extends TestCase
 {
 
-    /**
-     * Tests the setters and getters.
-     */
     public function testSettersAndGetters(): void
     {
         $model = new Search();

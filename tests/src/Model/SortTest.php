@@ -9,13 +9,11 @@ use OpenEuropa\EuropaSearchClient\Model\Sort;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the sort class.
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Model\Sort
  */
 class SortTest extends TestCase
 {
-    /**
-     * Tests the setters and getters.
-     */
+
     public function testSettersAndGetters(): void
     {
         $sort = (new Sort())
@@ -36,18 +34,12 @@ class SortTest extends TestCase
         $sort->setOrder('InVaLiD');
     }
 
-    /**
-     * Tests the serialization.
-     */
     public function testSerialization(): void
     {
         $sort = (new Sort())->setField('field1')->setOrder('dEsC');
         $this->assertSame('{"field":"field1","order":"DESC"}', json_encode($sort));
     }
 
-    /**
-     * Tests the isEmpty method.
-     */
     public function testIsEmpty(): void
     {
         $sort = (new Sort())->setField('field1')->setOrder('dEsC');

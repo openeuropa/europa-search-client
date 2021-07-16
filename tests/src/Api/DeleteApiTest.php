@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Tests the delete API.
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\DeleteApi
  */
 class DeleteApiTest extends TestCase
 {
@@ -27,7 +27,7 @@ class DeleteApiTest extends TestCase
      */
     public function testDeleteDocument(array $clientConfig, array $responses, $expectedResult): void
     {
-        $actualResult = $this->getTestingClient($clientConfig, $responses, [$this, 'assertRequest'])
+        $actualResult = $this->getTestingClient($clientConfig, $responses, [$this, 'inspectRequest'])
             ->deleteDocument('foo');
         $this->assertSame($expectedResult, $actualResult);
     }
@@ -35,7 +35,7 @@ class DeleteApiTest extends TestCase
     /**
      * @param RequestInterface $request
      */
-    public function assertRequest(RequestInterface $request): void
+    public function inspectRequest(RequestInterface $request): void
     {
         if ($request->getUri() == 'http://example.com/token') {
             $this->inspectTokenRequest($request);
@@ -63,8 +63,8 @@ class DeleteApiTest extends TestCase
 
                 ],
                 [
-                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/files/delete_document_jwt_response.json')),
-                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/files/delete_document_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/delete_document_jwt_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/delete_document_response.json')),
                 ],
                 true,
             ],

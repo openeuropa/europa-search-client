@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Tests the text ingestion API.
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\TextIngestionApi
  */
 class TextIngestionApiTest extends TestCase
 {
@@ -87,8 +87,8 @@ class TextIngestionApiTest extends TestCase
 
                 ],
                 [
-                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/files/text_ingestion_jwt_response.json')),
-                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/files/text_ingestion_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/ingestion_jwt_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/text_ingestion_response.json')),
                 ],
                 (new Ingestion())
                     ->setApiVersion('2.67')

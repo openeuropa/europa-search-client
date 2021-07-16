@@ -8,13 +8,11 @@ use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the metadata class.
+ * @coversDefaultClass  \OpenEuropa\EuropaSearchClient\Model\Metadata
  */
 class MetadataTest extends TestCase
 {
-    /**
-     * Tests the setters and getters.
-     */
+
     public function testSettersAndGetters(): void
     {
         $model = new Metadata();

@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Tests the search API.
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\SearchApi
  */
 class SearchApiTest extends TestCase
 {
@@ -74,7 +74,7 @@ class SearchApiTest extends TestCase
                     'searchApiEndpoint' => 'http://example.com/search',
                 ],
                 [
-                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/files/simple_search_response.json'))
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/simple_search_response.json'))
                 ],
                 (new Search())
                     ->setApiVersion('2.69')

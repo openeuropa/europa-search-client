@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Tests the file ingestion API.
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\FileIngestionApi
  */
 class FileIngestionApiTest extends TestCase
 {
@@ -88,8 +88,8 @@ class FileIngestionApiTest extends TestCase
 
                 ],
                 [
-                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/files/ingestion_jwt_response.json')),
-                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/files/ingestion_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/ingestion_jwt_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/ingestion_response.json')),
                 ],
                 (new Ingestion())
                     ->setApiVersion('2.67')

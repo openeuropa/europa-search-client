@@ -8,14 +8,11 @@ use OpenEuropa\EuropaSearchClient\Model\Document;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the document model class.
+ * @covers \OpenEuropa\EuropaSearchClient\Model\Document
  */
 class DocumentTest extends TestCase
 {
 
-    /**
-     * Tests the setters and getters.
-     */
     public function testSettersAndGetters(): void
     {
         $model = new Document();

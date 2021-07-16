@@ -10,15 +10,12 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
 /**
- * Tests the base API.
+ * @coversDefaultClass  \OpenEuropa\EuropaSearchClient\Api\ApiBase
  */
 class ApiBaseTest extends TestCase
 {
     use ClientTestTrait;
 
-    /**
-     * Tests config resolver.
-     */
     public function testConfigResolver(): void
     {
         $client = $this->getTestingClient([
@@ -40,9 +37,6 @@ class ApiBaseTest extends TestCase
         $method->invokeArgs($container->get('search'), ['foo']);
     }
 
-    /**
-     * Tests missing config.
-     */
     public function testMissingConfig(): void
     {
         $client = $this->getTestingClient();
@@ -53,9 +47,6 @@ class ApiBaseTest extends TestCase
         $this->assertSame([], $method->invokeArgs($client, []));
     }
 
-    /**
-     * Tests invalid endpoint.
-     */
     public function testInvalidEndpoint(): void
     {
         $client = $this->getTestingClient([

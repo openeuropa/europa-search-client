@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Tests the info API.
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\InfoApi
  */
 class InfoApiTest extends TestCase
 {
@@ -54,7 +54,7 @@ class InfoApiTest extends TestCase
                     'infoApiEndpoint' => 'http://example.com/search/info',
                 ],
                 [
-                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/files/info_response.json'))
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/info_response.json'))
                 ],
                 (new Info())
                     ->setGroupId('eu.europa.ec.digit.search.webapp')

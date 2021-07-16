@@ -24,15 +24,12 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Tests the client class.
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Client
  */
 class ClientTest extends TestCase
 {
     use ClientTestTrait;
 
-    /**
-     * Tests container.
-     */
     public function testContainer(): void
     {
         $client = $this->getTestingClient([
