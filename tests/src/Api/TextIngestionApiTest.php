@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
+use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
-use OpenEuropa\Tests\EuropaSearchClient\HistoryMiddleware;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
@@ -25,10 +25,9 @@ class TextIngestionApiTest extends TestCase
      * @param array $responses
      * @param mixed $expectedResult
      */
-    public function testTextIngestion(array $clientConfig, $expectedResult): void
+    public function testTextIngestion(array $clientConfig, array $responses, $expectedResult): void
     {
-        $historyMiddleware = new HistoryMiddleware();
-        $actualResult = $this->getTestingClient($clientConfig, $historyMiddleware)
+        $actualResult = $this->getTestingClient($clientConfig, $responses)
             ->ingestText(
                 'http://example.com',
                 'The quick brown fox jumps over the lazy dog',
@@ -44,13 +43,15 @@ class TextIngestionApiTest extends TestCase
                 ['group003', 'group004']
             );
         $this->assertEquals($expectedResult, $actualResult);
-        $request = $historyMiddleware->getHistoryContainer()[0]['request'];
+        $this->assertCount(2, $this->clientHistory);
+        $request = $this->clientHistory[0]['request'];
         $this->inspectTokenRequest($request);
-        $request = $historyMiddleware->getHistoryContainer()[1]['request'];
-        $this->assertEquals('http://web:8080/tests/fixtures/json/ingest-text.json?apiKey=bananas&database=cucumbers&uri=http%3A%2F%2Fexample.com&language=%5B%22en%22%2C%22ro%22%5D&reference=unique-my-ID', $request->getUri());
+        $request = $this->clientHistory[1]['request'];
+        $this->assertEquals('http://example.com/ingest/text?apiKey=bananas&database=cucumbers&uri=http%3A%2F%2Fexample.com&language=%5B%22en%22%2C%22ro%22%5D&reference=unique-my-ID', $request->getUri());
         $this->inspectAuthorizationHeaders($request);
-        $this->inspectBoundary($request);
-        $parts = $this->getMultiParts($request);
+        $boundary = $this->getBoundary($request);
+        $this->assertBoundary($request, $boundary);
+        $parts = $this->getMultiParts($request, $boundary);
         $this->assertCount(6, $parts);
         $this->inspectPart($parts[0], 'application/json', 'metadata', 55, '{"field1":["value1","value2"],"field2":["value3",2345]}');
         $this->inspectPart($parts[1], 'application/json', 'aclUsers', 20, '["user001","user02"]');
@@ -71,8 +72,8 @@ class TextIngestionApiTest extends TestCase
                 [
                     'apiKey' => 'bananas',
                     'database' => 'cucumbers',
-                    'textIngestionApiEndpoint' => 'http://web:8080/tests/fixtures/json/ingest-text.json',
-                    'tokenApiEndpoint' => 'http://web:8080/tests/fixtures/json/token.json',
+                    'textIngestionApiEndpoint' => 'http://example.com/ingest/text',
+                    'tokenApiEndpoint' => 'http://example.com/token',
                     'consumerKey' => 'baz',
                     'consumerSecret' => 'qux',
 

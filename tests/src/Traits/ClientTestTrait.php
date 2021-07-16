@@ -6,26 +6,30 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Traits;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Middleware;
 use Http\Factory\Guzzle\RequestFactory;
 use Http\Factory\Guzzle\StreamFactory;
 use Http\Factory\Guzzle\UriFactory;
 use OpenEuropa\EuropaSearchClient\Client;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
-use OpenEuropa\Tests\EuropaSearchClient\HistoryMiddleware;
 
 trait ClientTestTrait
 {
     /**
+     * @var array
+     */
+    protected $clientHistory = [];
+
+    /**
      * @param array $configuration
-     * @param HistoryMiddleware $historyMiddleware
+     * @param array $responseQueue
      * @return ClientInterface
      */
-    protected function getTestingClient(
-        array $configuration = [],
-        HistoryMiddleware $historyMiddleware = null
-    ): ClientInterface {
-        $handlerStack = HandlerStack::create();
-        $handlerStack->push($historyMiddleware(), 'test.http_client.middleware');
+    protected function getTestingClient(array $configuration = [], $responseQueue = []): ClientInterface
+    {
+        $handlerStack = HandlerStack::create(new MockHandler($responseQueue));
+        $handlerStack->push(Middleware::history($this->clientHistory));
 
         return new Client(
             new HttpClient(['handler' => $handlerStack]),

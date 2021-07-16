@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
+use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Model\Token;
-use OpenEuropa\Tests\EuropaSearchClient\HistoryMiddleware;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
@@ -22,17 +22,18 @@ class TokenApiTest extends TestCase
      * @dataProvider providerTestToken
      *
      * @param array $clientConfig
+     * @param array $responses
      * @param mixed $expectedResult
      */
-    public function testToken(array $clientConfig, $expectedResult): void
+    public function testToken(array $clientConfig, array $responses, $expectedResult): void
     {
-        $historyMiddleware = new HistoryMiddleware();
-        $actualResult = $this->getTestingClient($clientConfig, $historyMiddleware)
+        $actualResult = $this->getTestingClient($clientConfig, $responses)
             ->getContainer()->get('token')
             ->getToken();
-        $request = $historyMiddleware->getLastHistoryEntry()['request'];
-        $this->inspectTokenRequest($request);
         $this->assertEquals($expectedResult, $actualResult);
+        $this->assertCount(1, $this->clientHistory);
+        $request = $this->clientHistory[0]['request'];
+        $this->inspectTokenRequest($request);
     }
 
     /**
@@ -43,7 +44,7 @@ class TokenApiTest extends TestCase
         return [
             'simple token call' => [
                 [
-                    'tokenApiEndpoint' => 'http://web:8080/tests/fixtures/json/token.json',
+                    'tokenApiEndpoint' => 'http://example.com/token',
                     'consumerKey' => 'baz',
                     'consumerSecret' => 'qux',
                 ],
