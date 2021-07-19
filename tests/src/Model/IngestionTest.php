@@ -8,11 +8,10 @@ use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \OpenEuropa\EuropaSearchClient\Model\Ingestion
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Model\Ingestion
  */
 class IngestionTest extends TestCase
 {
-
     public function testSettersAndGetters(): void
     {
         $model = new Ingestion();
