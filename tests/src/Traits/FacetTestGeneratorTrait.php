@@ -32,17 +32,14 @@ trait FacetTestGeneratorTrait
 
     /**
      * @param array $facetValuesAsArray
-     * @return array
-     *   An arrayed facet.
+     * @return FacetValue[]
      */
     protected function convertTestingFacetValuesToObject(array $facetValuesAsArray): array
     {
-        $facetValuesAsObject = array_map(
+        return array_map(
             [$this, 'generateTestingFacetValue'],
             $facetValuesAsArray
         );
-
-        return $facetValuesAsObject;
     }
 
     /**
