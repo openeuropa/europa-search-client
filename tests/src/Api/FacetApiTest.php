@@ -76,7 +76,7 @@ class FacetApiTest extends TestCase
     public function providerTestGetFacets(): array
     {
         $facetsAsArray = $this->generateTestingFacetItemsAsArray(5);
-        $facetsAsObject = $this->convertTestingFacetItemsToObject($facetsAsArray);
+        $facetsAsObject = $this->convertTestingFacetItemsToObjects($facetsAsArray);
         $response = json_decode(file_get_contents(__DIR__ . '/../../fixtures/json/simple_facet_response.json'), true);
         $response['facets'] = $facetsAsArray;
         return [

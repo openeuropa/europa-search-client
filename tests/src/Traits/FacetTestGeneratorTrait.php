@@ -34,7 +34,7 @@ trait FacetTestGeneratorTrait
      * @param array $facetValuesAsArray
      * @return FacetValue[]
      */
-    protected function convertTestingFacetValuesToObject(array $facetValuesAsArray): array
+    protected function convertTestingFacetValuesToObjects(array $facetValuesAsArray): array
     {
         return array_map(
             [$this, 'generateTestingFacetValue'],
@@ -84,7 +84,7 @@ trait FacetTestGeneratorTrait
      * @param array $facetItemsAsArray
      * @return Facet[]
      */
-    protected function convertTestingFacetItemsToObject(array $facetItemsAsArray): array
+    protected function convertTestingFacetItemsToObjects(array $facetItemsAsArray): array
     {
         return array_map(
             [$this, 'generateTestingFacet'],

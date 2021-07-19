@@ -18,7 +18,7 @@ class FacetsTest extends TestCase
     public function testFacets(): void
     {
         $facetValuesAsArray = $this->generateTestingFacetValuesAsArray(5);
-        $facetValuesAsObject = $this->convertTestingFacetValuesToObject($facetValuesAsArray);
+        $facetValuesAsObject = $this->convertTestingFacetValuesToObjects($facetValuesAsArray);
         $facets = (new Facets())
             ->setApiVersion('1.34-alpha3')
             ->setFacets($facetValuesAsObject)
