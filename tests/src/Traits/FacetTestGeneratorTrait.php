@@ -12,11 +12,9 @@ trait FacetTestGeneratorTrait
     /**
      * @param int $count
      * @return array
-     *   An array with two items:
-     *   0: A list of facet values as raw array.
-     *   1: The same list as model object.
+     *   An array with a list of facet values as raw array.
      */
-    protected function generateTestingFacetValues(int $count): array
+    protected function generateTestingFacetValuesAsArray(int $count): array
     {
         $facetValuesAsArray = [];
         for ($i = 0; $i < $count; $i++) {
@@ -29,12 +27,19 @@ trait FacetTestGeneratorTrait
             ];
         }
 
-        $facetValuesAsObject = array_map(
+        return $facetValuesAsArray;
+    }
+
+    /**
+     * @param array $facetValuesAsArray
+     * @return FacetValue[]
+     */
+    protected function convertTestingFacetValuesToObjects(array $facetValuesAsArray): array
+    {
+        return array_map(
             [$this, 'generateTestingFacetValue'],
             $facetValuesAsArray
         );
-
-        return [$facetValuesAsArray, $facetValuesAsObject];
     }
 
     /**
@@ -54,17 +59,15 @@ trait FacetTestGeneratorTrait
     /**
      * @param int $count
      * @return array
-     *   An array with two items:
-     *   0: A list of facet items as raw array.
-     *   1: The same list as model object.
+     *   A list of facet items as raw array.
      */
-    protected function generateTestingFacetItems(int $count): array
+    protected function generateTestingFacetItemsAsArray(int $count): array
     {
-        $facetsAsArray = [];
+        $facetItemsAsArray = [];
         for ($i = 0; $i < $count; $i++) {
-            $toShuffle = md5(serialize($facetsAsArray));
-            [$facetValuesAsArray] = $this->generateTestingFacetValues(rand(2, 7));
-            $facetsAsArray[] = [
+            $toShuffle = md5(serialize($facetItemsAsArray));
+            $facetValuesAsArray = $this->generateTestingFacetValuesAsArray(rand(2, 7));
+            $facetItemsAsArray[] = [
                 'apiVersion' => str_shuffle($toShuffle),
                 'count' => rand(1, 100000),
                 'database' => str_shuffle($toShuffle),
@@ -74,12 +77,19 @@ trait FacetTestGeneratorTrait
             ];
         }
 
-        $facetsAsObject = array_map(
-            [$this, 'generateTestingFacet'],
-            $facetsAsArray
-        );
+        return $facetItemsAsArray;
+    }
 
-        return [$facetsAsArray, $facetsAsObject];
+    /**
+     * @param array $facetItemsAsArray
+     * @return Facet[]
+     */
+    protected function convertTestingFacetItemsToObjects(array $facetItemsAsArray): array
+    {
+        return array_map(
+            [$this, 'generateTestingFacet'],
+            $facetItemsAsArray
+        );
     }
 
     /**

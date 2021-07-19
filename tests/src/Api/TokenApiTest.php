@@ -20,7 +20,6 @@ class TokenApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::getToken
      * @dataProvider providerTestToken
      *
      * @param array $clientConfig
@@ -56,12 +55,7 @@ class TokenApiTest extends TestCase
                     'consumerSecret' => 'qux',
                 ],
                 [
-                    new Response(200, [], json_encode([
-                        'access_token' => 'JWT_TOKEN',
-                        'scope' => 'APPLICATION_SCOPE',
-                        'token_type' => 'Bearer',
-                        'expires_in' => 3600,
-                    ]))
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/simple_token_call_response.json'))
                 ],
                 (new Token())
                     ->setAccessToken('JWT_TOKEN')

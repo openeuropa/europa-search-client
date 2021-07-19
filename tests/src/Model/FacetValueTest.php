@@ -14,16 +14,6 @@ class FacetValueTest extends TestCase
 {
     use FacetTestGeneratorTrait;
 
-    /**
-     * @covers ::setApiVersion
-     * @covers ::getApiVersion
-     * @covers ::setCount
-     * @covers ::getCount
-     * @covers ::setRawValue
-     * @covers ::getRawValue
-     * @covers ::setValue
-     * @covers ::getValue
-     */
     public function testSettersAndGetters(): void
     {
         $facetValue = $this->generateTestingFacetValue([

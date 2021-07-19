@@ -20,7 +20,6 @@ class InfoApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::getInfo
      * @dataProvider providerTestGetInfo
      *
      * @param array $clientConfig
@@ -55,11 +54,7 @@ class InfoApiTest extends TestCase
                     'infoApiEndpoint' => 'http://example.com/search/info',
                 ],
                 [
-                    new Response(200, [], json_encode([
-                        'groupId' => 'eu.europa.ec.digit.search.webapp',
-                        'comment' => 'version=2.69',
-                        'artifactId' => 'search-api',
-                    ]))
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/info_response.json'))
                 ],
                 (new Info())
                     ->setGroupId('eu.europa.ec.digit.search.webapp')

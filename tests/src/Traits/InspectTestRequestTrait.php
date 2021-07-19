@@ -35,21 +35,32 @@ trait InspectTestRequestTrait
 
     /**
      * @param RequestInterface $request
+     * @param string $boundary
      */
-    protected function inspectBoundary(RequestInterface $request): void
+    protected function assertBoundary(RequestInterface $request, string $boundary): void
     {
-        preg_match('/; boundary="([^"].*)"/', $request->getHeaderLine('Content-Type'), $found);
-        $this->boundary = $found[1];
-        $this->assertSame('multipart/form-data; boundary="' . $this->boundary . '"', $request->getHeaderLine('Content-Type'));
+        $this->assertSame('multipart/form-data; boundary="' . $boundary . '"', $request->getHeaderLine('Content-Type'));
     }
 
     /**
      * @param RequestInterface $request
+     * @return string
+     *    The boundary.
+     */
+    protected function getBoundary(RequestInterface $request): string
+    {
+        preg_match('/; boundary="([^"].*)"/', $request->getHeaderLine('Content-Type'), $found);
+        return $found[1];
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @param string $boundary
      * @return false|string[]
      */
-    protected function getMultiParts(RequestInterface $request)
+    protected function getMultiParts(RequestInterface $request, string $boundary)
     {
-        $parts = explode("--{$this->boundary}", $request->getBody()->getContents());
+        $parts = explode("--{$boundary}", $request->getBody()->getContents());
         array_shift($parts);
         array_pop($parts);
 

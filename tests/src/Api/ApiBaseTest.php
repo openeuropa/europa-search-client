@@ -16,10 +16,6 @@ class ApiBaseTest extends TestCase
 {
     use ClientTestTrait;
 
-    /**
-     * @covers ::setConfiguration
-     * @covers ::getConfigValue
-     */
     public function testConfigResolver(): void
     {
         $client = $this->getTestingClient([
@@ -41,9 +37,6 @@ class ApiBaseTest extends TestCase
         $method->invokeArgs($container->get('search'), ['foo']);
     }
 
-    /**
-     * @covers ::setConfiguration
-     */
     public function testMissingConfig(): void
     {
         $client = $this->getTestingClient();
@@ -54,9 +47,6 @@ class ApiBaseTest extends TestCase
         $this->assertSame([], $method->invokeArgs($client, []));
     }
 
-    /**
-     * @covers ::setConfiguration
-     */
     public function testInvalidEndpoint(): void
     {
         $client = $this->getTestingClient([

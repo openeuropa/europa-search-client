@@ -15,17 +15,10 @@ class FacetsTest extends TestCase
 {
     use FacetTestGeneratorTrait;
 
-    /**
-     * @covers ::setApiVersion
-     * @covers ::getApiVersion
-     * @covers ::setFacets
-     * @covers ::getFacets
-     * @covers ::setTerms
-     * @covers ::getTerms
-     */
     public function testFacets(): void
     {
-        [, $facetValuesAsObject] = $this->generateTestingFacetValues(5);
+        $facetValuesAsArray = $this->generateTestingFacetValuesAsArray(5);
+        $facetValuesAsObject = $this->convertTestingFacetValuesToObjects($facetValuesAsArray);
         $facets = (new Facets())
             ->setApiVersion('1.34-alpha3')
             ->setFacets($facetValuesAsObject)

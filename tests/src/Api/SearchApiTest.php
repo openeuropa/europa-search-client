@@ -22,7 +22,6 @@ class SearchApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::search
      * @dataProvider providerTestSearch
      *
      * @param array $clientConfig
@@ -53,8 +52,9 @@ class SearchApiTest extends TestCase
     public function inspectRequest(RequestInterface $request): void
     {
         $this->assertEquals('http://example.com/search?apiKey=foo&database=bar&text=Programme+managers&sessionToken=21edswq223rews&pageNumber=2&pageSize=5&highlightRegex=%7Bw%2B%7D&highlightLimit=150', $request->getUri());
-        $this->inspectBoundary($request);
-        $parts = $this->getMultiParts($request);
+        $boundary = $this->getBoundary($request);
+        $this->assertBoundary($request, $boundary);
+        $parts = $this->getMultiParts($request, $boundary);
         $this->assertCount(3, $parts);
         $this->inspectPart($parts[0], 'application/json', 'languages', 11, '["en","de"]');
         $this->inspectPart($parts[1], 'application/json', 'query', 59, '{"term":{"DMAKE_ES_EVENT_TYPE_NAME":"ADOPTION_DISTRIBUTE"}}');
@@ -74,95 +74,7 @@ class SearchApiTest extends TestCase
                     'searchApiEndpoint' => 'http://example.com/search',
                 ],
                 [
-                    new Response(200, [], json_encode([
-                        'apiVersion' => '2.69',
-                        'terms' => '"Programme managers"',
-                        'responseTime' => 44,
-                        'totalResults' => 2,
-                        'pageNumber' => 1,
-                        'pageSize' => 50,
-                        'sort' => 'title:ASC',
-                        'groupByField' => null,
-                        'queryLanguage' => [
-                            'language' => 'en',
-                            'probability' => 0.0,
-                        ],
-                        'spellingSuggestion' => '<b>programmes managed</b>',
-                        'bestBets' => [
-                        ],
-                        'results' => [
-                            [
-                                'apiVersion' => '2.69',
-                                'reference' => 'ref1',
-                                'url' => 'http://example.com/ref1',
-                                'title' => null,
-                                'contentType' => 'text/plain',
-                                'language' => 'en',
-                                'databaseLabel' => 'ACME',
-                                'database' => 'ACME',
-                                'summary' => null,
-                                'weight' => 9.849739,
-                                'groupById' => '3',
-                                'content' => 'A coordination platform',
-                                'accessRestriction' => false,
-                                'pages' => null,
-                                'metadata' => [
-                                    'keywords' => [
-                                        0 => '["End-users","Pollution (water, soil), waste disposal and treatm","Water-climate interactions"]',
-                                    ],
-                                    'sortStatus' => [
-                                        0 => '3',
-                                    ],
-                                    'destination' => [
-                                    ],
-                                    'type' => [
-                                        0 => '1',
-                                    ],
-                                    'title' => [
-                                        0 => 'A coordination platform',
-                                    ],
-                                ],
-                                'children' => [
-                                ],
-                            ],
-                            [
-                                'apiVersion' => '2.69',
-                                'reference' => 'ref2',
-                                'url' => 'http://example.com/ref2',
-                                'title' => null,
-                                'contentType' => 'text/plain',
-                                'language' => 'en',
-                                'databaseLabel' => 'ACME',
-                                'database' => 'ACME',
-                                'summary' => null,
-                                'weight' => 9.549583,
-                                'groupById' => '3',
-                                'content' => 'Stepping up EU research and innovation cooperation in the water area',
-                                'accessRestriction' => false,
-                                'pages' => null,
-                                'metadata' => [
-                                    'keywords' => [
-                                        0 => '["Water harvesting","Water resources","Agronomy","Agriculture"]',
-                                    ],
-                                    'sortStatus' => [
-                                        0 => '3',
-                                    ],
-                                    'destination' => [
-                                    ],
-                                    'type' => [
-                                        0 => '1',
-                                    ],
-                                    'title' => [
-                                        0 => 'EU research in the water area',
-                                    ],
-                                ],
-                                'children' => [
-                                ],
-                            ],
-                        ],
-                        'warnings' => [
-                        ],
-                    ]))
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/simple_search_response.json'))
                 ],
                 (new Search())
                     ->setApiVersion('2.69')

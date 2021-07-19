@@ -12,10 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 class MetadataTest extends TestCase
 {
-    /**
-     * @covers ::setMetadata
-     * @covers ::getMetadata
-     */
+
     public function testSettersAndGetters(): void
     {
         $model = new Metadata();
@@ -39,9 +36,6 @@ class MetadataTest extends TestCase
         $this->assertSame(['Value 1'], $model['TITLE']);
     }
 
-    /**
-     * @covers ::jsonSerialize
-     */
     public function testSerialization(): void
     {
         $model = new Metadata();
@@ -53,9 +47,6 @@ class MetadataTest extends TestCase
     }
 
     /**
-     * @covers ::validateOffset
-     * @covers ::validateValue
-     *
      * @dataProvider providerInvalidOffsetOrValue
      *
      * @param array $metadata

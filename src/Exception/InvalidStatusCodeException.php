@@ -7,7 +7,7 @@ namespace OpenEuropa\EuropaSearchClient\Exception;
 /**
  * Thrown when an API call returns a status code other than 200.
  */
-class EuropaSearchApiInvalidStatusCodeException extends \RuntimeException
+class InvalidStatusCodeException extends \RuntimeException
 {
 
 }
