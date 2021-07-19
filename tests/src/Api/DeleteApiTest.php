@@ -63,7 +63,7 @@ class DeleteApiTest extends TestCase
 
                 ],
                 [
-                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/delete_document_jwt_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/jwt_response.json')),
                     new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/delete_document_response.json')),
                 ],
                 true,

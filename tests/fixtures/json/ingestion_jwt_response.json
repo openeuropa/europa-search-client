@@ -1,6 +1,0 @@
-{
-  "access_token": "JWT_TOKEN",
-  "scope": "APPLICATION_SCOPE",
-  "token_type": "Bearer",
-  "expires_in": 3600
-}

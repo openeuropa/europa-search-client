@@ -88,7 +88,7 @@ class FileIngestionApiTest extends TestCase
 
                 ],
                 [
-                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/ingestion_jwt_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/jwt_response.json')),
                     new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/ingestion_response.json')),
                 ],
                 (new Ingestion())
