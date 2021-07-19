@@ -36,9 +36,6 @@ class MetadataTest extends TestCase
         $this->assertSame(['Value 1'], $model['TITLE']);
     }
 
-    /**
-     * Tests the serialization.
-     */
     public function testSerialization(): void
     {
         $model = new Metadata();
@@ -50,8 +47,6 @@ class MetadataTest extends TestCase
     }
 
     /**
-     * Tests the invalid offset.
-     *
      * @dataProvider providerInvalidOffsetOrValue
      *
      * @param array $metadata
