@@ -6,7 +6,7 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Api\FacetApi;
-use OpenEuropa\EuropaSearchClient\Exception\EuropaSearchApiInvalidParameterValueException;
+use OpenEuropa\EuropaSearchClient\Exception\ParameterValueException;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\FacetTestGeneratorTrait;
@@ -23,21 +23,17 @@ class FacetApiTest extends TestCase
     use FacetTestGeneratorTrait;
     use InspectTestRequestTrait;
 
-    /**
-     * @covers ::setFacetSort
-     */
     public function testSetSortInvalidParameter(): void
     {
         $object = new FacetApi();
         $class = new \ReflectionClass($object);
         $method = $class->getMethod('setFacetSort');
-        $exception = new EuropaSearchApiInvalidParameterValueException("::setFacetSort() received invalid argument 'Invalid argument', must be one of 'DATE', 'REVERSE_DATE', 'ALPHABETICAL', 'REVERSE_ALPHABETICAL', 'DOCUMENT_COUNT', 'REVERSE_DOCUMENT_COUNT', 'NUMBER_DECREASING', 'NUMBER_INCREASING'.");
+        $exception = new ParameterValueException("::setFacetSort() received invalid argument 'Invalid argument', must be one of 'DATE', 'REVERSE_DATE', 'ALPHABETICAL', 'REVERSE_ALPHABETICAL', 'DOCUMENT_COUNT', 'REVERSE_DOCUMENT_COUNT', 'NUMBER_DECREASING', 'NUMBER_INCREASING'.");
         $this->expectExceptionObject($exception);
         $method->invokeArgs($object, ['Invalid argument']);
     }
 
     /**
-     * @covers ::getFacets
      * @dataProvider providerTestGetFacets
      *
      * @param array $clientConfig
@@ -64,8 +60,9 @@ class FacetApiTest extends TestCase
     public function inspectRequest(RequestInterface $request): void
     {
         $this->assertEquals('http://example.com/facet?apiKey=foo&database=qux&text=whatever&sessionToken=21edswq223rews&sort=ALPHABETICAL', $request->getUri());
-        $this->inspectBoundary($request);
-        $parts = $this->getMultiParts($request);
+        $boundary = $this->getBoundary($request);
+        $this->assertBoundary($request, $boundary);
+        $parts = $this->getMultiParts($request, $boundary);
         $this->assertCount(3, $parts);
         $this->inspectPart($parts[0], 'application/json', 'languages', 11, '["en","de"]');
         $this->inspectPart($parts[1], 'application/json', 'query', 59, '{"term":{"DMAKE_ES_EVENT_TYPE_NAME":"ADOPTION_DISTRIBUTE"}}');
@@ -78,8 +75,10 @@ class FacetApiTest extends TestCase
      */
     public function providerTestGetFacets(): array
     {
-        [$facetsAsArray, $facetsAsObject] = $this->generateTestingFacetItems(5);
-
+        $facetsAsArray = $this->generateTestingFacetItemsAsArray(5);
+        $facetsAsObject = $this->convertTestingFacetItemsToObjects($facetsAsArray);
+        $response = json_decode(file_get_contents(__DIR__ . '/../../fixtures/json/simple_facet_response.json'), true);
+        $response['facets'] = $facetsAsArray;
         return [
             'simple facet request' => [
                 [
@@ -88,11 +87,7 @@ class FacetApiTest extends TestCase
                     'facetApiEndpoint' => 'http://example.com/facet',
                 ],
                 [
-                    new Response(200, [], json_encode([
-                        'apiVersion' => '1.34.0',
-                        'facets' => $facetsAsArray,
-                        'terms' => 'foo',
-                    ])),
+                    new Response(200, [], json_encode($response)),
                 ],
                 (new Facets())
                     ->setApiVersion('1.34.0')

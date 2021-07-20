@@ -30,9 +30,6 @@ class ClientTest extends TestCase
 {
     use ClientTestTrait;
 
-    /**
-     * @covers ::createContainer
-     */
     public function testContainer(): void
     {
         $client = $this->getTestingClient([

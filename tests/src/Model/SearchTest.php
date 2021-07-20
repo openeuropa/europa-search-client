@@ -15,34 +15,6 @@ use PHPUnit\Framework\TestCase;
 class SearchTest extends TestCase
 {
 
-    /**
-     * @covers ::setApiVersion
-     * @covers ::getApiVersion
-     * @covers ::setBestBets
-     * @covers ::getBestBets
-     * @covers ::setGroupByField
-     * @covers ::getGroupByField
-     * @covers ::setPageNumber
-     * @covers ::getPageNumber
-     * @covers ::setPageSize
-     * @covers ::getPageSize
-     * @covers ::setQueryLanguage
-     * @covers ::getQueryLanguage
-     * @covers ::setResponseTime
-     * @covers ::getResponseTime
-     * @covers ::setResults
-     * @covers ::getResults
-     * @covers ::setSort
-     * @covers ::getSort
-     * @covers ::setSpellingSuggestion
-     * @covers ::getSpellingSuggestion
-     * @covers ::setTerms
-     * @covers ::getTerms
-     * @covers ::setTotalResults
-     * @covers ::getTotalResults
-     * @covers ::setWarnings
-     * @covers ::getWarnings
-     */
     public function testSettersAndGetters(): void
     {
         $model = new Search();

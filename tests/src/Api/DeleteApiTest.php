@@ -19,7 +19,6 @@ class DeleteApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::deleteDocument
      * @dataProvider providerTestDeleteDocument
      *
      * @param array $clientConfig
@@ -64,17 +63,8 @@ class DeleteApiTest extends TestCase
 
                 ],
                 [
-                    new Response(200, [], json_encode([
-                        'access_token' => 'JWT_TOKEN',
-                        'scope' => 'APPLICATION_SCOPE',
-                        'token_type' => 'Bearer',
-                        'expires_in' => 3600,
-                    ])),
-                    new Response(200, [], json_encode([
-                        'apiVersion' => '2.67',
-                        'reference' => 'foo',
-                        'trackingId' => 'bar',
-                    ])),
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/jwt_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/delete_document_response.json')),
                 ],
                 true,
             ],

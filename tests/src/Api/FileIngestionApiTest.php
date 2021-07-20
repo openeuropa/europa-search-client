@@ -20,7 +20,6 @@ class FileIngestionApiTest extends TestCase
     use InspectTestRequestTrait;
 
     /**
-     * @covers ::ingest
      * @dataProvider providerTestFileIngestion
      *
      * @param array $clientConfig
@@ -57,8 +56,9 @@ class FileIngestionApiTest extends TestCase
         } else {
             $this->assertEquals('http://example.com/ingest?apiKey=bananas&database=cucumbers&uri=http%3A%2F%2Fexample.com&language=%5B%22en%22%2C%22ro%22%5D&reference=unique-my-ID', $request->getUri());
             $this->inspectAuthorizationHeaders($request);
-            $this->inspectBoundary($request);
-            $parts = $this->getMultiParts($request);
+            $boundary = $this->getBoundary($request);
+            $this->assertBoundary($request, $boundary);
+            $parts = $this->getMultiParts($request, $boundary);
             $this->assertCount(6, $parts);
             $fileData = file_get_contents(__DIR__ . '/../../fixtures/files/image.png');
             $this->inspectPart($parts[0], 'application/json', 'metadata', 55, '{"field1":["value1","value2"],"field2":["value3",2345]}');
@@ -88,17 +88,8 @@ class FileIngestionApiTest extends TestCase
 
                 ],
                 [
-                    new Response(200, [], json_encode([
-                        'access_token' => 'JWT_TOKEN',
-                        'scope' => 'APPLICATION_SCOPE',
-                        'token_type' => 'Bearer',
-                        'expires_in' => 3600,
-                    ])),
-                    new Response(200, [], json_encode([
-                        'apiVersion' => '2.67',
-                        'reference' => 'foo',
-                        'trackingId' => 'bar',
-                    ])),
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/jwt_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/../../fixtures/json/ingestion_response.json')),
                 ],
                 (new Ingestion())
                     ->setApiVersion('2.67')

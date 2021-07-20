@@ -12,14 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 class InfoTest extends TestCase
 {
-    /**
-     * @covers ::setGroupId
-     * @covers ::getGroupId
-     * @covers ::setComment
-     * @covers ::getComment
-     * @covers ::setArtifactId
-     * @covers ::getArtifactId
-     */
+
     public function testSettersAndGetters(): void
     {
         $info = new Info();
