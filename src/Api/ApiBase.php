@@ -1,88 +1,198 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use GuzzleHttp\Psr7\MultipartStream;
-use OpenEuropa\EuropaSearchClient\ClientInterface;
+use Http\Message\MultipartStream\MultipartStreamBuilder;
+use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
+use OpenEuropa\EuropaSearchClient\Exception\InvalidStatusCodeException;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriFactoryInterface;
+use Psr\Http\Message\UriInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Base class for Europa Search API requests.
+ * Base class for Europa Search APIs.
  */
-abstract class ApiBase
+abstract class ApiBase implements ApiInterface
 {
-
     /**
-     * The API client.
-     *
-     * @var \OpenEuropa\EuropaSearchClient\ClientInterface
-     */
-    protected $client;
-
-    /**
-     * The API base parameters.
-     *
-     * @todo possibly remove, not used.
-     *
      * @var array
      */
-    protected $parameters;
+    protected $configuration;
 
     /**
-     * The serializer.
-     *
-     * @var \Symfony\Component\Serializer\SerializerInterface
+     * @var OptionsResolver
+     */
+    protected $optionResolver;
+
+    /**
+     * @var ClientInterface
+     */
+    protected $httpClient;
+
+    /**
+     * @var RequestFactoryInterface
+     */
+    protected $requestFactory;
+
+    /**
+     * @var StreamFactoryInterface
+     */
+    protected $streamFactory;
+
+    /**
+     * @var UriFactoryInterface
+     */
+    protected $uriFactory;
+
+    /**
+     * @var MultipartStreamBuilder
+     */
+    protected $multipartStreamBuilder;
+
+    /**
+     * @var SerializerInterface
      */
     protected $serializer;
 
     /**
-     * ApiBase constructor.
-     *
-     * @param \OpenEuropa\EuropaSearchClient\ClientInterface $client
-     *   The API client.
-     * @param array $parameters
-     *   The base parameters common to all API requests. Defaults to empty.
+     * @var EncoderInterface
      */
-    public function __construct(ClientInterface $client, array $parameters = [])
+    protected $jsonEncoder;
+
+    /**
+     * @var array
+     */
+    protected $headers = [];
+
+    /**
+     * @inheritDoc
+     */
+    public function setConfiguration(array $configuration): ApiInterface
     {
-        $this->client = $client;
-        $this->parameters = $parameters;
+        $validSchemaKeys = ['type', 'required', 'default', 'value'];
+        $configSchema = $this->getConfigSchema();
+
+        // Keep only configurations defined in schema.
+        $configuration = array_intersect_key($configuration, $configSchema);
+
+        // Start on a fresh resolver. If this is API called after different API,
+        // in the same request, the option resolver has already definitions.
+        $this->optionResolver->clear();
+
+        foreach ($configSchema as $configKey => $schema) {
+            if ($invalidSchemaKeys = array_diff_key($schema, array_flip($validSchemaKeys))) {
+                throw new \InvalidArgumentException("The configuration schema of '" . __CLASS__ . "' API contains invalid keys: '" . implode(', ', array_keys($invalidSchemaKeys)) . "'.");
+            }
+            $method = empty($schema['required']) ? 'setDefined' : 'setRequired';
+            $this->optionResolver
+                ->{$method}($configKey)
+                ->addAllowedTypes($configKey, $schema['type']);
+            if (isset($schema['default'])) {
+                $this->optionResolver->setDefault($configKey, $schema['default']);
+            }
+            if (isset($schema['value'])) {
+                $this->optionResolver->setAllowedValues($configKey, $schema['value']);
+            }
+        }
+
+        $this->configuration = $this->optionResolver->resolve($configuration);
+
+        return $this;
     }
 
     /**
-     * Prepares the full URI for a request.
-     *
-     * The Europa Search has multiple servers where the endpoints are located.
-     * Each API class has knowledge of where its endpoint is located.
-     *
-     * @param string $path
-     *   The path of the request.
-     * @param array $queryParameters
-     *   Query parameters. Optional.
-     *
-     * @return string
-     *   The full URI of the request.
+     * @inheritDoc
      */
-    abstract protected function prepareUri(string $path, array $queryParameters = []): string;
+    public function setOptionsResolver(OptionsResolver $optionsResolver): ApiInterface
+    {
+        $this->optionResolver = $optionsResolver;
+        return $this;
+    }
 
     /**
-     * Returns the option resolver configured with the API rules.
-     *
-     * @return \Symfony\Component\OptionsResolver\OptionsResolver $resolver
-     *   The options resolver.
+     * @inheritDoc
      */
-    protected function getOptionResolver(): OptionsResolver
+    public function setHttpClient(ClientInterface $httpClient): ApiInterface
     {
-        return new OptionsResolver();
+        $this->httpClient = $httpClient;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setRequestFactory(RequestFactoryInterface $requestFactory): ApiInterface
+    {
+        $this->requestFactory = $requestFactory;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setStreamFactory(StreamFactoryInterface $streamFactory): ApiInterface
+    {
+        $this->streamFactory = $streamFactory;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setUriFactory(UriFactoryInterface $uriFactory): ApiInterface
+    {
+        $this->uriFactory = $uriFactory;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setMultipartStreamBuilder(
+        MultipartStreamBuilder $multipartStreamBuilder
+    ): ApiInterface {
+        $this->multipartStreamBuilder = $multipartStreamBuilder;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setSerializer(SerializerInterface $serializer): ApiInterface
+    {
+        $this->serializer = $serializer;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setJsonEncoder(EncoderInterface $jsonEncoder): ApiInterface
+    {
+        $this->jsonEncoder = $jsonEncoder;
+        return $this;
+    }
+
+    /**
+     * @param string $configKey
+     * @return mixed
+     */
+    protected function getConfigValue(string $configKey)
+    {
+        if (!isset($this->configuration[$configKey])) {
+            throw new \InvalidArgumentException("Invalid config key: '{$configKey}'. Valid keys: '" . implode("', '", array_keys($this->configuration)) . "'.");
+        }
+        return $this->configuration[$configKey];
     }
 
     /**
@@ -90,115 +200,162 @@ abstract class ApiBase
      *
      * @param string $method
      *   The request method.
-     * @param string $path
-     *   The request relative path.
-     * @param array $queryParameters
-     *   The query parameters.
-     * @param array $formParameters
-     *   The parameters to send as body of the request.
-     * @param bool $multipart
-     *   If the request is a multipart one. Useful only for POST requests.
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      *   The response.
      *
-     * @throws \Psr\Http\Client\ClientExceptionInterface
-     *   Thrown if an error happened while processing the request.
+     * @throws ClientExceptionInterface
+     *   Thrown if a network error happened while processing the request.
+     * @throws InvalidStatusCodeException
+     *   Thrown when the API endpoint returns code other than 200.
      */
-    protected function send(
-        string $method,
-        string $path,
-        array $queryParameters = [],
-        array $formParameters = [],
-        bool $multipart = false
-    ) {
-        $uri = $this->prepareUri($path, $queryParameters);
+    protected function send(string $method): ResponseInterface
+    {
+        $method = strtoupper($method);
+        $uri = $this->getRequestUri();
+        $request = $this->requestFactory->createRequest($method, $uri);
 
-        $request = $this->client->getRequestFactory()->createRequest($method, $uri);
-
-        if (!empty($formParameters)) {
-            if ($multipart) {
-                $stream = $this->getMultipartStream($formParameters);
-            } else {
-                $stream = $this->client->getStreamFactory()->createStream(http_build_query($formParameters));
-            }
-            $request = $request->withBody($stream);
+        $methodsWithBody = ['POST', 'PUT', 'PATCH'];
+        if (in_array($method, $methodsWithBody) && $body = $this->getRequestBody()) {
+            $request = $request->withBody($body);
         }
 
-        $response = $this->client->getHttpClient()->sendRequest($request);
+        if ($headers = $this->getRequestHeaders()) {
+            foreach ($headers as $name => $value) {
+                $request = $request->withHeader($name, $value);
+            }
+        }
+
+        $response = $this->httpClient->sendRequest($request);
+
+        if (!in_array($response->getStatusCode(), [200, 201], true)) {
+            throw new InvalidStatusCodeException("{$method} {$uri} returns {$response->getStatusCode()}");
+        }
 
         return $response;
     }
 
     /**
-     * Creates a multipart stream from a list of elements.
-     *
-     * @param array $elements
-     *   The various elements of the stream.
-     *
-     * @return \Psr\Http\Message\StreamInterface
-     *   The multipart stream.
+     * @return string
      */
-    protected function getMultipartStream(array $elements): StreamInterface
-    {
-        $parts = [];
-        foreach ($elements as $key => $value) {
-            $parts[] = [
-                'name' => $key,
-                'contents' => $value,
-                // This header and filename are not required by the standard, but they
-                // are enforced by the ES API.
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                ],
-                'filename' => 'blob',
-            ];
-        }
-
-        return new MultipartStream($parts);
-    }
+    abstract protected function getEndpointUri(): string;
 
     /**
-     * Returns a configured serializer to convert API responses.
-     *
-     * @return \Symfony\Component\Serializer\SerializerInterface
-     *   The serializer.
-     */
-    protected function getSerializer(): SerializerInterface
-    {
-        if ($this->serializer === null) {
-            $this->serializer = new Serializer([
-                new GetSetMethodNormalizer(null, null, new PhpDocExtractor()),
-                new ArrayDenormalizer(),
-            ], [
-                new JsonEncoder(),
-            ]);
-        }
-
-        return $this->serializer;
-    }
-
-    /**
-     * Adds query parameters to a uri.
-     *
-     * @param string $uri
-     *   The URI.
-     * @param array $queryParameters
-     *   A key-value list of query parameters.
      *
      * @return string
-     *   The processed URI.
-     * @todo use \Psr\Http\Message\UriInterface to handle URIs.
-     *
      */
-    protected function addQueryParameters(string $uri, array $queryParameters): string
+    protected function getRequestUri(): string
     {
-        if (!empty($queryParameters)) {
-            $query = http_build_query($queryParameters);
-            $glue = strpos($uri, '?') === false ? '?' : '&';
-            $uri .= $glue . $query;
+        $uri = $this->uriFactory->createUri($this->getEndpointUri());
+        $query = $this->getRequestUriQuery($uri);
+        return $uri->withQuery(http_build_query($query))->__toString();
+    }
+
+    /**
+     * @param \Psr\Http\Message\UriInterface $uri
+     *
+     * @return array
+     */
+    protected function getRequestUriQuery(UriInterface $uri): array
+    {
+        $query = [];
+        if ($queryString = $uri->getQuery()) {
+            parse_str($queryString, $apiEndpointQuery);
+            $query += $apiEndpointQuery;
+        }
+        return $query;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRequestHeaders(): array
+    {
+        // Methods building the request URI or body may store additional headers
+        // in $this->headers array, as they act before this method.
+        return $this->headers;
+    }
+
+    /**
+     * @return \Psr\Http\Message\StreamInterface|null
+     */
+    protected function getRequestBody(): ?StreamInterface
+    {
+        // Multipart stream has precedence, if it has been defined.
+        if ($parts = $this->getRequestMultipartStreamElements()) {
+            foreach ($parts as $name => $part) {
+                $contentType = $part['contentType'] ?? 'application/json';
+                $this->multipartStreamBuilder->addResource($name, $part['content'], [
+                    'headers' => [
+                        'Content-Type' => $contentType,
+                    ],
+                    'filename' => $name,
+                ]);
+            }
+
+            // The multipart stream needs inform the server about the
+            // Content-Type and  multipart parts boundary ID.
+            $this->headers['Content-Type'] = 'multipart/form-data; boundary="' . $this->multipartStreamBuilder->getBoundary() . '"';
+
+            return $this->multipartStreamBuilder->build();
         }
 
-        return $uri;
+        // Simple form elements.
+        if ($parts = $this->getRequestFormElements()) {
+            // Give server guidance on how to decode the stream.
+            $this->headers['Content-Type'] = 'application/x-www-form-urlencoded';
+            return $this->streamFactory->createStream(http_build_query($parts));
+        }
+
+        // This API didn't define a request body.
+        return null;
+    }
+
+    /**
+     * @return array
+     *   Associative array of multipart parts keyed by the part name. The values
+     *   are associative arrays with two keys:
+     *   - content (string): The multipart part contents.
+     *   - contentType (string, optional): The multipart part content type. If
+     *     omitted, 'application/json' is assumed.
+     */
+    protected function getRequestMultipartStreamElements(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRequestFormElements(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array
+     * @see ApiInterface::getConfigSchema()
+     */
+    protected function getEndpointSchema(): array
+    {
+        return [
+            'type' => 'string',
+            'required' => true,
+            'value' => function (string $value) {
+                return filter_var($value, FILTER_VALIDATE_URL);
+            },
+        ];
+    }
+
+    /**
+     * @return array
+     * @see ApiInterface::getConfigSchema()
+     */
+    protected function getRequiredStringSchema(): array
+    {
+        return [
+            'type' => 'string',
+            'required' => true,
+        ];
     }
 }

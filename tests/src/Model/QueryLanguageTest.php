@@ -8,16 +8,10 @@ use OpenEuropa\EuropaSearchClient\Model\QueryLanguage;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests the query language model class.
- *
- * @covers \OpenEuropa\EuropaSearchClient\Model\QueryLanguage
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Model\QueryLanguage
  */
 class QueryLanguageTest extends TestCase
 {
-
-    /**
-     * Tests the setters and getters.
-     */
     public function testSettersAndGetters(): void
     {
         $model = new QueryLanguage();

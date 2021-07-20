@@ -1,0 +1,95 @@
+{
+    "apiVersion":"2.69",
+    "terms":"\"Programme managers\"",
+    "responseTime":44,
+    "totalResults":2,
+    "pageNumber":1,
+    "pageSize":50,
+    "sort":"title:ASC",
+    "groupByField":null,
+    "queryLanguage":{
+       "language":"en",
+       "probability":0
+    },
+    "spellingSuggestion":"<b>programmes managed<\/b>",
+    "bestBets":[
+       
+    ],
+    "results":[
+       {
+          "apiVersion":"2.69",
+          "reference":"ref1",
+          "url":"http:\/\/example.com\/ref1",
+          "title":null,
+          "contentType":"text\/plain",
+          "language":"en",
+          "databaseLabel":"ACME",
+          "database":"ACME",
+          "summary":null,
+          "weight":9.849739,
+          "groupById":"3",
+          "content":"A coordination platform",
+          "accessRestriction":false,
+          "pages":null,
+          "metadata":{
+             "keywords":[
+                "[\"End-users\",\"Pollution (water, soil), waste disposal and treatm\",\"Water-climate interactions\"]"
+             ],
+             "sortStatus":[
+                "3"
+             ],
+             "destination":[
+                
+             ],
+             "type":[
+                "1"
+             ],
+             "title":[
+                "A coordination platform"
+             ]
+          },
+          "children":[
+             
+          ]
+       },
+       {
+          "apiVersion":"2.69",
+          "reference":"ref2",
+          "url":"http:\/\/example.com\/ref2",
+          "title":null,
+          "contentType":"text\/plain",
+          "language":"en",
+          "databaseLabel":"ACME",
+          "database":"ACME",
+          "summary":null,
+          "weight":9.549583,
+          "groupById":"3",
+          "content":"Stepping up EU research and innovation cooperation in the water area",
+          "accessRestriction":false,
+          "pages":null,
+          "metadata":{
+             "keywords":[
+                "[\"Water harvesting\",\"Water resources\",\"Agronomy\",\"Agriculture\"]"
+             ],
+             "sortStatus":[
+                "3"
+             ],
+             "destination":[
+                
+             ],
+             "type":[
+                "1"
+             ],
+             "title":[
+                "EU research in the water area"
+             ]
+          },
+          "children":[
+             
+          ]
+       }
+    ],
+    "warnings":[
+       
+    ]
+}

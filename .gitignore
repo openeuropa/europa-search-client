@@ -1,8 +1,7 @@
-.DS_Store
-.idea
-composer.lock
-grumphp.yml
-runner.yml
-vendor
-phpunit.xml
-docker-compose.*.yml
+/.phpunit.result.cache
+/composer.lock
+/docker-compose.*.yml
+/grumphp.yml
+/phpunit.xml
+/runner.yml
+/vendor/
