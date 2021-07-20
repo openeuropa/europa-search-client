@@ -26,7 +26,7 @@ trait ClientTestTrait
      * @param array $responseQueue
      * @return ClientInterface
      */
-    protected function getTestingClient(array $configuration = [], $responseQueue = []): ClientInterface
+    protected function getTestingClient(array $configuration = [], array $responseQueue = []): ClientInterface
     {
         $handlerStack = HandlerStack::create(new MockHandler($responseQueue));
         $handlerStack->push(Middleware::history($this->clientHistory));
