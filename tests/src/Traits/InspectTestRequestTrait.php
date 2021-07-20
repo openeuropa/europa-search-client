@@ -21,7 +21,7 @@ trait InspectTestRequestTrait
         $this->assertEquals('http://example.com/token', $request->getUri());
         $this->assertSame('Basic YmF6OnF1eA==', $request->getHeaderLine('Authorization'));
         $this->assertSame('application/x-www-form-urlencoded', $request->getHeaderLine('Content-Type'));
-        $this->assertSame('grant_type=client_credentials', $request->getBody()->getContents());
+        $this->assertSame('grant_type=client_credentials', $request->getBody()->__toString());
     }
 
     /**

@@ -9,7 +9,6 @@ use OpenEuropa\EuropaSearchClient\Model\Token;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\RequestInterface;
 
 /**
  * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\TokenApi
@@ -28,17 +27,12 @@ class TokenApiTest extends TestCase
      */
     public function testToken(array $clientConfig, array $responses, $expectedResult): void
     {
-        $actualResult = $this->getTestingClient($clientConfig, $responses, [$this, 'inspectRequest'])
+        $actualResult = $this->getTestingClient($clientConfig, $responses)
             ->getContainer()->get('token')
             ->getToken();
         $this->assertEquals($expectedResult, $actualResult);
-    }
-
-    /**
-     * @param RequestInterface $request
-     */
-    public function inspectRequest(RequestInterface $request): void
-    {
+        $this->assertCount(1, $this->clientHistory);
+        $request = $this->clientHistory[0]['request'];
         $this->inspectTokenRequest($request);
     }
 
