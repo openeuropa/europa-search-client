@@ -28,18 +28,10 @@ class InfoApiTest extends TestCase
      */
     public function testGetInfo(array $clientConfig, array $responses, $expectedResult): void
     {
-        $actualResult = $this->getTestingClient($clientConfig, $responses, [
-            $this,
-            'inspectRequest',
-        ])->getInfo();
+        $actualResult = $this->getTestingClient($clientConfig, $responses)->getInfo();
         $this->assertEquals($expectedResult, $actualResult);
-    }
-
-    /**
-     * @param RequestInterface $request
-     */
-    public function inspectRequest(RequestInterface $request): void
-    {
+        $this->assertCount(1, $this->clientHistory);
+        $request = $this->clientHistory[0]['request'];
         $this->assertEquals('http://example.com/search/info', $request->getUri());
     }
 
