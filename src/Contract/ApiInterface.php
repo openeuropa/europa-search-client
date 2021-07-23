@@ -53,13 +53,6 @@ interface ApiInterface
     public function setConfiguration(array $configuration): self;
 
     /**
-     * @param OptionsResolver $optionsResolver
-     *
-     * @return $this
-     */
-    public function setOptionsResolver(OptionsResolver $optionsResolver): self;
-
-    /**
      * @param ClientInterface $httpClient
      *
      * @return $this

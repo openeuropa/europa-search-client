@@ -39,4 +39,17 @@ trait ClientTestTrait
             $configuration
         );
     }
+
+    protected function textIngestionTestingClient(array $responseQueue = []): ClientInterface
+    {
+        $handlerStack = HandlerStack::create(new MockHandler($responseQueue));
+        $handlerStack->push(Middleware::history($this->clientHistory));
+        return new Client(
+            new HttpClient(['handler' => $handlerStack]),
+            new RequestFactory(),
+            new StreamFactory(),
+            new UriFactory(),
+            []
+        );
+    }
 }

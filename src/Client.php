@@ -22,7 +22,6 @@ use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\FileIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\InfoApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\EuropaSearchClient\Model\Info;
@@ -52,6 +51,15 @@ use Symfony\Component\Serializer\Serializer;
 class Client implements ClientInterface
 {
     use ContainerAwareTrait;
+
+    /**
+     * @var OptionsResolver $optionsResolver
+     */
+    protected $optionsResolver;
+    /**
+     * @var RequestFactoryInterface
+     */
+    private $requestFactory;
 
     /**
      * @param HttpClientInterface     $httpClient
@@ -244,7 +252,9 @@ class Client implements ClientInterface
         $container->add('facet', FacetApi::class);
         $container->add('info', InfoApi::class);
         $container->add('token', TokenApi::class);
-        $container->add('textIngestion', TextIngestionApi::class);
+        $container->add('textIngestion', TextIngestionApi::class)
+            ->withArgument(new OptionsResolver())
+            ->withArgument($configuration);
         $container->add('fileIngestion', FileIngestionApi::class);
         $container->add('deleteDocument', DeleteApi::class);
 
@@ -255,8 +265,8 @@ class Client implements ClientInterface
         // Inject the services into APIs.
         $container->inflector(ApiInterface::class)
             ->invokeMethods([
-                'setOptionsResolver' => ['optionResolver'],
-                'setConfiguration' => [$configuration],
+         /*       'setOptionsResolver' => ['optionResolver'],*/
+         /*       'setConfiguration' => [$configuration],*/
                 'setHttpClient' => ['httpClient'],
                 'setRequestFactory' => ['requestFactory'],
                 'setStreamFactory' => ['streamFactory'],
@@ -295,9 +305,9 @@ class Client implements ClientInterface
     }
 
     /**
-     * @return TextIngestionApiInterface
+     * @return ApiInterface
      */
-    protected function getTextIngestionService(): TextIngestionApiInterface
+    protected function getTextIngestionService(): ApiInterface
     {
         return $this->getContainer()->get('textIngestion');
     }

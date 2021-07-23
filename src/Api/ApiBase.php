@@ -113,15 +113,6 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setOptionsResolver(OptionsResolver $optionsResolver): ApiInterface
-    {
-        $this->optionResolver = $optionsResolver;
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function setHttpClient(ClientInterface $httpClient): ApiInterface
     {
         $this->httpClient = $httpClient;

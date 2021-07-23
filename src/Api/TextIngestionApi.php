@@ -4,26 +4,31 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Api;
 
-use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Text ingestion API.
  */
-class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInterface
+class TextIngestionApi extends IngestionApiBase
 {
-    /**
-     * @var string|null
-     */
     protected $text;
+    protected $configuration = [];
+    protected $languages = [];
+    protected $optionResolver;
+
+    public function __construct(OptionsResolver $optionResolver, array $configuration)
+    {
+        $this->optionResolver = $optionResolver;
+        $this->setConfiguration($configuration);
+    }
+
 
     /**
      * @inheritDoc
      */
     public function getConfigSchema(): array
     {
-        return [
-            'textIngestionApiEndpoint' => $this->getEndpointSchema(),
-        ] + parent::getConfigSchema();
+        return $this->validateConfiguration();
     }
 
     /**
@@ -51,13 +56,29 @@ class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInter
         return $this->getConfigValue('textIngestionApiEndpoint');
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function setText(?string $text): TextIngestionApiInterface
+    /** @todo Review */
+    private function validateConfiguration(): array
     {
-        $this->text = $text;
-        return $this;
+        return [
+            'apiKey' => $this->requiredString(),
+            'database' => $this->requiredString(),
+            'textIngestionApiEndpoint' => [
+                'type' => 'string',
+                'required' => true,
+                'value' => function (string $value) {
+                    return filter_var($value, FILTER_VALIDATE_URL);
+                },
+            ],
+            'consumerKey' => $this->requiredString(),
+            'consumerSecret' => $this->requiredString(),
+            'tokenApiEndpoint' => [
+                'type' => 'string',
+                'required' => true,
+                'value' => function (string $value) {
+                    return filter_var($value, FILTER_VALIDATE_URL);
+                },
+            ]
+        ];
     }
 
     /**
@@ -66,5 +87,13 @@ class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInter
     public function getText(): ?string
     {
         return $this->text;
+    }
+
+    private function requiredString(): array
+    {
+        return [
+            'type' => 'string',
+            'required' => true,
+        ];
     }
 }

@@ -27,7 +27,7 @@ class TextIngestionApiTest extends TestCase
      */
     public function testTextIngestion(array $clientConfig, array $responses, $expectedResult): void
     {
-        $actualResult = $this->getTestingClient($clientConfig, $responses)
+        $actualResult = $this->textIngestionTestingClient($responses)
             ->ingestText(
                 'http://example.com',
                 'The quick brown fox jumps over the lazy dog',
