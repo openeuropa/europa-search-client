@@ -214,7 +214,6 @@ class Client implements ClientInterface
         array $configuration
     ): void {
         $container = new Container();
-        $container->share('optionResolver', OptionsResolver::class);
         $container->share('httpClient', $httpClient);
         $container->share('requestFactory', $requestFactory);
         $container->share('streamFactory', $streamFactory);
@@ -230,6 +229,9 @@ class Client implements ClientInterface
                 new ArrayDenormalizer(),
             ])
             ->withArgument(new RawArgument([$container->get('jsonEncoder')]));
+
+        // OptionResolver added as a class.
+        $container->add('optionResolver', OptionsResolver::class);
 
         // API services are not shared, meaning that a new instance is created
         // every time the service is requested from the container. We're doing
