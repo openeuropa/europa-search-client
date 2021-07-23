@@ -230,7 +230,6 @@ class Client implements ClientInterface
             ])
             ->withArgument(new RawArgument([$container->get('jsonEncoder')]));
 
-        // OptionResolver added as a class.
         $container->add('optionResolver', OptionsResolver::class);
 
         // API services are not shared, meaning that a new instance is created
