@@ -27,22 +27,15 @@ class DeleteApiTest extends TestCase
      */
     public function testDeleteDocument(array $clientConfig, array $responses, $expectedResult): void
     {
-        $actualResult = $this->getTestingClient($clientConfig, $responses, [$this, 'inspectRequest'])
+        $actualResult = $this->getTestingClient($clientConfig, $responses)
             ->deleteDocument('foo');
         $this->assertSame($expectedResult, $actualResult);
-    }
-
-    /**
-     * @param RequestInterface $request
-     */
-    public function inspectRequest(RequestInterface $request): void
-    {
-        if ($request->getUri() == 'http://example.com/token') {
-            $this->inspectTokenRequest($request);
-        } else {
-            $this->assertEquals('http://example.com/ingest/delete?apiKey=bananas&database=cucumbers&reference=foo', $request->getUri());
-            $this->inspectAuthorizationHeaders($request);
-        }
+        $this->assertCount(2, $this->clientHistory);
+        $request = $this->clientHistory[0]['request'];
+        $this->inspectTokenRequest($request);
+        $request = $this->clientHistory[1]['request'];
+        $this->assertEquals('http://example.com/ingest/delete?apiKey=bananas&database=cucumbers&reference=foo', $request->getUri());
+        $this->inspectAuthorizationHeaders($request);
     }
 
     /**

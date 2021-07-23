@@ -30,7 +30,7 @@ class SearchApiTest extends TestCase
      */
     public function testSearch(array $clientConfig, array $responses, $expectedResult): void
     {
-        $actualResult = $this->getTestingClient($clientConfig, $responses, [$this, 'inspectRequest'])
+        $actualResult = $this->getTestingClient($clientConfig, $responses)
             ->search(
                 'Programme managers',
                 ['en', 'de'],
@@ -44,13 +44,8 @@ class SearchApiTest extends TestCase
                 '21edswq223rews'
             );
         $this->assertEquals($expectedResult, $actualResult);
-    }
-
-    /**
-     * @param RequestInterface $request
-     */
-    public function inspectRequest(RequestInterface $request): void
-    {
+        $this->assertCount(1, $this->clientHistory);
+        $request = $this->clientHistory[0]['request'];
         $this->assertEquals('http://example.com/search?apiKey=foo&database=bar&text=Programme+managers&sessionToken=21edswq223rews&pageNumber=2&pageSize=5&highlightRegex=%7Bw%2B%7D&highlightLimit=150', $request->getUri());
         $boundary = $this->getBoundary($request);
         $this->assertBoundary($request, $boundary);
