@@ -15,13 +15,7 @@ use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenApiInterface;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Client\ClientInterface as HttpClientInterface;
-use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\StreamFactoryInterface;
-use Psr\Http\Message\UriFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Client
@@ -49,13 +43,7 @@ class ClientTest extends TestCase
 
         // Check container services.
         $this->assertInstanceOf(OptionsResolver::class, $container->get('optionResolver'));
-        $this->assertInstanceOf(HttpClientInterface::class, $container->get('httpClient'));
-        $this->assertInstanceOf(RequestFactoryInterface::class, $container->get('requestFactory'));
-        $this->assertInstanceOf(StreamFactoryInterface::class, $container->get('streamFactory'));
-        $this->assertInstanceOf(UriFactoryInterface::class, $container->get('uriFactory'));
         $this->assertInstanceOf(MultipartStreamBuilder::class, $container->get('multipartStreamBuilder'));
-        $this->assertInstanceOf(JsonEncoder::class, $container->get('jsonEncoder'));
-        $this->assertInstanceOf(SerializerInterface::class, $container->get('serializer'));
         $this->assertInstanceOf(SearchApiInterface::class, $container->get('search'));
         $this->assertInstanceOf(FacetApiInterface::class, $container->get('facet'));
         $this->assertInstanceOf(InfoApiInterface::class, $container->get('info'));
