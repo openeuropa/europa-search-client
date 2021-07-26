@@ -25,7 +25,7 @@ class ApiBaseTest extends TestCase
             // Config not defined in Search API schema.
             'foo' => 'bar',
         ]);
-        $container = $client->getContainer();
+        $container = $this->getClientContainerProperty($client);
 
         $class = new \ReflectionClass($container->get('search'));
         $method = $class->getMethod('getConfigValue');
@@ -55,6 +55,8 @@ class ApiBaseTest extends TestCase
             'searchApiEndpoint' => 'INVALID_URL',
         ]);
         $this->expectExceptionObject(new InvalidOptionsException('The option "searchApiEndpoint" with value "INVALID_URL" is invalid.'));
-        $client->getContainer()->get('search');
+
+        $container = $this->getClientContainerProperty($client);
+        $container->get('search');
     }
 }

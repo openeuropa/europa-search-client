@@ -4,12 +4,11 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
-use League\Container\ContainerAwareInterface;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 
-interface ClientInterface extends ContainerAwareInterface
+interface ClientInterface
 {
     /**
      * Executes a search.

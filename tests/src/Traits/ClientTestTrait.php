@@ -39,4 +39,16 @@ trait ClientTestTrait
             $configuration
         );
     }
+
+    /**
+     * @param ClientInterface $client
+     * @return mixed
+     */
+    protected function getClientContainerProperty(ClientInterface $client)
+    {
+        $reflection = new \ReflectionClass($client);
+        $property = $reflection->getProperty('container');
+        $property->setAccessible(true);
+        return $property->getValue($client);
+    }
 }
