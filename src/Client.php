@@ -230,14 +230,11 @@ class Client implements ClientInterface
         $container->add('search', SearchApi::class);
         $container->add('facet', FacetApi::class);
         $container->add('info', InfoApi::class);
-        $container->add('token', TokenApi::class)
-            ->withArguments($arguments);
-        $container->add('textIngestion', TextIngestionApi::class)
-            ->withArguments($arguments);
-        $container->add('fileIngestion', FileIngestionApi::class)
-            ->withArguments($arguments);
-        $container->add('deleteDocument', DeleteApi::class)
-            ->withArguments($arguments);
+        $container->add('token', TokenApi::class);
+        $container->add('textIngestion', TextIngestionApi::class);
+
+        $container->add('fileIngestion', FileIngestionApi::class);
+        $container->add('deleteDocument', DeleteApi::class);
 
         // Inject the token service for APIs that are requesting it.
         $container->inflector(TokenAwareInterface::class)

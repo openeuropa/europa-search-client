@@ -75,7 +75,6 @@ abstract class ApiBase implements ApiInterface
     protected $headers = [];
 
     public function __construct(
-        array $configuration,
         OptionsResolver $optionsResolver,
         ClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
@@ -83,7 +82,9 @@ abstract class ApiBase implements ApiInterface
         UriFactoryInterface $uriFactory,
         MultipartStreamBuilder $multipartStreamBuilder,
         SerializerInterface $serializer,
-        EncoderInterface $jsonEncoder)
+        EncoderInterface $jsonEncoder,
+        array $configuration
+    )
     {
         $this->optionResolver = $optionsResolver;
         $this->httpClient = $httpClient;
