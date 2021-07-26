@@ -85,7 +85,6 @@ abstract class ApiBase implements ApiInterface
         SerializerInterface $serializer,
         EncoderInterface $jsonEncoder)
     {
-        $this->configuration = $configuration;
         $this->optionResolver = $optionsResolver;
         $this->httpClient = $httpClient;
         $this->requestFactory = $requestFactory;
@@ -94,13 +93,7 @@ abstract class ApiBase implements ApiInterface
         $this->multipartStreamBuilder = $multipartStreamBuilder;
         $this->serializer = $serializer;
         $this->jsonEncoder = $jsonEncoder;
-    }
 
-    /**
-     * @inheritDoc
-     */
-    public function setConfiguration(array $configuration): ApiInterface
-    {
         $validSchemaKeys = ['type', 'required', 'default', 'value'];
         $configSchema = $this->getConfigSchema();
 
@@ -124,8 +117,6 @@ abstract class ApiBase implements ApiInterface
         }
 
         $this->configuration = $this->optionResolver->resolve($configuration);
-
-        return $this;
     }
 
     /**
