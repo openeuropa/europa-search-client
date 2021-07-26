@@ -252,7 +252,8 @@ class Client implements ClientInterface
                     new ArrayDenormalizer(),
                 ], [
                     new JsonEncoder(),
-                ])],
+                ])
+                ],
                 'setJsonEncoder' => [new JsonEncoder()],
             ]);
 
