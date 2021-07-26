@@ -50,6 +50,7 @@ class ClientTest extends TestCase
         // Check container services.
         $this->assertInstanceOf(OptionsResolver::class, $container->get('optionResolver'));
         $this->assertInstanceOf(UriFactoryInterface::class, $container->get('uriFactory'));
+        $this->assertInstanceOf(MultipartStreamBuilder::class, $container->get('multipartStreamBuilder'));
         $this->assertInstanceOf(SearchApiInterface::class, $container->get('search'));
         $this->assertInstanceOf(FacetApiInterface::class, $container->get('facet'));
         $this->assertInstanceOf(InfoApiInterface::class, $container->get('info'));

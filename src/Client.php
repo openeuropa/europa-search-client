@@ -220,6 +220,8 @@ class Client implements ClientInterface
         // this because such a service might be called more than once during the
         // lifetime of a request, so internals set in a previous usage may leak
         // into the later usages.
+        $container->add('multipartStreamBuilder', MultipartStreamBuilder::class)
+            ->withArgument($streamFactory);
         $container->add('optionResolver', OptionsResolver::class);
         $container->add('search', SearchApi::class);
         $container->add('facet', FacetApi::class);
@@ -242,7 +244,7 @@ class Client implements ClientInterface
                 'setRequestFactory' => [$requestFactory],
                 'setStreamFactory' => [$streamFactory],
                 'setUriFactory' => ['uriFactory'],
-                'setMultipartStreamBuilder' => [new MultipartStreamBuilder($streamFactory)],
+                'setMultipartStreamBuilder' => ['multipartStreamBuilder'],
                 'setSerializer' => [new Serializer([
                     new GetSetMethodNormalizer(
                         null,
