@@ -53,6 +53,11 @@ class Client implements ClientInterface
     use ContainerAwareTrait;
 
     /**
+     * @var UriFactoryInterface
+     */
+    protected $uriFactory;
+
+    /**
      * @param HttpClientInterface     $httpClient
      * @param RequestFactoryInterface $requestFactory
      * @param StreamFactoryInterface  $streamFactory
@@ -66,6 +71,7 @@ class Client implements ClientInterface
         UriFactoryInterface $uriFactory,
         array $configuration
     ) {
+        $this->uriFactory = $uriFactory;
         $this->createContainer(
             $httpClient,
             $requestFactory,
@@ -149,7 +155,7 @@ class Client implements ClientInterface
         ?array $aclNoGroups = null
     ): Ingestion {
         return $this->getTextIngestionService()
-            ->setUri($this->getUriFactory()->createUri($uri))
+            ->setUri($this->uriFactory->createUri($uri))
             ->setText($text)
             ->setLanguages($languages)
             ->setMetadata(new Metadata($metadata))
@@ -176,7 +182,7 @@ class Client implements ClientInterface
         ?array $aclNoGroups = null
     ): Ingestion {
         return $this->getFileIngestionService()
-            ->setUri($this->getUriFactory()->createUri($uri))
+            ->setUri($this->uriFactory->createUri($uri))
             ->setFile($file)
             ->setLanguages($languages)
             ->setMetadata(new Metadata($metadata))
@@ -213,8 +219,6 @@ class Client implements ClientInterface
         array $configuration
     ): void {
         $container = new Container();
-        $container->share('uriFactory', $uriFactory);
-
         // API services are not shared, meaning that a new instance is created
         // every time the service is requested from the container. We're doing
         // this because such a service might be called more than once during the
@@ -243,7 +247,7 @@ class Client implements ClientInterface
                 'setHttpClient' => [$httpClient],
                 'setRequestFactory' => [$requestFactory],
                 'setStreamFactory' => [$streamFactory],
-                'setUriFactory' => ['uriFactory'],
+                'setUriFactory' => [$uriFactory],
                 'setMultipartStreamBuilder' => ['multipartStreamBuilder'],
                 'setSerializer' => [new Serializer([
                     new GetSetMethodNormalizer(
@@ -309,13 +313,5 @@ class Client implements ClientInterface
     protected function getDeleteService(): DeleteApiInterface
     {
         return $this->getContainer()->get('deleteDocument');
-    }
-
-    /**
-     * @return UriFactoryInterface
-     */
-    protected function getUriFactory(): UriFactoryInterface
-    {
-        return $this->getContainer()->get('uriFactory');
     }
 }
