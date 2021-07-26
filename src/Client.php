@@ -234,8 +234,10 @@ class Client implements ClientInterface
             ->withArguments($arguments);
         $container->add('textIngestion', TextIngestionApi::class)
             ->withArguments($arguments);
-        $container->add('fileIngestion', FileIngestionApi::class);
-        $container->add('deleteDocument', DeleteApi::class);
+        $container->add('fileIngestion', FileIngestionApi::class)
+            ->withArguments($arguments);
+        $container->add('deleteDocument', DeleteApi::class)
+            ->withArguments($arguments);
 
         // Inject the token service for APIs that are requesting it.
         $container->inflector(TokenAwareInterface::class)
