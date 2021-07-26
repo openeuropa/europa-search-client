@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
-use League\Container\Argument\RawArgument;
 use League\Container\Container;
 use League\Container\ContainerAwareTrait;
 use OpenEuropa\EuropaSearchClient\Api\DeleteApi;
@@ -214,31 +213,13 @@ class Client implements ClientInterface
         array $configuration
     ): void {
         $container = new Container();
-        $container->share('httpClient', $httpClient);
-        $container->share('requestFactory', $requestFactory);
-        $container->share('streamFactory', $streamFactory);
         $container->share('uriFactory', $uriFactory);
-        $container->share('jsonEncoder', JsonEncoder::class);
-        $container->share('serializer', Serializer::class)
-            ->withArgument([
-                new GetSetMethodNormalizer(
-                    null,
-                    new CamelCaseToSnakeCaseNameConverter(),
-                    new PhpDocExtractor()
-                ),
-                new ArrayDenormalizer(),
-            ])
-            ->withArgument(new RawArgument([$container->get('jsonEncoder')]));
-
-        $container->add('optionResolver', OptionsResolver::class);
 
         // API services are not shared, meaning that a new instance is created
         // every time the service is requested from the container. We're doing
         // this because such a service might be called more than once during the
         // lifetime of a request, so internals set in a previous usage may leak
         // into the later usages.
-        $container->add('multipartStreamBuilder', MultipartStreamBuilder::class)
-            ->withArgument($streamFactory);
         $container->add('search', SearchApi::class);
         $container->add('facet', FacetApi::class);
         $container->add('info', InfoApi::class);
@@ -254,15 +235,24 @@ class Client implements ClientInterface
         // Inject the services into APIs.
         $container->inflector(ApiInterface::class)
             ->invokeMethods([
-                'setOptionsResolver' => ['optionResolver'],
+                'setOptionsResolver' => [new OptionsResolver()],
                 'setConfiguration' => [$configuration],
-                'setHttpClient' => ['httpClient'],
-                'setRequestFactory' => ['requestFactory'],
-                'setStreamFactory' => ['streamFactory'],
+                'setHttpClient' => [$httpClient],
+                'setRequestFactory' => [$requestFactory],
+                'setStreamFactory' => [$streamFactory],
                 'setUriFactory' => ['uriFactory'],
-                'setMultipartStreamBuilder' => ['multipartStreamBuilder'],
-                'setSerializer' => ['serializer'],
-                'setJsonEncoder' => ['jsonEncoder'],
+                'setMultipartStreamBuilder' => [new MultipartStreamBuilder($streamFactory)],
+                'setSerializer' => [new Serializer([
+                    new GetSetMethodNormalizer(
+                        null,
+                        new CamelCaseToSnakeCaseNameConverter(),
+                        new PhpDocExtractor()
+                    ),
+                    new ArrayDenormalizer(),
+                ], [
+                    new JsonEncoder(),
+                ])],
+                'setJsonEncoder' => [new JsonEncoder()],
             ]);
 
         // Keep a reference to the container.
