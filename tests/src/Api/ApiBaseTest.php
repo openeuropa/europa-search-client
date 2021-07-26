@@ -29,7 +29,6 @@ class ApiBaseTest extends TestCase
         $reflection = new \ReflectionClass($client);
         $property = $reflection->getProperty('container');
         $property->setAccessible(true);
-
         $container = $property->getValue($client);
 
         $class = new \ReflectionClass($container->get('search'));
@@ -64,7 +63,6 @@ class ApiBaseTest extends TestCase
         $reflection = new \ReflectionClass($client);
         $property = $reflection->getProperty('container');
         $property->setAccessible(true);
-
         $container = $property->getValue($client);
 
         $container->get('search');

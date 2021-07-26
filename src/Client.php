@@ -83,6 +83,9 @@ class Client implements ClientInterface
         );
     }
 
+    /**
+     * @inheritDoc
+     */
     public function search(
         ?string $text = null,
         ?array $languages = null,
