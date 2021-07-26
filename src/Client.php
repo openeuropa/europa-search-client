@@ -13,7 +13,6 @@ use OpenEuropa\EuropaSearchClient\Api\InfoApi;
 use OpenEuropa\EuropaSearchClient\Api\SearchApi;
 use OpenEuropa\EuropaSearchClient\Api\TextIngestionApi;
 use OpenEuropa\EuropaSearchClient\Api\TokenApi;
-use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
 use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
@@ -231,8 +230,10 @@ class Client implements ClientInterface
         $container->add('search', SearchApi::class);
         $container->add('facet', FacetApi::class);
         $container->add('info', InfoApi::class);
-        $container->add('token', TokenApi::class);
-        $container->add('textIngestion', TextIngestionApi::class);
+        $container->add('token', TokenApi::class)
+            ->withArguments($arguments);
+        $container->add('textIngestion', TextIngestionApi::class)
+            ->withArguments($arguments);
         $container->add('fileIngestion', FileIngestionApi::class);
         $container->add('deleteDocument', DeleteApi::class);
 

@@ -74,6 +74,28 @@ abstract class ApiBase implements ApiInterface
      */
     protected $headers = [];
 
+    public function __construct(
+        array $configuration,
+        OptionsResolver $optionsResolver,
+        ClientInterface $httpClient,
+        RequestFactoryInterface $requestFactory,
+        StreamFactoryInterface $streamFactory,
+        UriFactoryInterface $uriFactory,
+        MultipartStreamBuilder $multipartStreamBuilder,
+        SerializerInterface $serializer,
+        EncoderInterface $jsonEncoder)
+    {
+        $this->configuration = $configuration;
+        $this->optionResolver = $optionsResolver;
+        $this->httpClient = $httpClient;
+        $this->requestFactory = $requestFactory;
+        $this->streamFactory = $streamFactory;
+        $this->uriFactory = $uriFactory;
+        $this->multipartStreamBuilder = $multipartStreamBuilder;
+        $this->serializer = $serializer;
+        $this->jsonEncoder = $jsonEncoder;
+    }
+
     /**
      * @inheritDoc
      */
