@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use League\Container\ContainerAwareInterface;
-use OpenEuropa\EuropaSearchClient\Model\Facet;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Search;
