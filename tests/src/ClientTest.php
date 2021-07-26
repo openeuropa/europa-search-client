@@ -48,6 +48,7 @@ class ClientTest extends TestCase
         $container = $client->getContainer();
 
         // Check container services.
+        $this->assertInstanceOf(OptionsResolver::class, $container->get('optionResolver'));
         $this->assertInstanceOf(UriFactoryInterface::class, $container->get('uriFactory'));
         $this->assertInstanceOf(SearchApiInterface::class, $container->get('search'));
         $this->assertInstanceOf(FacetApiInterface::class, $container->get('facet'));

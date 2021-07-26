@@ -85,10 +85,6 @@ abstract class ApiBase implements ApiInterface
         // Keep only configurations defined in schema.
         $configuration = array_intersect_key($configuration, $configSchema);
 
-        // Start on a fresh resolver. If this is API called after different API,
-        // in the same request, the option resolver has already definitions.
-        $this->optionResolver->clear();
-
         foreach ($configSchema as $configKey => $schema) {
             if ($invalidSchemaKeys = array_diff_key($schema, array_flip($validSchemaKeys))) {
                 throw new \InvalidArgumentException("The configuration schema of '" . __CLASS__ . "' API contains invalid keys: '" . implode(', ', array_keys($invalidSchemaKeys)) . "'.");

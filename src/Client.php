@@ -220,6 +220,7 @@ class Client implements ClientInterface
         // this because such a service might be called more than once during the
         // lifetime of a request, so internals set in a previous usage may leak
         // into the later usages.
+        $container->add('optionResolver', OptionsResolver::class);
         $container->add('search', SearchApi::class);
         $container->add('facet', FacetApi::class);
         $container->add('info', InfoApi::class);
@@ -235,7 +236,7 @@ class Client implements ClientInterface
         // Inject the services into APIs.
         $container->inflector(ApiInterface::class)
             ->invokeMethods([
-                'setOptionsResolver' => [new OptionsResolver()],
+                'setOptionsResolver' => ['optionResolver'],
                 'setConfiguration' => [$configuration],
                 'setHttpClient' => [$httpClient],
                 'setRequestFactory' => [$requestFactory],
