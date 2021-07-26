@@ -6,7 +6,6 @@ namespace OpenEuropa\EuropaSearchClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use League\Container\Container;
-use League\Container\ContainerAwareTrait;
 use OpenEuropa\EuropaSearchClient\Api\DeleteApi;
 use OpenEuropa\EuropaSearchClient\Api\FacetApi;
 use OpenEuropa\EuropaSearchClient\Api\FileIngestionApi;
@@ -50,7 +49,10 @@ use Symfony\Component\Serializer\Serializer;
  */
 class Client implements ClientInterface
 {
-    use ContainerAwareTrait;
+    /**
+     * @var \League\Container\ContainerInterface
+     */
+    protected $container;
 
     /**
      * @var UriFactoryInterface
@@ -81,10 +83,6 @@ class Client implements ClientInterface
         );
     }
 
-    /**
-     * @inheritDoc
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
-     */
     public function search(
         ?string $text = null,
         ?array $languages = null,
@@ -264,7 +262,7 @@ class Client implements ClientInterface
             ]);
 
         // Keep a reference to the container.
-        $this->setContainer($container);
+        $this->container = $container;
     }
 
     /**
@@ -272,7 +270,7 @@ class Client implements ClientInterface
      */
     protected function getSearchService(): SearchApiInterface
     {
-        return $this->getContainer()->get('search');
+        return $this->container->get('search');
     }
 
     /**
@@ -280,7 +278,7 @@ class Client implements ClientInterface
      */
     protected function getFacetService(): FacetApiInterface
     {
-        return $this->getContainer()->get('facet');
+        return $this->container->get('facet');
     }
 
     /**
@@ -288,7 +286,7 @@ class Client implements ClientInterface
      */
     protected function getInfoService(): InfoApiInterface
     {
-        return $this->getContainer()->get('info');
+        return $this->container->get('info');
     }
 
     /**
@@ -296,7 +294,7 @@ class Client implements ClientInterface
      */
     protected function getTextIngestionService(): TextIngestionApiInterface
     {
-        return $this->getContainer()->get('textIngestion');
+        return $this->container->get('textIngestion');
     }
 
     /**
@@ -304,7 +302,7 @@ class Client implements ClientInterface
      */
     protected function getFileIngestionService(): FileIngestionApiInterface
     {
-        return $this->getContainer()->get('fileIngestion');
+        return $this->container->get('fileIngestion');
     }
 
     /**
@@ -312,6 +310,6 @@ class Client implements ClientInterface
      */
     protected function getDeleteService(): DeleteApiInterface
     {
-        return $this->getContainer()->get('deleteDocument');
+        return $this->container->get('deleteDocument');
     }
 }
