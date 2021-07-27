@@ -14,13 +14,6 @@ use OpenEuropa\EuropaSearchClient\Api\SearchApi;
 use OpenEuropa\EuropaSearchClient\Api\TextIngestionApi;
 use OpenEuropa\EuropaSearchClient\Api\TokenApi;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
-use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\FileIngestionApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\InfoApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\EuropaSearchClient\Model\Info;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
@@ -31,13 +24,14 @@ use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
+use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * The client to interface with the Europa Search API calls.
@@ -54,9 +48,44 @@ class Client implements ClientInterface
     protected $container;
 
     /**
+     * @var array
+     */
+    protected $configuration;
+
+    /**
+     * @var \Psr\Http\Client\ClientInterface
+     */
+    protected $httpClient;
+
+    /**
+     * @var RequestFactoryInterface
+     */
+    protected $requestFactory;
+
+    /**
+     * @var StreamFactoryInterface
+     */
+    protected $streamFactory;
+
+    /**
      * @var UriFactoryInterface
      */
     protected $uriFactory;
+
+    /**
+     * @var MultipartStreamBuilder
+     */
+    protected $multipartStreamBuilder;
+
+    /**
+     * @var SerializerInterface
+     */
+    protected $serializer;
+
+    /**
+     * @var EncoderInterface
+     */
+    protected $jsonEncoder;
 
     /**
      * @param HttpClientInterface     $httpClient
@@ -72,14 +101,24 @@ class Client implements ClientInterface
         UriFactoryInterface $uriFactory,
         array $configuration
     ) {
+        $this->httpClient = $httpClient;
+        $this->requestFactory = $requestFactory;
+        $this->streamFactory = $streamFactory;
         $this->uriFactory = $uriFactory;
-        $this->createContainer(
-            $httpClient,
-            $requestFactory,
-            $streamFactory,
-            $uriFactory,
-            $configuration
-        );
+        $this->multipartStreamBuilder = new MultipartStreamBuilder($streamFactory);
+        $this->serializer = new Serializer([
+            new GetSetMethodNormalizer(
+                null,
+                new CamelCaseToSnakeCaseNameConverter(),
+                new PhpDocExtractor()
+            ),
+            new ArrayDenormalizer(),
+        ], [
+            new JsonEncoder(),
+        ]);
+        $this->jsonEncoder = new JsonEncoder();
+        $this->setConfiguration($configuration);
+        $this->createContainer();
     }
 
     /**
@@ -97,7 +136,16 @@ class Client implements ClientInterface
         ?int $highlightLimit = null,
         ?string $sessionToken = null
     ): Search {
-        return $this->getSearchService()
+        return (new SearchApi(
+            $this->httpClient,
+            $this->requestFactory,
+            $this->streamFactory,
+            $this->uriFactory,
+            $this->multipartStreamBuilder,
+            $this->serializer,
+            $this->jsonEncoder,
+            $this->configuration
+        ))
             ->setText($text)
             ->setLanguages($languages)
             ->setQuery($query)
@@ -121,7 +169,16 @@ class Client implements ClientInterface
         ?string $facetSort = null,
         ?string $sessionToken = null
     ): Facets {
-        return $this->getFacetService()
+        return (new FacetApi(
+            $this->httpClient,
+            $this->requestFactory,
+            $this->streamFactory,
+            $this->uriFactory,
+            $this->multipartStreamBuilder,
+            $this->serializer,
+            $this->jsonEncoder,
+            $this->configuration['search'],
+        ))
             ->setText($text)
             ->setLanguages($languages)
             ->setDisplayLanguage($displayLanguage)
@@ -136,7 +193,16 @@ class Client implements ClientInterface
      */
     public function getInfo(): Info
     {
-        return $this->getInfoService()
+        return (new InfoApi(
+            $this->httpClient,
+            $this->requestFactory,
+            $this->streamFactory,
+            $this->uriFactory,
+            $this->multipartStreamBuilder,
+            $this->serializer,
+            $this->jsonEncoder,
+            $this->configuration['info'],
+        ))
             ->execute();
     }
 
@@ -154,7 +220,17 @@ class Client implements ClientInterface
         ?array $aclGroups = null,
         ?array $aclNoGroups = null
     ): Ingestion {
-        return $this->getTextIngestionService()
+        return (new TextIngestionApi(
+            $this->httpClient,
+            $this->requestFactory,
+            $this->streamFactory,
+            $this->uriFactory,
+            $this->multipartStreamBuilder,
+            $this->serializer,
+            $this->jsonEncoder,
+            $this->configuration['textIngestion'],
+        ))
+            ->setTokenService($this->container->get('token'))
             ->setUri($this->uriFactory->createUri($uri))
             ->setText($text)
             ->setLanguages($languages)
@@ -181,7 +257,16 @@ class Client implements ClientInterface
         ?array $aclGroups = null,
         ?array $aclNoGroups = null
     ): Ingestion {
-        return $this->getFileIngestionService()
+        return (new FileIngestionApi(
+            $this->httpClient,
+            $this->requestFactory,
+            $this->streamFactory,
+            $this->uriFactory,
+            $this->multipartStreamBuilder,
+            $this->serializer,
+            $this->jsonEncoder,
+            $this->configuration['fileIngestion'],
+        ))
             ->setUri($this->uriFactory->createUri($uri))
             ->setFile($file)
             ->setLanguages($languages)
@@ -199,120 +284,80 @@ class Client implements ClientInterface
      */
     public function deleteDocument(string $reference): bool
     {
-        return $this->getDeleteService()
+        return (new DeleteApi(
+            $this->httpClient,
+            $this->requestFactory,
+            $this->streamFactory,
+            $this->uriFactory,
+            $this->multipartStreamBuilder,
+            $this->serializer,
+            $this->jsonEncoder,
+            $this->configuration['deleteDocument'],
+        ))
             ->setReference($reference)
             ->execute();
     }
 
-    /**
-     * @param HttpClientInterface     $httpClient
-     * @param RequestFactoryInterface $requestFactory
-     * @param StreamFactoryInterface  $streamFactory
-     * @param UriFactoryInterface     $uriFactory,
-     * @param array                   $configuration
-     */
-    private function createContainer(
-        HttpClientInterface $httpClient,
-        RequestFactoryInterface $requestFactory,
-        StreamFactoryInterface $streamFactory,
-        UriFactoryInterface $uriFactory,
-        array $configuration
-    ): void {
+    private function setConfiguration(array $configuration): void
+    {
+        if (isset($configuration['searchApiEndpoint'])) {
+            $this->configuration['search'] = [
+                'searchApiEndpoint' => $configuration['searchApiEndpoint'],
+                'apiKey' => $configuration['apiKey'],
+                'database' => $configuration['database'],
+            ];
+        }
+        if (isset($configuration['facetApiEndpoint'])) {
+            $this->configuration['facet'] = [
+                'facetApiEndpoint' => $configuration['facetApiEndpoint'],
+                'apiKey' => $configuration['apiKey'],
+                'database' => $configuration['database'],
+            ];
+        }
+        if (isset($configuration['textIngestionApiEndpoint'])) {
+            $this->configuration['textIngestion'] = [
+                'textIngestionApiEndpoint' => $configuration['textIngestionApiEndpoint'],
+                'apiKey' => $configuration['apiKey'],
+                'database' => $configuration['database'],
+            ];
+        }
+        if (isset($configuration['fileIngestionApiEndpoint'])) {
+            $this->configuration['fileIngestion'] = [
+                'fileIngestionApiEndpoint' => $configuration['fileIngestionApiEndpoint'],
+                'apiKey' => $configuration['apiKey'],
+                'database' => $configuration['database'],
+            ];
+        }
+        if (isset($configuration['deleteApiEndpoint'])) {
+            $this->configuration = [
+                'deleteApiEndpoint' => $configuration['deleteApiEndpoint'],
+                'apiKey' => $configuration['apiKey'],
+                'database' => $configuration['database'],
+            ];
+        }
+        if (isset($configuration['tokenApiEndpoint'])) {
+            $this->configuration['token'] = [
+                'tokenApiEndpoint' => $configuration['tokenApiEndpoint'],
+                'consumerKey' => $configuration['consumerKey'],
+                'consumerSecret' => $configuration['consumerSecret'],
+            ];
+        }
+    }
+
+    private function createContainer(): void
+    {
         $container = new Container();
-        // API services are not shared, meaning that a new instance is created
-        // every time the service is requested from the container. We're doing
-        // this because such a service might be called more than once during the
-        // lifetime of a request, so internals set in a previous usage may leak
-        // into the later usages.
-        $container->add('multipartStreamBuilder', MultipartStreamBuilder::class)
-            ->withArgument($streamFactory);
-        $container->add('optionResolver', OptionsResolver::class);
-        $container->add('search', SearchApi::class);
-        $container->add('facet', FacetApi::class);
-        $container->add('info', InfoApi::class);
-        $container->add('token', TokenApi::class);
-        $container->add('textIngestion', TextIngestionApi::class);
-
-        $container->add('fileIngestion', FileIngestionApi::class);
-        $container->add('deleteDocument', DeleteApi::class);
-
-        // Inject the token service for APIs that are requesting it.
-        $container->inflector(TokenAwareInterface::class)
-            ->invokeMethod('setTokenService', ['token']);
-
-        // Inject the services into APIs.
-        $container->inflector(ApiInterface::class)
-            ->invokeMethods([
-                'setOptionsResolver' => ['optionResolver'],
-                'setConfiguration' => [$configuration],
-                'setHttpClient' => [$httpClient],
-                'setRequestFactory' => [$requestFactory],
-                'setStreamFactory' => [$streamFactory],
-                'setUriFactory' => [$uriFactory],
-                'setMultipartStreamBuilder' => ['multipartStreamBuilder'],
-                'setSerializer' => [new Serializer([
-                    new GetSetMethodNormalizer(
-                        null,
-                        new CamelCaseToSnakeCaseNameConverter(),
-                        new PhpDocExtractor()
-                    ),
-                    new ArrayDenormalizer(),
-                ], [
-                    new JsonEncoder(),
-                ])
-                ],
-                'setJsonEncoder' => [new JsonEncoder()],
+        $container->add('token', TokenApi::class)
+            ->withArguments([
+                $this->httpClient,
+                $this->requestFactory,
+                $this->streamFactory,
+                $this->uriFactory,
+                $this->multipartStreamBuilder,
+                $this->serializer,
+                $this->jsonEncoder,
+                $this->configuration['token'],
             ]);
-
-        // Keep a reference to the container.
         $this->container = $container;
-    }
-
-    /**
-     * @return SearchApiInterface
-     */
-    protected function getSearchService(): SearchApiInterface
-    {
-        return $this->container->get('search');
-    }
-
-    /**
-     * @return \OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface
-     */
-    protected function getFacetService(): FacetApiInterface
-    {
-        return $this->container->get('facet');
-    }
-
-    /**
-     * @return InfoApiInterface
-     */
-    protected function getInfoService(): InfoApiInterface
-    {
-        return $this->container->get('info');
-    }
-
-    /**
-     * @return TextIngestionApiInterface
-     */
-    protected function getTextIngestionService(): TextIngestionApiInterface
-    {
-        return $this->container->get('textIngestion');
-    }
-
-    /**
-     * @return FileIngestionApiInterface
-     */
-    protected function getFileIngestionService(): FileIngestionApiInterface
-    {
-        return $this->container->get('fileIngestion');
-    }
-
-    /**
-     * @return DeleteApiInterface
-     */
-    protected function getDeleteService(): DeleteApiInterface
-    {
-        return $this->container->get('deleteDocument');
     }
 }

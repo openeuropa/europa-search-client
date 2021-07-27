@@ -30,11 +30,6 @@ abstract class ApiBase implements ApiInterface
     protected $configuration;
 
     /**
-     * @var OptionsResolver
-     */
-    protected $optionResolver;
-
-    /**
      * @var ClientInterface
      */
     protected $httpClient;
@@ -75,7 +70,6 @@ abstract class ApiBase implements ApiInterface
     protected $headers = [];
 
     public function __construct(
-        OptionsResolver $optionsResolver,
         ClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
         StreamFactoryInterface $streamFactory,
@@ -84,9 +78,7 @@ abstract class ApiBase implements ApiInterface
         SerializerInterface $serializer,
         EncoderInterface $jsonEncoder,
         array $configuration
-    )
-    {
-        $this->optionResolver = $optionsResolver;
+    ) {
         $this->httpClient = $httpClient;
         $this->requestFactory = $requestFactory;
         $this->streamFactory = $streamFactory;
@@ -100,24 +92,24 @@ abstract class ApiBase implements ApiInterface
 
         // Keep only configurations defined in schema.
         $configuration = array_intersect_key($configuration, $configSchema);
-
+        $optionsResolver = new OptionsResolver();
         foreach ($configSchema as $configKey => $schema) {
             if ($invalidSchemaKeys = array_diff_key($schema, array_flip($validSchemaKeys))) {
                 throw new \InvalidArgumentException("The configuration schema of '" . __CLASS__ . "' API contains invalid keys: '" . implode(', ', array_keys($invalidSchemaKeys)) . "'.");
             }
             $method = empty($schema['required']) ? 'setDefined' : 'setRequired';
-            $this->optionResolver
+            $optionsResolver
                 ->{$method}($configKey)
                 ->addAllowedTypes($configKey, $schema['type']);
             if (isset($schema['default'])) {
-                $this->optionResolver->setDefault($configKey, $schema['default']);
+                $optionsResolver->setDefault($configKey, $schema['default']);
             }
             if (isset($schema['value'])) {
-                $this->optionResolver->setAllowedValues($configKey, $schema['value']);
+                $optionsResolver->setAllowedValues($configKey, $schema['value']);
             }
         }
 
-        $this->configuration = $this->optionResolver->resolve($configuration);
+        $this->configuration = $optionsResolver->resolve($configuration);
     }
 
     /**

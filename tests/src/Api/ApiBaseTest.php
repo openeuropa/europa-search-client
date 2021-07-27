@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\EuropaSearchClient\Api;
 
+use OpenEuropa\EuropaSearchClient\Api\SearchApi;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -27,7 +28,7 @@ class ApiBaseTest extends TestCase
         ]);
         $container = $this->getClientContainer($client);
 
-        $class = new \ReflectionClass($container->get('search'));
+        $class = new \ReflectionClass(new SearchApi());
         $method = $class->getMethod('getConfigValue');
         $method->setAccessible(true);
 

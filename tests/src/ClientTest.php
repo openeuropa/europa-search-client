@@ -10,7 +10,6 @@ use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\FileIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\InfoApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenApiInterface;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
@@ -42,17 +41,7 @@ class ClientTest extends TestCase
         $container = $this->getClientContainer($client);
 
         // Check container services.
-        $this->assertInstanceOf(OptionsResolver::class, $container->get('optionResolver'));
         $this->assertInstanceOf(MultipartStreamBuilder::class, $container->get('multipartStreamBuilder'));
-        $this->assertInstanceOf(SearchApiInterface::class, $container->get('search'));
-        $this->assertInstanceOf(FacetApiInterface::class, $container->get('facet'));
-        $this->assertInstanceOf(InfoApiInterface::class, $container->get('info'));
         $this->assertInstanceOf(TokenApiInterface::class, $container->get('token'));
-        $this->assertInstanceOf(TextIngestionApiInterface::class, $container->get('textIngestion'));
-        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('textIngestion'));
-        $this->assertInstanceOf(FileIngestionApiInterface::class, $container->get('fileIngestion'));
-        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('fileIngestion'));
-        $this->assertInstanceOf(DeleteApiInterface::class, $container->get('deleteDocument'));
-        $this->assertInstanceOf(TokenAwareInterface::class, $container->get('deleteDocument'));
     }
 }
