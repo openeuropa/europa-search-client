@@ -28,7 +28,7 @@ trait TokenAwareTrait
      */
     public function getRequestHeaders(): array
     {
-        $token = $this->tokenService->getToken();
+        $token = $this->tokenService->execute();
         return [
             'Authorization' => "{$token->getTokenType()} {$token->getAccessToken()}",
             'Authorization-propagation' => $token->getAccessToken(),

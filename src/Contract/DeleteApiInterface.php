@@ -9,7 +9,7 @@ interface DeleteApiInterface extends ApiInterface, TokenAwareInterface
     /**
      * @return bool
      */
-    public function deleteDocument(): bool;
+    public function execute(): bool;
 
     /**
      * @param string $reference

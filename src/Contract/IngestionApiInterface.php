@@ -13,7 +13,7 @@ interface IngestionApiInterface extends ApiInterface, TokenAwareInterface, Langu
     /**
      * @return \OpenEuropa\EuropaSearchClient\Model\Ingestion
      */
-    public function ingest(): Ingestion;
+    public function execute(): Ingestion;
 
     /**
      * @param UriInterface $uri

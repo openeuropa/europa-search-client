@@ -39,7 +39,7 @@ class ClientTest extends TestCase
             'fileIngestionApiEndpoint' => 'http://example.com/ingest/file',
             'deleteApiEndpoint'  => 'http://example.com/ingest/delete',
         ]);
-        $container = $this->getClientContainerProperty($client);
+        $container = $this->getClientContainer($client);
 
         // Check container services.
         $this->assertInstanceOf(OptionsResolver::class, $container->get('optionResolver'));

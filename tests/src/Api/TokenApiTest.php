@@ -28,9 +28,9 @@ class TokenApiTest extends TestCase
     public function testToken(array $clientConfig, array $responses, $expectedResult): void
     {
         $client = $this->getTestingClient($clientConfig, $responses);
-        $container = $this->getClientContainerProperty($client);
+        $container = $this->getClientContainer($client);
 
-        $this->assertEquals($expectedResult, $container->get('token')->getToken());
+        $this->assertEquals($expectedResult, $container->get('token')->execute());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
         $this->inspectTokenRequest($request);

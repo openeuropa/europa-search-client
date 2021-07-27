@@ -11,5 +11,5 @@ interface TokenApiInterface extends ApiInterface
     /**
      * @return \OpenEuropa\EuropaSearchClient\Model\Token
      */
-    public function getToken(): Token;
+    public function execute(): Token;
 }

@@ -32,7 +32,7 @@ class DeleteApi extends ApiBase implements DeleteApiInterface
     /**
      * @inheritDoc
      */
-    public function deleteDocument(): bool
+    public function execute(): bool
     {
         return $this->send('DELETE')->getStatusCode() === 200;
     }

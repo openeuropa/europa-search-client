@@ -41,7 +41,7 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
     /**
      * @inheritDoc
      */
-    public function getFacets(): Facets
+    public function execute(): Facets
     {
         /** @var Facets $facets */
         $facets = $this->serializer->deserialize(

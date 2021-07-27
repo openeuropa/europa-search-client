@@ -108,7 +108,7 @@ class Client implements ClientInterface
             ->setHighlightRegex($highlightRegex)
             ->setHighlightLimit($highlightLimit)
             ->setSessionToken($sessionToken)
-            ->search();
+            ->execute();
     }
 
     /**
@@ -129,7 +129,7 @@ class Client implements ClientInterface
             ->setQuery($query)
             ->setFacetSort($facetSort)
             ->setSessionToken($sessionToken)
-            ->getFacets();
+            ->execute();
     }
 
     /**
@@ -138,7 +138,7 @@ class Client implements ClientInterface
     public function getInfo(): Info
     {
         return $this->getInfoService()
-            ->getInfo();
+            ->execute();
     }
 
     /**
@@ -165,7 +165,7 @@ class Client implements ClientInterface
             ->setAclNoUsers($aclNoUsers)
             ->setAclGroups($aclGroups)
             ->setAclNoGroups($aclNoGroups)
-            ->ingest();
+            ->execute();
     }
 
     /**
@@ -192,7 +192,7 @@ class Client implements ClientInterface
             ->setAclNoUsers($aclNoUsers)
             ->setAclGroups($aclGroups)
             ->setAclNoGroups($aclNoGroups)
-            ->ingest();
+            ->execute();
     }
 
     /**
@@ -202,7 +202,7 @@ class Client implements ClientInterface
     {
         return $this->getDeleteService()
             ->setReference($reference)
-            ->deleteDocument();
+            ->execute();
     }
 
     /**

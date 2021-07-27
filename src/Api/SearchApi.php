@@ -42,7 +42,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function search(): Search
+    public function execute(): Search
     {
         /** @var Search $search */
         $search = $this->serializer->deserialize(

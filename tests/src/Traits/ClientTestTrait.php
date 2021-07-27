@@ -44,7 +44,7 @@ trait ClientTestTrait
      * @param ClientInterface $client
      * @return mixed
      */
-    protected function getClientContainerProperty(ClientInterface $client)
+    protected function getClientContainer(ClientInterface $client)
     {
         $reflection = new \ReflectionClass($client);
         $property = $reflection->getProperty('container');
