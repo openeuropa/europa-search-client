@@ -71,17 +71,6 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function getConfigSchema(): array
-    {
-        return [
-            'apiKey' => $this->getRequiredStringSchema(),
-            'database' => $this->getRequiredStringSchema(),
-        ];
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getRequestUriQuery(UriInterface $uri): array
     {
         $query = [

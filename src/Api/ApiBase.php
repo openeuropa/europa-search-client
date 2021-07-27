@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
-use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
 use OpenEuropa\EuropaSearchClient\Exception\InvalidStatusCodeException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
@@ -22,7 +21,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 /**
  * Base class for Europa Search APIs.
  */
-abstract class ApiBase implements ApiInterface
+abstract class ApiBase
 {
     /**
      * @var array
@@ -86,31 +85,13 @@ abstract class ApiBase implements ApiInterface
         $this->multipartStreamBuilder = $multipartStreamBuilder;
         $this->serializer = $serializer;
         $this->jsonEncoder = $jsonEncoder;
-
-        $validSchemaKeys = ['type', 'required', 'default', 'value'];
-        $configSchema = $this->getConfigSchema();
-
-        // Keep only configurations defined in schema.
-        $configuration = array_intersect_key($configuration, $configSchema);
-        $optionsResolver = new OptionsResolver();
-        foreach ($configSchema as $configKey => $schema) {
-            if ($invalidSchemaKeys = array_diff_key($schema, array_flip($validSchemaKeys))) {
-                throw new \InvalidArgumentException("The configuration schema of '" . __CLASS__ . "' API contains invalid keys: '" . implode(', ', array_keys($invalidSchemaKeys)) . "'.");
-            }
-            $method = empty($schema['required']) ? 'setDefined' : 'setRequired';
-            $optionsResolver
-                ->{$method}($configKey)
-                ->addAllowedTypes($configKey, $schema['type']);
-            if (isset($schema['default'])) {
-                $optionsResolver->setDefault($configKey, $schema['default']);
-            }
-            if (isset($schema['value'])) {
-                $optionsResolver->setAllowedValues($configKey, $schema['value']);
-            }
-        }
-
-        $this->configuration = $optionsResolver->resolve($configuration);
+        $this->setConfiguration($configuration);
     }
+
+    /**
+     * @param array $configuration
+     */
+    abstract protected function setConfiguration(array $configuration): void;
 
     /**
      * @param string $configKey

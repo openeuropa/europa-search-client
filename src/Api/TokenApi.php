@@ -6,6 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\TokenApiInterface;
 use OpenEuropa\EuropaSearchClient\Model\Token;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Token API.
@@ -29,13 +30,22 @@ class TokenApi extends ApiBase implements TokenApiInterface
     /**
      * @inheritDoc
      */
-    public function getConfigSchema(): array
+    protected function setConfiguration(array $configuration): void
     {
-        return [
-            'tokenApiEndpoint' => $this->getEndpointSchema(),
-            'consumerKey' => $this->getRequiredStringSchema(),
-            'consumerSecret' => $this->getRequiredStringSchema(),
-        ];
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setRequired('consumerKey')
+            ->setAllowedTypes('consumerKey', 'string')
+            ->setDefault('consumerKey', $configuration['consumerKey']);
+        $optionsResolver->setRequired('consumerSecret')
+            ->setAllowedTypes('consumerSecret', 'string')
+            ->setDefault('consumerSecret', $configuration['consumerSecret']);
+        $optionsResolver->setRequired('tokenApiEndpoint')
+            ->setAllowedTypes('tokenApiEndpoint', 'string')
+            ->setDefault('tokenApiEndpoint', $configuration['tokenApiEndpoint'])
+            ->setAllowedValues('tokenApiEndpoint', function (string $value) {
+                return filter_var($value, FILTER_VALIDATE_URL);
+            });
+        $this->configuration = $optionsResolver->resolve($configuration);
     }
 
     /**

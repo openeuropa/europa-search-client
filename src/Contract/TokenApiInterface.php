@@ -6,7 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use OpenEuropa\EuropaSearchClient\Model\Token;
 
-interface TokenApiInterface extends ApiInterface
+interface TokenApiInterface
 {
     /**
      * @return \OpenEuropa\EuropaSearchClient\Model\Token

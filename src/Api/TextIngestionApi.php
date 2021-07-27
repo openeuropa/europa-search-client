@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient\Api;
 
 use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Text ingestion API.
@@ -19,11 +20,22 @@ class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInter
     /**
      * @inheritDoc
      */
-    public function getConfigSchema(): array
+    protected function setConfiguration(array $configuration): void
     {
-        return [
-            'textIngestionApiEndpoint' => $this->getEndpointSchema(),
-        ] + parent::getConfigSchema();
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setRequired('apiKey')
+            ->setAllowedTypes('apiKey', 'string')
+            ->setDefault('apiKey', $configuration['apiKey']);
+        $optionsResolver->setRequired('database')
+            ->setAllowedTypes('database', 'string')
+            ->setDefault('database', $configuration['database']);
+        $optionsResolver->setRequired('textIngestionApiEndpoint')
+            ->setAllowedTypes('textIngestionApiEndpoint', 'string')
+            ->setDefault('textIngestionApiEndpoint', $configuration['textIngestionApiEndpoint'])
+            ->setAllowedValues('textIngestionApiEndpoint', function (string $value) {
+                return filter_var($value, FILTER_VALIDATE_URL);
+            });
+        $this->configuration = $optionsResolver->resolve($configuration);
     }
 
     /**

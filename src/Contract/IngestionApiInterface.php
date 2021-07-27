@@ -8,7 +8,7 @@ use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use Psr\Http\Message\UriInterface;
 
-interface IngestionApiInterface extends ApiInterface, TokenAwareInterface, LanguagesAwareInterface
+interface IngestionApiInterface extends TokenAwareInterface, LanguagesAwareInterface
 {
     /**
      * @return \OpenEuropa\EuropaSearchClient\Model\Ingestion
