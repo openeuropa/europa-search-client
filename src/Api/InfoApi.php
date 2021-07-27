@@ -30,7 +30,7 @@ class InfoApi extends ApiBase implements InfoApiInterface
     /**
      * @inheritDoc
      */
-    public function getInfo(): Info
+    public function execute(): Info
     {
         /** @var Info $info */
         $info = $this->serializer->deserialize(

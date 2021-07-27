@@ -11,5 +11,5 @@ interface InfoApiInterface extends ApiInterface
     /**
      * @return Info
      */
-    public function getInfo(): Info;
+    public function execute(): Info;
 }

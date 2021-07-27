@@ -11,7 +11,7 @@ interface FacetApiInterface extends SearchApiBaseInterface
     /**
      * @return Facets
      */
-    public function getFacets(): Facets;
+    public function execute(): Facets;
 
     /**
      * @param string|null $displayLanguage

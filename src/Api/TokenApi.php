@@ -15,7 +15,7 @@ class TokenApi extends ApiBase implements TokenApiInterface
     /**
      * @inheritDoc
      */
-    public function getToken(): Token
+    public function execute(): Token
     {
         /** @var Token $token */
         $token = $this->serializer->deserialize(

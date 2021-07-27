@@ -57,7 +57,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function ingest(): Ingestion
+    public function execute(): Ingestion
     {
         /** @var Ingestion $ingestion */
         $ingestion = $this->serializer->deserialize(
