@@ -56,24 +56,6 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function getConfigSchema(): array
-    {
-        return [
-            'searchApiEndpoint' => $this->getEndpointSchema(),
-        ] + parent::getConfigSchema();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getEndpointUri(): string
-    {
-        return $this->getConfigValue('searchApiEndpoint');
-    }
-
-    /**
-     * @inheritDoc
-     */
     protected function getRequestUriQuery(UriInterface $uri): array
     {
         $query = parent::getRequestUriQuery($uri);

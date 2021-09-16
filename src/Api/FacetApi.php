@@ -55,24 +55,6 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
     /**
      * @inheritDoc
      */
-    public function getConfigSchema(): array
-    {
-        return [
-            'facetApiEndpoint' => $this->getEndpointSchema(),
-        ] + parent::getConfigSchema();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getEndpointUri(): string
-    {
-        return $this->getConfigValue('facetApiEndpoint');
-    }
-
-    /**
-     * @inheritDoc
-     */
     protected function getRequestUriQuery(UriInterface $uri): array
     {
         $query = parent::getRequestUriQuery($uri);

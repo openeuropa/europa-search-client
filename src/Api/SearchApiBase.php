@@ -8,7 +8,7 @@ use OpenEuropa\EuropaSearchClient\Contract\SearchApiBaseInterface;
 use OpenEuropa\EuropaSearchClient\Traits\LanguagesAwareTrait;
 use Psr\Http\Message\UriInterface;
 
-abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
+abstract class SearchApiBase extends DatabaseApiBase implements SearchApiBaseInterface
 {
     use LanguagesAwareTrait;
 
@@ -26,17 +26,6 @@ abstract class SearchApiBase extends ApiBase implements SearchApiBaseInterface
      * @var string
      */
     protected $sessionToken;
-
-    /**
-     * @inheritDoc
-     */
-    public function getConfigSchema(): array
-    {
-        return [
-            'apiKey' => $this->getRequiredStringSchema(),
-            'database' => $this->getRequiredStringSchema(),
-        ];
-    }
 
     /**
      * @inheritDoc

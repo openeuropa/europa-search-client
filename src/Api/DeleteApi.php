@@ -8,7 +8,7 @@ use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
 use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
 use Psr\Http\Message\UriInterface;
 
-class DeleteApi extends ApiBase implements DeleteApiInterface
+class DeleteApi extends DatabaseApiBase implements DeleteApiInterface
 {
     use TokenAwareTrait;
 
@@ -16,18 +16,6 @@ class DeleteApi extends ApiBase implements DeleteApiInterface
      * @var string
      */
     protected $reference;
-
-    /**
-     * @inheritDoc
-     */
-    public function getConfigSchema(): array
-    {
-        return [
-            'apiKey' => $this->getRequiredStringSchema(),
-            'database' => $this->getRequiredStringSchema(),
-            'deleteApiEndpoint' => $this->getEndpointSchema(),
-        ];
-    }
 
     /**
      * @inheritDoc
@@ -47,14 +35,6 @@ class DeleteApi extends ApiBase implements DeleteApiInterface
             'database' => $this->getConfigValue('database'),
             'reference' => $this->getReference(),
         ] + parent::getRequestUriQuery($uri);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getEndpointUri(): string
-    {
-        return $this->getConfigValue('deleteApiEndpoint');
     }
 
     /**

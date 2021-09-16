@@ -19,16 +19,6 @@ class FileIngestionApi extends IngestionApiBase implements FileIngestionApiInter
     /**
      * @inheritDoc
      */
-    public function getConfigSchema(): array
-    {
-        return [
-            'fileIngestionApiEndpoint' => $this->getEndpointSchema(),
-        ] + parent::getConfigSchema();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getRequestMultipartStreamElements(): array
     {
         $parts = parent::getRequestMultipartStreamElements();
@@ -42,14 +32,6 @@ class FileIngestionApi extends IngestionApiBase implements FileIngestionApiInter
         }
 
         return $parts;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getEndpointUri(): string
-    {
-        return $this->getConfigValue('fileIngestionApiEndpoint');
     }
 
     /**

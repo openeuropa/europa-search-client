@@ -19,16 +19,6 @@ class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInter
     /**
      * @inheritDoc
      */
-    public function getConfigSchema(): array
-    {
-        return [
-            'textIngestionApiEndpoint' => $this->getEndpointSchema(),
-        ] + parent::getConfigSchema();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getRequestMultipartStreamElements(): array
     {
         $parts = parent::getRequestMultipartStreamElements();
@@ -41,14 +31,6 @@ class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInter
         }
 
         return $parts;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getEndpointUri(): string
-    {
-        return $this->getConfigValue('textIngestionApiEndpoint');
     }
 
     /**

@@ -14,7 +14,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Ingestion API.
  */
-abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
+abstract class IngestionApiBase extends DatabaseApiBase implements IngestionApiInterface
 {
     use LanguagesAwareTrait;
     use TokenAwareTrait;
@@ -66,17 +66,6 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
             'json'
         );
         return $ingestion;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getConfigSchema(): array
-    {
-        return [
-            'apiKey' => $this->getRequiredStringSchema(),
-            'database' => $this->getRequiredStringSchema(),
-        ];
     }
 
     /**

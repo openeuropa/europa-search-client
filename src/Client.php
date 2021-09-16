@@ -50,6 +50,11 @@ use Symfony\Component\Serializer\Serializer;
 class Client implements ClientInterface
 {
     /**
+     * @var array
+     */
+    protected $configuration = [];
+
+    /**
      * @var \League\Container\ContainerInterface
      */
     protected $container;
@@ -74,12 +79,12 @@ class Client implements ClientInterface
         array $configuration
     ) {
         $this->uriFactory = $uriFactory;
+        $this->configuration = $configuration;
         $this->createContainer(
             $httpClient,
             $requestFactory,
             $streamFactory,
             $uriFactory,
-            $configuration
         );
     }
 
@@ -98,7 +103,14 @@ class Client implements ClientInterface
         ?int $highlightLimit = null,
         ?string $sessionToken = null
     ): Search {
-        return $this->getSearchService()
+        /** @var SearchApiInterface $endpoint */
+        $endpoint = $this->container->get('search');
+        return $endpoint
+            ->setConfiguration([
+                'apiEndpoint' => $this->configuration['searchApiEndpoint'] ?? null,
+                'apiKey' => $this->configuration['apiKey'] ?? null,
+                'database' => $this->configuration['database'] ?? null,
+            ])
             ->setText($text)
             ->setLanguages($languages)
             ->setQuery($query)
@@ -122,7 +134,14 @@ class Client implements ClientInterface
         ?string $facetSort = null,
         ?string $sessionToken = null
     ): Facets {
-        return $this->getFacetService()
+        /** @var FacetApiInterface $endpoint */
+        $endpoint = $this->container->get('facet');
+        return $endpoint
+            ->setConfiguration([
+                'apiEndpoint' => $this->configuration['facetApiEndpoint'] ?? null,
+                'apiKey' => $this->configuration['apiKey'] ?? null,
+                'database' => $this->configuration['database'] ?? null,
+            ])
             ->setText($text)
             ->setLanguages($languages)
             ->setDisplayLanguage($displayLanguage)
@@ -137,7 +156,12 @@ class Client implements ClientInterface
      */
     public function getInfo(): Info
     {
-        return $this->getInfoService()
+        /** @var InfoApiInterface $endpoint */
+        $endpoint = $this->container->get('info');
+        return $endpoint
+            ->setConfiguration([
+                'apiEndpoint' => $this->configuration['infoApiEndpoint'] ?? null,
+            ])
             ->execute();
     }
 
@@ -155,7 +179,14 @@ class Client implements ClientInterface
         ?array $aclGroups = null,
         ?array $aclNoGroups = null
     ): Ingestion {
-        return $this->getTextIngestionService()
+        /** @var TextIngestionApiInterface $endpoint */
+        $endpoint = $this->container->get('textIngestion');
+        return $endpoint
+            ->setConfiguration([
+                'apiKey' => $this->configuration['apiKey'] ?? null,
+                'database' => $this->configuration['database'] ?? null,
+                'apiEndpoint' => $this->configuration['textIngestionApiEndpoint'] ?? null,
+            ])
             ->setUri($this->uriFactory->createUri($uri))
             ->setText($text)
             ->setLanguages($languages)
@@ -182,7 +213,14 @@ class Client implements ClientInterface
         ?array $aclGroups = null,
         ?array $aclNoGroups = null
     ): Ingestion {
-        return $this->getFileIngestionService()
+        /** @var FileIngestionApiInterface $endpoint */
+        $endpoint = $this->container->get('fileIngestion');
+        return $endpoint
+            ->setConfiguration([
+                'apiEndpoint' => $this->configuration['fileIngestionApiEndpoint'] ?? null,
+                'apiKey' => $this->configuration['apiKey'] ?? null,
+                'database' => $this->configuration['database'] ?? null,
+            ])
             ->setUri($this->uriFactory->createUri($uri))
             ->setFile($file)
             ->setLanguages($languages)
@@ -200,7 +238,14 @@ class Client implements ClientInterface
      */
     public function deleteDocument(string $reference): bool
     {
-        return $this->getDeleteService()
+        /** @var DeleteApiInterface $endpoint */
+        $endpoint = $this->container->get('deleteDocument');
+        return $endpoint
+            ->setConfiguration([
+                'apiEndpoint' => $this->configuration['deleteApiEndpoint'] ?? null,
+                'apiKey' => $this->configuration['apiKey'] ?? null,
+                'database' => $this->configuration['database'] ?? null,
+            ])
             ->setReference($reference)
             ->execute();
     }
@@ -209,15 +254,13 @@ class Client implements ClientInterface
      * @param HttpClientInterface     $httpClient
      * @param RequestFactoryInterface $requestFactory
      * @param StreamFactoryInterface  $streamFactory
-     * @param UriFactoryInterface     $uriFactory,
-     * @param array                   $configuration
+     * @param UriFactoryInterface     $uriFactory
      */
     private function createContainer(
         HttpClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
         StreamFactoryInterface $streamFactory,
-        UriFactoryInterface $uriFactory,
-        array $configuration
+        UriFactoryInterface $uriFactory
     ): void {
         $container = new Container();
         // API services are not shared, meaning that a new instance is created
@@ -231,10 +274,14 @@ class Client implements ClientInterface
         $container->add('search', SearchApi::class);
         $container->add('facet', FacetApi::class);
         $container->add('info', InfoApi::class);
-        $container->add('token', TokenApi::class);
         $container->add('textIngestion', TextIngestionApi::class);
         $container->add('fileIngestion', FileIngestionApi::class);
         $container->add('deleteDocument', DeleteApi::class);
+
+        // Since the token service is injected into other endpoints,
+        // set the configuration when it gets instantiated.
+        $container->add('token', TokenApi::class)
+            ->withMethodCall('setConfiguration', [$this->getTokenConfiguration()]);
 
         // Inject the token service for APIs that are requesting it.
         $container->inflector(TokenAwareInterface::class)
@@ -269,50 +316,16 @@ class Client implements ClientInterface
     }
 
     /**
-     * @return SearchApiInterface
+     * Returns the configuration values for the token endpoint.
+     *
+     * @return array
      */
-    protected function getSearchService(): SearchApiInterface
+    private function getTokenConfiguration(): array
     {
-        return $this->container->get('search');
-    }
-
-    /**
-     * @return \OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface
-     */
-    protected function getFacetService(): FacetApiInterface
-    {
-        return $this->container->get('facet');
-    }
-
-    /**
-     * @return InfoApiInterface
-     */
-    protected function getInfoService(): InfoApiInterface
-    {
-        return $this->container->get('info');
-    }
-
-    /**
-     * @return TextIngestionApiInterface
-     */
-    protected function getTextIngestionService(): TextIngestionApiInterface
-    {
-        return $this->container->get('textIngestion');
-    }
-
-    /**
-     * @return FileIngestionApiInterface
-     */
-    protected function getFileIngestionService(): FileIngestionApiInterface
-    {
-        return $this->container->get('fileIngestion');
-    }
-
-    /**
-     * @return DeleteApiInterface
-     */
-    protected function getDeleteService(): DeleteApiInterface
-    {
-        return $this->container->get('deleteDocument');
+        return [
+            'consumerKey' => $this->configuration['consumerKey'] ?? null,
+            'consumerSecret' => $this->configuration['consumerSecret'] ?? null,
+            'apiEndpoint' => $this->configuration['tokenApiEndpoint'] ?? null,
+        ];
     }
 }

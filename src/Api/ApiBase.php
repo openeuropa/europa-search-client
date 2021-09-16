@@ -16,7 +16,13 @@ use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -28,11 +34,6 @@ abstract class ApiBase implements ApiInterface
      * @var array
      */
     protected $configuration;
-
-    /**
-     * @var OptionsResolver
-     */
-    protected $optionResolver;
 
     /**
      * @var ClientInterface
@@ -79,39 +80,8 @@ abstract class ApiBase implements ApiInterface
      */
     public function setConfiguration(array $configuration): ApiInterface
     {
-        $validSchemaKeys = ['type', 'required', 'default', 'value'];
-        $configSchema = $this->getConfigSchema();
+        $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
 
-        // Keep only configurations defined in schema.
-        $configuration = array_intersect_key($configuration, $configSchema);
-
-        foreach ($configSchema as $configKey => $schema) {
-            if ($invalidSchemaKeys = array_diff_key($schema, array_flip($validSchemaKeys))) {
-                throw new \InvalidArgumentException("The configuration schema of '" . __CLASS__ . "' API contains invalid keys: '" . implode(', ', array_keys($invalidSchemaKeys)) . "'.");
-            }
-            $method = empty($schema['required']) ? 'setDefined' : 'setRequired';
-            $this->optionResolver
-                ->{$method}($configKey)
-                ->addAllowedTypes($configKey, $schema['type']);
-            if (isset($schema['default'])) {
-                $this->optionResolver->setDefault($configKey, $schema['default']);
-            }
-            if (isset($schema['value'])) {
-                $this->optionResolver->setAllowedValues($configKey, $schema['value']);
-            }
-        }
-
-        $this->configuration = $this->optionResolver->resolve($configuration);
-
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setOptionsResolver(OptionsResolver $optionsResolver): ApiInterface
-    {
-        $this->optionResolver = $optionsResolver;
         return $this;
     }
 
@@ -154,19 +124,9 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setMultipartStreamBuilder(
-        MultipartStreamBuilder $multipartStreamBuilder
-    ): ApiInterface {
-        $this->multipartStreamBuilder = $multipartStreamBuilder;
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setSerializer(SerializerInterface $serializer): ApiInterface
+    public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): ApiInterface
     {
-        $this->serializer = $serializer;
+        $this->multipartStreamBuilder = $multipartStreamBuilder;
         return $this;
     }
 
@@ -177,6 +137,24 @@ abstract class ApiBase implements ApiInterface
     {
         $this->jsonEncoder = $jsonEncoder;
         return $this;
+    }
+
+    /**
+     * Returns an option resolver configured to validate the configuration.
+     *
+     * @return OptionsResolver
+     */
+    protected function getConfigurationResolver(): OptionsResolver
+    {
+        $resolver = new OptionsResolver();
+
+        $resolver->setRequired('apiEndpoint')
+            ->setAllowedTypes('apiEndpoint', 'string')
+            ->setAllowedValues('apiEndpoint', function (string $value) {
+                return filter_var($value, FILTER_VALIDATE_URL);
+            });
+
+        return $resolver;
     }
 
     /**
@@ -232,17 +210,12 @@ abstract class ApiBase implements ApiInterface
     }
 
     /**
-     * @return string
-     */
-    abstract protected function getEndpointUri(): string;
-
-    /**
      *
      * @return string
      */
     protected function getRequestUri(): string
     {
-        $uri = $this->uriFactory->createUri($this->getEndpointUri());
+        $uri = $this->uriFactory->createUri($this->getConfigValue('apiEndpoint'));
         $query = $this->getRequestUriQuery($uri);
         return $uri->withQuery(http_build_query($query))->__toString();
     }
