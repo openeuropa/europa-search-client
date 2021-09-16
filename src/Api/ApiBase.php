@@ -61,11 +61,6 @@ abstract class ApiBase implements ApiInterface
     protected $multipartStreamBuilder;
 
     /**
-     * @var SerializerInterface
-     */
-    protected $serializer;
-
-    /**
      * @var EncoderInterface
      */
     protected $jsonEncoder;
@@ -302,29 +297,21 @@ abstract class ApiBase implements ApiInterface
     }
 
     /**
-     * @return array
-     * @see ApiInterface::getConfigSchema()
+     * Returns a serializer configured to decode the endpoint response.
+     *
+     * @return SerializerInterface
      */
-    protected function getEndpointSchema(): array
+    protected function getSerializer(): SerializerInterface
     {
-        return [
-            'type' => 'string',
-            'required' => true,
-            'value' => function (string $value) {
-                return filter_var($value, FILTER_VALIDATE_URL);
-            },
-        ];
-    }
-
-    /**
-     * @return array
-     * @see ApiInterface::getConfigSchema()
-     */
-    protected function getRequiredStringSchema(): array
-    {
-        return [
-            'type' => 'string',
-            'required' => true,
-        ];
+        return new Serializer([
+            new GetSetMethodNormalizer(
+                null,
+                new CamelCaseToSnakeCaseNameConverter(),
+                new PhpDocExtractor()
+            ),
+            new ArrayDenormalizer(),
+        ], [
+            new JsonEncoder(),
+        ]);
     }
 }

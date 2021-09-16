@@ -60,7 +60,7 @@ abstract class IngestionApiBase extends DatabaseApiBase implements IngestionApiI
     public function execute(): Ingestion
     {
         /** @var Ingestion $ingestion */
-        $ingestion = $this->serializer->deserialize(
+        $ingestion = $this->getSerializer()->deserialize(
             $this->send('POST')->getBody()->__toString(),
             Ingestion::class,
             'json'

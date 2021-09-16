@@ -44,7 +44,7 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
     public function execute(): Facets
     {
         /** @var Facets $facets */
-        $facets = $this->serializer->deserialize(
+        $facets = $this->getSerializer()->deserialize(
             $this->send('POST')->getBody()->__toString(),
             Facets::class,
             'json'

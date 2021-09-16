@@ -290,24 +290,11 @@ class Client implements ClientInterface
         // Inject the services into APIs.
         $container->inflector(ApiInterface::class)
             ->invokeMethods([
-                'setOptionsResolver' => ['optionResolver'],
-                'setConfiguration' => [$configuration],
                 'setHttpClient' => [$httpClient],
                 'setRequestFactory' => [$requestFactory],
                 'setStreamFactory' => [$streamFactory],
                 'setUriFactory' => [$uriFactory],
                 'setMultipartStreamBuilder' => ['multipartStreamBuilder'],
-                'setSerializer' => [new Serializer([
-                    new GetSetMethodNormalizer(
-                        null,
-                        new CamelCaseToSnakeCaseNameConverter(),
-                        new PhpDocExtractor()
-                    ),
-                    new ArrayDenormalizer(),
-                ], [
-                    new JsonEncoder(),
-                ])
-                ],
                 'setJsonEncoder' => [new JsonEncoder()],
             ]);
 

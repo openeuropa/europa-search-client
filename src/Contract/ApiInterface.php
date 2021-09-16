@@ -58,13 +58,6 @@ interface ApiInterface
     public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): self;
 
     /**
-     * @param SerializerInterface $serializer
-     *
-     * @return $this
-     */
-    public function setSerializer(SerializerInterface $serializer): self;
-
-    /**
      * @param EncoderInterface $jsonEncoder
      *
      * @return $this

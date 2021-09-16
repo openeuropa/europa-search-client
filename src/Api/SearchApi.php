@@ -45,7 +45,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     public function execute(): Search
     {
         /** @var Search $search */
-        $search = $this->serializer->deserialize(
+        $search = $this->getSerializer()->deserialize(
             $this->send('POST')->getBody()->__toString(),
             Search::class,
             'json'

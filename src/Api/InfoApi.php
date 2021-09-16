@@ -12,28 +12,10 @@ class InfoApi extends ApiBase implements InfoApiInterface
     /**
      * @inheritDoc
      */
-    public function getConfigSchema(): array
-    {
-        return [
-            'infoApiEndpoint' => $this->getEndpointSchema(),
-        ];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getEndpointUri(): string
-    {
-        return $this->getConfigValue('infoApiEndpoint');
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function execute(): Info
     {
         /** @var Info $info */
-        $info = $this->serializer->deserialize(
+        $info = $this->getSerializer()->deserialize(
             $this->send('GET')->getBody()->__toString(),
             Info::class,
             'json'
