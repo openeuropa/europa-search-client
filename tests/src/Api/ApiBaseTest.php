@@ -40,11 +40,8 @@ class ApiBaseTest extends TestCase
     public function testMissingConfig(): void
     {
         $client = $this->getTestingClient();
-        $class = new \ReflectionClass($client);
-        $method = $class->getMethod('search');
-        $method->setAccessible(true);
-        $this->expectExceptionObject(new MissingOptionsException('The required options "apiKey", "database", "searchApiEndpoint" are missing.'));
-        $this->assertSame([], $method->invokeArgs($client, []));
+        $this->expectExceptionObject(new MissingOptionsException('The required options "apiEndpoint", "apiKey", "database" are missing.'));
+        $client->search();
     }
 
     public function testInvalidEndpoint(): void
@@ -54,9 +51,7 @@ class ApiBaseTest extends TestCase
             'database' => 'bar',
             'searchApiEndpoint' => 'INVALID_URL',
         ]);
-        $this->expectExceptionObject(new InvalidOptionsException('The option "searchApiEndpoint" with value "INVALID_URL" is invalid.'));
-
-        $container = $this->getClientContainer($client);
-        $container->get('search');
+        $this->expectExceptionObject(new InvalidOptionsException('The option "apiEndpoint" with value "INVALID_URL" is invalid.'));
+        $client->search();
     }
 }

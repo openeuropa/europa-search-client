@@ -106,11 +106,11 @@ class Client implements ClientInterface
         /** @var SearchApiInterface $endpoint */
         $endpoint = $this->container->get('search');
         return $endpoint
-            ->setConfiguration([
-                'apiEndpoint' => $this->configuration['searchApiEndpoint'] ?? null,
-                'apiKey' => $this->configuration['apiKey'] ?? null,
-                'database' => $this->configuration['database'] ?? null,
-            ])
+            ->setConfiguration($this->extractEndpointConfig([
+                'apiEndpoint' => 'searchApiEndpoint',
+                'apiKey',
+                'database',
+            ]))
             ->setText($text)
             ->setLanguages($languages)
             ->setQuery($query)
@@ -137,11 +137,11 @@ class Client implements ClientInterface
         /** @var FacetApiInterface $endpoint */
         $endpoint = $this->container->get('facet');
         return $endpoint
-            ->setConfiguration([
-                'apiEndpoint' => $this->configuration['facetApiEndpoint'] ?? null,
-                'apiKey' => $this->configuration['apiKey'] ?? null,
-                'database' => $this->configuration['database'] ?? null,
-            ])
+            ->setConfiguration($this->extractEndpointConfig([
+                'apiEndpoint' => 'facetApiEndpoint',
+                'apiKey',
+                'database',
+            ]))
             ->setText($text)
             ->setLanguages($languages)
             ->setDisplayLanguage($displayLanguage)
@@ -159,9 +159,9 @@ class Client implements ClientInterface
         /** @var InfoApiInterface $endpoint */
         $endpoint = $this->container->get('info');
         return $endpoint
-            ->setConfiguration([
-                'apiEndpoint' => $this->configuration['infoApiEndpoint'] ?? null,
-            ])
+            ->setConfiguration($this->extractEndpointConfig([
+                'apiEndpoint' => 'infoApiEndpoint',
+            ]))
             ->execute();
     }
 
@@ -182,11 +182,11 @@ class Client implements ClientInterface
         /** @var TextIngestionApiInterface $endpoint */
         $endpoint = $this->container->get('textIngestion');
         return $endpoint
-            ->setConfiguration([
-                'apiKey' => $this->configuration['apiKey'] ?? null,
-                'database' => $this->configuration['database'] ?? null,
-                'apiEndpoint' => $this->configuration['textIngestionApiEndpoint'] ?? null,
-            ])
+            ->setConfiguration($this->extractEndpointConfig([
+                'apiEndpoint' => 'textIngestionApiEndpoint',
+                'apiKey',
+                'database',
+            ]))
             ->setUri($this->uriFactory->createUri($uri))
             ->setText($text)
             ->setLanguages($languages)
@@ -216,11 +216,11 @@ class Client implements ClientInterface
         /** @var FileIngestionApiInterface $endpoint */
         $endpoint = $this->container->get('fileIngestion');
         return $endpoint
-            ->setConfiguration([
-                'apiEndpoint' => $this->configuration['fileIngestionApiEndpoint'] ?? null,
-                'apiKey' => $this->configuration['apiKey'] ?? null,
-                'database' => $this->configuration['database'] ?? null,
-            ])
+            ->setConfiguration($this->extractEndpointConfig([
+                'apiEndpoint' => 'fileIngestionApiEndpoint',
+                'apiKey',
+                'database',
+            ]))
             ->setUri($this->uriFactory->createUri($uri))
             ->setFile($file)
             ->setLanguages($languages)
@@ -241,11 +241,11 @@ class Client implements ClientInterface
         /** @var DeleteApiInterface $endpoint */
         $endpoint = $this->container->get('deleteDocument');
         return $endpoint
-            ->setConfiguration([
-                'apiEndpoint' => $this->configuration['deleteApiEndpoint'] ?? null,
-                'apiKey' => $this->configuration['apiKey'] ?? null,
-                'database' => $this->configuration['database'] ?? null,
-            ])
+            ->setConfiguration($this->extractEndpointConfig([
+                'apiEndpoint' => 'deleteApiEndpoint',
+                'apiKey',
+                'database',
+            ]))
             ->setReference($reference)
             ->execute();
     }
@@ -281,7 +281,7 @@ class Client implements ClientInterface
         // Since the token service is injected into other endpoints,
         // set the configuration when it gets instantiated.
         $container->add('token', TokenApi::class)
-            ->withMethodCall('setConfiguration', [$this->getTokenConfiguration()]);
+            ->withMethodCall('setConfiguration', [$this->getTokenEndpointConfiguration()]);
 
         // Inject the token service for APIs that are requesting it.
         $container->inflector(TokenAwareInterface::class)
@@ -307,12 +307,35 @@ class Client implements ClientInterface
      *
      * @return array
      */
-    private function getTokenConfiguration(): array
+    private function getTokenEndpointConfiguration(): array
     {
-        return [
-            'consumerKey' => $this->configuration['consumerKey'] ?? null,
-            'consumerSecret' => $this->configuration['consumerSecret'] ?? null,
-            'apiEndpoint' => $this->configuration['tokenApiEndpoint'] ?? null,
-        ];
+        return $this->extractEndpointConfig([
+            'apiEndpoint' => 'tokenApiEndpoint',
+            'consumerKey',
+            'consumerSecret',
+        ]);
+    }
+
+    /**
+     * Extracts endpoint configuration from the client configuration.
+     *
+     * @param array $mappings
+     *   A list of configuration keys to extract. If a string key is
+     *   passed for an entry, that string will be used as name for
+     *   the configuration value.
+     * @return array
+     */
+    private function extractEndpointConfig(array $mappings): array
+    {
+        $config = [];
+
+        foreach ($mappings as $finalName => $originalName) {
+            $finalName = is_string($finalName) ? $finalName : $originalName;
+            if (array_key_exists($originalName, $this->configuration)) {
+                $config[$finalName] = $this->configuration[$originalName];
+            }
+        }
+
+        return $config;
     }
 }
