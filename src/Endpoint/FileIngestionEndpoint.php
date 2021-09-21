@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\FileIngestionEndpointInterface;
-
 /**
  * File ingestion API endpoint.
  */
-class FileIngestionEndpoint extends IngestionEndpointBase implements FileIngestionEndpointInterface
+class FileIngestionEndpoint extends IngestionEndpointBase
 {
     /**
      * @var string|null
@@ -37,7 +35,7 @@ class FileIngestionEndpoint extends IngestionEndpointBase implements FileIngesti
     /**
      * @inheritDoc
      */
-    public function setFile(?string $file): FileIngestionEndpointInterface
+    public function setFile(?string $file): self
     {
         $this->file = $file;
         return $this;

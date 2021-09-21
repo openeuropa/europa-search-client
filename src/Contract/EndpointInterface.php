@@ -14,6 +14,13 @@ use Symfony\Component\Serializer\Encoder\EncoderInterface;
 interface EndpointInterface
 {
     /**
+     * Executes the endpoint.
+     *
+     * @return mixed
+     */
+    public function execute();
+
+    /**
      * @param array $configuration
      *
      * @return $this

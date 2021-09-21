@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\IngestionEndpointInterface;
+use OpenEuropa\EuropaSearchClient\Contract\LanguagesAwareInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use OpenEuropa\EuropaSearchClient\Traits\LanguagesAwareTrait;
@@ -14,7 +15,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Ingestion API endpoint.
  */
-abstract class IngestionEndpointBase extends DatabaseEndpointBase implements IngestionEndpointInterface
+abstract class IngestionEndpointBase extends DatabaseEndpointBase implements LanguagesAwareInterface, TokenAwareInterface
 {
     use LanguagesAwareTrait;
     use TokenAwareTrait;
@@ -118,7 +119,7 @@ abstract class IngestionEndpointBase extends DatabaseEndpointBase implements Ing
     /**
      * @inheritDoc
      */
-    public function setUri(UriInterface $uri): IngestionEndpointInterface
+    public function setUri(UriInterface $uri): self
     {
         $this->uri = $uri;
         return $this;
@@ -135,7 +136,7 @@ abstract class IngestionEndpointBase extends DatabaseEndpointBase implements Ing
     /**
      * @inheritDoc
      */
-    public function setMetadata(?Metadata $metadata): IngestionEndpointInterface
+    public function setMetadata(?Metadata $metadata): self
     {
         $this->metadata = $metadata;
         return $this;
@@ -152,7 +153,7 @@ abstract class IngestionEndpointBase extends DatabaseEndpointBase implements Ing
     /**
      * @inheritDoc
      */
-    public function setReference(?string $reference): IngestionEndpointInterface
+    public function setReference(?string $reference): self
     {
         $this->reference = $reference;
         return $this;
@@ -169,7 +170,7 @@ abstract class IngestionEndpointBase extends DatabaseEndpointBase implements Ing
     /**
      * @inheritDoc
      */
-    public function setAclUsers(?array $aclUsers): IngestionEndpointInterface
+    public function setAclUsers(?array $aclUsers): self
     {
         $this->aclUsers = $aclUsers;
         return $this;
@@ -186,7 +187,7 @@ abstract class IngestionEndpointBase extends DatabaseEndpointBase implements Ing
     /**
      * @inheritDoc
      */
-    public function setAclNoUsers(?array $aclNoUsers): IngestionEndpointInterface
+    public function setAclNoUsers(?array $aclNoUsers): self
     {
         $this->aclNoUsers = $aclNoUsers;
         return $this;
@@ -203,7 +204,7 @@ abstract class IngestionEndpointBase extends DatabaseEndpointBase implements Ing
     /**
      * @inheritDoc
      */
-    public function setAclGroups(?array $aclGroups): IngestionEndpointInterface
+    public function setAclGroups(?array $aclGroups): self
     {
         $this->aclGroups = $aclGroups;
         return $this;
@@ -220,7 +221,7 @@ abstract class IngestionEndpointBase extends DatabaseEndpointBase implements Ing
     /**
      * @inheritDoc
      */
-    public function setAclNoGroups(?array $aclNoGroups): IngestionEndpointInterface
+    public function setAclNoGroups(?array $aclNoGroups): self
     {
         $this->aclNoGroups = $aclNoGroups;
         return $this;

@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\TokenEndpointInterface;
 use OpenEuropa\EuropaSearchClient\Model\Token;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Token API endpoint.
  */
-class TokenEndpoint extends EndpointBase implements TokenEndpointInterface
+class TokenEndpoint extends EndpointBase
 {
     /**
      * @inheritDoc

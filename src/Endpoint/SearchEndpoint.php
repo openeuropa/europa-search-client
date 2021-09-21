@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\SearchEndpointInterface;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 use OpenEuropa\EuropaSearchClient\Model\Sort;
 use Psr\Http\Message\UriInterface;
@@ -12,7 +11,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Search API endpoint.
  */
-class SearchEndpoint extends SearchEndpointBase implements SearchEndpointInterface
+class SearchEndpoint extends SearchEndpointBase
 {
     /**
      * @var Sort
@@ -93,7 +92,7 @@ class SearchEndpoint extends SearchEndpointBase implements SearchEndpointInterfa
     /**
      * @inheritDoc
      */
-    public function setSort(Sort $sort): SearchEndpointInterface
+    public function setSort(Sort $sort): self
     {
         $this->sort = $sort;
         return $this;
@@ -110,7 +109,7 @@ class SearchEndpoint extends SearchEndpointBase implements SearchEndpointInterfa
     /**
      * @inheritDoc
      */
-    public function setPageNumber(?int $pageNumber): SearchEndpointInterface
+    public function setPageNumber(?int $pageNumber): self
     {
         $this->pageNumber = $pageNumber;
         return $this;
@@ -127,7 +126,7 @@ class SearchEndpoint extends SearchEndpointBase implements SearchEndpointInterfa
     /**
      * @inheritDoc
      */
-    public function setPageSize(?int $pageSize): SearchEndpointInterface
+    public function setPageSize(?int $pageSize): self
     {
         $this->pageSize = $pageSize;
         return $this;
@@ -144,7 +143,7 @@ class SearchEndpoint extends SearchEndpointBase implements SearchEndpointInterfa
     /**
      * @inheritDoc
      */
-    public function setHighlightRegex(?string $highlightRegex): SearchEndpointInterface
+    public function setHighlightRegex(?string $highlightRegex): self
     {
         $this->highlightRegex = $highlightRegex;
         return $this;
@@ -161,7 +160,7 @@ class SearchEndpoint extends SearchEndpointBase implements SearchEndpointInterfa
     /**
      * @inheritDoc
      */
-    public function setHighlightLimit(?int $highlightLimit): SearchEndpointInterface
+    public function setHighlightLimit(?int $highlightLimit): self
     {
         $this->highlightLimit = $highlightLimit;
         return $this;

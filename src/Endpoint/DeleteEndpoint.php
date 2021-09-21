@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\DeleteEndpointInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
 use Psr\Http\Message\UriInterface;
 
-class DeleteEndpoint extends DatabaseEndpointBase implements DeleteEndpointInterface
+class DeleteEndpoint extends DatabaseEndpointBase implements TokenAwareInterface
 {
     use TokenAwareTrait;
 
@@ -38,16 +38,17 @@ class DeleteEndpoint extends DatabaseEndpointBase implements DeleteEndpointInter
     }
 
     /**
-     * @inheritDoc
+     * @param string $reference
+     * @return $this
      */
-    public function setReference(string $reference): DeleteEndpointInterface
+    public function setReference(string $reference): self
     {
         $this->reference = $reference;
         return $this;
     }
 
     /**
-     * @inheritDoc
+     * @return string
      */
     public function getReference(): string
     {

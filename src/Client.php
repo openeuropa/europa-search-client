@@ -15,12 +15,6 @@ use OpenEuropa\EuropaSearchClient\Endpoint\TextIngestionEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\TokenEndpoint;
 use OpenEuropa\EuropaSearchClient\Contract\EndpointInterface;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
-use OpenEuropa\EuropaSearchClient\Contract\DeleteEndpointInterface;
-use OpenEuropa\EuropaSearchClient\Contract\FacetEndpointInterface;
-use OpenEuropa\EuropaSearchClient\Contract\FileIngestionEndpointInterface;
-use OpenEuropa\EuropaSearchClient\Contract\InfoEndpointInterface;
-use OpenEuropa\EuropaSearchClient\Contract\SearchEndpointInterface;
-use OpenEuropa\EuropaSearchClient\Contract\TextIngestionEndpointInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\EuropaSearchClient\Model\Info;
@@ -98,7 +92,7 @@ class Client implements ClientInterface
         ?int $highlightLimit = null,
         ?string $sessionToken = null
     ): Search {
-        /** @var SearchEndpointInterface $endpoint */
+        /** @var SearchEndpoint $endpoint */
         $endpoint = $this->container->get('search');
         return $endpoint
             ->setConfiguration($this->extractEndpointConfig([
@@ -129,7 +123,7 @@ class Client implements ClientInterface
         ?string $facetSort = null,
         ?string $sessionToken = null
     ): Facets {
-        /** @var FacetEndpointInterface $endpoint */
+        /** @var FacetEndpoint $endpoint */
         $endpoint = $this->container->get('facet');
         return $endpoint
             ->setConfiguration($this->extractEndpointConfig([
@@ -151,7 +145,7 @@ class Client implements ClientInterface
      */
     public function getInfo(): Info
     {
-        /** @var InfoEndpointInterface $endpoint */
+        /** @var InfoEndpoint $endpoint */
         $endpoint = $this->container->get('info');
         return $endpoint
             ->setConfiguration($this->extractEndpointConfig([
@@ -174,7 +168,7 @@ class Client implements ClientInterface
         ?array $aclGroups = null,
         ?array $aclNoGroups = null
     ): Ingestion {
-        /** @var TextIngestionEndpointInterface $endpoint */
+        /** @var TextIngestionEndpoint $endpoint */
         $endpoint = $this->container->get('textIngestion');
         return $endpoint
             ->setConfiguration($this->extractEndpointConfig([
@@ -208,7 +202,7 @@ class Client implements ClientInterface
         ?array $aclGroups = null,
         ?array $aclNoGroups = null
     ): Ingestion {
-        /** @var FileIngestionEndpointInterface $endpoint */
+        /** @var FileIngestionEndpoint $endpoint */
         $endpoint = $this->container->get('fileIngestion');
         return $endpoint
             ->setConfiguration($this->extractEndpointConfig([
@@ -233,7 +227,7 @@ class Client implements ClientInterface
      */
     public function deleteDocument(string $reference): bool
     {
-        /** @var DeleteEndpointInterface $endpoint */
+        /** @var DeleteEndpoint $endpoint */
         $endpoint = $this->container->get('deleteDocument');
         return $endpoint
             ->setConfiguration($this->extractEndpointConfig([

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\InfoEndpointInterface;
 use OpenEuropa\EuropaSearchClient\Model\Info;
 
-class InfoEndpoint extends EndpointBase implements InfoEndpointInterface
+class InfoEndpoint extends EndpointBase
 {
     /**
      * @inheritDoc
