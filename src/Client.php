@@ -6,21 +6,21 @@ namespace OpenEuropa\EuropaSearchClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use League\Container\Container;
-use OpenEuropa\EuropaSearchClient\Api\DeleteApi;
-use OpenEuropa\EuropaSearchClient\Api\FacetApi;
-use OpenEuropa\EuropaSearchClient\Api\FileIngestionApi;
-use OpenEuropa\EuropaSearchClient\Api\InfoApi;
-use OpenEuropa\EuropaSearchClient\Api\SearchApi;
-use OpenEuropa\EuropaSearchClient\Api\TextIngestionApi;
-use OpenEuropa\EuropaSearchClient\Api\TokenApi;
-use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
+use OpenEuropa\EuropaSearchClient\Endpoint\DeleteEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\FacetEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\FileIngestionEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\InfoEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\SearchEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\TextIngestionEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\TokenEndpoint;
+use OpenEuropa\EuropaSearchClient\Contract\EndpointInterface;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
-use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\FileIngestionApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\InfoApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\DeleteEndpointInterface;
+use OpenEuropa\EuropaSearchClient\Contract\FacetEndpointInterface;
+use OpenEuropa\EuropaSearchClient\Contract\FileIngestionEndpointInterface;
+use OpenEuropa\EuropaSearchClient\Contract\InfoEndpointInterface;
+use OpenEuropa\EuropaSearchClient\Contract\SearchEndpointInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TextIngestionEndpointInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\EuropaSearchClient\Model\Info;
@@ -103,11 +103,11 @@ class Client implements ClientInterface
         ?int $highlightLimit = null,
         ?string $sessionToken = null
     ): Search {
-        /** @var SearchApiInterface $endpoint */
+        /** @var SearchEndpointInterface $endpoint */
         $endpoint = $this->container->get('search');
         return $endpoint
             ->setConfiguration($this->extractEndpointConfig([
-                'apiEndpoint' => 'searchApiEndpoint',
+                'endpointUrl' => 'searchApiEndpoint',
                 'apiKey',
                 'database',
             ]))
@@ -134,11 +134,11 @@ class Client implements ClientInterface
         ?string $facetSort = null,
         ?string $sessionToken = null
     ): Facets {
-        /** @var FacetApiInterface $endpoint */
+        /** @var FacetEndpointInterface $endpoint */
         $endpoint = $this->container->get('facet');
         return $endpoint
             ->setConfiguration($this->extractEndpointConfig([
-                'apiEndpoint' => 'facetApiEndpoint',
+                'endpointUrl' => 'facetApiEndpoint',
                 'apiKey',
                 'database',
             ]))
@@ -156,11 +156,11 @@ class Client implements ClientInterface
      */
     public function getInfo(): Info
     {
-        /** @var InfoApiInterface $endpoint */
+        /** @var InfoEndpointInterface $endpoint */
         $endpoint = $this->container->get('info');
         return $endpoint
             ->setConfiguration($this->extractEndpointConfig([
-                'apiEndpoint' => 'infoApiEndpoint',
+                'endpointUrl' => 'infoApiEndpoint',
             ]))
             ->execute();
     }
@@ -179,11 +179,11 @@ class Client implements ClientInterface
         ?array $aclGroups = null,
         ?array $aclNoGroups = null
     ): Ingestion {
-        /** @var TextIngestionApiInterface $endpoint */
+        /** @var TextIngestionEndpointInterface $endpoint */
         $endpoint = $this->container->get('textIngestion');
         return $endpoint
             ->setConfiguration($this->extractEndpointConfig([
-                'apiEndpoint' => 'textIngestionApiEndpoint',
+                'endpointUrl' => 'textIngestionApiEndpoint',
                 'apiKey',
                 'database',
             ]))
@@ -213,11 +213,11 @@ class Client implements ClientInterface
         ?array $aclGroups = null,
         ?array $aclNoGroups = null
     ): Ingestion {
-        /** @var FileIngestionApiInterface $endpoint */
+        /** @var FileIngestionEndpointInterface $endpoint */
         $endpoint = $this->container->get('fileIngestion');
         return $endpoint
             ->setConfiguration($this->extractEndpointConfig([
-                'apiEndpoint' => 'fileIngestionApiEndpoint',
+                'endpointUrl' => 'fileIngestionApiEndpoint',
                 'apiKey',
                 'database',
             ]))
@@ -238,11 +238,11 @@ class Client implements ClientInterface
      */
     public function deleteDocument(string $reference): bool
     {
-        /** @var DeleteApiInterface $endpoint */
+        /** @var DeleteEndpointInterface $endpoint */
         $endpoint = $this->container->get('deleteDocument');
         return $endpoint
             ->setConfiguration($this->extractEndpointConfig([
-                'apiEndpoint' => 'deleteApiEndpoint',
+                'endpointUrl' => 'deleteApiEndpoint',
                 'apiKey',
                 'database',
             ]))
@@ -263,32 +263,32 @@ class Client implements ClientInterface
         UriFactoryInterface $uriFactory
     ): void {
         $container = new Container();
-        // API services are not shared, meaning that a new instance is created
-        // every time the service is requested from the container. We're doing
-        // this because such a service might be called more than once during the
-        // lifetime of a request, so internals set in a previous usage may leak
-        // into the later usages.
+        // API endpoint services are not shared, meaning that a new instance is
+        // created every time the service is requested from the container.
+        // We're doing this because such a service might be called more than
+        // once during the lifetime of a request, so internals set in a previous
+        // usage may leak into the later usages.
         $container->add('multipartStreamBuilder', MultipartStreamBuilder::class)
             ->withArgument($streamFactory);
         $container->add('optionResolver', OptionsResolver::class);
-        $container->add('search', SearchApi::class);
-        $container->add('facet', FacetApi::class);
-        $container->add('info', InfoApi::class);
-        $container->add('textIngestion', TextIngestionApi::class);
-        $container->add('fileIngestion', FileIngestionApi::class);
-        $container->add('deleteDocument', DeleteApi::class);
+        $container->add('search', SearchEndpoint::class);
+        $container->add('facet', FacetEndpoint::class);
+        $container->add('info', InfoEndpoint::class);
+        $container->add('textIngestion', TextIngestionEndpoint::class);
+        $container->add('fileIngestion', FileIngestionEndpoint::class);
+        $container->add('deleteDocument', DeleteEndpoint::class);
 
         // Since the token service is injected into other endpoints,
         // set the configuration when it gets instantiated.
-        $container->add('token', TokenApi::class)
+        $container->add('token', TokenEndpoint::class)
             ->withMethodCall('setConfiguration', [$this->getTokenEndpointConfiguration()]);
 
-        // Inject the token service for APIs that are requesting it.
+        // Inject the token service for endpoints that are requesting it.
         $container->inflector(TokenAwareInterface::class)
             ->invokeMethod('setTokenService', ['token']);
 
-        // Inject the services into APIs.
-        $container->inflector(ApiInterface::class)
+        // Inject the services into endpoints.
+        $container->inflector(EndpointInterface::class)
             ->invokeMethods([
                 'setHttpClient' => [$httpClient],
                 'setRequestFactory' => [$requestFactory],
@@ -310,7 +310,7 @@ class Client implements ClientInterface
     private function getTokenEndpointConfiguration(): array
     {
         return $this->extractEndpointConfig([
-            'apiEndpoint' => 'tokenApiEndpoint',
+            'endpointUrl' => 'tokenApiEndpoint',
             'consumerKey',
             'consumerSecret',
         ]);

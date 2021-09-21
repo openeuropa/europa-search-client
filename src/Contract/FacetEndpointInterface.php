@@ -6,7 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 
-interface FacetApiInterface extends SearchApiBaseInterface
+interface FacetEndpointInterface extends SearchEndpointBaseInterface
 {
     /**
      * @return Facets

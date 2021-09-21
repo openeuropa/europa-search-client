@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\FacetEndpointInterface;
 use OpenEuropa\EuropaSearchClient\Exception\ParameterValueException;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use Psr\Http\Message\UriInterface;
 
 /**
- * Facet API.
+ * Facet API endpoint.
  */
-class FacetApi extends SearchApiBase implements FacetApiInterface
+class FacetEndpoint extends SearchEndpointBase implements FacetEndpointInterface
 {
     /**
      * @var string
@@ -83,7 +83,7 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
     /**
      * @inheritDoc
      */
-    public function setFacetSort(?string $facetSort): FacetApiInterface
+    public function setFacetSort(?string $facetSort): FacetEndpointInterface
     {
         if ($facetSort !== null && !in_array($facetSort, static::ALLOWED_SORT_VALUES, true)) {
             $allowedValues = implode("', '", static::ALLOWED_SORT_VALUES);
@@ -104,7 +104,7 @@ class FacetApi extends SearchApiBase implements FacetApiInterface
     /**
      * @inheritDoc
      */
-    public function setDisplayLanguage(?string $displayLanguage): FacetApiInterface
+    public function setDisplayLanguage(?string $displayLanguage): FacetEndpointInterface
     {
         $this->displayLanguage = $displayLanguage;
         return $this;

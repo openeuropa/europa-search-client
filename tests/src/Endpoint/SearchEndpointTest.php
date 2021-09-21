@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\Tests\EuropaSearchClient\Api;
+namespace OpenEuropa\Tests\EuropaSearchClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Model\Document;
@@ -13,9 +13,9 @@ use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\SearchApi
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Endpoint\SearchEndpoint
  */
-class SearchApiTest extends TestCase
+class SearchEndpointTest extends TestCase
 {
     use ClientTestTrait;
     use InspectTestRequestTrait;

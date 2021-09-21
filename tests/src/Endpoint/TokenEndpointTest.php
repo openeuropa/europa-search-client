@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\Tests\EuropaSearchClient\Api;
+namespace OpenEuropa\Tests\EuropaSearchClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Model\Token;
@@ -11,9 +11,9 @@ use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\TokenApi
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Endpoint\TokenEndpoint
  */
-class TokenApiTest extends TestCase
+class TokenEndpointTest extends TestCase
 {
     use ClientTestTrait;
     use InspectTestRequestTrait;

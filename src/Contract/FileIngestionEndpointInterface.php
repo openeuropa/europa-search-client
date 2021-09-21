@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
-interface FileIngestionApiInterface extends IngestionApiInterface
+interface FileIngestionEndpointInterface extends IngestionEndpointInterface
 {
     /**
      * @param string|null $file

@@ -2,17 +2,17 @@
 
 declare(strict_types = 1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\SearchEndpointInterface;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 use OpenEuropa\EuropaSearchClient\Model\Sort;
 use Psr\Http\Message\UriInterface;
 
 /**
- * Search API.
+ * Search API endpoint.
  */
-class SearchApi extends SearchApiBase implements SearchApiInterface
+class SearchEndpoint extends SearchEndpointBase implements SearchEndpointInterface
 {
     /**
      * @var Sort
@@ -93,7 +93,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function setSort(Sort $sort): SearchApiInterface
+    public function setSort(Sort $sort): SearchEndpointInterface
     {
         $this->sort = $sort;
         return $this;
@@ -110,7 +110,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function setPageNumber(?int $pageNumber): SearchApiInterface
+    public function setPageNumber(?int $pageNumber): SearchEndpointInterface
     {
         $this->pageNumber = $pageNumber;
         return $this;
@@ -127,7 +127,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function setPageSize(?int $pageSize): SearchApiInterface
+    public function setPageSize(?int $pageSize): SearchEndpointInterface
     {
         $this->pageSize = $pageSize;
         return $this;
@@ -144,7 +144,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function setHighlightRegex(?string $highlightRegex): SearchApiInterface
+    public function setHighlightRegex(?string $highlightRegex): SearchEndpointInterface
     {
         $this->highlightRegex = $highlightRegex;
         return $this;
@@ -161,7 +161,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function setHighlightLimit(?int $highlightLimit): SearchApiInterface
+    public function setHighlightLimit(?int $highlightLimit): SearchEndpointInterface
     {
         $this->highlightLimit = $highlightLimit;
         return $this;

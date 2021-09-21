@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
-use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\EndpointInterface;
 use OpenEuropa\EuropaSearchClient\Exception\InvalidStatusCodeException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
@@ -26,9 +26,9 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Base class for Europa Search APIs.
+ * Base class for Europa Search API endpoints.
  */
-abstract class ApiBase implements ApiInterface
+abstract class EndpointBase implements EndpointInterface
 {
     /**
      * @var array
@@ -73,7 +73,7 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setConfiguration(array $configuration): ApiInterface
+    public function setConfiguration(array $configuration): EndpointInterface
     {
         $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
 
@@ -83,7 +83,7 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setHttpClient(ClientInterface $httpClient): ApiInterface
+    public function setHttpClient(ClientInterface $httpClient): EndpointInterface
     {
         $this->httpClient = $httpClient;
         return $this;
@@ -92,7 +92,7 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setRequestFactory(RequestFactoryInterface $requestFactory): ApiInterface
+    public function setRequestFactory(RequestFactoryInterface $requestFactory): EndpointInterface
     {
         $this->requestFactory = $requestFactory;
         return $this;
@@ -101,7 +101,7 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setStreamFactory(StreamFactoryInterface $streamFactory): ApiInterface
+    public function setStreamFactory(StreamFactoryInterface $streamFactory): EndpointInterface
     {
         $this->streamFactory = $streamFactory;
         return $this;
@@ -110,7 +110,7 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setUriFactory(UriFactoryInterface $uriFactory): ApiInterface
+    public function setUriFactory(UriFactoryInterface $uriFactory): EndpointInterface
     {
         $this->uriFactory = $uriFactory;
         return $this;
@@ -119,7 +119,7 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): ApiInterface
+    public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): EndpointInterface
     {
         $this->multipartStreamBuilder = $multipartStreamBuilder;
         return $this;
@@ -128,7 +128,7 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setJsonEncoder(EncoderInterface $jsonEncoder): ApiInterface
+    public function setJsonEncoder(EncoderInterface $jsonEncoder): EndpointInterface
     {
         $this->jsonEncoder = $jsonEncoder;
         return $this;
@@ -143,9 +143,9 @@ abstract class ApiBase implements ApiInterface
     {
         $resolver = new OptionsResolver();
 
-        $resolver->setRequired('apiEndpoint')
-            ->setAllowedTypes('apiEndpoint', 'string')
-            ->setAllowedValues('apiEndpoint', function (string $value) {
+        $resolver->setRequired('endpointUrl')
+            ->setAllowedTypes('endpointUrl', 'string')
+            ->setAllowedValues('endpointUrl', function (string $value) {
                 return filter_var($value, FILTER_VALIDATE_URL);
             });
 
@@ -210,7 +210,7 @@ abstract class ApiBase implements ApiInterface
      */
     protected function getRequestUri(): string
     {
-        $uri = $this->uriFactory->createUri($this->getConfigValue('apiEndpoint'));
+        $uri = $this->uriFactory->createUri($this->getConfigValue('endpointUrl'));
         $query = $this->getRequestUriQuery($uri);
         return $uri->withQuery(http_build_query($query))->__toString();
     }
@@ -271,7 +271,7 @@ abstract class ApiBase implements ApiInterface
             return $this->streamFactory->createStream(http_build_query($parts));
         }
 
-        // This API didn't define a request body.
+        // This endpoint didn't define a request body.
         return null;
     }
 

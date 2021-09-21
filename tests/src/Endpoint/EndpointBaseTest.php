@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\Tests\EuropaSearchClient\Api;
+namespace OpenEuropa\Tests\EuropaSearchClient\Endpoint;
 
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
@@ -10,9 +10,9 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
 /**
- * @coversDefaultClass  \OpenEuropa\EuropaSearchClient\Api\ApiBase
+ * @coversDefaultClass  \OpenEuropa\EuropaSearchClient\Endpoint\EndpointBase
  */
-class ApiBaseTest extends TestCase
+class EndpointBaseTest extends TestCase
 {
     use ClientTestTrait;
 
@@ -40,7 +40,7 @@ class ApiBaseTest extends TestCase
     public function testMissingConfig(): void
     {
         $client = $this->getTestingClient();
-        $this->expectExceptionObject(new MissingOptionsException('The required options "apiEndpoint", "apiKey", "database" are missing.'));
+        $this->expectExceptionObject(new MissingOptionsException('The required options "apiKey", "database", "endpointUrl" are missing.'));
         $client->search();
     }
 
@@ -51,7 +51,7 @@ class ApiBaseTest extends TestCase
             'database' => 'bar',
             'searchApiEndpoint' => 'INVALID_URL',
         ]);
-        $this->expectExceptionObject(new InvalidOptionsException('The option "apiEndpoint" with value "INVALID_URL" is invalid.'));
+        $this->expectExceptionObject(new InvalidOptionsException('The option "endpointUrl" with value "INVALID_URL" is invalid.'));
         $client->search();
     }
 }

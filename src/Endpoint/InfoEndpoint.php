@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\InfoApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\InfoEndpointInterface;
 use OpenEuropa\EuropaSearchClient\Model\Info;
 
-class InfoApi extends ApiBase implements InfoApiInterface
+class InfoEndpoint extends EndpointBase implements InfoEndpointInterface
 {
     /**
      * @inheritDoc

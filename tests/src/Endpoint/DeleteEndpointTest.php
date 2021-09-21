@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\Tests\EuropaSearchClient\Api;
+namespace OpenEuropa\Tests\EuropaSearchClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
@@ -10,9 +10,9 @@ use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\DeleteApi
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Endpoint\DeleteEndpoint
  */
-class DeleteApiTest extends TestCase
+class DeleteEndpointTest extends TestCase
 {
     use ClientTestTrait;
     use InspectTestRequestTrait;

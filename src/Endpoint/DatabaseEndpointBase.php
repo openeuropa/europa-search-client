@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Base api class for endpoints that work with a specific database.
+ * Base class for endpoints that work with a specific database.
  */
-abstract class DatabaseApiBase extends ApiBase
+abstract class DatabaseEndpointBase extends EndpointBase
 {
     /**
      * @inheritDoc

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\DeleteEndpointInterface;
 use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
 use Psr\Http\Message\UriInterface;
 
-class DeleteApi extends DatabaseApiBase implements DeleteApiInterface
+class DeleteEndpoint extends DatabaseEndpointBase implements DeleteEndpointInterface
 {
     use TokenAwareTrait;
 
@@ -40,7 +40,7 @@ class DeleteApi extends DatabaseApiBase implements DeleteApiInterface
     /**
      * @inheritDoc
      */
-    public function setReference(string $reference): DeleteApiInterface
+    public function setReference(string $reference): DeleteEndpointInterface
     {
         $this->reference = $reference;
         return $this;

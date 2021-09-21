@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\IngestionApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\IngestionEndpointInterface;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use OpenEuropa\EuropaSearchClient\Traits\LanguagesAwareTrait;
@@ -12,9 +12,9 @@ use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
 use Psr\Http\Message\UriInterface;
 
 /**
- * Ingestion API.
+ * Ingestion API endpoint.
  */
-abstract class IngestionApiBase extends DatabaseApiBase implements IngestionApiInterface
+abstract class IngestionEndpointBase extends DatabaseEndpointBase implements IngestionEndpointInterface
 {
     use LanguagesAwareTrait;
     use TokenAwareTrait;
@@ -118,7 +118,7 @@ abstract class IngestionApiBase extends DatabaseApiBase implements IngestionApiI
     /**
      * @inheritDoc
      */
-    public function setUri(UriInterface $uri): IngestionApiInterface
+    public function setUri(UriInterface $uri): IngestionEndpointInterface
     {
         $this->uri = $uri;
         return $this;
@@ -135,7 +135,7 @@ abstract class IngestionApiBase extends DatabaseApiBase implements IngestionApiI
     /**
      * @inheritDoc
      */
-    public function setMetadata(?Metadata $metadata): IngestionApiInterface
+    public function setMetadata(?Metadata $metadata): IngestionEndpointInterface
     {
         $this->metadata = $metadata;
         return $this;
@@ -152,7 +152,7 @@ abstract class IngestionApiBase extends DatabaseApiBase implements IngestionApiI
     /**
      * @inheritDoc
      */
-    public function setReference(?string $reference): IngestionApiInterface
+    public function setReference(?string $reference): IngestionEndpointInterface
     {
         $this->reference = $reference;
         return $this;
@@ -169,7 +169,7 @@ abstract class IngestionApiBase extends DatabaseApiBase implements IngestionApiI
     /**
      * @inheritDoc
      */
-    public function setAclUsers(?array $aclUsers): IngestionApiInterface
+    public function setAclUsers(?array $aclUsers): IngestionEndpointInterface
     {
         $this->aclUsers = $aclUsers;
         return $this;
@@ -186,7 +186,7 @@ abstract class IngestionApiBase extends DatabaseApiBase implements IngestionApiI
     /**
      * @inheritDoc
      */
-    public function setAclNoUsers(?array $aclNoUsers): IngestionApiInterface
+    public function setAclNoUsers(?array $aclNoUsers): IngestionEndpointInterface
     {
         $this->aclNoUsers = $aclNoUsers;
         return $this;
@@ -203,7 +203,7 @@ abstract class IngestionApiBase extends DatabaseApiBase implements IngestionApiI
     /**
      * @inheritDoc
      */
-    public function setAclGroups(?array $aclGroups): IngestionApiInterface
+    public function setAclGroups(?array $aclGroups): IngestionEndpointInterface
     {
         $this->aclGroups = $aclGroups;
         return $this;
@@ -220,7 +220,7 @@ abstract class IngestionApiBase extends DatabaseApiBase implements IngestionApiI
     /**
      * @inheritDoc
      */
-    public function setAclNoGroups(?array $aclNoGroups): IngestionApiInterface
+    public function setAclNoGroups(?array $aclNoGroups): IngestionEndpointInterface
     {
         $this->aclNoGroups = $aclNoGroups;
         return $this;

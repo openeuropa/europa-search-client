@@ -6,7 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use OpenEuropa\EuropaSearchClient\Model\Sort;
 
-interface SearchApiInterface extends SearchApiBaseInterface
+interface SearchEndpointInterface extends SearchEndpointBaseInterface
 {
     /**
      * @param int|null $pageNumber

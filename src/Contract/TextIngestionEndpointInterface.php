@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
-interface TextIngestionApiInterface extends IngestionApiInterface
+interface TextIngestionEndpointInterface extends IngestionEndpointInterface
 {
     /**
      * @param string|null $text

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\Tests\EuropaSearchClient\Api;
+namespace OpenEuropa\Tests\EuropaSearchClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
-use OpenEuropa\EuropaSearchClient\Api\FacetApi;
+use OpenEuropa\EuropaSearchClient\Endpoint\FacetEndpoint;
 use OpenEuropa\EuropaSearchClient\Exception\ParameterValueException;
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
@@ -14,9 +14,9 @@ use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Api\FacetApi
+ * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Endpoint\FacetEndpoint
  */
-class FacetApiTest extends TestCase
+class FacetEndpointTest extends TestCase
 {
     use ClientTestTrait;
     use FacetTestGeneratorTrait;
@@ -24,7 +24,7 @@ class FacetApiTest extends TestCase
 
     public function testSetSortInvalidParameter(): void
     {
-        $object = new FacetApi();
+        $object = new FacetEndpoint();
         $class = new \ReflectionClass($object);
         $method = $class->getMethod('setFacetSort');
         $exception = new ParameterValueException("::setFacetSort() received invalid argument 'Invalid argument', must be one of 'DATE', 'REVERSE_DATE', 'ALPHABETICAL', 'REVERSE_ALPHABETICAL', 'DOCUMENT_COUNT', 'REVERSE_DOCUMENT_COUNT', 'NUMBER_DECREASING', 'NUMBER_INCREASING'.");

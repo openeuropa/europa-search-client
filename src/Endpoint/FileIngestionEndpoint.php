@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\FileIngestionApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\FileIngestionEndpointInterface;
 
 /**
- * File ingestion API.
+ * File ingestion API endpoint.
  */
-class FileIngestionApi extends IngestionApiBase implements FileIngestionApiInterface
+class FileIngestionEndpoint extends IngestionEndpointBase implements FileIngestionEndpointInterface
 {
     /**
      * @var string|null
@@ -37,7 +37,7 @@ class FileIngestionApi extends IngestionApiBase implements FileIngestionApiInter
     /**
      * @inheritDoc
      */
-    public function setFile(?string $file): FileIngestionApiInterface
+    public function setFile(?string $file): FileIngestionEndpointInterface
     {
         $this->file = $file;
         return $this;

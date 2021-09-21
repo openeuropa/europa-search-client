@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\SearchApiBaseInterface;
+use OpenEuropa\EuropaSearchClient\Contract\SearchEndpointBaseInterface;
 use OpenEuropa\EuropaSearchClient\Traits\LanguagesAwareTrait;
 use Psr\Http\Message\UriInterface;
 
-abstract class SearchApiBase extends DatabaseApiBase implements SearchApiBaseInterface
+abstract class SearchEndpointBase extends DatabaseEndpointBase implements SearchEndpointBaseInterface
 {
     use LanguagesAwareTrait;
 
@@ -65,7 +65,7 @@ abstract class SearchApiBase extends DatabaseApiBase implements SearchApiBaseInt
     /**
      * @inheritDoc
      */
-    public function setText(?string $text): SearchApiBaseInterface
+    public function setText(?string $text): SearchEndpointBaseInterface
     {
         $this->text = $text;
         return $this;
@@ -83,7 +83,7 @@ abstract class SearchApiBase extends DatabaseApiBase implements SearchApiBaseInt
     /**
      * @inheritDoc
      */
-    public function setQuery(?array $query): SearchApiBaseInterface
+    public function setQuery(?array $query): SearchEndpointBaseInterface
     {
         $this->query = $query;
         return $this;
@@ -100,7 +100,7 @@ abstract class SearchApiBase extends DatabaseApiBase implements SearchApiBaseInt
     /**
      * @inheritDoc
      */
-    public function setSessionToken(?string $sessionToken): SearchApiBaseInterface
+    public function setSessionToken(?string $sessionToken): SearchEndpointBaseInterface
     {
         $this->sessionToken = $sessionToken;
         return $this;

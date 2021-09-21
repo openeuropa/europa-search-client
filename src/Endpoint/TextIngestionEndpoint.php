@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TextIngestionEndpointInterface;
 
 /**
- * Text ingestion API.
+ * Text ingestion API endpoint.
  */
-class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInterface
+class TextIngestionEndpoint extends IngestionEndpointBase implements TextIngestionEndpointInterface
 {
     /**
      * @var string|null
@@ -36,7 +36,7 @@ class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInter
     /**
      * @inheritDoc
      */
-    public function setText(?string $text): TextIngestionApiInterface
+    public function setText(?string $text): TextIngestionEndpointInterface
     {
         $this->text = $text;
         return $this;

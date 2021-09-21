@@ -6,7 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use OpenEuropa\EuropaSearchClient\Model\Info;
 
-interface InfoApiInterface extends ApiInterface
+interface InfoEndpointInterface extends EndpointInterface
 {
     /**
      * @return Info

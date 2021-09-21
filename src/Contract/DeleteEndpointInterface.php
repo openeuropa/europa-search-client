@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OpenEuropa\EuropaSearchClient\Contract;
 
-interface DeleteApiInterface extends ApiInterface, TokenAwareInterface
+interface DeleteEndpointInterface extends EndpointInterface, TokenAwareInterface
 {
     /**
      * @return bool
