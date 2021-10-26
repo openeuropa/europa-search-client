@@ -42,7 +42,6 @@ class ClientTest extends TestCase
         $container = $this->getClientContainer($client);
 
         // Check container services.
-        $this->assertInstanceOf(OptionsResolver::class, $container->get('optionResolver'));
         $this->assertInstanceOf(MultipartStreamBuilder::class, $container->get('multipartStreamBuilder'));
         $this->assertInstanceOf(SearchEndpoint::class, $container->get('search'));
         $this->assertInstanceOf(FacetEndpoint::class, $container->get('facet'));
