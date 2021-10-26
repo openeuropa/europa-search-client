@@ -24,12 +24,14 @@ class FacetEndpointTest extends TestCase
 
     public function testSetSortInvalidParameter(): void
     {
-        $object = new FacetEndpoint();
-        $class = new \ReflectionClass($object);
-        $method = $class->getMethod('setFacetSort');
+        $endpoint = new FacetEndpoint([
+            'apiKey' => 'foo',
+            'database' => 'qux',
+            'endpointUrl' => 'http://example.com/facet',
+        ]);
         $exception = new ParameterValueException("::setFacetSort() received invalid argument 'Invalid argument', must be one of 'DATE', 'REVERSE_DATE', 'ALPHABETICAL', 'REVERSE_ALPHABETICAL', 'DOCUMENT_COUNT', 'REVERSE_DOCUMENT_COUNT', 'NUMBER_DECREASING', 'NUMBER_INCREASING'.");
         $this->expectExceptionObject($exception);
-        $method->invokeArgs($object, ['Invalid argument']);
+        $endpoint->setFacetSort('Invalid argument');
     }
 
     /**

@@ -32,8 +32,8 @@ class EndpointBaseTest extends TestCase
         $method->setAccessible(true);
 
         $this->assertSame('foo', $method->invokeArgs($container->get('search'), ['apiKey']));
-        $this->assertSame('http://example.com/search', $method->invokeArgs($container->get('search'), ['searchApiEndpoint']));
-        $this->expectExceptionObject(new \InvalidArgumentException("Invalid config key: 'foo'. Valid keys: 'apiKey', 'database', 'searchApiEndpoint'."));
+        $this->assertSame('http://example.com/search', $method->invokeArgs($container->get('search'), ['endpointUrl']));
+        $this->expectExceptionObject(new \InvalidArgumentException("Invalid config key: 'foo'. Valid keys: 'endpointUrl', 'apiKey', 'database'."));
         $method->invokeArgs($container->get('search'), ['foo']);
     }
 

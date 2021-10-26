@@ -94,11 +94,6 @@ class Client implements ClientInterface
         /** @var SearchEndpoint $endpoint */
         $endpoint = $this->container->get('search');
         return $endpoint
-            ->setConfiguration($this->extractEndpointConfig([
-                'endpointUrl' => 'searchApiEndpoint',
-                'apiKey',
-                'database',
-            ]))
             ->setText($text)
             ->setLanguages($languages)
             ->setQuery($query)
@@ -125,11 +120,6 @@ class Client implements ClientInterface
         /** @var FacetEndpoint $endpoint */
         $endpoint = $this->container->get('facet');
         return $endpoint
-            ->setConfiguration($this->extractEndpointConfig([
-                'endpointUrl' => 'facetApiEndpoint',
-                'apiKey',
-                'database',
-            ]))
             ->setText($text)
             ->setLanguages($languages)
             ->setDisplayLanguage($displayLanguage)
@@ -146,11 +136,7 @@ class Client implements ClientInterface
     {
         /** @var InfoEndpoint $endpoint */
         $endpoint = $this->container->get('info');
-        return $endpoint
-            ->setConfiguration($this->extractEndpointConfig([
-                'endpointUrl' => 'infoApiEndpoint',
-            ]))
-            ->execute();
+        return $endpoint->execute();
     }
 
     /**
@@ -170,11 +156,6 @@ class Client implements ClientInterface
         /** @var TextIngestionEndpoint $endpoint */
         $endpoint = $this->container->get('textIngestion');
         return $endpoint
-            ->setConfiguration($this->extractEndpointConfig([
-                'endpointUrl' => 'textIngestionApiEndpoint',
-                'apiKey',
-                'database',
-            ]))
             ->setUri($this->uriFactory->createUri($uri))
             ->setText($text)
             ->setLanguages($languages)
@@ -204,11 +185,6 @@ class Client implements ClientInterface
         /** @var FileIngestionEndpoint $endpoint */
         $endpoint = $this->container->get('fileIngestion');
         return $endpoint
-            ->setConfiguration($this->extractEndpointConfig([
-                'endpointUrl' => 'fileIngestionApiEndpoint',
-                'apiKey',
-                'database',
-            ]))
             ->setUri($this->uriFactory->createUri($uri))
             ->setFile($file)
             ->setLanguages($languages)
@@ -229,11 +205,6 @@ class Client implements ClientInterface
         /** @var DeleteEndpoint $endpoint */
         $endpoint = $this->container->get('deleteDocument');
         return $endpoint
-            ->setConfiguration($this->extractEndpointConfig([
-                'endpointUrl' => 'deleteApiEndpoint',
-                'apiKey',
-                'database',
-            ]))
             ->setReference($reference)
             ->execute();
     }
@@ -258,17 +229,46 @@ class Client implements ClientInterface
         // usage may leak into the later usages.
         $container->add('multipartStreamBuilder', MultipartStreamBuilder::class)
             ->withArgument($streamFactory);
-        $container->add('search', SearchEndpoint::class);
-        $container->add('facet', FacetEndpoint::class);
-        $container->add('info', InfoEndpoint::class);
-        $container->add('textIngestion', TextIngestionEndpoint::class);
-        $container->add('fileIngestion', FileIngestionEndpoint::class);
-        $container->add('deleteDocument', DeleteEndpoint::class);
-
-        // Since the token service is injected into other endpoints,
-        // set the configuration when it gets instantiated.
+        $container->add('search', SearchEndpoint::class)
+            ->withArgument($this->extractEndpointConfig([
+                'endpointUrl' => 'searchApiEndpoint',
+                'apiKey',
+                'database',
+            ]));
+        $container->add('facet', FacetEndpoint::class)
+            ->withArgument($this->extractEndpointConfig([
+                'endpointUrl' => 'facetApiEndpoint',
+                'apiKey',
+                'database',
+            ]));
+        $container->add('info', InfoEndpoint::class)
+            ->withArgument($this->extractEndpointConfig([
+                'endpointUrl' => 'infoApiEndpoint',
+            ]));
+        $container->add('textIngestion', TextIngestionEndpoint::class)
+            ->withArgument($this->extractEndpointConfig([
+                'endpointUrl' => 'textIngestionApiEndpoint',
+                'apiKey',
+                'database',
+            ]));
+        $container->add('fileIngestion', FileIngestionEndpoint::class)
+            ->withArgument($this->extractEndpointConfig([
+                'endpointUrl' => 'fileIngestionApiEndpoint',
+                'apiKey',
+                'database',
+            ]));
+        $container->add('deleteDocument', DeleteEndpoint::class)
+            ->withArgument($this->extractEndpointConfig([
+                'endpointUrl' => 'deleteApiEndpoint',
+                'apiKey',
+                'database',
+            ]));
         $container->add('token', TokenEndpoint::class)
-            ->withMethodCall('setConfiguration', [$this->getTokenEndpointConfiguration()]);
+            ->withArgument($this->extractEndpointConfig([
+                'endpointUrl' => 'tokenApiEndpoint',
+                'consumerKey',
+                'consumerSecret',
+            ]));
 
         // Inject the token service for endpoints that are requesting it.
         $container->inflector(TokenAwareInterface::class)
@@ -287,20 +287,6 @@ class Client implements ClientInterface
 
         // Keep a reference to the container.
         $this->container = $container;
-    }
-
-    /**
-     * Returns the configuration values for the token endpoint.
-     *
-     * @return array
-     */
-    private function getTokenEndpointConfiguration(): array
-    {
-        return $this->extractEndpointConfig([
-            'endpointUrl' => 'tokenApiEndpoint',
-            'consumerKey',
-            'consumerSecret',
-        ]);
     }
 
     /**

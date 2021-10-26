@@ -21,13 +21,6 @@ interface EndpointInterface
     public function execute();
 
     /**
-     * @param array $configuration
-     *
-     * @return $this
-     */
-    public function setConfiguration(array $configuration): self;
-
-    /**
      * @param ClientInterface $httpClient
      *
      * @return $this

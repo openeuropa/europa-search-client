@@ -70,14 +70,9 @@ abstract class EndpointBase implements EndpointInterface
      */
     protected $headers = [];
 
-    /**
-     * @inheritDoc
-     */
-    public function setConfiguration(array $configuration): EndpointInterface
+    public function __construct(array $configuration)
     {
         $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
-
-        return $this;
     }
 
     /**
