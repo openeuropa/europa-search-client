@@ -259,7 +259,6 @@ class Client implements ClientInterface
         // usage may leak into the later usages.
         $container->add('multipartStreamBuilder', MultipartStreamBuilder::class)
             ->withArgument($streamFactory);
-        $container->add('optionResolver', OptionsResolver::class);
         $container->add('search', SearchEndpoint::class);
         $container->add('facet', FacetEndpoint::class);
         $container->add('info', InfoEndpoint::class);
