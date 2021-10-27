@@ -33,14 +33,16 @@ class EndpointBaseTest extends TestCase
 
         $this->assertSame('foo', $method->invokeArgs($container->get('search'), ['apiKey']));
         $this->assertSame('http://example.com/search', $method->invokeArgs($container->get('search'), ['endpointUrl']));
-        $this->expectExceptionObject(new \InvalidArgumentException("Invalid config key: 'foo'. Valid keys: 'endpointUrl', 'apiKey', 'database'."));
+        $this->expectExceptionObject(new \InvalidArgumentException("Invalid config key: 'foo'. Valid keys: 'apiKey', 'database', 'endpointUrl'."));
         $method->invokeArgs($container->get('search'), ['foo']);
     }
 
     public function testMissingConfig(): void
     {
-        $client = $this->getTestingClient();
-        $this->expectExceptionObject(new MissingOptionsException('The required options "apiKey", "database", "endpointUrl" are missing.'));
+        $client = $this->getTestingClient([
+            'searchApiEndpoint' => '',
+        ]);
+        $this->expectExceptionObject(new MissingOptionsException('The required options "apiKey", "database" are missing.'));
         $client->search();
     }
 

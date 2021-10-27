@@ -70,8 +70,9 @@ abstract class EndpointBase implements EndpointInterface
      */
     protected $headers = [];
 
-    public function __construct(array $configuration)
+    public function __construct(string $endpointUrl, array $configuration = [])
     {
+        $configuration['endpointUrl'] = $endpointUrl;
         $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
     }
 
@@ -153,7 +154,7 @@ abstract class EndpointBase implements EndpointInterface
      */
     protected function getConfigValue(string $configKey)
     {
-        if (!isset($this->configuration[$configKey])) {
+        if (!array_key_exists($configKey, $this->configuration)) {
             throw new \InvalidArgumentException("Invalid config key: '{$configKey}'. Valid keys: '" . implode("', '", array_keys($this->configuration)) . "'.");
         }
         return $this->configuration[$configKey];

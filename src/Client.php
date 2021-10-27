@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
+use League\Container\Argument\RawArgument;
 use League\Container\Container;
 use OpenEuropa\EuropaSearchClient\Endpoint\DeleteEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\FacetEndpoint;
@@ -222,7 +223,17 @@ class Client implements ClientInterface
         UriFactoryInterface $uriFactory
     ): void {
         $container = new Container();
-        // API endpoint services are not shared, meaning that a new instance is
+
+        $container->add('database_config', new RawArgument($this->extractConfigValues([
+            'apiKey',
+            'database',
+        ])));
+        $container->add('token_config', new RawArgument($this->extractConfigValues([
+            'consumerKey',
+            'consumerSecret',
+        ])));
+
+        // All services are not shared, meaning that a new instance is
         // created every time the service is requested from the container.
         // We're doing this because such a service might be called more than
         // once during the lifetime of a request, so internals set in a previous
@@ -230,45 +241,37 @@ class Client implements ClientInterface
         $container->add('multipartStreamBuilder', MultipartStreamBuilder::class)
             ->withArgument($streamFactory);
         $container->add('search', SearchEndpoint::class)
-            ->withArgument($this->extractEndpointConfig([
-                'endpointUrl' => 'searchApiEndpoint',
-                'apiKey',
-                'database',
-            ]));
+            ->withArguments([
+                new RawArgument($this->getConfigValue('searchApiEndpoint')),
+                'database_config',
+            ]);
         $container->add('facet', FacetEndpoint::class)
-            ->withArgument($this->extractEndpointConfig([
-                'endpointUrl' => 'facetApiEndpoint',
-                'apiKey',
-                'database',
-            ]));
+            ->withArguments([
+                new RawArgument($this->getConfigValue('facetApiEndpoint')),
+                'database_config',
+            ]);
         $container->add('info', InfoEndpoint::class)
-            ->withArgument($this->extractEndpointConfig([
-                'endpointUrl' => 'infoApiEndpoint',
-            ]));
+            ->withArgument(new RawArgument($this->getConfigValue('infoApiEndpoint')));
         $container->add('textIngestion', TextIngestionEndpoint::class)
-            ->withArgument($this->extractEndpointConfig([
-                'endpointUrl' => 'textIngestionApiEndpoint',
-                'apiKey',
-                'database',
-            ]));
+            ->withArguments([
+                new RawArgument($this->getConfigValue('textIngestionApiEndpoint')),
+                'database_config',
+            ]);
         $container->add('fileIngestion', FileIngestionEndpoint::class)
-            ->withArgument($this->extractEndpointConfig([
-                'endpointUrl' => 'fileIngestionApiEndpoint',
-                'apiKey',
-                'database',
-            ]));
+            ->withArguments([
+                new RawArgument($this->getConfigValue('fileIngestionApiEndpoint')),
+                'database_config',
+            ]);
         $container->add('deleteDocument', DeleteEndpoint::class)
-            ->withArgument($this->extractEndpointConfig([
-                'endpointUrl' => 'deleteApiEndpoint',
-                'apiKey',
-                'database',
-            ]));
+            ->withArguments([
+                new RawArgument($this->getConfigValue('deleteApiEndpoint')),
+                'database_config',
+            ]);
         $container->add('token', TokenEndpoint::class)
-            ->withArgument($this->extractEndpointConfig([
-                'endpointUrl' => 'tokenApiEndpoint',
-                'consumerKey',
-                'consumerSecret',
-            ]));
+            ->withArguments([
+                new RawArgument($this->getConfigValue('tokenApiEndpoint')),
+                'token_config',
+            ]);
 
         // Inject the token service for endpoints that are requesting it.
         $container->inflector(TokenAwareInterface::class)
@@ -290,25 +293,37 @@ class Client implements ClientInterface
     }
 
     /**
-     * Extracts endpoint configuration from the client configuration.
+     * Extracts a subset of values from the client configuration.
      *
-     * @param array $mappings
-     *   A list of configuration keys to extract. If a string key is
-     *   passed for an entry, that string will be used as name for
-     *   the configuration value.
+     * Non-existing keys are not returned.
+     *
+     * @param array $names
+     *   A list of configuration keys to extract.
      * @return array
      */
-    private function extractEndpointConfig(array $mappings): array
+    private function extractConfigValues(array $names): array
     {
         $config = [];
 
-        foreach ($mappings as $finalName => $originalName) {
-            $finalName = is_string($finalName) ? $finalName : $originalName;
-            if (array_key_exists($originalName, $this->configuration)) {
-                $config[$finalName] = $this->configuration[$originalName];
+        foreach ($names as $name) {
+            // We do not use self::getConfigValue() as we need to prevent
+            // adding NULL for non-existing values.
+            if (array_key_exists($name, $this->configuration)) {
+                $config[$name] = $this->configuration[$name];
             }
         }
 
         return $config;
+    }
+
+    /**
+     * Retrieves a value from the client configuration.
+     *
+     * @param string $name
+     * @return mixed|null
+     */
+    private function getConfigValue(string $name)
+    {
+        return array_key_exists($name, $this->configuration) ? $this->configuration[$name] : null;
     }
 }
