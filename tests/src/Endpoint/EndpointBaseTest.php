@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace OpenEuropa\Tests\EuropaSearchClient\Endpoint;
 
+use OpenEuropa\EuropaSearchClient\Endpoint\EndpointBase;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
+use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 
 /**
  * @coversDefaultClass  \OpenEuropa\EuropaSearchClient\Endpoint\EndpointBase
@@ -37,23 +38,25 @@ class EndpointBaseTest extends TestCase
         $method->invokeArgs($container->get('search'), ['foo']);
     }
 
-    public function testMissingConfig(): void
+    public function testEndpointUrlValidation(): void
     {
-        $client = $this->getTestingClient([
-            'searchApiEndpoint' => '',
+        $this->expectExceptionObject(new InvalidOptionsException('The option "endpointUrl" with value "INVALID_URL" is invalid.'));
+        $this->getMockForAbstractClass(EndpointBase::class, [
+            'INVALID_URL',
         ]);
-        $this->expectExceptionObject(new MissingOptionsException('The required options "apiKey", "database" are missing.'));
-        $client->search();
     }
 
-    public function testInvalidEndpoint(): void
+    /**
+     * Tests that the base endpoint class doesn't expect any configuration but the endpoint URL.
+     */
+    public function testDefaultConfig(): void
     {
-        $client = $this->getTestingClient([
-            'apiKey' => 'foo',
-            'database' => 'bar',
-            'searchApiEndpoint' => 'INVALID_URL',
+        $this->expectExceptionObject(new UndefinedOptionsException('The option "foo" does not exist. Defined options are: "endpointUrl".'));
+        $this->getMockForAbstractClass(EndpointBase::class, [
+            'http://example.com/search',
+            [
+                'foo' => 'bar',
+            ]
         ]);
-        $this->expectExceptionObject(new InvalidOptionsException('The option "endpointUrl" with value "INVALID_URL" is invalid.'));
-        $client->search();
     }
 }

@@ -201,7 +201,6 @@ abstract class EndpointBase implements EndpointInterface
     }
 
     /**
-     *
      * @return string
      */
     protected function getRequestUri(): string

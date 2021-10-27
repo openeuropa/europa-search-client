@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\EuropaSearchClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
+use OpenEuropa\EuropaSearchClient\Endpoint\TokenEndpoint;
 use OpenEuropa\EuropaSearchClient\Model\Token;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
 /**
  * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Endpoint\TokenEndpoint
@@ -17,6 +19,12 @@ class TokenEndpointTest extends TestCase
 {
     use ClientTestTrait;
     use InspectTestRequestTrait;
+
+    public function testMissingConfig(): void
+    {
+        $this->expectExceptionObject(new MissingOptionsException('The required options "consumerKey", "consumerSecret" are missing.'));
+        new TokenEndpoint('http://example.com/token');
+    }
 
     /**
      * @dataProvider providerTestToken
