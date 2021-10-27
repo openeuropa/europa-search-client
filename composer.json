@@ -23,7 +23,7 @@
         "http-interop/http-factory-guzzle": "^1.0",
         "openeuropa/code-review": "2.x-dev",
         "php-http/guzzle7-adapter": "^1.0",
-        "phpunit/phpunit": "^9"
+        "phpunit/phpunit": "^9.3"
     },
     "suggest": {
         "http-interop/http-factory-guzzle": "PSR-17 HTTP Factories implementation for Guzzle",
