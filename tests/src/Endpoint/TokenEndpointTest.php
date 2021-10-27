@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Endpoint\TokenEndpoint;
 use OpenEuropa\EuropaSearchClient\Model\Token;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
-use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
+use OpenEuropa\Tests\EuropaSearchClient\Traits\AssertTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 class TokenEndpointTest extends TestCase
 {
     use ClientTestTrait;
-    use InspectTestRequestTrait;
+    use AssertTestRequestTrait;
 
     /**
      * @dataProvider providerTestToken
@@ -37,7 +37,7 @@ class TokenEndpointTest extends TestCase
         $this->assertEquals($expectedResult, $container->get('token')->execute());
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
-        $this->inspectTokenRequest($request);
+        $this->assertTokenRequest($request);
     }
 
     /**

@@ -7,7 +7,7 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Endpoint;
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Model\Info;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
-use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
+use OpenEuropa\Tests\EuropaSearchClient\Traits\AssertTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 class InfoEndpointTest extends TestCase
 {
     use ClientTestTrait;
-    use InspectTestRequestTrait;
+    use AssertTestRequestTrait;
 
     /**
      * @dataProvider providerTestGetInfo

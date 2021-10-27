@@ -6,7 +6,7 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Endpoint;
 
 use GuzzleHttp\Psr7\Response;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
-use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
+use OpenEuropa\Tests\EuropaSearchClient\Traits\AssertTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 class DeleteEndpointTest extends TestCase
 {
     use ClientTestTrait;
-    use InspectTestRequestTrait;
+    use AssertTestRequestTrait;
 
     /**
      * @dataProvider providerTestDeleteDocument
@@ -31,10 +31,10 @@ class DeleteEndpointTest extends TestCase
         $this->assertSame($expectedResult, $actualResult);
         $this->assertCount(2, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
-        $this->inspectTokenRequest($request);
+        $this->assertTokenRequest($request);
         $request = $this->clientHistory[1]['request'];
         $this->assertEquals('http://example.com/ingest/delete?apiKey=bananas&database=cucumbers&reference=foo', $request->getUri());
-        $this->inspectAuthorizationHeaders($request);
+        $this->assertAuthorizationHeaders($request);
     }
 
     /**

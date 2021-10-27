@@ -9,7 +9,7 @@ use OpenEuropa\EuropaSearchClient\Model\Document;
 use OpenEuropa\EuropaSearchClient\Model\QueryLanguage;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
-use OpenEuropa\Tests\EuropaSearchClient\Traits\InspectTestRequestTrait;
+use OpenEuropa\Tests\EuropaSearchClient\Traits\AssertTestRequestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 class SearchEndpointTest extends TestCase
 {
     use ClientTestTrait;
-    use InspectTestRequestTrait;
+    use AssertTestRequestTrait;
 
     /**
      * @dataProvider providerTestSearch
@@ -46,13 +46,13 @@ class SearchEndpointTest extends TestCase
         $this->assertCount(1, $this->clientHistory);
         $request = $this->clientHistory[0]['request'];
         $this->assertEquals('http://example.com/search?apiKey=foo&database=bar&text=Programme+managers&sessionToken=21edswq223rews&pageNumber=2&pageSize=5&highlightRegex=%7Bw%2B%7D&highlightLimit=150', $request->getUri());
-        $boundary = $this->getBoundary($request);
+        $boundary = $this->getRequestBoundary($request);
         $this->assertBoundary($request, $boundary);
-        $parts = $this->getMultiParts($request, $boundary);
+        $parts = $this->getRequestMultipartStreamResources($request, $boundary);
         $this->assertCount(3, $parts);
-        $this->inspectPart($parts[0], 'application/json', 'languages', 11, '["en","de"]');
-        $this->inspectPart($parts[1], 'application/json', 'query', 59, '{"term":{"DMAKE_ES_EVENT_TYPE_NAME":"ADOPTION_DISTRIBUTE"}}');
-        $this->inspectPart($parts[2], 'application/json', 'sort', 38, '{"field":"es_SortDate","order":"DESC"}');
+        $this->assertMultipartStreamResource($parts[0], 'application/json', 'languages', 11, '["en","de"]');
+        $this->assertMultipartStreamResource($parts[1], 'application/json', 'query', 59, '{"term":{"DMAKE_ES_EVENT_TYPE_NAME":"ADOPTION_DISTRIBUTE"}}');
+        $this->assertMultipartStreamResource($parts[2], 'application/json', 'sort', 38, '{"field":"es_SortDate","order":"DESC"}');
     }
 
     /**
