@@ -4,18 +4,14 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Model;
 
+use OpenEuropa\EuropaSearchClient\Traits\ApiVersionAwareTrait;
+
 /**
  * A class that represents a search data transfer object.
  */
 class Search
 {
-
-    /**
-     * The API version.
-     *
-     * @var string
-     */
-    protected $apiVersion;
+    use ApiVersionAwareTrait;
 
     /**
      * A list of best bets documents.
@@ -102,28 +98,6 @@ class Search
     protected $warnings;
 
     /**
-     * Returns the API version.
-     *
-     * @return string
-     *   The API version.
-     */
-    public function getApiVersion(): string
-    {
-        return $this->apiVersion;
-    }
-
-    /**
-     * Sets the API version.
-     *
-     * @param string $apiVersion
-     *   The API version.
-     */
-    public function setApiVersion(string $apiVersion): void
-    {
-        $this->apiVersion = $apiVersion;
-    }
-
-    /**
      * Returns the list of best bets documents.
      *
      * @return \OpenEuropa\EuropaSearchClient\Model\Document[]
@@ -139,10 +113,12 @@ class Search
      *
      * @param \OpenEuropa\EuropaSearchClient\Model\Document[] $bestBets
      *   The best bets documents.
+     * @return $this
      */
-    public function setBestBets(array $bestBets): void
+    public function setBestBets(array $bestBets): self
     {
         $this->bestBets = $bestBets;
+        return $this;
     }
 
     /**
@@ -161,10 +137,12 @@ class Search
      *
      * @param string|null $groupByField
      *   The field used to group the results.
+     * @return $this
      */
-    public function setGroupByField(?string $groupByField): void
+    public function setGroupByField(?string $groupByField): self
     {
         $this->groupByField = $groupByField;
+        return $this;
     }
 
     /**
@@ -183,10 +161,12 @@ class Search
      *
      * @param int $pageNumber
      *   The page number.
+     * @return $this
      */
-    public function setPageNumber(int $pageNumber): void
+    public function setPageNumber(int $pageNumber): self
     {
         $this->pageNumber = $pageNumber;
+        return $this;
     }
 
     /**
@@ -205,10 +185,12 @@ class Search
      *
      * @param int $pageSize
      *   The page size.
+     * @return $this
      */
-    public function setPageSize(int $pageSize): void
+    public function setPageSize(int $pageSize): self
     {
         $this->pageSize = $pageSize;
+        return $this;
     }
 
     /**
@@ -227,10 +209,12 @@ class Search
      *
      * @param \OpenEuropa\EuropaSearchClient\Model\QueryLanguage $queryLanguage
      *   The query language.
+     * @return $this
      */
-    public function setQueryLanguage(QueryLanguage $queryLanguage): void
+    public function setQueryLanguage(QueryLanguage $queryLanguage): self
     {
         $this->queryLanguage = $queryLanguage;
+        return $this;
     }
 
     /**
@@ -249,10 +233,12 @@ class Search
      *
      * @param int $responseTime
      *   The response time.
+     * @return $this
      */
-    public function setResponseTime(int $responseTime): void
+    public function setResponseTime(int $responseTime): self
     {
         $this->responseTime = $responseTime;
+        return $this;
     }
 
     /**
@@ -271,10 +257,12 @@ class Search
      *
      * @param \OpenEuropa\EuropaSearchClient\Model\Document[] $results
      *   An array of documents.
+     * @return $this
      */
-    public function setResults(array $results): void
+    public function setResults(array $results): self
     {
         $this->results = $results;
+        return $this;
     }
 
     /**
@@ -293,10 +281,12 @@ class Search
      *
      * @param string $sort
      *   The field and sort type used for sorting, separated by a colon.
+     * @return $this
      */
-    public function setSort(string $sort): void
+    public function setSort(string $sort): self
     {
         $this->sort = $sort;
+        return $this;
     }
 
     /**
@@ -315,10 +305,12 @@ class Search
      *
      * @param string|null $spellingSuggestion
      *   The spelling suggestion.
+     * @return $this
      */
-    public function setSpellingSuggestion(?string $spellingSuggestion): void
+    public function setSpellingSuggestion(?string $spellingSuggestion): self
     {
         $this->spellingSuggestion = $spellingSuggestion;
+        return $this;
     }
 
     /**
@@ -337,10 +329,12 @@ class Search
      *
      * @param string $terms
      *   The search terms.
+     * @return $this
      */
-    public function setTerms(string $terms): void
+    public function setTerms(string $terms): self
     {
         $this->terms = $terms;
+        return $this;
     }
 
     /**
@@ -359,10 +353,12 @@ class Search
      *
      * @param int $totalResults
      *   The total number of results.
+     * @return $this
      */
-    public function setTotalResults(int $totalResults): void
+    public function setTotalResults(int $totalResults): self
     {
         $this->totalResults = $totalResults;
+        return $this;
     }
 
     /**
@@ -381,9 +377,11 @@ class Search
      *
      * @param string[] $warnings
      *   An array of strings representing warnings.
+     * @return $this
      */
-    public function setWarnings(array $warnings): void
+    public function setWarnings(array $warnings): self
     {
         $this->warnings = $warnings;
+        return $this;
     }
 }

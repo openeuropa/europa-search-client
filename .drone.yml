@@ -4,14 +4,14 @@ workspace:
 
 services:
   web:
-    image: ${IMAGE_PHP}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     environment:
       - DOCUMENT_ROOT=/test/europa-search-client
 
 pipeline:
   composer-install-lowest:
     group: prepare
-    image: ${IMAGE_PHP}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     volumes:
       - /cache:/cache
     commands:
@@ -23,7 +23,7 @@ pipeline:
 
   composer-install-highest:
     group: prepare
-    image: ${IMAGE_PHP}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     volumes:
       - /cache:/cache
     commands:
@@ -34,20 +34,19 @@ pipeline:
 
   grumphp:
     group: test
-    image: ${IMAGE_PHP}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     commands:
       - ./vendor/bin/grumphp run
 
   phpunit:
     group: test
-    image: ${IMAGE_PHP}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     commands:
       - ./vendor/bin/phpunit
 
 matrix:
-  IMAGE_PHP:
-    - fpfis/httpd-php-ci:7.1
-    - fpfis/httpd-php-ci:7.2
   COMPOSER_BOUNDARY:
     - lowest
     - highest
+  PHP_VERSION:
+    - 7.3

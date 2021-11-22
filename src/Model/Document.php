@@ -4,13 +4,14 @@ declare(strict_types = 1);
 
 namespace OpenEuropa\EuropaSearchClient\Model;
 
+use OpenEuropa\EuropaSearchClient\Traits\ApiVersionAwareTrait;
+
 /**
  * A class that represents a document transfer object.
- *
- * @SuppressWarnings(PHPMD.TooManyFields)
  */
-class Document
+class Document extends DocumentBase
 {
+    use ApiVersionAwareTrait;
 
     /**
      * If the document has access restrictions.
@@ -18,13 +19,6 @@ class Document
      * @var bool
      */
     protected $accessRestriction;
-
-    /**
-     * The API version.
-     *
-     * @var string
-     */
-    protected $apiVersion;
 
     /**
      * An array of children documents.
@@ -63,35 +57,11 @@ class Document
     protected $groupById;
 
     /**
-     * The document language.
-     *
-     * @var string
-     */
-    protected $language;
-
-    /**
-     * The document metadata.
-     *
-     * It consists of a nested array where the first level contains the field name
-     * as key and the value is a list of values for the field itself.
-     *
-     * @var array
-     */
-    protected $metadata;
-
-    /**
      * The number of pages in the document.
      *
      * @var int|null
      */
     protected $pages;
-
-    /**
-     * The document unique reference.
-     *
-     * @var string
-     */
-    protected $reference;
 
     /**
      * The document summary.
@@ -106,13 +76,6 @@ class Document
      * @var string|null
      */
     protected $title;
-
-    /**
-     * The document url.
-     *
-     * @var string
-     */
-    protected $url;
 
     /**
      * The document weight.
@@ -137,32 +100,12 @@ class Document
      *
      * @param bool $accessRestriction
      *   A boolean value.
+     * @return $this
      */
-    public function setAccessRestriction(bool $accessRestriction): void
+    public function setAccessRestriction(bool $accessRestriction): self
     {
         $this->accessRestriction = $accessRestriction;
-    }
-
-    /**
-     * Returns the API version.
-     *
-     * @return string
-     *   The API version.
-     */
-    public function getApiVersion(): string
-    {
-        return $this->apiVersion;
-    }
-
-    /**
-     * Sets the API version.
-     *
-     * @param string $apiVersion
-     *   The API version.
-     */
-    public function setApiVersion(string $apiVersion): void
-    {
-        $this->apiVersion = $apiVersion;
+        return $this;
     }
 
     /**
@@ -181,32 +124,12 @@ class Document
      *
      * @param \OpenEuropa\EuropaSearchClient\Model\Document[] $children
      *   The children documents.
+     * @return $this
      */
-    public function setChildren(array $children): void
+    public function setChildren(array $children): self
     {
         $this->children = $children;
-    }
-
-    /**
-     * Returns the document content.
-     *
-     * @return string
-     *   The document content.
-     */
-    public function getContent(): string
-    {
-        return $this->content;
-    }
-
-    /**
-     * Sets the document content.
-     *
-     * @param string $content
-     *   The document content.
-     */
-    public function setContent(string $content): void
-    {
-        $this->content = $content;
+        return $this;
     }
 
     /**
@@ -225,10 +148,12 @@ class Document
      *
      * @param string $contentType
      *   The document content type.
+     * @return $this
      */
-    public function setContentType(string $contentType): void
+    public function setContentType(string $contentType): self
     {
         $this->contentType = $contentType;
+        return $this;
     }
 
     /**
@@ -241,10 +166,12 @@ class Document
 
     /**
      * @param string|null $database
+     * @return $this
      */
-    public function setDatabase(?string $database): void
+    public function setDatabase(?string $database): self
     {
         $this->database = $database;
+        return $this;
     }
 
     /**
@@ -257,10 +184,12 @@ class Document
 
     /**
      * @param string|null $databaseLabel
+     * @return $this
      */
-    public function setDatabaseLabel(?string $databaseLabel): void
+    public function setDatabaseLabel(?string $databaseLabel): self
     {
         $this->databaseLabel = $databaseLabel;
+        return $this;
     }
 
     /**
@@ -273,54 +202,12 @@ class Document
 
     /**
      * @param string|null $groupById
+     * @return $this
      */
-    public function setGroupById(?string $groupById): void
+    public function setGroupById(?string $groupById): self
     {
         $this->groupById = $groupById;
-    }
-
-    /**
-     * Returns the document language.
-     *
-     * @return string
-     *   The document language.
-     */
-    public function getLanguage(): string
-    {
-        return $this->language;
-    }
-
-    /**
-     * Sets the document language.
-     *
-     * @param string $language
-     *   The document language.
-     */
-    public function setLanguage(string $language): void
-    {
-        $this->language = $language;
-    }
-
-    /**
-     * Returns the document metadata.
-     *
-     * @return array
-     *   A nested array of field names and values.
-     */
-    public function getMetadata(): array
-    {
-        return $this->metadata;
-    }
-
-    /**
-     * Sets the document metadata.
-     *
-     * @param array $metadata
-     *   A nested array of field names and values.
-     */
-    public function setMetadata(array $metadata): void
-    {
-        $this->metadata = $metadata;
+        return $this;
     }
 
     /**
@@ -339,32 +226,12 @@ class Document
      *
      * @param int|null $pages
      *   The number of pages in the document.
+     * @return $this
      */
-    public function setPages(?int $pages): void
+    public function setPages(?int $pages): self
     {
         $this->pages = $pages;
-    }
-
-    /**
-     * Returns the document unique reference.
-     *
-     * @return string
-     *   The document unique reference.
-     */
-    public function getReference(): string
-    {
-        return $this->reference;
-    }
-
-    /**
-     * Sets the document unique reference.
-     *
-     * @param string $reference
-     *   The document unique reference.
-     */
-    public function setReference(string $reference): void
-    {
-        $this->reference = $reference;
+        return $this;
     }
 
     /**
@@ -383,10 +250,12 @@ class Document
      *
      * @param string|null $summary
      *   The document summary.
+     * @return $this
      */
-    public function setSummary(?string $summary): void
+    public function setSummary(?string $summary): self
     {
         $this->summary = $summary;
+        return $this;
     }
 
     /**
@@ -405,32 +274,12 @@ class Document
      *
      * @param string|null $title
      *   The document title.
+     * @return $this
      */
-    public function setTitle(?string $title): void
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
-    }
-
-    /**
-     * Returns the document url.
-     *
-     * @return string
-     *   The document url.
-     */
-    public function getUrl(): string
-    {
-        return $this->url;
-    }
-
-    /**
-     * Sets the document url.
-     *
-     * @param string $url
-     *   The document url.
-     */
-    public function setUrl(string $url): void
-    {
-        $this->url = $url;
+        return $this;
     }
 
     /**
@@ -449,9 +298,11 @@ class Document
      *
      * @param float $weight
      *   The document weight.
+     * @return $this
      */
-    public function setWeight(float $weight): void
+    public function setWeight(float $weight): self
     {
         $this->weight = $weight;
+        return $this;
     }
 }
