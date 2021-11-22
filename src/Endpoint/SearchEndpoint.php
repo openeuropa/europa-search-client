@@ -2,17 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 use OpenEuropa\EuropaSearchClient\Model\Sort;
 use Psr\Http\Message\UriInterface;
 
 /**
- * Search API.
+ * Search API endpoint.
  */
-class SearchApi extends SearchApiBase implements SearchApiInterface
+class SearchEndpoint extends SearchEndpointBase
 {
     /**
      * @var Sort
@@ -45,30 +44,12 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     public function execute(): Search
     {
         /** @var Search $search */
-        $search = $this->serializer->deserialize(
+        $search = $this->getSerializer()->deserialize(
             $this->send('POST')->getBody()->__toString(),
             Search::class,
             'json'
         );
         return $search;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getConfigSchema(): array
-    {
-        return [
-            'searchApiEndpoint' => $this->getEndpointSchema(),
-        ] + parent::getConfigSchema();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getEndpointUri(): string
-    {
-        return $this->getConfigValue('searchApiEndpoint');
     }
 
     /**
@@ -111,7 +92,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function setSort(Sort $sort): SearchApiInterface
+    public function setSort(Sort $sort): self
     {
         $this->sort = $sort;
         return $this;
@@ -128,7 +109,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function setPageNumber(?int $pageNumber): SearchApiInterface
+    public function setPageNumber(?int $pageNumber): self
     {
         $this->pageNumber = $pageNumber;
         return $this;
@@ -145,7 +126,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function setPageSize(?int $pageSize): SearchApiInterface
+    public function setPageSize(?int $pageSize): self
     {
         $this->pageSize = $pageSize;
         return $this;
@@ -162,7 +143,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function setHighlightRegex(?string $highlightRegex): SearchApiInterface
+    public function setHighlightRegex(?string $highlightRegex): self
     {
         $this->highlightRegex = $highlightRegex;
         return $this;
@@ -179,7 +160,7 @@ class SearchApi extends SearchApiBase implements SearchApiInterface
     /**
      * @inheritDoc
      */
-    public function setHighlightLimit(?int $highlightLimit): SearchApiInterface
+    public function setHighlightLimit(?int $highlightLimit): self
     {
         $this->highlightLimit = $highlightLimit;
         return $this;

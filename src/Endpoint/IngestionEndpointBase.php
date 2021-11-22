@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\IngestionApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\LanguagesAwareInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
 use OpenEuropa\EuropaSearchClient\Model\Metadata;
 use OpenEuropa\EuropaSearchClient\Traits\LanguagesAwareTrait;
@@ -12,9 +13,9 @@ use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
 use Psr\Http\Message\UriInterface;
 
 /**
- * Ingestion API.
+ * Ingestion API endpoint.
  */
-abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
+abstract class IngestionEndpointBase extends DatabaseEndpointBase implements LanguagesAwareInterface, TokenAwareInterface
 {
     use LanguagesAwareTrait;
     use TokenAwareTrait;
@@ -60,23 +61,12 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     public function execute(): Ingestion
     {
         /** @var Ingestion $ingestion */
-        $ingestion = $this->serializer->deserialize(
+        $ingestion = $this->getSerializer()->deserialize(
             $this->send('POST')->getBody()->__toString(),
             Ingestion::class,
             'json'
         );
         return $ingestion;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getConfigSchema(): array
-    {
-        return [
-            'apiKey' => $this->getRequiredStringSchema(),
-            'database' => $this->getRequiredStringSchema(),
-        ];
     }
 
     /**
@@ -129,7 +119,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function setUri(UriInterface $uri): IngestionApiInterface
+    public function setUri(UriInterface $uri): self
     {
         $this->uri = $uri;
         return $this;
@@ -146,7 +136,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function setMetadata(?Metadata $metadata): IngestionApiInterface
+    public function setMetadata(?Metadata $metadata): self
     {
         $this->metadata = $metadata;
         return $this;
@@ -163,7 +153,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function setReference(?string $reference): IngestionApiInterface
+    public function setReference(?string $reference): self
     {
         $this->reference = $reference;
         return $this;
@@ -180,7 +170,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function setAclUsers(?array $aclUsers): IngestionApiInterface
+    public function setAclUsers(?array $aclUsers): self
     {
         $this->aclUsers = $aclUsers;
         return $this;
@@ -197,7 +187,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function setAclNoUsers(?array $aclNoUsers): IngestionApiInterface
+    public function setAclNoUsers(?array $aclNoUsers): self
     {
         $this->aclNoUsers = $aclNoUsers;
         return $this;
@@ -214,7 +204,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function setAclGroups(?array $aclGroups): IngestionApiInterface
+    public function setAclGroups(?array $aclGroups): self
     {
         $this->aclGroups = $aclGroups;
         return $this;
@@ -231,7 +221,7 @@ abstract class IngestionApiBase extends ApiBase implements IngestionApiInterface
     /**
      * @inheritDoc
      */
-    public function setAclNoGroups(?array $aclNoGroups): IngestionApiInterface
+    public function setAclNoGroups(?array $aclNoGroups): self
     {
         $this->aclNoGroups = $aclNoGroups;
         return $this;

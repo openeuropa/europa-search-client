@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
-use OpenEuropa\EuropaSearchClient\Contract\ApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\EndpointInterface;
 use OpenEuropa\EuropaSearchClient\Exception\InvalidStatusCodeException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
@@ -16,23 +16,24 @@ use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Base class for Europa Search APIs.
+ * Base class for Europa Search API endpoints.
  */
-abstract class ApiBase implements ApiInterface
+abstract class EndpointBase implements EndpointInterface
 {
     /**
      * @var array
      */
     protected $configuration;
-
-    /**
-     * @var OptionsResolver
-     */
-    protected $optionResolver;
 
     /**
      * @var ClientInterface
@@ -60,11 +61,6 @@ abstract class ApiBase implements ApiInterface
     protected $multipartStreamBuilder;
 
     /**
-     * @var SerializerInterface
-     */
-    protected $serializer;
-
-    /**
      * @var EncoderInterface
      */
     protected $jsonEncoder;
@@ -74,51 +70,16 @@ abstract class ApiBase implements ApiInterface
      */
     protected $headers = [];
 
-    /**
-     * @inheritDoc
-     */
-    public function setConfiguration(array $configuration): ApiInterface
+    public function __construct(string $endpointUrl, array $configuration = [])
     {
-        $validSchemaKeys = ['type', 'required', 'default', 'value'];
-        $configSchema = $this->getConfigSchema();
-
-        // Keep only configurations defined in schema.
-        $configuration = array_intersect_key($configuration, $configSchema);
-
-        foreach ($configSchema as $configKey => $schema) {
-            if ($invalidSchemaKeys = array_diff_key($schema, array_flip($validSchemaKeys))) {
-                throw new \InvalidArgumentException("The configuration schema of '" . __CLASS__ . "' API contains invalid keys: '" . implode(', ', array_keys($invalidSchemaKeys)) . "'.");
-            }
-            $method = empty($schema['required']) ? 'setDefined' : 'setRequired';
-            $this->optionResolver
-                ->{$method}($configKey)
-                ->addAllowedTypes($configKey, $schema['type']);
-            if (isset($schema['default'])) {
-                $this->optionResolver->setDefault($configKey, $schema['default']);
-            }
-            if (isset($schema['value'])) {
-                $this->optionResolver->setAllowedValues($configKey, $schema['value']);
-            }
-        }
-
-        $this->configuration = $this->optionResolver->resolve($configuration);
-
-        return $this;
+        $configuration['endpointUrl'] = $endpointUrl;
+        $this->configuration = $this->getConfigurationResolver()->resolve($configuration);
     }
 
     /**
      * @inheritDoc
      */
-    public function setOptionsResolver(OptionsResolver $optionsResolver): ApiInterface
-    {
-        $this->optionResolver = $optionsResolver;
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setHttpClient(ClientInterface $httpClient): ApiInterface
+    public function setHttpClient(ClientInterface $httpClient): EndpointInterface
     {
         $this->httpClient = $httpClient;
         return $this;
@@ -127,7 +88,7 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setRequestFactory(RequestFactoryInterface $requestFactory): ApiInterface
+    public function setRequestFactory(RequestFactoryInterface $requestFactory): EndpointInterface
     {
         $this->requestFactory = $requestFactory;
         return $this;
@@ -136,7 +97,7 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setStreamFactory(StreamFactoryInterface $streamFactory): ApiInterface
+    public function setStreamFactory(StreamFactoryInterface $streamFactory): EndpointInterface
     {
         $this->streamFactory = $streamFactory;
         return $this;
@@ -145,7 +106,7 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setUriFactory(UriFactoryInterface $uriFactory): ApiInterface
+    public function setUriFactory(UriFactoryInterface $uriFactory): EndpointInterface
     {
         $this->uriFactory = $uriFactory;
         return $this;
@@ -154,9 +115,8 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setMultipartStreamBuilder(
-        MultipartStreamBuilder $multipartStreamBuilder
-    ): ApiInterface {
+    public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): EndpointInterface
+    {
         $this->multipartStreamBuilder = $multipartStreamBuilder;
         return $this;
     }
@@ -164,19 +124,28 @@ abstract class ApiBase implements ApiInterface
     /**
      * @inheritDoc
      */
-    public function setSerializer(SerializerInterface $serializer): ApiInterface
+    public function setJsonEncoder(EncoderInterface $jsonEncoder): EndpointInterface
     {
-        $this->serializer = $serializer;
+        $this->jsonEncoder = $jsonEncoder;
         return $this;
     }
 
     /**
-     * @inheritDoc
+     * Returns an option resolver configured to validate the configuration.
+     *
+     * @return OptionsResolver
      */
-    public function setJsonEncoder(EncoderInterface $jsonEncoder): ApiInterface
+    protected function getConfigurationResolver(): OptionsResolver
     {
-        $this->jsonEncoder = $jsonEncoder;
-        return $this;
+        $resolver = new OptionsResolver();
+
+        $resolver->setRequired('endpointUrl')
+            ->setAllowedTypes('endpointUrl', 'string')
+            ->setAllowedValues('endpointUrl', function (string $value) {
+                return filter_var($value, FILTER_VALIDATE_URL);
+            });
+
+        return $resolver;
     }
 
     /**
@@ -185,7 +154,7 @@ abstract class ApiBase implements ApiInterface
      */
     protected function getConfigValue(string $configKey)
     {
-        if (!isset($this->configuration[$configKey])) {
+        if (!array_key_exists($configKey, $this->configuration)) {
             throw new \InvalidArgumentException("Invalid config key: '{$configKey}'. Valid keys: '" . implode("', '", array_keys($this->configuration)) . "'.");
         }
         return $this->configuration[$configKey];
@@ -234,15 +203,9 @@ abstract class ApiBase implements ApiInterface
     /**
      * @return string
      */
-    abstract protected function getEndpointUri(): string;
-
-    /**
-     *
-     * @return string
-     */
     protected function getRequestUri(): string
     {
-        $uri = $this->uriFactory->createUri($this->getEndpointUri());
+        $uri = $this->uriFactory->createUri($this->getConfigValue('endpointUrl'));
         $query = $this->getRequestUriQuery($uri);
         return $uri->withQuery(http_build_query($query))->__toString();
     }
@@ -303,7 +266,7 @@ abstract class ApiBase implements ApiInterface
             return $this->streamFactory->createStream(http_build_query($parts));
         }
 
-        // This API didn't define a request body.
+        // This endpoint didn't define a request body.
         return null;
     }
 
@@ -329,29 +292,21 @@ abstract class ApiBase implements ApiInterface
     }
 
     /**
-     * @return array
-     * @see ApiInterface::getConfigSchema()
+     * Returns a serializer configured to decode the endpoint response.
+     *
+     * @return SerializerInterface
      */
-    protected function getEndpointSchema(): array
+    protected function getSerializer(): SerializerInterface
     {
-        return [
-            'type' => 'string',
-            'required' => true,
-            'value' => function (string $value) {
-                return filter_var($value, FILTER_VALIDATE_URL);
-            },
-        ];
-    }
-
-    /**
-     * @return array
-     * @see ApiInterface::getConfigSchema()
-     */
-    protected function getRequiredStringSchema(): array
-    {
-        return [
-            'type' => 'string',
-            'required' => true,
-        ];
+        return new Serializer([
+            new GetSetMethodNormalizer(
+                null,
+                new CamelCaseToSnakeCaseNameConverter(),
+                new PhpDocExtractor()
+            ),
+            new ArrayDenormalizer(),
+        ], [
+            new JsonEncoder(),
+        ]);
     }
 }

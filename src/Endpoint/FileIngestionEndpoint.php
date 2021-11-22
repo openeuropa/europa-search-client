@@ -2,29 +2,17 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
-
-use OpenEuropa\EuropaSearchClient\Contract\FileIngestionApiInterface;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
 /**
- * File ingestion API.
+ * File ingestion API endpoint.
  */
-class FileIngestionApi extends IngestionApiBase implements FileIngestionApiInterface
+class FileIngestionEndpoint extends IngestionEndpointBase
 {
     /**
      * @var string|null
      */
     protected $file;
-
-    /**
-     * @inheritDoc
-     */
-    public function getConfigSchema(): array
-    {
-        return [
-            'fileIngestionApiEndpoint' => $this->getEndpointSchema(),
-        ] + parent::getConfigSchema();
-    }
 
     /**
      * @inheritDoc
@@ -47,15 +35,7 @@ class FileIngestionApi extends IngestionApiBase implements FileIngestionApiInter
     /**
      * @inheritDoc
      */
-    protected function getEndpointUri(): string
-    {
-        return $this->getConfigValue('fileIngestionApiEndpoint');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setFile(?string $file): FileIngestionApiInterface
+    public function setFile(?string $file): self
     {
         $this->file = $file;
         return $this;

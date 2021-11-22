@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
-use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
+use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
 use OpenEuropa\EuropaSearchClient\Traits\TokenAwareTrait;
 use Psr\Http\Message\UriInterface;
 
-class DeleteApi extends ApiBase implements DeleteApiInterface
+class DeleteEndpoint extends DatabaseEndpointBase implements TokenAwareInterface
 {
     use TokenAwareTrait;
 
@@ -16,18 +16,6 @@ class DeleteApi extends ApiBase implements DeleteApiInterface
      * @var string
      */
     protected $reference;
-
-    /**
-     * @inheritDoc
-     */
-    public function getConfigSchema(): array
-    {
-        return [
-            'apiKey' => $this->getRequiredStringSchema(),
-            'database' => $this->getRequiredStringSchema(),
-            'deleteApiEndpoint' => $this->getEndpointSchema(),
-        ];
-    }
 
     /**
      * @inheritDoc
@@ -50,24 +38,17 @@ class DeleteApi extends ApiBase implements DeleteApiInterface
     }
 
     /**
-     * @inheritDoc
+     * @param string $reference
+     * @return $this
      */
-    protected function getEndpointUri(): string
-    {
-        return $this->getConfigValue('deleteApiEndpoint');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setReference(string $reference): DeleteApiInterface
+    public function setReference(string $reference): self
     {
         $this->reference = $reference;
         return $this;
     }
 
     /**
-     * @inheritDoc
+     * @return string
      */
     public function getReference(): string
     {

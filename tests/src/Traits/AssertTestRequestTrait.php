@@ -6,7 +6,7 @@ namespace OpenEuropa\Tests\EuropaSearchClient\Traits;
 
 use Psr\Http\Message\RequestInterface;
 
-trait InspectTestRequestTrait
+trait AssertTestRequestTrait
 {
     /**
      * @var string
@@ -16,7 +16,7 @@ trait InspectTestRequestTrait
     /**
      * @param RequestInterface $request
      */
-    protected function inspectTokenRequest(RequestInterface $request): void
+    protected function assertTokenRequest(RequestInterface $request): void
     {
         $this->assertEquals('http://example.com/token', $request->getUri());
         $this->assertSame('Basic YmF6OnF1eA==', $request->getHeaderLine('Authorization'));
@@ -27,7 +27,7 @@ trait InspectTestRequestTrait
     /**
      * @param RequestInterface $request
      */
-    protected function inspectAuthorizationHeaders(RequestInterface $request): void
+    protected function assertAuthorizationHeaders(RequestInterface $request): void
     {
         $this->assertSame('Bearer JWT_TOKEN', $request->getHeaderLine('Authorization'));
         $this->assertSame('JWT_TOKEN', $request->getHeaderLine('Authorization-propagation'));
@@ -47,7 +47,7 @@ trait InspectTestRequestTrait
      * @return string
      *    The boundary.
      */
-    protected function getBoundary(RequestInterface $request): string
+    protected function getRequestBoundary(RequestInterface $request): string
     {
         preg_match('/; boundary="([^"].*)"/', $request->getHeaderLine('Content-Type'), $found);
         return $found[1];
@@ -58,23 +58,18 @@ trait InspectTestRequestTrait
      * @param string $boundary
      * @return false|string[]
      */
-    protected function getMultiParts(RequestInterface $request, string $boundary)
+    protected function getRequestMultipartStreamResources(RequestInterface $request, string $boundary)
     {
         $parts = explode("--{$boundary}", $request->getBody()->getContents());
+        // The first and last entries are empty.
+        // @todo Improve this.
         array_shift($parts);
         array_pop($parts);
 
         return $parts;
     }
 
-    /**
-     * @param string $part
-     * @param string $contentType
-     * @param string $name
-     * @param int $length
-     * @param string $expected_content
-     */
-    protected function inspectPart(string $part, string $contentType, string $name, int $length, string $expected_content)
+    protected function assertMultipartStreamResource(string $part, string $contentType, string $name, int $length, string $expected_content)
     {
         [$headers, $content] = explode("\r\n\r\n", $part);
         $headers = explode("\r\n", $headers);

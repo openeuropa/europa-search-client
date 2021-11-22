@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace OpenEuropa\Tests\EuropaSearchClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
-use OpenEuropa\EuropaSearchClient\Contract\DeleteApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\FacetApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\FileIngestionApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\InfoApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\SearchApiInterface;
-use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
 use OpenEuropa\EuropaSearchClient\Contract\TokenAwareInterface;
-use OpenEuropa\EuropaSearchClient\Contract\TokenApiInterface;
+use OpenEuropa\EuropaSearchClient\Endpoint\DeleteEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\FacetEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\FileIngestionEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\InfoEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\SearchEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\TextIngestionEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\TokenEndpoint;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -42,17 +42,16 @@ class ClientTest extends TestCase
         $container = $this->getClientContainer($client);
 
         // Check container services.
-        $this->assertInstanceOf(OptionsResolver::class, $container->get('optionResolver'));
         $this->assertInstanceOf(MultipartStreamBuilder::class, $container->get('multipartStreamBuilder'));
-        $this->assertInstanceOf(SearchApiInterface::class, $container->get('search'));
-        $this->assertInstanceOf(FacetApiInterface::class, $container->get('facet'));
-        $this->assertInstanceOf(InfoApiInterface::class, $container->get('info'));
-        $this->assertInstanceOf(TokenApiInterface::class, $container->get('token'));
-        $this->assertInstanceOf(TextIngestionApiInterface::class, $container->get('textIngestion'));
+        $this->assertInstanceOf(SearchEndpoint::class, $container->get('search'));
+        $this->assertInstanceOf(FacetEndpoint::class, $container->get('facet'));
+        $this->assertInstanceOf(InfoEndpoint::class, $container->get('info'));
+        $this->assertInstanceOf(TokenEndpoint::class, $container->get('token'));
+        $this->assertInstanceOf(TextIngestionEndpoint::class, $container->get('textIngestion'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('textIngestion'));
-        $this->assertInstanceOf(FileIngestionApiInterface::class, $container->get('fileIngestion'));
+        $this->assertInstanceOf(FileIngestionEndpoint::class, $container->get('fileIngestion'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('fileIngestion'));
-        $this->assertInstanceOf(DeleteApiInterface::class, $container->get('deleteDocument'));
+        $this->assertInstanceOf(DeleteEndpoint::class, $container->get('deleteDocument'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('deleteDocument'));
     }
 }

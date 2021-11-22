@@ -2,29 +2,17 @@
 
 declare(strict_types=1);
 
-namespace OpenEuropa\EuropaSearchClient\Api;
-
-use OpenEuropa\EuropaSearchClient\Contract\TextIngestionApiInterface;
+namespace OpenEuropa\EuropaSearchClient\Endpoint;
 
 /**
- * Text ingestion API.
+ * Text ingestion API endpoint.
  */
-class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInterface
+class TextIngestionEndpoint extends IngestionEndpointBase
 {
     /**
      * @var string|null
      */
     protected $text;
-
-    /**
-     * @inheritDoc
-     */
-    public function getConfigSchema(): array
-    {
-        return [
-            'textIngestionApiEndpoint' => $this->getEndpointSchema(),
-        ] + parent::getConfigSchema();
-    }
 
     /**
      * @inheritDoc
@@ -46,15 +34,7 @@ class TextIngestionApi extends IngestionApiBase implements TextIngestionApiInter
     /**
      * @inheritDoc
      */
-    protected function getEndpointUri(): string
-    {
-        return $this->getConfigValue('textIngestionApiEndpoint');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setText(?string $text): TextIngestionApiInterface
+    public function setText(?string $text): self
     {
         $this->text = $text;
         return $this;
