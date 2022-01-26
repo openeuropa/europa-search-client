@@ -55,5 +55,8 @@ class SearchTest extends TestCase
         $this->assertSame('***', $model->getTerms());
         $this->assertSame(153, $model->getTotalResults());
         $this->assertSame($warnings, $model->getWarnings());
+
+        $model->setApiVersion(null);
+        $this->assertNull($model->getApiVersion());
     }
 }
