@@ -2,6 +2,8 @@ imports:
   - { resource: ./vendor/openeuropa/code-review/dist/base-conventions.yml }
 
 grumphp:
+  git_hook_variables:
+    EXEC_GRUMPHP_COMMAND: 'docker-compose exec -T web'
 
   # Tasks.
   tasks:
