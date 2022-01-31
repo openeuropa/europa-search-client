@@ -239,36 +239,36 @@ class Client implements ClientInterface
         // once during the lifetime of a request, so internals set in a previous
         // usage may leak into the later usages.
         $container->add('multipartStreamBuilder', MultipartStreamBuilder::class)
-            ->withArgument($streamFactory);
+            ->addArgument($streamFactory);
         $container->add('search', SearchEndpoint::class)
-            ->withArguments([
+            ->addArguments([
                 new RawArgument($this->getConfigValue('searchApiEndpoint')),
                 'database_config',
             ]);
         $container->add('facet', FacetEndpoint::class)
-            ->withArguments([
+            ->addArguments([
                 new RawArgument($this->getConfigValue('facetApiEndpoint')),
                 'database_config',
             ]);
         $container->add('info', InfoEndpoint::class)
-            ->withArgument(new RawArgument($this->getConfigValue('infoApiEndpoint')));
+            ->addArgument(new RawArgument($this->getConfigValue('infoApiEndpoint')));
         $container->add('textIngestion', TextIngestionEndpoint::class)
-            ->withArguments([
+            ->addArguments([
                 new RawArgument($this->getConfigValue('textIngestionApiEndpoint')),
                 'database_config',
             ]);
         $container->add('fileIngestion', FileIngestionEndpoint::class)
-            ->withArguments([
+            ->addArguments([
                 new RawArgument($this->getConfigValue('fileIngestionApiEndpoint')),
                 'database_config',
             ]);
         $container->add('deleteDocument', DeleteEndpoint::class)
-            ->withArguments([
+            ->addArguments([
                 new RawArgument($this->getConfigValue('deleteApiEndpoint')),
                 'database_config',
             ]);
         $container->add('token', TokenEndpoint::class)
-            ->withArguments([
+            ->addArguments([
                 new RawArgument($this->getConfigValue('tokenApiEndpoint')),
                 'token_config',
             ]);
