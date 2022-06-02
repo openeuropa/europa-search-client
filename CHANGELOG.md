@@ -1,9 +1,17 @@
 # Change Log
 
+## [1.0.0-alpha2](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha2) (2022-06-02)
+[Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha1...1.0.0-alpha2)
+
+**Merged pull requests:**
+
+- EWPP-2292: Fix dependency for phpdocumentor/reflection-docblock. [\#64](https://github.com/openeuropa/europa-search-client/pull/64) ([hernani](https://github.com/hernani))
+
 ## [1.0.0-alpha1](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha1) (2022-04-11)
 
 **Merged pull requests:**
 
+- Release 1.0.0 alpha1 [\#63](https://github.com/openeuropa/europa-search-client/pull/63) ([hernani](https://github.com/hernani))
 - EWPP-1909: Update league/container. [\#62](https://github.com/openeuropa/europa-search-client/pull/62) ([hernani](https://github.com/hernani))
 - EWPP-1909: Update to php7.4/8.0 [\#61](https://github.com/openeuropa/europa-search-client/pull/61) ([hernani](https://github.com/hernani))
 - EWPP-1687: Allow apiVersion be nullable. [\#60](https://github.com/openeuropa/europa-search-client/pull/60) ([sergepavle](https://github.com/sergepavle))
