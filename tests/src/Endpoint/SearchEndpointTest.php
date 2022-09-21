@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\Response;
 use OpenEuropa\EuropaSearchClient\Model\Document;
 use OpenEuropa\EuropaSearchClient\Model\QueryLanguage;
 use OpenEuropa\EuropaSearchClient\Model\Search;
+use OpenEuropa\EuropaSearchClient\Model\Sort;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\AssertTestRequestTrait;
 use PHPUnit\Framework\TestCase;
@@ -52,7 +53,69 @@ class SearchEndpointTest extends TestCase
         $this->assertCount(3, $parts);
         $this->assertMultipartStreamResource($parts[0], 'application/json', 'languages', 11, '["en","de"]');
         $this->assertMultipartStreamResource($parts[1], 'application/json', 'query', 59, '{"term":{"DMAKE_ES_EVENT_TYPE_NAME":"ADOPTION_DISTRIBUTE"}}');
-        $this->assertMultipartStreamResource($parts[2], 'application/json', 'sort', 38, '{"field":"es_SortDate","order":"DESC"}');
+        $this->assertMultipartStreamResource($parts[2], 'application/json', 'sort', 40, '[{"field":"es_SortDate","order":"DESC"}]');
+    }
+
+    /**
+     * @dataProvider providerTestSearch
+     *
+     * @param array $clientConfig
+     * @param array $responses
+     * @param mixed $expectedResult
+     */
+    public function testMultiSortSearch(array $clientConfig, array $responses, $expectedResult): void
+    {
+        $actualResult = $this->getTestingClient($clientConfig, $responses)
+            ->search(
+                'Programme managers',
+                ['en', 'de'],
+                ['term' => ['DMAKE_ES_EVENT_TYPE_NAME' => 'ADOPTION_DISTRIBUTE']],
+                ['es_Type' => 'ASC', 'es_SortDate' => 'DESC'],
+                null,
+                2,
+                5,
+                '{w+}',
+                150,
+                '21edswq223rews'
+            );
+
+        $this->assertEquals($expectedResult, $actualResult);
+        $this->assertCount(1, $this->clientHistory);
+        $request = $this->clientHistory[0]['request'];
+        $this->assertEquals('http://example.com/search?apiKey=foo&database=bar&text=Programme+managers&sessionToken=21edswq223rews&pageNumber=2&pageSize=5&highlightRegex=%7Bw%2B%7D&highlightLimit=150', $request->getUri());
+        $boundary = $this->getRequestBoundary($request);
+        $this->assertBoundary($request, $boundary);
+        $parts = $this->getRequestMultipartStreamResources($request, $boundary);
+        $this->assertCount(3, $parts);
+        $this->assertMultipartStreamResource($parts[0], 'application/json', 'languages', 11, '["en","de"]');
+        $this->assertMultipartStreamResource($parts[1], 'application/json', 'query', 59, '{"term":{"DMAKE_ES_EVENT_TYPE_NAME":"ADOPTION_DISTRIBUTE"}}');
+        $this->assertMultipartStreamResource($parts[2], 'application/json', 'sort', 74, '[{"field":"es_Type","order":"ASC"},{"field":"es_SortDate","order":"DESC"}]');
+    }
+
+    /**
+     * @dataProvider providerTestSearch
+     *
+     * @param array $clientConfig
+     * @param array $responses
+     * @param mixed $expectedResult
+     */
+    public function testWrongSearchParameters(array $clientConfig, array $responses, $expectedResult): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$sortOrder should be NULL when $sortField is an array');
+        $actualResult = $this->getTestingClient($clientConfig, $responses)
+            ->search(
+                'Programme managers',
+                ['en', 'de'],
+                ['term' => ['DMAKE_ES_EVENT_TYPE_NAME' => 'ADOPTION_DISTRIBUTE']],
+                ['es_Type' => 'ASC', 'es_SortDate' => 'DESC'],
+                'ASC',
+                2,
+                5,
+                '{w+}',
+                150,
+                '21edswq223rews'
+            );
     }
 
     /**

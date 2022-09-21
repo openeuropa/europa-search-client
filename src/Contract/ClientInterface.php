@@ -16,7 +16,9 @@ interface ClientInterface
      * @param string|null $text
      * @param array|null $languages
      * @param array|null $query
-     * @param string|null $sortField
+     * @param $sortField
+     *   This parameter can receive an associative array of fields and directions or a single field name.
+     *   If single field name is used, the $sortOrder parameter is used.
      * @param string|null $sortOrder
      * @param int|null $pageNumber
      * @param int|null $pageSize
@@ -32,7 +34,7 @@ interface ClientInterface
         ?string $text = null,
         ?array $languages = null,
         ?array $query = null,
-        ?string $sortField = null,
+        $sortField = null,
         ?string $sortOrder = null,
         ?int $pageNumber = null,
         ?int $pageSize = null,

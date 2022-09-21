@@ -14,7 +14,7 @@ use Psr\Http\Message\UriInterface;
 class SearchEndpoint extends SearchEndpointBase
 {
     /**
-     * @var Sort
+     * @var Sort[]
      */
     protected $sort;
 
@@ -82,7 +82,7 @@ class SearchEndpoint extends SearchEndpointBase
     {
         $parts = parent::getRequestMultipartStreamElements();
 
-        if (!$this->getSort()->isEmpty()) {
+        if (!empty($this->getSort())) {
             $parts['sort']['content'] = $this->jsonEncoder->encode($this->getSort(), 'json');
         }
 
@@ -92,7 +92,7 @@ class SearchEndpoint extends SearchEndpointBase
     /**
      * @inheritDoc
      */
-    public function setSort(Sort $sort): self
+    public function setSort(array $sort): self
     {
         $this->sort = $sort;
         return $this;
@@ -101,7 +101,7 @@ class SearchEndpoint extends SearchEndpointBase
     /**
      * @inheritDoc
      */
-    public function getSort(): Sort
+    public function getSort(): array
     {
         return $this->sort;
     }
