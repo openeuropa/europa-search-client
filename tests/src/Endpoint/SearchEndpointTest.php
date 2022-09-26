@@ -70,7 +70,7 @@ class SearchEndpointTest extends TestCase
                 'Programme managers',
                 ['en', 'de'],
                 ['term' => ['DMAKE_ES_EVENT_TYPE_NAME' => 'ADOPTION_DISTRIBUTE']],
-                ['es_Type' => 'ASC', 'es_SortDate' => 'DESC'],
+                [['es_Type', 'ASC'], ['es_SortDate', 'DESC']],
                 null,
                 2,
                 5,

@@ -101,8 +101,8 @@ class Client implements ClientInterface
         }
 
         if (is_array($sortField) && is_null($sortOrder)) {
-            foreach ($sortField as $field => $order) {
-                $sort[] = new Sort($field, $order);
+            foreach ($sortField as $sorting_expression) {
+                $sort[] = new Sort($sorting_expression[0], $sorting_expression[1]);
             }
         } elseif (!empty($sortField)) {
             $sort[] = new Sort($sortField, $sortOrder);
