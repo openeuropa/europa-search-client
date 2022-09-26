@@ -100,9 +100,9 @@ class Client implements ClientInterface
             throw new \InvalidArgumentException('$sortOrder should be NULL when $sortField is an array');
         }
 
-        if (is_array($sortField) && is_null($sortOrder)) {
+        if (is_array($sortField)) {
             foreach ($sortField as $sorting_expression) {
-                $sort[] = new Sort($sorting_expression[0], $sorting_expression[1]);
+                $sort[] = new Sort(...$sorting_expression);
             }
         } elseif (!empty($sortField)) {
             $sort[] = new Sort($sortField, $sortOrder);
