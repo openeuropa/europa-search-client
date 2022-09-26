@@ -101,7 +101,7 @@ class SearchEndpoint extends SearchEndpointBase
     /**
      * @inheritDoc
      */
-    public function getSort(): array
+    public function getSort(): ?array
     {
         return $this->sort;
     }

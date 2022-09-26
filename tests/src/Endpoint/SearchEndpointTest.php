@@ -108,7 +108,7 @@ class SearchEndpointTest extends TestCase
                 'Programme managers',
                 ['en', 'de'],
                 ['term' => ['DMAKE_ES_EVENT_TYPE_NAME' => 'ADOPTION_DISTRIBUTE']],
-                ['es_Type' => 'ASC', 'es_SortDate' => 'DESC'],
+                [['es_Type', 'ASC'], ['es_SortDate', 'DESC']],
                 'ASC',
                 2,
                 5,
@@ -116,6 +116,38 @@ class SearchEndpointTest extends TestCase
                 150,
                 '21edswq223rews'
             );
+    }
+
+    /**
+     * @dataProvider providerTestSearch
+     *
+     * @param array $clientConfig
+     * @param array $responses
+     * @param mixed $expectedResult
+     */
+    public function testEmptySearchParameters(array $clientConfig, array $responses, $expectedResult): void
+    {
+        $this->getTestingClient($clientConfig, $responses)
+            ->search(
+                'Programme managers',
+                ['en', 'de'],
+                ['term' => ['DMAKE_ES_EVENT_TYPE_NAME' => 'ADOPTION_DISTRIBUTE']],
+                [],
+                null,
+                2,
+                5,
+                '{w+}',
+                150,
+                '21edswq223rews'
+            );
+        $request = $this->clientHistory[0]['request'];
+        $boundary = $this->getRequestBoundary($request);
+        $this->assertBoundary($request, $boundary);
+        $parts = $this->getRequestMultipartStreamResources($request, $boundary);
+        $this->assertCount(2, $parts);
+
+        $this->assertMultipartStreamResource($parts[0], 'application/json', 'languages', 11, '["en","de"]');
+        $this->assertMultipartStreamResource($parts[1], 'application/json', 'query', 59, '{"term":{"DMAKE_ES_EVENT_TYPE_NAME":"ADOPTION_DISTRIBUTE"}}');
     }
 
     /**
