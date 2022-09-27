@@ -16,8 +16,11 @@ interface ClientInterface
      * @param string|null $text
      * @param array|null $languages
      * @param array|null $query
-     * @param string|null $sortField
+     * @param $sortField
+     *   This parameter can receive an array of arrays or a single field name. If an array is used it should have pairs of field and direction.
      * @param string|null $sortOrder
+     *   This parameter needs to be null if sortField is an array.
+     *   If $sortField is a string, the value of this parameter will be used as sorting order.
      * @param int|null $pageNumber
      * @param int|null $pageSize
      * @param string|null $highlightRegex
@@ -32,7 +35,7 @@ interface ClientInterface
         ?string $text = null,
         ?array $languages = null,
         ?array $query = null,
-        ?string $sortField = null,
+        $sortField = null,
         ?string $sortOrder = null,
         ?int $pageNumber = null,
         ?int $pageSize = null,

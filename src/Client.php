@@ -84,7 +84,7 @@ class Client implements ClientInterface
         ?string $text = null,
         ?array $languages = null,
         ?array $query = null,
-        ?string $sortField = null,
+        $sortField = null,
         ?string $sortOrder = null,
         ?int $pageNumber = null,
         ?int $pageSize = null,
@@ -94,11 +94,25 @@ class Client implements ClientInterface
     ): Search {
         /** @var SearchEndpoint $endpoint */
         $endpoint = $this->container->get('search');
+
+        $sort = [];
+        if (is_array($sortField) && !is_null($sortOrder)) {
+            throw new \InvalidArgumentException('$sortOrder should be NULL when $sortField is an array');
+        }
+
+        if (is_array($sortField)) {
+            foreach ($sortField as $sorting_expression) {
+                $sort[] = new Sort(...$sorting_expression);
+            }
+        } elseif (!empty($sortField)) {
+            $sort[] = new Sort($sortField, $sortOrder);
+        }
+
         return $endpoint
             ->setText($text)
             ->setLanguages($languages)
             ->setQuery($query)
-            ->setSort(new Sort($sortField, $sortOrder))
+            ->setSort($sort)
             ->setPageNumber($pageNumber)
             ->setPageSize($pageSize)
             ->setHighlightRegex($highlightRegex)
