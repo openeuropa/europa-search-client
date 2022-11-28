@@ -47,10 +47,10 @@ trait AssertTestRequestTrait
      * @return string
      *    The boundary.
      */
-    protected function getRequestBoundary(RequestInterface $request): string
+    protected function getRequestBoundary(RequestInterface $request): ?string
     {
         preg_match('/; boundary="([^"].*)"/', $request->getHeaderLine('Content-Type'), $found);
-        return $found[1];
+        return $found[1] ?? null;
     }
 
     /**
