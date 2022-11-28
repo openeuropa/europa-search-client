@@ -24,6 +24,11 @@ class FacetEndpoint extends SearchEndpointBase
     protected $displayLanguage;
 
     /**
+     * @var array
+     */
+    protected $displayFields;
+
+    /**
      * @var string[]
      */
     protected const ALLOWED_SORT_VALUES = [
@@ -75,6 +80,9 @@ class FacetEndpoint extends SearchEndpointBase
         if ($displayLanguage = $this->getDisplayLanguage()) {
             $parts['displayLanguage']['content'] = $this->jsonEncoder->encode($displayLanguage, 'json');
         }
+        if ($displayFields = $this->getDisplayFields()) {
+            $parts['displayFields']['content'] = $this->jsonEncoder->encode($displayFields, 'json');
+        }
 
         return $parts;
     }
@@ -115,5 +123,22 @@ class FacetEndpoint extends SearchEndpointBase
     public function getDisplayLanguage(): ?string
     {
         return $this->displayLanguage;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setDisplayFields(?array $displayFields): self
+    {
+        $this->displayFields = $displayFields;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDisplayFields(): ?array
+    {
+        return $this->displayFields;
     }
 }

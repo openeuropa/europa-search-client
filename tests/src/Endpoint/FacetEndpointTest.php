@@ -49,7 +49,8 @@ class FacetEndpointTest extends TestCase
                 'en',
                 ['term' => ['DMAKE_ES_EVENT_TYPE_NAME' => 'ADOPTION_DISTRIBUTE']],
                 'ALPHABETICAL',
-                '21edswq223rews'
+                '21edswq223rews',
+                ['DMAKE_ES_EVENT_TYPE_NAME']
             );
         $this->assertEquals($expectedResult, $actualResult);
         $this->assertCount(1, $this->clientHistory);
@@ -58,10 +59,11 @@ class FacetEndpointTest extends TestCase
         $boundary = $this->getRequestBoundary($request);
         $this->assertBoundary($request, $boundary);
         $parts = $this->getRequestMultipartStreamResources($request, $boundary);
-        $this->assertCount(3, $parts);
+        $this->assertCount(4, $parts);
         $this->assertMultipartStreamResource($parts[0], 'application/json', 'languages', 11, '["en","de"]');
         $this->assertMultipartStreamResource($parts[1], 'application/json', 'query', 59, '{"term":{"DMAKE_ES_EVENT_TYPE_NAME":"ADOPTION_DISTRIBUTE"}}');
         $this->assertMultipartStreamResource($parts[2], 'application/json', 'displayLanguage', 4, '"en"');
+        $this->assertMultipartStreamResource($parts[3], 'application/json', 'displayFields', 28, '["DMAKE_ES_EVENT_TYPE_NAME"]');
     }
 
     /**

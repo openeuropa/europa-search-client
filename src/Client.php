@@ -130,7 +130,8 @@ class Client implements ClientInterface
         ?string $displayLanguage = null,
         ?array $query = null,
         ?string $facetSort = null,
-        ?string $sessionToken = null
+        ?string $sessionToken = null,
+        ?array $displayFields = null
     ): Facets {
         /** @var FacetEndpoint $endpoint */
         $endpoint = $this->container->get('facet');
@@ -141,6 +142,7 @@ class Client implements ClientInterface
             ->setQuery($query)
             ->setFacetSort($facetSort)
             ->setSessionToken($sessionToken)
+            ->setDisplayFields($displayFields)
             ->execute();
     }
 
