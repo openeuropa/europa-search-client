@@ -53,6 +53,7 @@ interface ClientInterface
      * @param array|null $query
      * @param string|null $facetSort
      * @param string|null $sessionToken
+     * @param array|null $displayFields
      *
      * @return Facets
      */
@@ -62,7 +63,8 @@ interface ClientInterface
         ?string $displayLanguage = null,
         ?array $query = null,
         ?string $facetSort = null,
-        ?string $sessionToken = null
+        ?string $sessionToken = null,
+        ?array $displayFields = null
     ): Facets;
 
     /**
