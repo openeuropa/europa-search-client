@@ -1,10 +1,23 @@
-# Change Log
+# Changelog
+
+## [1.0.0-alpha3](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha3) (2023-01-03)
+
+[Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha2...1.0.0-alpha3)
+
+**Merged pull requests:**
+
+- EPIC-EWPP-2628: Support for displayFields in facets. [\#69](https://github.com/openeuropa/europa-search-client/pull/69) ([hernani](https://github.com/hernani))
+- EWPP-2631: Support for displayFields in facets. [\#68](https://github.com/openeuropa/europa-search-client/pull/68) ([hernani](https://github.com/hernani))
+- EWPP-2630: Change getRequestBoundary\(\). [\#67](https://github.com/openeuropa/europa-search-client/pull/67) ([hernani](https://github.com/hernani))
+- EWPP-2629: Support for multifield sorting. [\#66](https://github.com/openeuropa/europa-search-client/pull/66) ([hernani](https://github.com/hernani))
 
 ## [1.0.0-alpha2](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha2) (2022-06-02)
+
 [Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha1...1.0.0-alpha2)
 
 **Merged pull requests:**
 
+- EWPP-0000: Prepare for 1.0.0-alpha2 release. [\#65](https://github.com/openeuropa/europa-search-client/pull/65) ([hernani](https://github.com/hernani))
 - EWPP-2292: Fix dependency for phpdocumentor/reflection-docblock. [\#64](https://github.com/openeuropa/europa-search-client/pull/64) ([hernani](https://github.com/hernani))
 
 ## [1.0.0-alpha1](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha1) (2022-04-11)
