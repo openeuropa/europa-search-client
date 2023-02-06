@@ -55,6 +55,7 @@ class Metadata implements \ArrayAccess, \Countable, \JsonSerializable
     /**
      * @inheritDoc
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet(mixed $offset): mixed
     {
         $this->validateOffset($offset);
@@ -64,6 +65,7 @@ class Metadata implements \ArrayAccess, \Countable, \JsonSerializable
     /**
      * @inheritDoc
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->validateOffset($offset);
