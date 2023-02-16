@@ -45,7 +45,8 @@
         "allow-plugins": {
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "phpro/grumphp": true
+            "phpro/grumphp": true,
+            "php-http/discovery": false
         }
     }
 }
