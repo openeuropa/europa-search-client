@@ -15,7 +15,7 @@
         "phpdocumentor/type-resolver": "^1.4",
         "psr/http-client": "^1.0",
         "psr/http-factory": "^1.0",
-        "symfony/options-resolver": "^4.4.30",
+        "symfony/options-resolver": "^4.4.30 || ^5",
         "symfony/property-info": "^4.4",
         "symfony/serializer": "^4.4"
     },
