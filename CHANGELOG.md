@@ -1,11 +1,21 @@
 # Changelog
 
+## [1.0.0-alpha4](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha4) (2023-03-21)
+
+[Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha3...1.0.0-alpha4)
+
+**Merged pull requests:**
+
+- EWPP-2944: Add missing return types. [\#72](https://github.com/openeuropa/europa-search-client/pull/72) ([22Alexandra](https://github.com/22Alexandra))
+- OEL-2115: Update to PHP 8.1 [\#71](https://github.com/openeuropa/europa-search-client/pull/71) ([brummbar](https://github.com/brummbar))
+
 ## [1.0.0-alpha3](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha3) (2023-01-03)
 
 [Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha2...1.0.0-alpha3)
 
 **Merged pull requests:**
 
+- Prepare release 1.0.0-alpha3. [\#70](https://github.com/openeuropa/europa-search-client/pull/70) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - EPIC-EWPP-2628: Support for displayFields in facets. [\#69](https://github.com/openeuropa/europa-search-client/pull/69) ([hernani](https://github.com/hernani))
 - EWPP-2631: Support for displayFields in facets. [\#68](https://github.com/openeuropa/europa-search-client/pull/68) ([hernani](https://github.com/hernani))
 - EWPP-2630: Change getRequestBoundary\(\). [\#67](https://github.com/openeuropa/europa-search-client/pull/67) ([hernani](https://github.com/hernani))
@@ -21,6 +31,20 @@
 - EWPP-2292: Fix dependency for phpdocumentor/reflection-docblock. [\#64](https://github.com/openeuropa/europa-search-client/pull/64) ([hernani](https://github.com/hernani))
 
 ## [1.0.0-alpha1](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha1) (2022-04-11)
+
+[Full Changelog](https://github.com/openeuropa/europa-search-client/compare/c807391230fe4b1516ca5c1dcf8e92cb72135be8...1.0.0-alpha1)
+
+**Closed issues:**
+
+- Ensure that the client is usable with the version 2.1 of the Europa Search API [\#17](https://github.com/openeuropa/europa-search-client/issues/17)
+- Add Travis integration [\#15](https://github.com/openeuropa/europa-search-client/issues/15)
+- Implement the response conversion in the proxy layer. [\#13](https://github.com/openeuropa/europa-search-client/issues/13)
+- Implement the transporter layer. [\#11](https://github.com/openeuropa/europa-search-client/issues/11)
+- Improve the documentation and the code review mechanism [\#10](https://github.com/openeuropa/europa-search-client/issues/10)
+- Documentation about the first implementation is not up to date. [\#8](https://github.com/openeuropa/europa-search-client/issues/8)
+- Implement Client and Communication layers for Search service [\#4](https://github.com/openeuropa/europa-search-client/issues/4)
+- Implement Client and Communication layers for Index service [\#2](https://github.com/openeuropa/europa-search-client/issues/2)
+- Initial setup [\#1](https://github.com/openeuropa/europa-search-client/issues/1)
 
 **Merged pull requests:**
 
@@ -57,21 +81,7 @@
 - OEL-93: Epic europa search [\#28](https://github.com/openeuropa/europa-search-client/pull/28) ([drishu](https://github.com/drishu))
 - OEL-117: Update php version. [\#27](https://github.com/openeuropa/europa-search-client/pull/27) ([drishu](https://github.com/drishu))
 - OPENEUROPA-2277: version 1.x of the search client [\#25](https://github.com/openeuropa/europa-search-client/pull/25) ([brummbar](https://github.com/brummbar))
-- OPENEUROPA-369: Make sure that all OpenEuropa projects are released under EUPL-1.2 [\#24](https://github.com/openeuropa/europa-search-client/pull/24) ([drupol](https://github.com/drupol))
-- OPENEUROPA-582: Port CI to Drone. [\#23](https://github.com/openeuropa/europa-search-client/pull/23) ([voidtek](https://github.com/voidtek))
-- OPENEUROPA-623: Update to Phpunit 6. [\#22](https://github.com/openeuropa/europa-search-client/pull/22) ([imanoleguskiza](https://github.com/imanoleguskiza))
-- OPENEUROPA-322: Transfer projects to OpenEuropa organisation [\#21](https://github.com/openeuropa/europa-search-client/pull/21) ([ademarco](https://github.com/ademarco))
-- OPENEUROPA-197: Use OpenEuropa namespace to avoid redundant prefixes [\#20](https://github.com/openeuropa/europa-search-client/pull/20) ([ademarco](https://github.com/ademarco))
-- NEPT-940: File indexing integration in the client library. [\#19](https://github.com/openeuropa/europa-search-client/pull/19) ([gillesdeudon](https://github.com/gillesdeudon))
-- Issue \#17: Ensure that the client is usable with the version 2.1 of the Europa Search API [\#18](https://github.com/openeuropa/europa-search-client/pull/18) ([gillesdeudon](https://github.com/gillesdeudon))
-- Issue \#15: Add Travis badge. [\#16](https://github.com/openeuropa/europa-search-client/pull/16) ([ademarco](https://github.com/ademarco))
-- Issue \#12: Use the transporter layer from the proxy layer [\#14](https://github.com/openeuropa/europa-search-client/pull/14) ([gillesdeudon](https://github.com/gillesdeudon))
-- Issue \#4: documentation update [\#9](https://github.com/openeuropa/europa-search-client/pull/9) ([gillesdeudon](https://github.com/gillesdeudon))
-- Issue \#3: search implementation [\#7](https://github.com/openeuropa/europa-search-client/pull/7) ([gillesdeudon](https://github.com/gillesdeudon))
-- Issue \#3: index refactoring [\#6](https://github.com/openeuropa/europa-search-client/pull/6) ([gillesdeudon](https://github.com/gillesdeudon))
-- Issue \#3: Refactor of the code to align on architecture guidelines. [\#5](https://github.com/openeuropa/europa-search-client/pull/5) ([gillesdeudon](https://github.com/gillesdeudon))
-- 2   communication transmission [\#3](https://github.com/openeuropa/europa-search-client/pull/3) ([gillesdeudon](https://github.com/gillesdeudon))
 
 
 
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*
