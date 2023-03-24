@@ -51,16 +51,19 @@ class DatabaseEndpointBaseTest extends TestCase
 
     public function providerTestInvalidConfig(): array
     {
+        // The exception message is left unfinished to account for 2 versions
+        // of the Symfony Options Resolver that use the word
+        // "integer"(4) and "int"(5).
         return [
             'wrong "apiKey" format' => [
                 1,
                 'database',
-                'The option "apiKey" with value 1 is expected to be of type "string", but is of type "integer".',
+                'The option "apiKey" with value 1 is expected to be of type "string", but is of type "int',
             ],
             'wrong "database" format' => [
                 'apiKey',
                 1,
-                'The option "database" with value 1 is expected to be of type "string", but is of type "integer".',
+                'The option "database" with value 1 is expected to be of type "string", but is of type "int',
             ],
         ];
     }
