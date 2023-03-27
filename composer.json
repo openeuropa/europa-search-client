@@ -24,14 +24,13 @@
     },
     "require-dev": {
         "guzzlehttp/guzzle": "^7",
-        "guzzlehttp/psr7": "^1.8",
-        "http-interop/http-factory-guzzle": "^1.0",
+        "guzzlehttp/psr7": "^2",
         "openeuropa/code-review": "^2.0.0-alpha6",
         "phpunit/phpunit": "^9.4"
     },
     "suggest": {
-        "http-interop/http-factory-guzzle": "PSR-17 HTTP Factories implementation for Guzzle",
-        "guzzlehttp/guzzle": "PSR-18 HTTP Client implementation"
+        "guzzlehttp/guzzle": "PSR-18 HTTP Client implementation",
+        "guzzlehttp/psr7": "PSR-17 HTTP Factories implementation"
     },
     "autoload": {
         "psr-4": {
