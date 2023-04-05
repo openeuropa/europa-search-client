@@ -8,9 +8,7 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Middleware;
-use Http\Factory\Guzzle\RequestFactory;
-use Http\Factory\Guzzle\StreamFactory;
-use Http\Factory\Guzzle\UriFactory;
+use GuzzleHttp\Psr7\HttpFactory;
 use OpenEuropa\EuropaSearchClient\Client;
 use OpenEuropa\EuropaSearchClient\Contract\ClientInterface;
 
@@ -31,11 +29,12 @@ trait ClientTestTrait
         $handlerStack = HandlerStack::create(new MockHandler($responseQueue));
         $handlerStack->push(Middleware::history($this->clientHistory));
 
+        $httpFactory = new HttpFactory();
         return new Client(
             new HttpClient(['handler' => $handlerStack]),
-            new RequestFactory(),
-            new StreamFactory(),
-            new UriFactory(),
+            $httpFactory,
+            $httpFactory,
+            $httpFactory,
             $configuration
         );
     }

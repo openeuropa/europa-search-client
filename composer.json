@@ -7,28 +7,30 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.0",
-        "ext-json": "*",
         "ext-fileinfo": "*",
+        "ext-json": "*",
         "league/container": "^3.3",
         "php-http/multipart-stream-builder": "^1.1",
         "phpdocumentor/reflection-docblock": "^5.2",
         "phpdocumentor/type-resolver": "^1.4",
         "psr/http-client": "^1.0",
+        "psr/http-client-implementation": "*",
         "psr/http-factory": "^1.0",
-        "symfony/options-resolver": "^4.4.30 || ^5",
-        "symfony/property-info": "^4.4",
-        "symfony/serializer": "^4.4"
+        "psr/http-factory-implementation": "*",
+        "symfony/options-resolver": "^4.4.30 || ^5 || ^6.2",
+        "symfony/property-access": "^4.4 || ^6.2",
+        "symfony/property-info": "^4.4 || ^6.2",
+        "symfony/serializer": "^4.4 || ^6.2"
     },
     "require-dev": {
-        "guzzlehttp/psr7": "^1.8",
-        "http-interop/http-factory-guzzle": "^1.0",
-        "openeuropa/code-review": "2.x-dev",
-        "php-http/guzzle7-adapter": "^1.0",
+        "guzzlehttp/guzzle": "^7",
+        "guzzlehttp/psr7": "^2",
+        "openeuropa/code-review": "^2.0.0-alpha6",
         "phpunit/phpunit": "^9.4"
     },
     "suggest": {
-        "http-interop/http-factory-guzzle": "PSR-17 HTTP Factories implementation for Guzzle",
-        "php-http/guzzle7-adapter": "PSR-18 HTTP Client implementation for Guzzle"
+        "guzzlehttp/guzzle": "PSR-18 HTTP Client implementation",
+        "guzzlehttp/psr7": "PSR-17 HTTP Factories implementation"
     },
     "autoload": {
         "psr-4": {
