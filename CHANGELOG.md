@@ -1,16 +1,23 @@
-# Changelog
+# Change Log
+
+## [1.0.0-alpha5](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha5) (2023-04-05)
+[Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha4...1.0.0-alpha5)
+
+**Merged pull requests:**
+
+- EWPP-2993: Allow to install with Drupal 10. [\#76](https://github.com/openeuropa/europa-search-client/pull/76) ([brummbar](https://github.com/brummbar))
+- EWPP-2310: Increasing the options resolver dependency. [\#74](https://github.com/openeuropa/europa-search-client/pull/74) ([upchuk](https://github.com/upchuk))
 
 ## [1.0.0-alpha4](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha4) (2023-03-21)
-
 [Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha3...1.0.0-alpha4)
 
 **Merged pull requests:**
 
+- Release-1.0.0-alpha4: Update changelog. [\#75](https://github.com/openeuropa/europa-search-client/pull/75) ([nagyad](https://github.com/nagyad))
 - EWPP-2944: Add missing return types. [\#72](https://github.com/openeuropa/europa-search-client/pull/72) ([22Alexandra](https://github.com/22Alexandra))
 - OEL-2115: Update to PHP 8.1 [\#71](https://github.com/openeuropa/europa-search-client/pull/71) ([brummbar](https://github.com/brummbar))
 
 ## [1.0.0-alpha3](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha3) (2023-01-03)
-
 [Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha2...1.0.0-alpha3)
 
 **Merged pull requests:**
