@@ -9,7 +9,7 @@
         "php": ">=8.0",
         "ext-fileinfo": "*",
         "ext-json": "*",
-        "league/container": "^3.3",
+        "league/container": "^4.1",
         "php-http/multipart-stream-builder": "^1.1",
         "phpdocumentor/reflection-docblock": "^5.2",
         "phpdocumentor/type-resolver": "^1.4",
