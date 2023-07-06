@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
-use League\Container\Argument\RawArgument;
+use League\Container\Argument\LiteralArgument;
 use League\Container\Container;
 use OpenEuropa\EuropaSearchClient\Endpoint\DeleteEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\FacetEndpoint;
@@ -240,11 +240,11 @@ class Client implements ClientInterface
     ): void {
         $container = new Container();
 
-        $container->add('database_config', new RawArgument($this->extractConfigValues([
+        $container->add('database_config', new LiteralArgument($this->extractConfigValues([
             'apiKey',
             'database',
         ])));
-        $container->add('token_config', new RawArgument($this->extractConfigValues([
+        $container->add('token_config', new LiteralArgument($this->extractConfigValues([
             'consumerKey',
             'consumerSecret',
         ])));
@@ -258,34 +258,34 @@ class Client implements ClientInterface
             ->addArgument($streamFactory);
         $container->add('search', SearchEndpoint::class)
             ->addArguments([
-                new RawArgument($this->getConfigValue('searchApiEndpoint')),
+                new LiteralArgument($this->getConfigValue('searchApiEndpoint')),
                 'database_config',
             ]);
         $container->add('facet', FacetEndpoint::class)
             ->addArguments([
-                new RawArgument($this->getConfigValue('facetApiEndpoint')),
+                new LiteralArgument($this->getConfigValue('facetApiEndpoint')),
                 'database_config',
             ]);
         $container->add('info', InfoEndpoint::class)
-            ->addArgument(new RawArgument($this->getConfigValue('infoApiEndpoint')));
+            ->addArgument(new LiteralArgument($this->getConfigValue('infoApiEndpoint')));
         $container->add('textIngestion', TextIngestionEndpoint::class)
             ->addArguments([
-                new RawArgument($this->getConfigValue('textIngestionApiEndpoint')),
+                new LiteralArgument($this->getConfigValue('textIngestionApiEndpoint')),
                 'database_config',
             ]);
         $container->add('fileIngestion', FileIngestionEndpoint::class)
             ->addArguments([
-                new RawArgument($this->getConfigValue('fileIngestionApiEndpoint')),
+                new LiteralArgument($this->getConfigValue('fileIngestionApiEndpoint')),
                 'database_config',
             ]);
         $container->add('deleteDocument', DeleteEndpoint::class)
             ->addArguments([
-                new RawArgument($this->getConfigValue('deleteApiEndpoint')),
+                new LiteralArgument($this->getConfigValue('deleteApiEndpoint')),
                 'database_config',
             ]);
         $container->add('token', TokenEndpoint::class)
             ->addArguments([
-                new RawArgument($this->getConfigValue('tokenApiEndpoint')),
+                new LiteralArgument($this->getConfigValue('tokenApiEndpoint')),
                 'token_config',
             ]);
 
