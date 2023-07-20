@@ -15,7 +15,6 @@ use OpenEuropa\EuropaSearchClient\Endpoint\TextIngestionEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\TokenEndpoint;
 use OpenEuropa\Tests\EuropaSearchClient\Traits\ClientTestTrait;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @coversDefaultClass \OpenEuropa\EuropaSearchClient\Client

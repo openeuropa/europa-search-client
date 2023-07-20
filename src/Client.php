@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OpenEuropa\EuropaSearchClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
-use League\Container\Argument\RawArgument;
 use League\Container\Container;
 use OpenEuropa\EuropaSearchClient\Endpoint\DeleteEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\FacetEndpoint;
@@ -54,6 +53,11 @@ class Client implements ClientInterface
     protected $uriFactory;
 
     /**
+     * @var string
+     */
+    protected string $argumentClass;
+
+    /**
      * @param HttpClientInterface     $httpClient
      * @param RequestFactoryInterface $requestFactory
      * @param StreamFactoryInterface  $streamFactory
@@ -67,6 +71,12 @@ class Client implements ClientInterface
         UriFactoryInterface $uriFactory,
         array $configuration
     ) {
+        if (class_exists('\League\Container\Argument\LiteralArgument')) {
+            $this->argumentClass = 'League\Container\Argument\LiteralArgument';
+        } else {
+            $this->argumentClass = 'League\Container\Argument\RawArgument';
+        }
+
         $this->uriFactory = $uriFactory;
         $this->configuration = $configuration;
         $this->createContainer(
@@ -240,11 +250,11 @@ class Client implements ClientInterface
     ): void {
         $container = new Container();
 
-        $container->add('database_config', new RawArgument($this->extractConfigValues([
+        $container->add('database_config', new $this->argumentClass($this->extractConfigValues([
             'apiKey',
             'database',
         ])));
-        $container->add('token_config', new RawArgument($this->extractConfigValues([
+        $container->add('token_config', new $this->argumentClass($this->extractConfigValues([
             'consumerKey',
             'consumerSecret',
         ])));
@@ -258,34 +268,34 @@ class Client implements ClientInterface
             ->addArgument($streamFactory);
         $container->add('search', SearchEndpoint::class)
             ->addArguments([
-                new RawArgument($this->getConfigValue('searchApiEndpoint')),
+                new $this->argumentClass($this->getConfigValue('searchApiEndpoint')),
                 'database_config',
             ]);
         $container->add('facet', FacetEndpoint::class)
             ->addArguments([
-                new RawArgument($this->getConfigValue('facetApiEndpoint')),
+                new $this->argumentClass($this->getConfigValue('facetApiEndpoint')),
                 'database_config',
             ]);
         $container->add('info', InfoEndpoint::class)
-            ->addArgument(new RawArgument($this->getConfigValue('infoApiEndpoint')));
+            ->addArgument(new $this->argumentClass($this->getConfigValue('infoApiEndpoint')));
         $container->add('textIngestion', TextIngestionEndpoint::class)
             ->addArguments([
-                new RawArgument($this->getConfigValue('textIngestionApiEndpoint')),
+                new $this->argumentClass($this->getConfigValue('textIngestionApiEndpoint')),
                 'database_config',
             ]);
         $container->add('fileIngestion', FileIngestionEndpoint::class)
             ->addArguments([
-                new RawArgument($this->getConfigValue('fileIngestionApiEndpoint')),
+                new $this->argumentClass($this->getConfigValue('fileIngestionApiEndpoint')),
                 'database_config',
             ]);
         $container->add('deleteDocument', DeleteEndpoint::class)
             ->addArguments([
-                new RawArgument($this->getConfigValue('deleteApiEndpoint')),
+                new $this->argumentClass($this->getConfigValue('deleteApiEndpoint')),
                 'database_config',
             ]);
         $container->add('token', TokenEndpoint::class)
             ->addArguments([
-                new RawArgument($this->getConfigValue('tokenApiEndpoint')),
+                new $this->argumentClass($this->getConfigValue('tokenApiEndpoint')),
                 'token_config',
             ]);
 
