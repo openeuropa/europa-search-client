@@ -30,7 +30,7 @@ class Document extends DocumentBase
     /**
      * The document content.
      *
-     * @var string
+     * @var string|null
      */
     protected $content;
 

@@ -195,7 +195,7 @@ class SearchEndpointTest extends TestCase
                             ->setSummary(null)
                             ->setWeight(9.849739)
                             ->setGroupById('3')
-                            ->setContent('A coordination platform')
+                            ->setContent(null)
                             ->setAccessRestriction(false)
                             ->setPages(null)
                             ->setMetadata([
