@@ -1,11 +1,20 @@
 # Changelog
 
+## [1.0.0-alpha7](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha7) (2023-11-21)
+
+[Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha6...1.0.0-alpha7)
+
+**Merged pull requests:**
+
+- EWPP-3724: Allow null value for content property. [\#83](https://github.com/openeuropa/europa-search-client/pull/83) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.0.0-alpha6](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha6) (2023-07-20)
 
 [Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha5...1.0.0-alpha6)
 
 **Merged pull requests:**
 
+- EWPP-0000: Prepare for 1.0.0-alpha6. [\#82](https://github.com/openeuropa/europa-search-client/pull/82) ([hernani](https://github.com/hernani))
 - EWPP-3454: Update league/container version. [\#81](https://github.com/openeuropa/europa-search-client/pull/81) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.0.0-alpha5](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha5) (2023-04-05)
