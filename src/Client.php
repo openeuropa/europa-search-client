@@ -6,7 +6,9 @@ namespace OpenEuropa\EuropaSearchClient;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use League\Container\Container;
+use OpenEuropa\EuropaSearchClient\Endpoint\BulkDeleteEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\DeleteEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\DeleteByQueryEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\FacetEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\FileIngestionEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\InfoEndpoint;
@@ -134,6 +136,45 @@ class Client implements ClientInterface
     /**
      * @inheritDoc
      */
+    public function deleteByQuery(
+        ?string $text = null,
+        ?array $languages = null,
+        ?array $query = null,
+        $sortField = null,
+        ?string $sortOrder = null,
+        ?int $pageNumber = null,
+        ?int $pageSize = null,
+        ?string $highlightRegex = null,
+        ?int $highlightLimit = null,
+        ?string $sessionToken = null
+    ): bool {
+        /** @var DeleteByQueryEndpoint $endpoint */
+        $endpoint = $this->container->get('deleteByQuery');
+
+        $sort = [];
+        if (is_array($sortField) && !is_null($sortOrder)) {
+            throw new \InvalidArgumentException('$sortOrder should be NULL when $sortField is an array');
+        }
+
+        if (is_array($sortField)) {
+            foreach ($sortField as $sorting_expression) {
+                $sort[] = new Sort(...$sorting_expression);
+            }
+        } elseif (!empty($sortField)) {
+            $sort[] = new Sort($sortField, $sortOrder);
+        }
+
+        return $endpoint
+            ->setText($text)
+            ->setLanguages($languages)
+            ->setQuery($query)
+            ->setSessionToken($sessionToken)
+            ->execute();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getFacets(
         ?string $text = null,
         ?array $languages = null,
@@ -236,6 +277,7 @@ class Client implements ClientInterface
             ->execute();
     }
 
+
     /**
      * @param HttpClientInterface     $httpClient
      * @param RequestFactoryInterface $requestFactory
@@ -269,6 +311,12 @@ class Client implements ClientInterface
         $container->add('search', SearchEndpoint::class)
             ->addArguments([
                 new $this->argumentClass($this->getConfigValue('searchApiEndpoint')),
+                'database_config',
+            ]);
+
+        $container->add('deleteByQuery', DeleteByQueryEndpoint::class)
+            ->addArguments([
+                new $this->argumentClass($this->getConfigValue('deleteApiEndpoint') . '/bulk'),
                 'database_config',
             ]);
         $container->add('facet', FacetEndpoint::class)
