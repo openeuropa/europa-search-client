@@ -242,7 +242,7 @@ class Client implements ClientInterface
      * @param StreamFactoryInterface  $streamFactory
      * @param UriFactoryInterface     $uriFactory
      */
-    private function createContainer(
+    protected function createContainer(
         HttpClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
         StreamFactoryInterface $streamFactory,
@@ -327,7 +327,7 @@ class Client implements ClientInterface
      *   A list of configuration keys to extract.
      * @return array
      */
-    private function extractConfigValues(array $names): array
+    protected function extractConfigValues(array $names): array
     {
         $config = [];
 
@@ -348,7 +348,7 @@ class Client implements ClientInterface
      * @param string $name
      * @return mixed|null
      */
-    private function getConfigValue(string $name)
+    protected function getConfigValue(string $name)
     {
         return array_key_exists($name, $this->configuration) ? $this->configuration[$name] : null;
     }
