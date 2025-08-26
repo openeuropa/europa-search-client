@@ -1,5 +1,16 @@
 # Change Log
 
+## [1.0.0-alpha11](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha11) (2025-08-26)
+[Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha10...1.0.0-alpha11)
+
+**Merged pull requests:**
+
+- EWPP-5839: Add client support for deleteByQuery(). [\#93](https://github.com/openeuropa/europa-search-client/pull/93) ([upchuk](https://github.com/upchuk))
+- EWPP-5914: Improve Client inheritance for service alters. [\#96](https://github.com/openeuropa/europa-search-client/pull/96) ([upchuk](https://github.com/upchuk))
+- EWPP-5819: Delete drone.yml. [\#95](https://github.com/openeuropa/europa-search-client/pull/95) ([nagyad](https://github.com/nagyad))
+- EWPP-5819: Use github actions for CI. [\#94](https://github.com/openeuropa/europa-search-client/pull/94) ([nagyad](https://github.com/nagyad))
+- EWPP-5699: Update docker PHP image. [\#92](https://github.com/openeuropa/europa-search-client/pull/92) ([nagyad](https://github.com/nagyad))
+
 ## [1.0.0-alpha10](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha10) (2025-02-26)
 [Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha9...1.0.0-alpha10)
 
