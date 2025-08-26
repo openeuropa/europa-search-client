@@ -180,7 +180,7 @@ abstract class EndpointBase implements EndpointInterface
         $uri = $this->getRequestUri();
         $request = $this->requestFactory->createRequest($method, $uri);
 
-        $methodsWithBody = ['POST', 'PUT', 'PATCH'];
+        $methodsWithBody = ['POST', 'PUT', 'PATCH', 'DELETE'];
         if (in_array($method, $methodsWithBody) && $body = $this->getRequestBody()) {
             $request = $request->withBody($body);
         }

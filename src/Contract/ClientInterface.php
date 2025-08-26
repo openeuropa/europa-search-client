@@ -45,6 +45,40 @@ interface ClientInterface
     ): Search;
 
     /**
+     * Executes a search.
+     *
+     * @param string|null $text
+     * @param array|null $languages
+     * @param array|null $query
+     * @param $sortField
+     *   This parameter can receive an array of arrays or a single field name. If an array is used it should have pairs of field and direction.
+     * @param string|null $sortOrder
+     *   This parameter needs to be null if sortField is an array.
+     *   If $sortField is a string, the value of this parameter will be used as sorting order.
+     * @param int|null $pageNumber
+     * @param int|null $pageSize
+     * @param string|null $highlightRegex
+     * @param int|null $highlightLimit
+     * @param string|null $sessionToken
+     *
+     * @return Search
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     */
+    public function deleteByQuery(
+        ?string $text = null,
+        ?array $languages = null,
+        ?array $query = null,
+        $sortField = null,
+        ?string $sortOrder = null,
+        ?int $pageNumber = null,
+        ?int $pageSize = null,
+        ?string $highlightRegex = null,
+        ?int $highlightLimit = null,
+        ?string $sessionToken = null
+    ): bool;
+
+    /**
      * Executes a facet search.
      *
      * @param string|null $text
