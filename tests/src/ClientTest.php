@@ -10,6 +10,7 @@ use OpenEuropa\EuropaSearchClient\Endpoint\DeleteEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\FacetEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\FileIngestionEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\InfoEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\IngestionTrackingEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\SearchEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\TextIngestionEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\TokenEndpoint;
@@ -34,6 +35,7 @@ class ClientTest extends TestCase
             'consumerKey' => 'bar',
             'consumerSecret' => 'baz',
             'database' => 'qux',
+            'ingestionTrackingEndpoint' => 'http://example.com/ingestion/track/batch',
             'textIngestionApiEndpoint' => 'http://example.com/ingest/text',
             'fileIngestionApiEndpoint' => 'http://example.com/ingest/file',
             'deleteApiEndpoint'  => 'http://example.com/ingest/delete',
@@ -47,6 +49,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(InfoEndpoint::class, $container->get('info'));
         $this->assertInstanceOf(TokenEndpoint::class, $container->get('token'));
         $this->assertInstanceOf(TextIngestionEndpoint::class, $container->get('textIngestion'));
+        $this->assertInstanceOf(IngestionTrackingEndpoint::class, $container->get('ingestionTracking'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('textIngestion'));
         $this->assertInstanceOf(FileIngestionEndpoint::class, $container->get('fileIngestion'));
         $this->assertInstanceOf(TokenAwareInterface::class, $container->get('fileIngestion'));

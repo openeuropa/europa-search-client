@@ -12,6 +12,7 @@ use OpenEuropa\EuropaSearchClient\Endpoint\DeleteByQueryEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\FacetEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\FileIngestionEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\InfoEndpoint;
+use OpenEuropa\EuropaSearchClient\Endpoint\IngestionTrackingEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\SearchEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\TextIngestionEndpoint;
 use OpenEuropa\EuropaSearchClient\Endpoint\TokenEndpoint;
@@ -239,6 +240,19 @@ class Client implements ClientInterface
     /**
      * @inheritDoc
      */
+    public function getIngestionTrackingStatuses(
+        array $trackingIds,
+    ): array {
+        /** @var TextIngestionEndpoint $endpoint */
+        $endpoint = $this->container->get('ingestionTracking');
+        return $endpoint
+            ->setTrackingIds($trackingIds)
+            ->execute();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function ingestFile(
         string $uri,
         ?string $file = null,
@@ -331,6 +345,8 @@ class Client implements ClientInterface
                 new $this->argumentClass($this->getConfigValue('textIngestionApiEndpoint')),
                 'database_config',
             ]);
+        $container->add('ingestionTracking', IngestionTrackingEndpoint::class)
+            ->addArgument(new $this->argumentClass($this->getConfigValue('ingestionTrackingEndpoint')));
         $container->add('fileIngestion', FileIngestionEndpoint::class)
             ->addArguments([
                 new $this->argumentClass($this->getConfigValue('fileIngestionApiEndpoint')),

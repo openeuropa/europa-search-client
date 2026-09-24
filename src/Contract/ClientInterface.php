@@ -6,6 +6,7 @@ namespace OpenEuropa\EuropaSearchClient\Contract;
 
 use OpenEuropa\EuropaSearchClient\Model\Facets;
 use OpenEuropa\EuropaSearchClient\Model\Ingestion;
+use OpenEuropa\EuropaSearchClient\Model\IngestionTracking;
 use OpenEuropa\EuropaSearchClient\Model\Search;
 
 interface ClientInterface
@@ -100,6 +101,15 @@ interface ClientInterface
         ?string $sessionToken = null,
         ?array $displayFields = null
     ): Facets;
+
+    /**
+     * @param string[] $trackingIds
+     *
+     * @return IngestionTracking[]
+     */
+    public function getIngestionTrackingStatuses(
+        array $trackingIds,
+    ): array;
 
     /**
      * @param string $uri
