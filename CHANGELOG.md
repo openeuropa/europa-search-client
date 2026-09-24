@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.0.0-alpha12](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha12) (2026-09-24)
+[Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha11...1.0.0-alpha12)
+
+**Merged pull requests:**
+
+- EWPP-7178: Add support for ingestion tracking statuses. [\#99](https://github.com/openeuropa/europa-search-client/pull/99) ([hernani](https://github.com/hernani))
+- EWPP-6339: Cache docker images for GitHub actions. [\#98](https://github.com/openeuropa/europa-search-client/pull/98) ([nagyad](https://github.com/nagyad))
+
 ## [1.0.0-alpha11](https://github.com/openeuropa/europa-search-client/tree/1.0.0-alpha11) (2025-08-26)
 [Full Changelog](https://github.com/openeuropa/europa-search-client/compare/1.0.0-alpha10...1.0.0-alpha11)
 
